@@ -15,7 +15,9 @@
     "lint": "eslint .",
     "preserve": "npm run build",
     "serve": "npm start",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "prepopulatedb:local": "dropdb --if-exists spring-action-cleaning && createdb spring-action-cleaning",
+    "populatedb:local": "psql -d spring-action-cleaning -f ./server/spring_action_cleaning.sql"
   },
   "repository": {
     "type": "git",
