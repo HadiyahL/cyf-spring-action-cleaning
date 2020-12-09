@@ -40,7 +40,7 @@ router.get("/jobs", (_, res, next) => {
 		}
 
 		pool
-			.query("SELECT CASE WHEN  (j.end_code IS NOT NULL) THEN '3' WHEN (j.start_code IS NOT NULL) THEN '2' "
+			.query("SELECT j.id, CASE WHEN  (j.end_code IS NOT NULL) THEN '3' WHEN (j.start_code IS NOT NULL) THEN '2' "
 			+"WHEN (j.unique_url IS NOT NULL) THEN '1' ELSE '0' END status, j.date_created, c.name customer, a.address, "
 			+"j.visit_on, j.visit_time, cl.name cleaner, "
 			+"j.pay_rate FROM jobs j INNER JOIN addresses a ON j.address_id=a.id "
