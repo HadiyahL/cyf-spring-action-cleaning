@@ -1,24 +1,34 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
+import {
+	Button,
+	Form,
+	FormText,
+	FormGroup,
+	Label,
+	Input,
+	Row,
+	Col,
+} from "reactstrap";
 import { postCleaner } from "../service";
-import "./CreateCleanerForm.css";
 
 const CreateCleanerForm = () => {
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [address, setAddress] = useState("");
-	const [phone, setPhone] = useState("");
-	const [whatsapp, setWhatsapp] = useState("");
-	const [contract, setContract] = useState(false);
+	const [state, setState] = useState({
+		name: "",
+		email: "",
+		address: "",
+		phone: "",
+		whatsapp: "",
+		contract: false,
+	});
+	const [errors, setErrors] = useState({});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const data = { name, email, address, phone, whatsapp, contract };
 
-		postCleaner(data)
+		postCleaner(state)
 			.then((res) => {
 				if (res.errors) {
-					console.log(res.errors);
+					setErrors(formatErrors(res.errors));
 				} else {
 					clearForm();
 				}
@@ -28,46 +38,37 @@ const CreateCleanerForm = () => {
 			});
 	};
 
+	const formatErrors = (errors) =>
+		errors.reduce((acc, error) => {
+			acc[error.param] = error.msg;
+			return acc;
+		}, {});
+
 	const clearForm = () => {
-		setName("");
-		setEmail("");
-		setAddress("");
-		setPhone("");
-		setWhatsapp("");
-		setContract(false);
+		setState({
+			name: "",
+			email: "",
+			address: "",
+			phone: "",
+			whatsapp: "",
+			contract: false,
+		});
+		setErrors({});
 	};
 
-	const handleName = (e) => {
-		const { value } = e.target;
-		setName(value);
-	};
-
-	const handleEmail = (e) => {
-		const { value } = e.target;
-		setEmail(value);
-	};
-
-	const handleAddress = (e) => {
-		const { value } = e.target;
-		setAddress(value);
-	};
-
-	const handlePhone = (e) => {
-		const { value } = e.target;
-		setPhone(value);
-	};
-	const handleWhatsapp = (e) => {
-		const { value } = e.target;
-		setWhatsapp(value);
-	};
-	const handleContract = () => {
-		setContract(!contract);
+	const handleChange = (e) => {
+		const { name, value, checked, type } = e.target;
+		if (type === "checkbox") {
+			setState({ ...state, [name]: checked });
+		} else {
+			setState({ ...state, [name]: value });
+		}
 	};
 
 	return (
 		<Row className="justify-content-center">
 			<Col xs="12" sm="12" md="8" lg="6" xl="6">
-				<Form onSubmit={handleSubmit} className="create-cleaner-form">
+				<Form onSubmit={handleSubmit}>
 					<FormGroup>
 						<Label for="name">Name</Label>
 						<Input
@@ -75,9 +76,10 @@ const CreateCleanerForm = () => {
 							name="name"
 							id="name"
 							placeholder="Enter full name"
-							onChange={handleName}
-							value={name}
+							onChange={handleChange}
+							value={state.name}
 						/>
+						{errors.name && <FormText color="danger">{errors.name}</FormText>}
 					</FormGroup>
 					<FormGroup>
 						<Label for="email">Email</Label>
@@ -86,9 +88,10 @@ const CreateCleanerForm = () => {
 							name="email"
 							id="email"
 							placeholder="Enter email"
-							onChange={handleEmail}
-							value={email}
+							onChange={handleChange}
+							value={state.email}
 						/>
+						{errors.email && <FormText color="danger">{errors.email}</FormText>}
 					</FormGroup>
 					<FormGroup>
 						<Label for="address">Address</Label>
@@ -97,9 +100,12 @@ const CreateCleanerForm = () => {
 							name="address"
 							id="address"
 							placeholder="Enter address"
-							onChange={handleAddress}
-							value={address}
+							onChange={handleChange}
+							value={state.address}
 						/>
+						{errors.address && (
+							<FormText color="danger">{errors.address}</FormText>
+						)}
 					</FormGroup>
 					<FormGroup>
 						<Label for="phone">Phone Number</Label>
@@ -108,9 +114,10 @@ const CreateCleanerForm = () => {
 							name="phone"
 							id="phone"
 							placeholder="Enter phone number"
-							onChange={handlePhone}
-							value={phone}
+							onChange={handleChange}
+							value={state.phone}
 						/>
+						{errors.phone && <FormText color="danger">{errors.phone}</FormText>}
 					</FormGroup>
 					<FormGroup>
 						<Label for="whatsapp">Whatsapp Number</Label>
@@ -119,19 +126,22 @@ const CreateCleanerForm = () => {
 							name="whatsapp"
 							id="whatsapp"
 							placeholder="Enter whatsapp"
-							onChange={handleWhatsapp}
-							value={whatsapp}
+							onChange={handleChange}
+							value={state.whatsapp}
 						/>
+						{errors.whatsapp && (
+							<FormText color="danger">{errors.whatsapp}</FormText>
+						)}
 					</FormGroup>
-
 					<FormGroup check className="mb-4">
 						<Label check>
 							<Input
+								name="contract"
 								type="checkbox"
-								onChange={handleContract}
-								checked={contract}
+								onChange={handleChange}
+								checked={state.contract}
 							/>{" "}
-							Permanent contact
+							Permanent contract
 						</Label>
 					</FormGroup>
 					<Button color="primary">Submit</Button>
