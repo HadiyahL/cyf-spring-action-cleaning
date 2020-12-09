@@ -1,4 +1,4 @@
-import { json } from "express";
+// import { json } from "express";
 import React, { useState } from "react";
 import { Table } from "reactstrap";
 import {getCustomers } from "../service";
@@ -6,7 +6,6 @@ import {getCustomers } from "../service";
 const ShowCustomers = () => {
     const [list, setList] = useState([]);
     getCustomers()
-    .then((response)=> response.json())
     .then((data)=> setList(data))
     .catch((err) => console.log(err))
 
