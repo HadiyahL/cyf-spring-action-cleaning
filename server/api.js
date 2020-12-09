@@ -1,17 +1,24 @@
-
 import { Router } from "express";
-
+import { body, validationResult } from "express-validator";
 import { Connection } from "./db";
 
 const router = new Router();
 
-router.get("/", (_, res, next) => {
-	
-	Connection.connect((err) => {
+router.get("/cleaners", (_, res, next) => {
+	Connection.connect((err, pool) => {
 		if (err) {
 			return next(err);
 		}
-		res.json({ message: "Hello, world!" });
+
+		pool
+			.query("SELECT * FROM cleaners")
+			.then(({ rows }) => {
+				return res.json({ cleaners: rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
 	});
 });
 
@@ -48,7 +55,7 @@ router.get("/jobs", (_, res, next) => {
 			.then(({ rows }) => {
 				// const jobs_list = rows.map(item => {item.status=((+!!item.unique_url)+(+!!item.start_code)+(+!!item.end_code));
 				// return item; });
-				return res.json({jobs: rows});
+				return res.json({ jobs: rows });
 				// return res.json({jobs: jobs_list});
 			})
 			.catch((e) => {
@@ -81,7 +88,7 @@ router.get("/addresses/:customer_id", (req, res, next) => {
 });
 
 router.post(
-	"/create-cleaner",
+	"/cleaners",
 	[
 		body("email", "Please provide a valid email").isEmail(),
 		body("name", "Name is required").not().isEmpty(),
@@ -92,7 +99,6 @@ router.post(
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
-		console.log("errors :>> ", errors);
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
