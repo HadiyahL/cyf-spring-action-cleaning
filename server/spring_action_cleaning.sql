@@ -65,6 +65,11 @@ CREATE TABLE admins (
     password    VARCHAR(50) NOT NULL
 );
 
+insert into jobs (date_created, client_id, address_id , cleaner_id, unique_url, visit_on, visit_time, start_code, end_code, pay_rate) values ('2020-12-09', 1, 1, 1, 'hsuJJU88Hi', '2020-12-21', '15:20','8596','1472', 10);
+insert into jobs (date_created, client_id, address_id , cleaner_id, unique_url, visit_on, visit_time, start_code, pay_rate) values ('2020-12-09', 2, 22, 2, 'ji2298Hi9w', '2020-12-12', '15:20','5248', 10);
+insert into jobs (date_created, client_id, address_id , cleaner_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 3, 3, 7, 'fvwei99ee9', '2020-12-12', '15:20', 10.5);
+insert into jobs (date_created, client_id, address_id , cleaner_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5);
+
 insert into cleaners (name, email, phone_number , address, whatsapp, permanent_contract) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '997-883-3933', '34409 La Follette Pass', '852-452-4383', false);
 insert into cleaners (name, email, phone_number , address, whatsapp, permanent_contract) values ('Codie Bamfield', 'cbamfield1@tumblr.com', '503-704-8699', '4 Continental Lane', '144-207-5560', true);
 insert into cleaners (name, email, phone_number , address, whatsapp, permanent_contract) values ('Marrilee MacCole', 'mmaccole2@rakuten.co.jp', '716-658-6477', '87 John Wall Road', '207-855-1099', false);
