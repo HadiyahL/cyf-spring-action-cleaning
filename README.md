@@ -28,13 +28,14 @@ A full stack PERN (PostgreSQL, Express, React, Node) project that aims to ease t
 - Install packages by running `npm install` in the project's root directory from your terminal.
 - Create `.env` file and populate with your own values. Check `.env.example` for variables/format used.
 ``` bash
-DB_NAME=spring # your database name
+DB_NAME=spring-action-cleaning # your database name
 DB_PASSWORD=1234 # your database password
 ```
 - Various scripts are provided in the package file, but many are helpers for other scripts; here are the most needed ones:
   - `dev`: starts the frontend and backend in dev mode, with file watching (note that the backend runs on port 3100, and the frontend is proxied to it).
   - `lint`: runs ESLint against all the JavaScript in the project.
   - `serve`: builds and starts the app in production mode locally.
+  - `populatedb:local`: automatically creates database on your machine and populates it with fake data for local development. Name of the created database is `spring-action-cleaning`, so update your `.env` file's `DB_NAME` variable to use this name. Depending on your setup it might prompt you to enter your database password.
 
 ## Notes
 

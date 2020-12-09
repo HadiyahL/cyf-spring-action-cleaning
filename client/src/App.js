@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
-
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-import { getMessage } from "./service";
-import logo from "./logo.svg";
+import { CreateCleaner } from "./pages";
 
 export function App() {
-	const [message, setMessage] = useState("Loading...");
-
-	useEffect(() => {
-		getMessage().then((message) => setMessage(message));
-	}, []);
-
 	return (
-		<main role="main">
-			<div>
-				<img className="logo" data-qa="logo" src={logo} alt="Just the React logo" />
-				<h1 className="message" data-qa="message">{message}</h1>
-			</div>
-		</main>
+		<Router>
+			<main role="main">
+				<Link to="/">Home</Link>
+				<br />
+				<Link to="create-cleaner">Create cleaner</Link>
+			</main>
+			<Switch>
+				<Route path="/create-cleaner">
+					<CreateCleaner />
+				</Route>
+			</Switch>
+		</Router>
 	);
 }
 
