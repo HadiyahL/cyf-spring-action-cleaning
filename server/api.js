@@ -23,7 +23,7 @@ router.get("/cleaners", (_, res, next) => {
 });
 
 router.post(
-	"/create-cleaner",
+	"/cleaners",
 	[
 		body("email", "Please provide a valid email").isEmail(),
 		body("name", "Name is required").not().isEmpty(),
@@ -34,7 +34,7 @@ router.post(
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
-		console.log("errors :>> ", errors);
+
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}

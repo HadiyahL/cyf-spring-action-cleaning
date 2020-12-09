@@ -1,11 +1,6 @@
-import { get, post } from "./api";
-
-// export const getMessage = async () => {
-// 	const response = await get("/");
-// 	return response.data.message;
-// };
+import { post } from "./api";
 
 export const postCleaner = async (data) => {
-	const response = await post("/create-cleaner", data);
+	const response = await post("/cleaners", data);
 	return response.data;
 };
