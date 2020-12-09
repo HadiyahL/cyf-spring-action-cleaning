@@ -22,6 +22,71 @@ router.get("/cleaners", (_, res, next) => {
 	});
 });
 
+router.get("/clients", (_, res, next) => {
+	Connection.connect((err, pool) => {
+		if (err) {
+			return next(err);
+		}
+
+		pool
+			.query("SELECT * FROM clients")
+			.then(({ rows }) => {
+				return res.json({ clients: rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	});
+});
+
+router.get("/jobs", (_, res, next) => {
+	Connection.connect((err, pool) => {
+		if (err) {
+			return next(err);
+		}
+
+		pool
+			.query("SELECT j.id, CASE WHEN  (j.end_code IS NOT NULL) THEN '3' WHEN (j.start_code IS NOT NULL) THEN '2' "
+			+"WHEN (j.unique_url IS NOT NULL) THEN '1' ELSE '0' END status, j.date_created, c.name customer, a.address, "
+			+"j.visit_on, j.visit_time, cl.name cleaner, "
+			+"j.pay_rate FROM jobs j INNER JOIN addresses a ON j.address_id=a.id "
+			+"INNER JOIN clients c ON j.client_id=c.id INNER JOIN cleaners cl ON cl.id=j.cleaner_id ")
+			.then(({ rows }) => {
+				// const jobs_list = rows.map(item => {item.status=((+!!item.unique_url)+(+!!item.start_code)+(+!!item.end_code));
+				// return item; });
+				return res.json({ jobs: rows });
+				// return res.json({jobs: jobs_list});
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	});
+});
+
+router.get("/addresses/:customer_id", (req, res, next) => {
+	Connection.connect((err, pool) => {
+		if (err) {
+			return next(err);
+		}
+		const customer_id = req.params.customer_id;
+		pool
+			.query(
+				"SELECT a.address, a.contact_name , a.contact_phone, c.name cleaner_name "
+				+"FROM addresses a INNER JOIN cleaners c ON c.id=a.cleaner_id WHERE a.client_id=$1",
+				[customer_id]
+			)
+			.then(({ rows }) => {
+				return res.json({ addresses: rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	});
+});
+
 router.post(
 	"/cleaners",
 	[
@@ -34,7 +99,6 @@ router.post(
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
-
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
