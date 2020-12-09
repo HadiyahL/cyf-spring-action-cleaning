@@ -9,9 +9,9 @@ import {
 	Row,
 	Col,
 } from "reactstrap";
-import { postCleaner } from "../service";
+import { postWorkers } from "../service";
 
-const CreateCleanerForm = () => {
+const CreateWorkerForm = () => {
 	const [state, setState] = useState({
 		name: "",
 		email: "",
@@ -25,7 +25,7 @@ const CreateCleanerForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		postCleaner(state)
+		postWorkers(state)
 			.then((res) => {
 				if (res.errors) {
 					setErrors(formatErrors(res.errors));
@@ -151,4 +151,4 @@ const CreateCleanerForm = () => {
 	);
 };
 
-export default CreateCleanerForm;
+export default CreateWorkerForm;

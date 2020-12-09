@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-import { CreateCleaner } from "./pages";
+import { CreateWorker } from "./pages";
 
 export function App() {
 	return (
@@ -9,11 +9,11 @@ export function App() {
 			<main role="main">
 				<Link to="/">Home</Link>
 				<br />
-				<Link to="create-cleaner">Create cleaner</Link>
+				<Link to="add-worker">Create cleaner</Link>
 			</main>
 			<Switch>
-				<Route path="/create-cleaner">
-					<CreateCleaner />
+				<Route path="/add-worker">
+					<CreateWorker />
 				</Route>
 			</Switch>
 		</Router>

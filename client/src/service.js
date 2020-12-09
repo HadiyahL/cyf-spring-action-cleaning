@@ -1,6 +1,6 @@
 import { post } from "./api";
 
-export const postCleaner = async (data) => {
-	const response = await post("/cleaners", data);
+export const postWorkers = async (data) => {
+	const response = await post("/workers", data);
 	return response.data;
 };
