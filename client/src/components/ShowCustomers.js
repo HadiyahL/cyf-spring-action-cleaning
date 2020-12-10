@@ -1,47 +1,46 @@
 // import { json } from "express";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "reactstrap";
-import {getCustomers } from "../service";
+import { getCustomers } from "../service";
 
-const ShowCustomers = () => {
-    const [list, setList] = useState([]);
-    getCustomers()
-    .then((data)=> setList(data))
-    .catch((err) => console.log(err))
+const ShowCustomers = ({ customersTrigger }) => {
+	const [list, setList] = useState();
 
-    console.log(list);
-  return (
-    <Table striped>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone Number</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
-  );
+	useEffect(() => {
+		getCustomers()
+			.then((data) => setList(data.customers))
+			.catch((err) => console.log(err));
+	}, [customersTrigger]);
+
+	console.log(list);
+	if (list) {
+		return (
+			<Table striped>
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Phone Number</th>
+					</tr>
+				</thead>
+				<tbody>
+					{list.map((customer) => {
+						return (
+							<tr key={customer.id}>
+								<th scope="row">{customer.id}</th>
+								<td>{customer.name}</td>
+								<td>{customer.email}</td>
+								<td>{customer.phone_number}</td>
+							</tr>
+						);
+					})}
+				</tbody>
+			</Table>
+		);
+	} else {
+		return <></>;
+	}
 };
 
 export default ShowCustomers;

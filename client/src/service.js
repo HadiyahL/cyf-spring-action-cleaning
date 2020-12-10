@@ -7,7 +7,7 @@ export const postWorkers = async (data) => {
 
 import { get } from "./api";
 
-export const getCustomers = async (data) => {
-	const response = await get("/customers", data);
+export const getCustomers = async () => {
+	const response = await get("/customers");
 	return response.data;
 };
