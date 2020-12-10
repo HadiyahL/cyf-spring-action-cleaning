@@ -5,12 +5,10 @@ export const postWorkers = async (data) => {
 	return response.data;
 };
 
-
-
-
-
-
-
+export const getCustomers = async () => {
+	const response = await get("/customers");
+	return response.data;
+};
 
 export const getWorkers = async () => {
 	const response = await get("/workers");
