@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "reactstrap";
 import { ShowWorkersForm } from "../components";
 
+// eslint-disable-next-line react/prop-types
 const ShowWorkers = ({ trigger }) => {
 	return (
 		<Container>
