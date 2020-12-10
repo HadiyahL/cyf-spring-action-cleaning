@@ -1,8 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Container } from "reactstrap";
 import { ShowWorkersForm } from "../components";
 
-// eslint-disable-next-line react/prop-types
 const ShowWorkers = ({ trigger }) => {
 	return (
 		<Container>
@@ -12,6 +12,10 @@ const ShowWorkers = ({ trigger }) => {
 			<ShowWorkersForm  trigger={trigger} />
 		</Container>
 	);
+};
+
+ShowWorkers.propTypes = {
+	trigger: PropTypes.bool,
 };
 
 export default ShowWorkers;

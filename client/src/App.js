@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 import { CreateWorker, ShowWorkers } from "./pages";
 
+
 export function App() {
 	const [trigger, setTrigger] = useState(false);
 	const workersHandle = () => setTrigger(!trigger);
