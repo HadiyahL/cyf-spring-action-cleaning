@@ -3,11 +3,11 @@ import { Table } from "reactstrap";
 
 
 import { getWorkers } from "../service";
-const ShowWorkersForm = ({ kick }) => {
+const ShowWorkersForm = ({ trigger }) => {
 	const [list, setList] = useState([]);
 	useEffect(() => getWorkers()
 		.then((data) => setList(data.workers))
-		.catch((err) => console.error(err)),[kick]);
+		.catch((err) => console.error(err)),[trigger]);
 
 
 	if (list) {

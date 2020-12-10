@@ -4,8 +4,8 @@ import "./App.css";
 import { CreateWorker, ShowWorkers } from "./pages";
 
 export function App() {
-	const [kick, setKick] = useState(false);
-	const workersHandle = () => setKick(!kick);
+	const [trigger, setTrigger] = useState(false);
+	const workersHandle = () => setTrigger(!trigger);
 	return (
 		<Router>
 			<main role="main">
@@ -20,7 +20,7 @@ export function App() {
 					<CreateWorker />
 				</Route>
 				<Route path="/workers">
-					<ShowWorkers kick={kick} />
+					<ShowWorkers trigger={trigger} />
 				</Route>
 			</Switch>
 		</Router>
