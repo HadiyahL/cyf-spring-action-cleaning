@@ -12,7 +12,7 @@ export const postWorkers = async (data) => {
 
 
 
-export const getWorkers = async (data) => {
-	const response = await get("/workers", data);
+export const getWorkers = async () => {
+	const response = await get("/workers");
 	return response.data;
 };

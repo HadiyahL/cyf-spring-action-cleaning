@@ -4,7 +4,7 @@ import { Table } from "reactstrap";
 
 import { getWorkers } from "../service";
 const ShowWorkersForm = ({ trigger }) => {
-	const [list, setList] = useState([]);
+	const [list, setList] = useState();
 	useEffect(() => getWorkers()
 		.then((data) => setList(data.workers))
 		.catch((err) => console.error(err)),[trigger]);
