@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-import { CreateWorker, Customers } from "./pages";
+import { CreateWorker, Customers, ShowWorkers } from "./pages";
 
 export function App() {
 	const [customersTrigger, setCustomersTrigger] = useState(false);
+	const [trigger, setTrigger] = useState(false);
 	const customersHandle = () => setCustomersTrigger(!customersTrigger);
+	const workersHandle = () => setTrigger(!trigger);
 	return (
 		<Router>
 			<main role="main">
@@ -16,6 +18,8 @@ export function App() {
 				<Link to="customers" onClick={customersHandle}>
           Customers
 				</Link>
+				<br />
+				<Link to="workers" onClick={workersHandle}>Show cleaners</Link>
 			</main>
 			<Switch>
 				<Route path="/add-worker">
@@ -23,6 +27,9 @@ export function App() {
 				</Route>
 				<Route path="/customers">
 					<Customers customersTrigger={customersTrigger} />
+				</Route>
+				<Route path="/workers">
+					<ShowWorkers trigger={trigger} />
 				</Route>
 			</Switch>
 		</Router>
