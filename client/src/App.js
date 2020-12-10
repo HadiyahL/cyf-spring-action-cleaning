@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-import { CreateWorker, ShowWorkers } from "./pages";
-
+import { CreateWorker, ShowWorkers, Jobs } from "./pages";
 
 export function App() {
 	const [trigger, setTrigger] = useState(false);
@@ -14,11 +13,18 @@ export function App() {
 				<br />
 				<Link to="add-worker">Create cleaner</Link>
 				<br />
-				<Link to="workers" onClick={workersHandle}>Show cleaners</Link>
+				<Link to="jobs">Jobs</Link>
+				<br />
+				<Link to="workers" onClick={workersHandle}>
+					Show cleaners
+				</Link>
 			</main>
 			<Switch>
 				<Route path="/add-worker">
 					<CreateWorker />
+				</Route>
+				<Route path="/jobs">
+					<Jobs />
 				</Route>
 				<Route path="/workers">
 					<ShowWorkers trigger={trigger} />
