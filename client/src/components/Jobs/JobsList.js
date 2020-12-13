@@ -15,7 +15,7 @@ const JobsList = () => {
 	} else if (data) {
 		return (
 			<div>
-				<Table>
+				<Table striped>
 					<JobsTableHead />
 					<JobsTableBody data={data} />
 				</Table>
