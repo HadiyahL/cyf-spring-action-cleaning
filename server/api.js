@@ -5,17 +5,19 @@ import { Connection } from "./db";
 const router = new Router();
 
 router.get("/workers", (_, res, next) => {
-	Connection.connect((err, pool) => {
+	Connection.connect((err, client) => {
 		if (err) {
 			return next(err);
 		}
 
-		pool
+		client
 			.query("SELECT * FROM workers")
 			.then(({ rows }) => {
+				client.release();
 				return res.json({ workers: rows });
 			})
 			.catch((e) => {
+				client.release();
 				console.error(e);
 				next(e);
 			});
@@ -23,17 +25,19 @@ router.get("/workers", (_, res, next) => {
 });
 
 router.get("/customers", (_, res, next) => {
-	Connection.connect((err, pool) => {
+	Connection.connect((err, client) => {
 		if (err) {
 			return next(err);
 		}
 
-		pool
+		client
 			.query("SELECT * FROM customers")
 			.then(({ rows }) => {
+				client.release();
 				return res.json({ customers: rows });
 			})
 			.catch((e) => {
+				client.release();
 				console.error(e);
 				next(e);
 			});
@@ -41,12 +45,12 @@ router.get("/customers", (_, res, next) => {
 });
 
 router.get("/jobs", (_, res, next) => {
-	Connection.connect((err, pool) => {
+	Connection.connect((err, client) => {
 		if (err) {
 			return next(err);
 		}
 
-		pool
+		client
 			.query(
 				`SELECT j.id,
 				CASE WHEN (j.end_code IS NOT NULL)
@@ -65,8 +69,12 @@ router.get("/jobs", (_, res, next) => {
 				INNER JOIN customers c ON j.customer_id=c.id
 				INNER JOIN workers w ON w.id=j.worker_id`
 			)
-			.then(({ rows }) => res.json({ jobs: rows }))
+			.then(({ rows }) => {
+				client.release();
+				return res.json({ jobs: rows });
+			})
 			.catch((e) => {
+				client.release();
 				console.error(e);
 				next(e);
 			});
@@ -74,12 +82,12 @@ router.get("/jobs", (_, res, next) => {
 });
 
 router.get("/branches/:customer_id", (req, res, next) => {
-	Connection.connect((err, pool) => {
+	Connection.connect((err, client) => {
 		if (err) {
 			return next(err);
 		}
 		const customer_id = req.params.customer_id;
-		pool
+		client
 			.query(
 				`SELECT b.id, b.address, b.contact_name, b.contact_phone, w.name worker_name 
 				 FROM branches b
@@ -88,9 +96,11 @@ router.get("/branches/:customer_id", (req, res, next) => {
 				[customer_id]
 			)
 			.then(({ rows }) => {
+				client.release();
 				return res.json({ branches: rows });
 			})
 			.catch((e) => {
+				client.release();
 				console.error(e);
 				next(e);
 			});
@@ -115,18 +125,19 @@ router.post(
 
 		const { name, address, email, phone, whatsapp, contract } = req.body;
 
-		Connection.connect((err, pool) => {
+		Connection.connect((err, client) => {
 			if (err) {
 				return next(err);
 			}
 
-			pool
+			client
 				.query(
 					`INSERT INTO workers (name, email, phone_number, address, whatsapp, permanent_contract)
 						VALUES ($1, $2, $3, $4, $5, $6)`,
 					[name, email, phone, address, whatsapp, contract]
 				)
 				.then(({ rowCount }) => {
+					client.release();
 					if (rowCount < 1) {
 						return res
 							.status(400)
@@ -136,6 +147,7 @@ router.post(
 					}
 				})
 				.catch((e) => {
+					client.release();
 					console.error(e);
 					next(e);
 				});
