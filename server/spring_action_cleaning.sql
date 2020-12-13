@@ -7,63 +7,65 @@ drop table if exists customers;
 drop table if exists admins;
 
 CREATE TABLE workers (
-  id       SERIAL PRIMARY KEY,
-  name     VARCHAR(100) NOT NULL,
-  address  VARCHAR(200) NOT NULL,
-  email     VARCHAR(60) NOT NULL,
-  phone_number  VARCHAR(50) NOT NULL,
-  whatsapp  VARCHAR(50) NOT NULL,
-  permanent_contract BOOLEAN NOT NULL
+  id                    SERIAL PRIMARY KEY,
+  name                  VARCHAR(100) NOT NULL,
+  address               VARCHAR(200) NOT NULL,
+  email                 VARCHAR(60) NOT NULL,
+  phone_number          VARCHAR(50) NOT NULL,
+  whatsapp              VARCHAR(50) NOT NULL,
+  permanent_contract    BOOLEAN NOT NULL
 );
 
 CREATE TABLE customers (
-  id       SERIAL PRIMARY KEY,
-  name     VARCHAR(100) NOT NULL,
-  email     VARCHAR(60) NOT NULL,
-  phone_number  VARCHAR(50) NOT NULL
+  id              SERIAL PRIMARY KEY,
+  name            VARCHAR(100) NOT NULL,
+  email           VARCHAR(60) NOT NULL,
+  phone_number    VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE branches (
-  id            SERIAL PRIMARY KEY,
-  address       VARCHAR(200) NOT NULL,
-  contact_name  VARCHAR(100) NOT NULL,
-  contact_phone VARCHAR(50) NOT NULL,
-  details       VARCHAR(150),
+  id              SERIAL PRIMARY KEY,
+  address         VARCHAR(200) NOT NULL,
+  contact_name    VARCHAR(100) NOT NULL,
+  contact_phone   VARCHAR(50) NOT NULL,
+  details         VARCHAR(150),
   customer_id     INT REFERENCES customers(id),
-  worker_id     INT REFERENCES workers(id)
+  worker_id       INT REFERENCES workers(id),
+  visit_time      TIME,
+  duration        INT
 );
 
 ALTER TABLE customers ADD COLUMN main_branch_id INT REFERENCES branches(id);
 
 CREATE TABLE jobs (
-id SERIAL PRIMARY KEY,
-date_created    DATE NOT NULL,
-customer_id       INT REFERENCES customers(id),
-branch_id      INT REFERENCES branches(id),
-worker_id      INT REFERENCES workers(id),
-unique_url      VARCHAR(10),
-details         VARCHAR(1000),
-visit_on        DATE NOT NULL,
-visit_time      TIME (0) NOT NULL,
-start_code      VARCHAR(4),
-start_time      TIME (0),
-end_code        VARCHAR(4),
-end_time        TIME (0),
-last_code       VARCHAR(4),
-pay_rate        FLOAT NOT NULL
+  id              SERIAL PRIMARY KEY,
+  date_created    DATE NOT NULL,
+  customer_id     INT REFERENCES customers(id),
+  branch_id       INT REFERENCES branches(id),
+  worker_id       INT REFERENCES workers(id),
+  unique_url      VARCHAR(10),
+  details         VARCHAR(1000),
+  visit_on        DATE NOT NULL,
+  visit_time      TIME (0) NOT NULL,
+  start_code      VARCHAR(4),
+  start_time      TIME (0),
+  end_code        VARCHAR(4),
+  end_time        TIME (0),
+  last_code       VARCHAR(4),
+  pay_rate        FLOAT NOT NULL
 );
 
 CREATE TABLE job_codes (
-    id      SERIAL PRIMARY KEY,
-    code    VARCHAR(4),
-    job_id  INT REFERENCES jobs(id)
+  id      SERIAL PRIMARY KEY,
+  code    VARCHAR(4),
+  job_id  INT REFERENCES jobs(id)
 );
 
 CREATE TABLE admins (
-    id          SERIAL PRIMARY KEY,
-    name        VARCHAR(100) NOT NULL,
-    email       VARCHAR(60) NOT NULL,
-    password    VARCHAR(200) NOT NULL
+  id          SERIAL PRIMARY KEY,
+  name        VARCHAR(100) NOT NULL,
+  email       VARCHAR(60) NOT NULL,
+  password    VARCHAR(200) NOT NULL
 );
 
 
@@ -89,33 +91,33 @@ insert into customers (name, email, phone_number ) values ('Realblab', 'rtemblet
 insert into customers (name, email, phone_number ) values ('Flipbug', 'ebrou8@imageshack.us', '886-701-4124');
 insert into customers (name, email, phone_number ) values ('Zooveo', 'dpittel9@amazon.de', '248-509-4767');
 
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Gan Clerc', '9404 Manley Lane', '387-952-0980', 1, 1);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Gan Clerc', '9404 Manley Lane', '387-952-0980', 1, 1, '15:20', 2);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Israel Devericks', '88 Eliot Avenue', '324-972-6022', 2, 2);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Cecily Eastment', '2139 Monument Center', '997-486-0205', 3, 3);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Tim Portman', '539 Schurz Parkway', '758-438-2304', 4, 4);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Tim Portman', '539 Schurz Parkway', '758-438-2304', 4, 4, '12:20', 2);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Kylen Landy', '9845 Mccormick Terrace', '463-502-4437', 5, 5);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Kelcey Chastenet', '94199 Westport Avenue', '738-206-5334', 6, 6);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Kelcey Chastenet', '94199 Westport Avenue', '738-206-5334', 6, 6, '13:20', 2);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Jermayne Tumility', '38022 Straubel Way', '554-654-7333', 7, 7);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Pearl Ksandra', '28996 Sunfield Pass', '478-994-8942', 8, 8);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Donielle Bondar', '29950 Karstens Lane', '152-850-4177', 9, 9);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Donielle Bondar', '29950 Karstens Lane', '152-850-4177', 9, 9, '07:20', 1);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Phebe Brussell', '3666 Menomonie Drive', '927-971-0859', 10, 10);
 
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Amos Cavy', '98017 Westport Drive', '175-427-9359', 1, 1);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Sephira Varran', '6 Buhler Pass', '751-263-2780', 2, 2);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Josey Boseley', '221 Meadow Ridge Street', '705-120-9724', 3, 3);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Josey Boseley', '221 Meadow Ridge Street', '705-120-9724', 3, 3, '07:20', 1);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Cosimo Norvel', '8 Starling Hill', '756-428-5856', 4, 4);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Annalee MacBrearty', '7 Hoepker Crossing', '711-417-7631', 5, 5);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Annalee MacBrearty', '7 Hoepker Crossing', '711-417-7631', 5, 5, '07:20', 1);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Cass Conradsen', '73 Towne Drive', '454-458-8492', 6, 6);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Jerry Vose', '4 Novick Junction', '460-444-5822', 7, 7);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Jerry Vose', '4 Novick Junction', '460-444-5822', 7, 7, '08:20', 3);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Drucill Aickin', '14 Wayridge Pass', '495-688-3267', 8, 8);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Mirelle Girodin', '73412 Fieldstone Trail', '559-275-7421', 9, 9);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Rubia Masselin', '938 Garrison Parkway', '843-717-9810', 10, 10);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Rubia Masselin', '938 Garrison Parkway', '843-717-9810', 10, 10, '09:20', 2);
 
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Darcie Morkham', '3 Prairieview Way', '816-366-0605', 1, 1);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Hatty Roon', '0299 La Follette Trail', '606-239-3229', 2, 2);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Kendall Brotheridge', '40494 Mayfield Road', '904-737-5946', 3, 3);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Maurie Males', '44145 Bartelt Alley', '262-843-2974', 4, 4);
-insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Ermanno Eliff', '723 Eggendart Road', '954-202-3864', 5, 5);
+insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Ermanno Eliff', '723 Eggendart Road', '954-202-3864', 5, 5, '07:20', 2);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Kalina Sahnow', '255 Merchant Pass', '137-205-9773', 6, 6);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Misty MacPaden', '25365 Comanche Street', '301-101-0913', 7, 7);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Lenci Grayne', '70 Weeping Birch Plaza', '850-852-3281', 1, 1);
