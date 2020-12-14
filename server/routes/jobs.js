@@ -71,6 +71,60 @@ router.get("/jobs/customers/:id", async (req, res, next) => {
 	}
 });
 
+router.get("/jobs/branches/:id", async (req, res, next) => {
+	const { id } = req.params;
+	const client = await db.getClient();
+
+	try {
+		// branch has default worker
+		const branchDetailsFull = await client.query(
+			`SELECT b.address, b.visit_time, b.duration, b.id branch_id, w.name worker_name, w.id worker_id
+			FROM branches b
+			INNER JOIN workers w ON w.id=b.worker_id
+			WHERE b.id=$1`,
+			[id]
+		);
+		if (branchDetailsFull.rows < 1) {
+			// branch don't have default worker
+			const branchDetailsNoDefaultWorker = await client.query(
+				`
+				SELECT b.address, b.visit_time, b.duration, b.id branch_id
+				FROM branches b
+				WHERE b.id=$1
+			`,
+				[id]
+			);
+
+			return res.json({ rows: branchDetailsNoDefaultWorker.rows });
+		} else {
+			return res.json({ rows: branchDetailsFull.rows });
+		}
+	} catch (e) {
+		next(e);
+	} finally {
+		client.release();
+	}
+});
+
+router.get("/jobs/workers/:id", async (req, res, next) => {
+	const { id } = req.params;
+	const client = await db.getClient();
+
+	try {
+		const workerDetails = await client.query(
+			`SELECT w.name worker_name, w.id worker_id
+			FROM workers w
+			WHERE w.id=$1`,
+			[id]
+		);
+		return res.json({ rows: workerDetails.rows });
+	} catch (e) {
+		next(e);
+	} finally {
+		client.release();
+	}
+});
+
 router.post(
 	"/jobs",
 	[
