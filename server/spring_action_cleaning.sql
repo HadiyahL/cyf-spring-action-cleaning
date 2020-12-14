@@ -50,7 +50,8 @@ CREATE TABLE jobs (
   status          INT NOT NULL DEFAULT 0,
   start_time      TIME (0),
   end_time        TIME (0),
-  pay_rate        FLOAT NOT NULL
+  duration        INT,
+  pay_rate        FLOAT
 );
 
 CREATE TABLE job_codes (
