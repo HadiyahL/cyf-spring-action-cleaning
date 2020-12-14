@@ -47,11 +47,9 @@ CREATE TABLE jobs (
   details         VARCHAR(1000),
   visit_on        DATE NOT NULL,
   visit_time      TIME (0) NOT NULL,
-  start_code      VARCHAR(4),
+  status          INT NOT NULL DEFAULT 0,
   start_time      TIME (0),
-  end_code        VARCHAR(4),
   end_time        TIME (0),
-  last_code       VARCHAR(4),
   pay_rate        FLOAT NOT NULL
 );
 
@@ -139,7 +137,7 @@ insert into admins (name, email, password) values ('Brandais Moyne', 'bmoyne0@st
 insert into admins (name, email, password) values ('Raquela Ramage', 'rramage1@salon.com', 'hBG6fkwhZN');
 insert into admins (name, email, password) values ('Agustin Challenger', 'achallenger2@godaddy.com', 'UQ3FcKNdI');
 
-insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, start_code, end_code, pay_rate) values ('2020-12-09', 1, 1, 1, 'hsuJJU88Hi', '2020-12-21', '15:20','8596','1472', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, start_code, pay_rate) values ('2020-12-09', 2, 22, 2, 'ji2298Hi9w', '2020-12-12', '15:20','5248', 10);
+insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 1, 1, 1, 'hsuJJU88Hi', '2020-12-21', '15:20', 10);
+insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 2, 22, 2, 'ji2298Hi9w', '2020-12-12', '15:20', 10);
 insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 3, 3, 7, 'fvwei99ee9', '2020-12-12', '15:20', 10.5);
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5);
