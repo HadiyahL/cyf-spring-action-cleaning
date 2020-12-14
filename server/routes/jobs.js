@@ -134,7 +134,8 @@ router.post(
 		body("details", "Details is required").not().isEmpty(),
 		body("visit_on", "Visit date is required").not().isEmpty(),
 		body("visit_time", "Visit time is required").not().isEmpty(),
-		body("pay_rate", "Pay rate is required").not().isEmpty(),
+		body("pay_rate", "Pay rate is required (or set as null)").exists(),
+		body("duration", "Duration is required (or set as null)").exists(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -150,13 +151,14 @@ router.post(
 			visit_on,
 			visit_time,
 			pay_rate,
+			duration,
 		} = req.body;
 
 		const date = new Date();
 
 		db.query(
 			`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, pay_rate, date_created)
-			VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
 			[
 				customer_id,
 				branch_id,
@@ -166,6 +168,7 @@ router.post(
 				visit_time,
 				pay_rate,
 				date,
+				duration,
 			]
 		)
 			.then(({ rowCount }) => {
