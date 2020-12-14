@@ -55,7 +55,7 @@ There is also a VS Code debugging configuration for the Chrome debugger, which r
 extension, for debugging the client application.
 
 ### Starter-Kit
-[Starter-kit]:https://github.com/textbook/starter-kit/wiki
+[Starter-kit]: https://github.com/textbook/starter-kit/wiki
 
 ### Troubleshooting
 
