@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { Container, Button } from "reactstrap";
-import { getCustomers, getCustomer } from "../service";
-import { Modal } from "../components";
+import { Container, Form, Button } from "reactstrap";
+import {
+	SelectCustomer,
+	SelectBranch,
+	SelectWorker,
+	SelectDate,
+	SelectTime,
+	SelectDuration,
+	PayRateInput,
+	DetailsInput,
+	SelectStartTime,
+	SelectEndTime,
+} from "../components";
+import SuccessAlert from "../components/UI/SuccessAlert";
+import { postJob } from "../service";
 
 const Jobs = () => {
-	// all state here
-	const [data, setData] = useState(null);
-	const [modal, setModal] = useState(false);
 	const [state, setState] = useState({
 		customer: "",
 		customer_id: "",
@@ -17,69 +26,93 @@ const Jobs = () => {
 		details: "",
 		visit_on: "",
 		visit_time: "",
-		duration: "",
+		duration: "1",
 		pay_rate: "",
 	});
+	const [errors, setErrors] = useState({});
+	const [jobCreated, setJobCreated] = useState(false);
 
-	const toggle = () => setModal(!modal);
-
-	const fetchCustomers = () => {
-		getCustomers()
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setJobCreated(false);
+		postJob(state)
 			.then((res) => {
-				setData({
-					name: "customers",
-					data: res.customers,
-					fetchFunction: fetchCustomer,
-				});
+				if (res.errors) {
+					setErrors(formatErrors(res.errors));
+				} else {
+					setJobCreated(true);
+					clearForm();
+				}
 			})
-			.catch((e) => console.log(e));
+			.catch((err) => console.log(err));
 	};
 
-	const handleSelectCustomers = () => {
-		toggle();
-		fetchCustomers();
-	};
+	const formatErrors = (errors) =>
+		errors.reduce((acc, error) => {
+			acc[error.param] = error.msg;
+			return acc;
+		}, {});
 
-	const fetchCustomer = (id) => {
-		getCustomer(id)
-			.then((res) => {
-				console.log("res :>> ", res);
-				const data = res.rows[0];
-				setState({
-					...state,
-					customer: data.customer_name,
-					customer_id: id,
-					branch: data.address ?? null,
-					branch_id: data.branch_id ?? null,
-					worker: data.worker_name ?? null,
-					worker_id: data.worker_id ?? null,
-					visit_time: data.visit_time ?? null,
-					duration: data.duration ?? null,
-				});
-			})
-			.catch((e) => console.log(e));
+	const clearForm = () => {
+		setState({
+			customer: "",
+			customer_id: "",
+			branch: "",
+			branch_id: "",
+			worker: "",
+			worker_id: "",
+			details: "",
+			visit_on: "",
+			visit_time: "",
+			duration: "1",
+			pay_rate: "",
+		});
+		setErrors({});
 	};
 
 	return (
-		<Container>
+		<Container className="mb-5">
+			{jobCreated && <SuccessAlert text="Job created successfully" />}
 			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">Create Job</h2>
-			<div>
-				<h3>select client</h3>
-				<Button color="danger" onClick={handleSelectCustomers}>
-					{state.customer || "Select Client"}
+			<Form onSubmit={handleSubmit}>
+				<SelectCustomer
+					state={state}
+					setState={setState}
+					error={errors.customer}
+				/>
+				<SelectBranch state={state} setState={setState} error={errors.branch} />
+				<SelectWorker state={state} setState={setState} error={errors.worker} />
+				<SelectDate state={state} setState={setState} error={errors.visit_on} />
+				<SelectTime
+					state={state}
+					setState={setState}
+					error={errors.visit_time}
+				/>
+				<SelectDuration
+					state={state}
+					setState={setState}
+					error={errors.duration}
+				/>
+				<PayRateInput
+					state={state}
+					setState={setState}
+					error={errors.pay_rate}
+				/>
+				<DetailsInput state={state} setState={setState} />
+				<SelectStartTime
+					state={state}
+					setState={setState}
+					error={errors.start_time}
+				/>
+				<SelectEndTime
+					state={state}
+					setState={setState}
+					error={errors.end_time}
+				/>
+				<Button color="primary" size="lg">
+					Create
 				</Button>
-			</div>
-			<div>
-				select branch. address: {state.branch} id: {state.branch_id}
-			</div>
-			<div>
-				select cleaner. name: {state.worker} id: {state.worker_id}
-			</div>
-			<div>select date</div>
-			<div>enter time</div>
-			<div>enter duration</div>
-			<div>any details</div>
-			{data && <Modal isOpen={modal} toggle={toggle} data={data} />}
+			</Form>
 		</Container>
 	);
 };
