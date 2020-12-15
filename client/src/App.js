@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
-import { CreateWorker, Customers, ShowWorkers, Jobs, CreateJob } from "./pages";
+import {
+	CreateWorker,
+	CreateCustomer,
+	Customers,
+	ShowWorkers,
+	Jobs,
+	CreateJob,
+} from "./pages";
 
 export function App() {
 	const [customersTrigger, setCustomersTrigger] = useState(false);
@@ -15,7 +22,8 @@ export function App() {
 				<br />
 				<Link to="add-worker">Create cleaner</Link>
 				<br />
-
+				<Link to="add-customer">Create Customer</Link>
+				<br />
 				<Link to="customers" onClick={customersHandle}>
 					Customers
 				</Link>
@@ -32,7 +40,9 @@ export function App() {
 				<Route path="/add-worker">
 					<CreateWorker />
 				</Route>
-
+				<Route path="/add-customer">
+					<CreateCustomer />
+				</Route>
 				<Route path="/customers">
 					<Customers customersTrigger={customersTrigger} />
 				</Route>
