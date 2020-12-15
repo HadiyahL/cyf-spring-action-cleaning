@@ -6,7 +6,7 @@ export const postWorkers = async (data) => {
 };
 
 export const postCustomer = async (data) => {
-	const response = await post("/customer", data);
+	const response = await post("/customers", data);
 	return response.data;
 };
 

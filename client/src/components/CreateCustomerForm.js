@@ -6,7 +6,7 @@ const CreateCustomerForm = () => {
 	const [state, setState] = useState({
 		name: "",
 		email: "",
-		phone: "",
+		phone_number: "",
 	});
 	const [errors, setErrors] = useState({});
 
@@ -36,7 +36,7 @@ const CreateCustomerForm = () => {
 		setState({
 			name: "",
 			email: "",
-			phone: "",
+			phone_number: "",
 		});
 		setErrors({});
 	};
@@ -73,19 +73,21 @@ const CreateCustomerForm = () => {
 							onChange={handleChange}
 							value={state.email}
 						/>
-						{errors.name && <FormText color="danger">{errors.name}</FormText>}
+						{errors.email && <FormText color="danger">{errors.email}</FormText>}
 					</FormGroup>
 					<FormGroup>
 						<Label for="phone">Phone Number</Label>
 						<Input
 							type="text"
-							name="phone"
+							name="phone_number"
 							id="phone"
 							placeholder="Enter Phone Number"
 							onChange={handleChange}
-							value={state.phone}
+							value={state.phone_number}
 						/>
-						{errors.name && <FormText color="danger">{errors.name}</FormText>}
+						{errors.phone_number
+							&& <FormText color="danger">{errors.phone_number}</FormText>
+						}
 					</FormGroup>
 					<Button color="primary">Submit</Button>
 				</Form>
