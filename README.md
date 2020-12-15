@@ -54,6 +54,9 @@ If you're using VS Code, a debugging configuration is provided for this.
 There is also a VS Code debugging configuration for the Chrome debugger, which requires the recommended Chrome
 extension, for debugging the client application.
 
+### Starter-Kit
+[Starter-kit]: https://github.com/textbook/starter-kit/wiki
+
 ### Troubleshooting
 
 See the guidance in the [wiki].
