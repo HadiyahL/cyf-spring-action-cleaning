@@ -129,13 +129,26 @@ router.post(
 	"/jobs",
 	[
 		body("customer_id", "Customer id is required").not().isEmpty(),
+		body("customer", "Client is required").not().isEmpty(),
 		body("branch_id", "Branch id is required").not().isEmpty(),
-		body("worker_id", "Worker id is required (or set as null)").exists(),
-		body("details", "Details is required").not().isEmpty(),
+		body("branch", "Address is required").not().isEmpty(),
+		body("worker_id", "Worker id is required").exists(),
+		body("worker", "Cleaner is required").not().isEmpty(),
+		body("details", "Details are required").exists(),
 		body("visit_on", "Visit date is required").not().isEmpty(),
+		body(
+			"visit_time",
+			"Start time is not in a format of HH:MM (24h clock)"
+		).custom((value) =>
+			/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
 		body("visit_time", "Visit time is required").not().isEmpty(),
-		body("pay_rate", "Pay rate is required (or set as null)").exists(),
-		body("duration", "Duration is required (or set as null)").exists(),
+		body(
+			"pay_rate",
+			"Pay rate is not in a format of 10.50 or 10"
+		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
+		body("pay_rate", "Pay rate is required").not().isEmpty(),
+		body("duration", "Duration is required").exists(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -152,13 +165,17 @@ router.post(
 			visit_time,
 			pay_rate,
 			duration,
+			start_time,
+			end_time,
 		} = req.body;
 
 		const date = new Date();
 
+		const status = start_time && end_time ? 1 : 0;
+
 		db.query(
-			`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, pay_rate, date_created)
-			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+			`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, pay_rate, date_created, duration, start_time, end_time, status)
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
 			[
 				customer_id,
 				branch_id,
@@ -169,6 +186,9 @@ router.post(
 				pay_rate,
 				date,
 				duration,
+				start_time,
+				end_time,
+				status,
 			]
 		)
 			.then(({ rowCount }) => {
