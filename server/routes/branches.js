@@ -79,12 +79,9 @@ router.post(
 	"/branches/:customerId",
 	[
 		body("address", "Address is required").not().isEmpty(),
-		body("contact_name", "Contact name is required").not().isEmpty(),
-		body("contact_phone", "Contact phone is required").not().isEmpty(),
-		body("details", "Details is required").not().isEmpty(),
-		body("visit_time", "Visit time is required").not().isEmpty(),
-		body("duration", "Duration time is required").not().isEmpty(),
-		body("worker_id", "Worker id is required (or set as null)").exists(),
+		body("contact_name", "Contact name is required").exists(),
+		body("contact_phone", "Contact phone is required").exists(),
+		body("details", "Details is required").exists(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -133,12 +130,9 @@ router.put(
 	"/branches/:customerId/:branchId",
 	[
 		body("address", "Address is required").not().isEmpty(),
-		body("contact_name", "Contact name is required").not().isEmpty(),
-		body("contact_phone", "Contact phone is required").not().isEmpty(),
-		body("details", "Details is required").not().isEmpty(),
-		body("visit_time", "Visit time is required").not().isEmpty(),
-		body("duration", "Duration time is required").not().isEmpty(),
-		body("worker_id", "Worker id is required (or set as null)").exists(),
+		body("contact_name", "Contact name is required").exists(),
+		body("contact_phone", "Contact number is required").exists(),
+		body("details", "Details is required").exists(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
