@@ -20,21 +20,21 @@ export function App() {
 			<main role="main">
 				<Link to="/">Home</Link>
 				<br />
-				<Link to="add-worker">Create cleaner</Link>
+				<Link to="/add-worker">Create cleaner</Link>
 				<br />
-				<Link to="add-customer">Create Customer</Link>
+				<Link to="/add-customer">Create Customer</Link>
 				<br />
-				<Link to="customers" onClick={customersHandle}>
+				<Link to="/customers" onClick={customersHandle}>
 					Customers
 				</Link>
 				<br />
-				<Link to="workers" onClick={workersHandle}>
+				<Link to="/workers" onClick={workersHandle}>
 					Show cleaners
 				</Link>
 				<br />
-				<Link to="jobs">Jobs</Link>
+				<Link to="/jobs">Jobs</Link>
 				<br />
-				<Link to="create-job">Create Job</Link>
+				<Link to="/create-job">Create Job</Link>
 			</main>
 			<Switch>
 				<Route path="/add-worker">
