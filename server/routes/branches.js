@@ -15,36 +15,23 @@ router.get("/branches", (_, res, next) => {
 		});
 });
 
-router.get("/branches/customer/:customer_id", async (req, res, next) => {
+router.get("/branches/customer/:customer_id", (req, res, next) => {
 	const { customer_id } = req.params;
-	const client = await db.getClient();
 
-	try {
-		const result = await client.query(
-			`SELECT b.*, w.name worker_name, w.id worker_id
-      FROM branches b
-      INNER JOIN workers w ON w.id=b.worker_id
-      WHERE b.customer_id=$1`,
-			[customer_id]
-		);
-
-		if (result.rows < 1) {
-			const result = await client.query(
-				`
-        SELECT *
-        FROM branches b
-        WHERE b.customer_id=$1`,
-				[customer_id]
-			);
-			return res.json({ rows: result.rows });
-		} else {
-			return res.json({ rows: result.rows });
-		}
-	} catch (e) {
-		next(e);
-	} finally {
-		client.release();
-	}
+	db.query(
+		`
+				SELECT *
+				FROM branches b
+				WHERE b.customer_id=$1`,
+		[customer_id]
+	)
+		.then(({ rows }) => {
+			return res.json({ rows });
+		})
+		.catch((e) => {
+			console.error(e);
+			next(e);
+		});
 });
 
 router.get("/branches/:branch_id", async (req, res, next) => {
@@ -54,9 +41,9 @@ router.get("/branches/:branch_id", async (req, res, next) => {
 	try {
 		const result = await client.query(
 			`SELECT b.*, w.name worker_name, w.id worker_id
-      FROM branches b
-      INNER JOIN workers w ON w.id=b.worker_id
-      WHERE b.id=$1`,
+			FROM branches b
+			INNER JOIN workers w ON w.id=b.worker_id
+			WHERE b.id=$1`,
 			[branch_id]
 		);
 
