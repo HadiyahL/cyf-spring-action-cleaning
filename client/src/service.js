@@ -30,7 +30,7 @@ export const getBranches = async (id) => {
 	return response.data;
 };
 
-export const getCustomer = async (id) => {
+export const getJobsCustomer = async (id) => {
 	const response = await get(`/jobs/customers/${id}`);
 	return response.data;
 };
