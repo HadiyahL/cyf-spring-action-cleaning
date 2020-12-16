@@ -103,7 +103,8 @@ router.post(
 		db.query(
 			`
 			INSERT INTO branches (address, contact_name, contact_phone, details, visit_time, duration, worker_id, customer_id)
-			VALUES ($1, $2, $3, $4, $5, $6, $7, $8)			
+			VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+			RETURNING id
 			`,
 			[
 				address,
@@ -117,7 +118,7 @@ router.post(
 			]
 		)
 			.then(({ rows }) => {
-				res.json({ success: true, rows });
+				res.json({ success: true, id: rows[0].id });
 			})
 			.catch((e) => {
 				console.error(e);
