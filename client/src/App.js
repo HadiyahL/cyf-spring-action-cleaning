@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
+import { Navigation } from "./components";
 import {
 	CreateWorker,
 	CreateCustomer,
@@ -11,28 +12,13 @@ import {
 } from "./pages";
 
 export function App() {
-	const [customersTrigger, setCustomersTrigger] = useState(false);
-	const [trigger, setTrigger] = useState(false);
-	const customersHandle = () => setCustomersTrigger(!customersTrigger);
-	const workersHandle = () => setTrigger(!trigger);
 	return (
 		<Router>
+			<Navigation />
 			<main role="main">
-				<Link to="/">Home</Link>
-				<br />
 				<Link to="add-worker">Create cleaner</Link>
 				<br />
 				<Link to="add-customer">Create Customer</Link>
-				<br />
-				<Link to="customers" onClick={customersHandle}>
-					Customers
-				</Link>
-				<br />
-				<Link to="workers" onClick={workersHandle}>
-					Show cleaners
-				</Link>
-				<br />
-				<Link to="jobs">Jobs</Link>
 				<br />
 				<Link to="create-job">Create Job</Link>
 			</main>
@@ -44,13 +30,13 @@ export function App() {
 					<CreateCustomer />
 				</Route>
 				<Route path="/customers">
-					<Customers customersTrigger={customersTrigger} />
+					<Customers  />
 				</Route>
 				<Route path="/jobs">
 					<Jobs />
 				</Route>
 				<Route path="/workers">
-					<ShowWorkers trigger={trigger} />
+					<ShowWorkers  />
 				</Route>
 				<Route path="/create-job">
 					<CreateJob />
