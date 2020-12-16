@@ -18,23 +18,27 @@ export function App() {
 	return (
 		<Router>
 			<main role="main">
-				<Link to="/">Home</Link>
-				<br />
-				<Link to="/add-worker">Create cleaner</Link>
-				<br />
-				<Link to="/add-customer">Create Customer</Link>
-				<br />
-				<Link to="/customers" onClick={customersHandle}>
-					Customers
+				<Link className="mr-5" to="/">
+					Home
 				</Link>
-				<br />
-				<Link to="/workers" onClick={workersHandle}>
-					Show cleaners
+				<Link className="mr-5" to="/customers" onClick={customersHandle}>
+					Clients
 				</Link>
-				<br />
-				<Link to="/jobs">Jobs</Link>
-				<br />
-				<Link to="/create-job">Create Job</Link>
+				<Link className="mr-5" to="/workers" onClick={workersHandle}>
+					Cleaners
+				</Link>
+				<Link className="mr-5" to="/jobs">
+					Jobs
+				</Link>
+				<Link className="mr-5" to="/add-worker">
+					Add Cleaner
+				</Link>
+				<Link className="mr-5" to="/add-customer">
+					Add Client
+				</Link>
+				<Link className="mr-5" to="/create-job">
+					Create Job
+				</Link>
 			</main>
 			<Switch>
 				<Route path="/add-worker">
