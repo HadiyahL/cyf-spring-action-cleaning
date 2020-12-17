@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
-import { getCustomers, getCustomer } from "../../service";
+import { getCustomers, getJobsCustomer } from "../../service";
 import Modal from "./Modal";
 
 const SelectCustomer = ({ state, setState, error }) => {
@@ -22,7 +22,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 	};
 
 	const fetchCustomer = (id) => {
-		getCustomer(id)
+		getJobsCustomer(id)
 			.then((res) => {
 				const data = res.rows[0];
 				setState({

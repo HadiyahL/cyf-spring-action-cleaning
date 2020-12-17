@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { get } from "../api";
 
-const useFetch = (url) => {
+const useFetch = (url, trigger) => {
 	const [state, setState] = useState({
 		isLoading: true,
 		data: null,
@@ -31,7 +31,7 @@ const useFetch = (url) => {
 			}
 		};
 		fetchData();
-	}, [setState, url]);
+	}, [setState, url, trigger]);
 
 	return state;
 };
