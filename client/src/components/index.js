@@ -2,7 +2,7 @@ export { default as CreateWorkerForm } from "./CreateWorkerForm";
 export { default as CreateCustomerForm } from "./CreateCustomer/CreateCustomerForm";
 export { default as Branches } from "./CreateCustomer/Branches";
 export { default as ShowCustomers } from "./ShowCustomers";
-export { default as ShowWorkersForm } from "./ShowWorkersForm";
+export { default as ShowWorkersTable } from "./ShowWorkersTable";
 export { default as JobsList } from "./Jobs/JobsList";
 export { default as SelectCustomer } from "./CreateJob/SelectCustomer";
 export { default as SelectBranch } from "./CreateJob/SelectBranch";
