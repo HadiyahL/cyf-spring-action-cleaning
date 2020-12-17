@@ -69,8 +69,12 @@ router.post(
 		body("contact_name", "Contact name is required").exists(),
 		body("contact_phone", "Contact phone is required").exists(),
 		body("details", "Details is required").exists(),
+		body(
+			"main_branch",
+			"Specifying if branch is main or not is required"
+		).exists(),
 	],
-	(req, res, next) => {
+	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
@@ -85,32 +89,53 @@ router.post(
 			visit_time,
 			duration,
 			worker_id,
+			main_branch,
 		} = req.body;
 
-		db.query(
-			`
+		const client = await db.getClient();
+
+		try {
+			const result = await client.query(
+				`
 			INSERT INTO branches (address, contact_name, contact_phone, details, visit_time, duration, worker_id, customer_id)
 			VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 			RETURNING id
 			`,
-			[
-				address,
-				contact_name,
-				contact_phone,
-				details,
-				visit_time,
-				duration,
-				worker_id,
-				customerId,
-			]
-		)
-			.then(({ rows }) => {
-				res.json({ success: true, id: rows[0].id });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
+				[
+					address,
+					contact_name,
+					contact_phone,
+					details,
+					visit_time,
+					duration,
+					worker_id,
+					customerId,
+				]
+			);
+
+			if (main_branch) {
+				const id = result.rows[0].id;
+				const customer = await client.query(
+					`
+					UPDATE customers
+					SET main_branch_id=$1
+					WHERE id=$2
+					`,
+					[id, customerId]
+				);
+				return res.json({
+					success: true,
+					id: result.rows[0].id,
+					mainBranchId: customer?.rows[0]?.main_branch_id ?? null,
+				});
+			}
+
+			return res.json({ success: true, id: result.rows[0].id });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
@@ -121,8 +146,12 @@ router.put(
 		body("contact_name", "Contact name is required").exists(),
 		body("contact_phone", "Contact number is required").exists(),
 		body("details", "Details is required").exists(),
+		body(
+			"main_branch",
+			"Specifying if branch is main or not is required"
+		).exists(),
 	],
-	(req, res, next) => {
+	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
@@ -137,32 +166,47 @@ router.put(
 			visit_time,
 			duration,
 			worker_id,
+			main_branch,
 		} = req.body;
 
-		db.query(
-			`
+		const client = await db.getClient();
+
+		try {
+			await client.query(
+				`
 			UPDATE branches SET address=$1, contact_name=$2, contact_phone=$3, details=$4, visit_time=$5, duration=$6, worker_id=$7
 			WHERE customer_id=$8 AND id=$9
 			`,
-			[
-				address,
-				contact_name,
-				contact_phone,
-				details,
-				visit_time,
-				duration,
-				worker_id,
-				customerId,
-				branchId,
-			]
-		)
-			.then(() => {
-				res.json({ success: true });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
+				[
+					address,
+					contact_name,
+					contact_phone,
+					details,
+					visit_time,
+					duration,
+					worker_id,
+					customerId,
+					branchId,
+				]
+			);
+
+			if (main_branch) {
+				await client.query(
+					`
+					UPDATE customers
+					SET main_branch_id=$1
+					WHERE id=$2
+					`,
+					[branchId, customerId]
+				);
+			}
+
+			return res.json({ success: true });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
