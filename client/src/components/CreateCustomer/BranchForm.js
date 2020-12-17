@@ -39,8 +39,8 @@ const BranchForm = ({
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!branch_id) {
-			postBranch(customer_id, state)
+		if (!state.branch_id) {
+			postBranch(state, state)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
