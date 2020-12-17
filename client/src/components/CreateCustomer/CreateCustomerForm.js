@@ -36,7 +36,6 @@ const CreateCustomerForm = ({ state, setState }) => {
 		} else {
 			putCustomer(state.customer_id, state)
 				.then((res) => {
-					console.log("res :>> ", res);
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
 					} else {
