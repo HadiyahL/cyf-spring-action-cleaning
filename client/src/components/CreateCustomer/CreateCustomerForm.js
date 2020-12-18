@@ -1,29 +1,53 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, FormText, Label, Input, Row, Col } from "reactstrap";
-import { postCustomer } from "../service";
+import PropTypes from "prop-types";
+import {
+	Button,
+	Form,
+	FormGroup,
+	FormText,
+	Label,
+	Input,
+	Row,
+	Col,
+} from "reactstrap";
+import { postCustomer, putCustomer } from "../../service";
 
-const CreateCustomerForm = () => {
-	const [state, setState] = useState({
-		name: "",
-		email: "",
-		phone_number: "",
-	});
+const CreateCustomerForm = ({ state, setState }) => {
 	const [errors, setErrors] = useState({});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		postCustomer(state)
-			.then((res) => {
-				if (res.errors) {
-					setErrors(formatErrors(res.errors));
-				} else {
-					clearForm();
-				}
-			})
-			.catch((e) => {
-				console.error(e);
-			});
+		if (!state.customer_id) {
+			postCustomer(state)
+				.then((res) => {
+					if (res.errors) {
+						setErrors(formatErrors(res.errors));
+					} else {
+						setState({
+							...state,
+							customer_id: res.id,
+						});
+					}
+				})
+				.catch((e) => {
+					console.error(e);
+				});
+		} else {
+			putCustomer(state.customer_id, state)
+				.then((res) => {
+					if (res.errors) {
+						setErrors(formatErrors(res.errors));
+					} else {
+						setState({
+							...state,
+						});
+					}
+				})
+				.catch((e) => {
+					console.error(e);
+				});
+		}
 	};
 
 	const formatErrors = (errors) =>
@@ -32,20 +56,10 @@ const CreateCustomerForm = () => {
 			return acc;
 		}, {});
 
-	const clearForm = () => {
-		setState({
-			name: "",
-			email: "",
-			phone_number: "",
-		});
-		setErrors({});
-	};
-
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setState({ ...state, [name]: value });
 	};
-
 
 	return (
 		<Row className="justify-content-center">
@@ -85,15 +99,20 @@ const CreateCustomerForm = () => {
 							onChange={handleChange}
 							value={state.phone_number}
 						/>
-						{errors.phone_number
-							&& <FormText color="danger">{errors.phone_number}</FormText>
-						}
+						{errors.phone_number && (
+							<FormText color="danger">{errors.phone_number}</FormText>
+						)}
 					</FormGroup>
-					<Button color="primary">Submit</Button>
+					<Button color="primary">{state.customer_id ? "Edit" : "Save"}</Button>
 				</Form>
 			</Col>
 		</Row>
 	);
+};
+
+CreateCustomerForm.propTypes = {
+	state: PropTypes.object.isRequired,
+	setState: PropTypes.func.isRequired,
 };
 
 export default CreateCustomerForm;

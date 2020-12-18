@@ -1,21 +1,24 @@
-// import { json } from "express";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import { Table } from "reactstrap";
-import { getCustomers } from "../service";
+import Spinner from "../components/UI/Spinner";
+import useFetch from "../hooks/useFetch";
 
 const ShowCustomers = ({ customersTrigger }) => {
-	const [list, setList] = useState();
+	const history = useHistory();
+	const { data, isLoading, error } = useFetch("/customers", customersTrigger);
 
-	useEffect(() => {
-		getCustomers()
-			.then((data) => setList(data.customers))
-			.catch((err) => console.log(err));
-	}, [customersTrigger]);
+	const handleClick = (id) => {
+		history.push(`/edit-customer/${id}`);
+	};
 
-	console.log(list);
-	if (list) {
+	if (error) {
+		return <div>Oops, something went wrong.</div>;
+	} else if (isLoading) {
+		return <Spinner />;
+	} else {
 		return (
-			<Table striped>
+			<Table striped hover>
 				<thead>
 					<tr>
 						<th>#</th>
@@ -25,9 +28,14 @@ const ShowCustomers = ({ customersTrigger }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{list.map((customer) => {
+					{data.customers.map((customer) => {
 						return (
-							<tr key={customer.id}>
+							<tr
+								key={customer.id}
+								onClick={() => handleClick(customer.id)}
+								role="button"
+								tabIndex={0}
+							>
 								<th scope="row">{customer.id}</th>
 								<td>{customer.name}</td>
 								<td>{customer.email}</td>
@@ -38,8 +46,6 @@ const ShowCustomers = ({ customersTrigger }) => {
 				</tbody>
 			</Table>
 		);
-	} else {
-		return <></>;
 	}
 };
 

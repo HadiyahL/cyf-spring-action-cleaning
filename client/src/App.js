@@ -5,6 +5,7 @@ import { Navigation } from "./components";
 import {
 	CreateWorker,
 	CreateCustomer,
+	EditCustomer,
 	Customers,
 	ShowWorkers,
 	Jobs,
@@ -28,6 +29,9 @@ export function App() {
 				</Route>
 				<Route path="/add-customer">
 					<CreateCustomer />
+				</Route>
+				<Route path="/edit-customer/:id">
+					<EditCustomer />
 				</Route>
 				<Route path="/customers">
 					<Customers  />

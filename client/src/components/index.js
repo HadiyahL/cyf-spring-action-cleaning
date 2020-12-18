@@ -1,6 +1,7 @@
 export { default as Navigation } from "./Navigation";
 export { default as CreateWorkerForm } from "./CreateWorkerForm";
-export { default as CreateCustomerForm } from "./CreateCustomerForm";
+export { default as CreateCustomerForm } from "./CreateCustomer/CreateCustomerForm";
+export { default as Branches } from "./CreateCustomer/Branches";
 export { default as ShowCustomers } from "./ShowCustomers";
 export { default as ShowWorkersForm } from "./ShowWorkersForm";
 export { default as JobsList } from "./Jobs/JobsList";

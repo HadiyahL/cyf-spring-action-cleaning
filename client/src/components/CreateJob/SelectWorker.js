@@ -29,8 +29,6 @@ const SelectWorker = ({ state, setState, error }) => {
 					...state,
 					worker: data.worker_name,
 					worker_id: id,
-					visit_time: data.visit_time ?? null,
-					duration: data.duration ?? null,
 				});
 			})
 			.catch((e) => console.log(e));
