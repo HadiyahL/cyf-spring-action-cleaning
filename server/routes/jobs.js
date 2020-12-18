@@ -4,6 +4,28 @@ import db from "../db";
 
 const router = new Router();
 
+router.get("/jobs/:id", (req, res, next) => {
+	const { id } = req.params;
+
+	db.query(
+		`
+	SELECT j.*, c.name customer, b.address branch, w.name worker
+	FROM jobs j
+	INNER JOIN customers c ON j.customer_id=c.id
+	INNER JOIN branches b ON j.branch_id=b.id
+	INNER JOIN workers w ON j.worker_id=w.id
+	WHERE j.id=$1`,
+		[id]
+	)
+		.then(({ rows }) => {
+			return res.json({ success: true, job: rows[0] });
+		})
+		.catch((e) => {
+			console.error(e);
+			next(e);
+		});
+});
+
 router.get("/jobs", (_, res, next) => {
 	db.query(
 		`SELECT j.id, j.status, j.date_created,b.address, j.visit_on, j.visit_time, j.pay_rate, j.details, j.start_time, j.end_time, c.name customer, w.name worker
