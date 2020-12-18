@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import { Container, Form, Button } from "reactstrap";
 import {
 	SelectCustomer,
@@ -12,39 +14,66 @@ import {
 	SelectStartTime,
 	SelectEndTime,
 } from "../components";
-import SuccessAlert from "../components/UI/SuccessAlert";
-import { postJob } from "../service";
+import { postJobs, putJobs } from "../service";
 
-const Jobs = () => {
+const Jobs = ({
+	customer,
+	customer_id,
+	branch,
+	branch_id,
+	worker,
+	worker_id,
+	details,
+	visit_on,
+	visit_time,
+	duration,
+	pay_rate,
+	start_time,
+	end_time,
+	job_id,
+}) => {
 	const [state, setState] = useState({
-		customer: "",
-		customer_id: "",
-		branch: "",
-		branch_id: "",
-		worker: "",
-		worker_id: "",
-		details: "",
-		visit_on: "",
-		visit_time: "",
-		duration: "1",
-		pay_rate: "",
+		customer: customer || "",
+		customer_id: customer_id || "",
+		branch: branch || "",
+		branch_id: branch_id || "",
+		worker: worker || "",
+		worker_id: worker_id || "",
+		details: details || "",
+		visit_on: visit_on || "",
+		visit_time: visit_time || "",
+		duration: duration || "1",
+		pay_rate: pay_rate || "",
+		start_time: start_time || undefined,
+		end_time: end_time || undefined,
 	});
 	const [errors, setErrors] = useState({});
-	const [jobCreated, setJobCreated] = useState(false);
+	const history = useHistory();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setJobCreated(false);
-		postJob(state)
-			.then((res) => {
-				if (res.errors) {
-					setErrors(formatErrors(res.errors));
-				} else {
-					setJobCreated(true);
-					clearForm();
-				}
-			})
-			.catch((err) => console.log(err));
+		if (!job_id) {
+			postJobs(state)
+				.then((res) => {
+					if (res.errors) {
+						setErrors(formatErrors(res.errors));
+					} else {
+						history.push("/jobs");
+						clearForm();
+					}
+				})
+				.catch((err) => console.log(err));
+		} else {
+			putJobs(job_id, state)
+				.then((res) => {
+					if (res.errors) {
+						setErrors(formatErrors(res.errors));
+					} else {
+						history.push("/jobs");
+					}
+				})
+				.catch((err) => console.log(err));
+		}
 	};
 
 	const formatErrors = (errors) =>
@@ -66,14 +95,17 @@ const Jobs = () => {
 			visit_time: "",
 			duration: "1",
 			pay_rate: "",
+			start_time: "",
+			end_time: "",
 		});
 		setErrors({});
 	};
 
 	return (
 		<Container className="mb-5">
-			{jobCreated && <SuccessAlert text="Job created successfully" />}
-			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">Create Job</h2>
+			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
+				{job_id ? "Edit Job" : "Create Job"}
+			</h2>
 			<Form onSubmit={handleSubmit}>
 				<SelectCustomer
 					state={state}
@@ -110,11 +142,28 @@ const Jobs = () => {
 					error={errors.end_time}
 				/>
 				<Button color="primary" size="lg">
-					Create
+					{job_id ? "Update" : "Create"}
 				</Button>
 			</Form>
 		</Container>
 	);
+};
+
+Jobs.propTypes = {
+	customer: PropTypes.string,
+	customer_id: PropTypes.number,
+	branch: PropTypes.string,
+	branch_id: PropTypes.number,
+	worker: PropTypes.string,
+	worker_id: PropTypes.number,
+	details: PropTypes.string,
+	visit_on: PropTypes.string,
+	visit_time: PropTypes.string,
+	duration: PropTypes.number,
+	pay_rate: PropTypes.number,
+	start_time: PropTypes.string,
+	end_time: PropTypes.string,
+	job_id: PropTypes.number,
 };
 
 export default Jobs;

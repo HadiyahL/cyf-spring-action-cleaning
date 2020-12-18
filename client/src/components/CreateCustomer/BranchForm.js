@@ -20,7 +20,22 @@ const BranchForm = ({
 	branchSaved,
 	setBranchSaved,
 }) => {
+	const {
+		main_branch_id,
+		main_branch,
+		branch_id,
+		customer_id,
+		address,
+		contact_name,
+		contact_phone,
+		visit_time,
+		duration,
+		details,
+	} = state;
 	const [errors, setErrors] = useState({});
+	const [mainBranchState, setMainBranchState] = useState(
+		main_branch_id === branch_id
+	);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -30,11 +45,13 @@ const BranchForm = ({
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
 					} else {
-						setState({
-							...state,
-						});
+						if (main_branch) {
+							// but set new default branch
+							clearBranchFieldsFromState(res.id);
+						} else {
+							clearBranchFieldsFromState();
+						}
 						// trigger BranchesTable update
-						clearBranchFieldsFromState();
 						setBranchSaved(!branchSaved);
 						toggle();
 					}
@@ -43,16 +60,17 @@ const BranchForm = ({
 					console.error(e);
 				});
 		} else {
-			putBranch(state.branch_id, state.customer_id, state)
+			putBranch(branch_id, customer_id, state)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
 					} else {
-						setState({
-							...state,
-						});
+						if (main_branch) {
+							clearBranchFieldsFromState(branch_id);
+						} else {
+							clearBranchFieldsFromState();
+						}
 						// trigger BranchesTable update
-						clearBranchFieldsFromState();
 						setBranchSaved(!branchSaved);
 						toggle();
 					}
@@ -69,7 +87,7 @@ const BranchForm = ({
 			return acc;
 		}, {});
 
-	const clearBranchFieldsFromState = () => {
+	const clearBranchFieldsFromState = (mainBranchId) => {
 		setState({
 			...state,
 			address: "",
@@ -80,13 +98,19 @@ const BranchForm = ({
 			contact_phone: "",
 			branch_id: null,
 			worker_id: null,
+			main_branch_id: mainBranchId ?? main_branch_id,
 		});
 		setErrors({});
 	};
 
 	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setState({ ...state, [name]: value });
+		const { name, value, type } = e.target;
+		if (type === "checkbox") {
+			setMainBranchState(!mainBranchState);
+			setState({ ...state, [name]: !mainBranchState });
+		} else {
+			setState({ ...state, [name]: value });
+		}
 	};
 
 	return (
@@ -101,11 +125,22 @@ const BranchForm = ({
 							id="address"
 							placeholder="Enter address"
 							onChange={handleChange}
-							value={state.address}
+							value={address}
 						/>
 						{errors.address && (
 							<FormText color="danger">{errors.address}</FormText>
 						)}
+					</FormGroup>
+					<FormGroup check>
+						<Label check>
+							<Input
+								name="main_branch"
+								type="checkbox"
+								onChange={handleChange}
+								checked={mainBranchState}
+							/>
+							Set as a main address
+						</Label>
 					</FormGroup>
 					<FormGroup>
 						<Label for="contact_name">Name</Label>
@@ -115,7 +150,7 @@ const BranchForm = ({
 							id="contact_name"
 							placeholder="Enter contact name"
 							onChange={handleChange}
-							value={state.contact_name}
+							value={contact_name}
 						/>
 						{errors.contact_name && (
 							<FormText color="danger">{errors.contact_name}</FormText>
@@ -129,7 +164,7 @@ const BranchForm = ({
 							id="phone"
 							placeholder="Enter Phone Number"
 							onChange={handleChange}
-							value={state.contact_phone}
+							value={contact_phone}
 						/>
 						{errors.contact_phone && (
 							<FormText color="danger">{errors.contact_phone}</FormText>
@@ -142,7 +177,7 @@ const BranchForm = ({
 							type="time"
 							name="visit_time"
 							id="visit_time"
-							value={state.visit_time || ""}
+							value={visit_time || ""}
 							onChange={handleChange}
 							placeholder="HH:MM (24h clock)"
 							pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
@@ -159,7 +194,7 @@ const BranchForm = ({
 							name="duration"
 							id="duration"
 							onChange={handleChange}
-							value={state.duration}
+							value={duration}
 						>
 							<option value="1">1 hour</option>
 							<option value="2">2 hours</option>
@@ -183,7 +218,7 @@ const BranchForm = ({
 							id="details"
 							placeholder="Enter additional information"
 							onChange={handleChange}
-							value={state.details}
+							value={details}
 							type="textarea"
 							rows={4}
 						/>
@@ -192,7 +227,7 @@ const BranchForm = ({
 						)}
 					</FormGroup>
 					<SelectWorker state={state} setState={setState} />
-					<Button color="primary">Save</Button>
+					<Button color="primary">{branch_id ? "Edit" : "Save"}</Button>
 				</Form>
 			</Col>
 		</Row>

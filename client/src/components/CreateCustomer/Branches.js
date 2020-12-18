@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button } from "reactstrap";
-import Modal from "./Modal";
 import BranchesTable from "./BranchesTable";
 
 const Branches = ({ state, setState }) => {
@@ -11,21 +10,32 @@ const Branches = ({ state, setState }) => {
 	const toggle = () => setIsOpen(!isOpen);
 
 	const handleClick = () => {
+		// reset state for adding new branch
+		setState({
+			...state,
+			address: "",
+			duration: "1",
+			contact_name: "",
+			visit_time: undefined,
+			details: "",
+			contact_phone: "",
+			branch_id: null,
+			worker_id: null,
+		});
 		toggle();
 	};
 
 	return (
 		<div>
-			<BranchesTable state={state} trigger={branchSaved} />
-			<Button onClick={handleClick}>Add New Address</Button>
-			<Modal
-				isOpen={isOpen}
-				toggle={toggle}
+			<BranchesTable
 				state={state}
-				setState={setState}
+				trigger={branchSaved}
+				toggleEditModal={toggle}
 				setBranchSaved={setBranchSaved}
-				branchSaved={branchSaved}
+				setState={setState}
+				isOpen={isOpen}
 			/>
+			<Button onClick={handleClick}>Add New Address</Button>
 		</div>
 	);
 };
