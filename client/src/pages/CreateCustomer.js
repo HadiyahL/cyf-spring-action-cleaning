@@ -24,6 +24,7 @@ const CreateCustomer = ({
 		contact_phone: "",
 		branch_id: null,
 		worker_id: null,
+		main_branch: false,
 	});
 
 	const { customer_id, name } = state;
