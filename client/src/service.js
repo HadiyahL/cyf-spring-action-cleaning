@@ -64,3 +64,8 @@ export const putBranch = async (branch_id, customer_id, data) => {
 	const response = await put(`/branches/${customer_id}/${branch_id}`, data);
 	return response.data;
 };
+
+export const putWorkers = async (worker_id, data) => {
+	const response = await put(`/workers/${worker_id}`, data);
+	return response.data;
+};
