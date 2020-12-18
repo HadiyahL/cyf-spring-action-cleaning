@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./App.css";
+import { Navigation } from "./components";
 import {
 	CreateWorker,
 	CreateCustomer,
@@ -14,34 +15,15 @@ import {
 } from "./pages";
 
 export function App() {
-	const [customersTrigger, setCustomersTrigger] = useState(false);
-	const [trigger, setTrigger] = useState(false);
-	const customersHandle = () => setCustomersTrigger(!customersTrigger);
-	const workersHandle = () => setTrigger(!trigger);
 	return (
 		<Router>
+			<Navigation />
 			<main role="main">
-				<Link className="mr-5" to="/">
-					Home
-				</Link>
-				<Link className="mr-5" to="/customers" onClick={customersHandle}>
-					Clients
-				</Link>
-				<Link className="mr-5" to="/workers" onClick={workersHandle}>
-					Cleaners
-				</Link>
-				<Link className="mr-5" to="/jobs">
-					Jobs
-				</Link>
-				<Link className="mr-5" to="/add-worker">
-					Add Cleaner
-				</Link>
-				<Link className="mr-5" to="/add-customer">
-					Add Client
-				</Link>
-				<Link className="mr-5" to="/create-job">
-					Create Job
-				</Link>
+				<Link to="add-worker">Create cleaner</Link>
+				<br />
+				<Link to="add-customer">Create Customer</Link>
+				<br />
+				<Link to="create-job">Create Job</Link>
 			</main>
 			<Switch>
 				<Route path="/add-worker">
@@ -54,13 +36,13 @@ export function App() {
 					<EditCustomer />
 				</Route>
 				<Route path="/customers">
-					<Customers customersTrigger={customersTrigger} />
+					<Customers  />
 				</Route>
 				<Route path="/jobs">
 					<Jobs />
 				</Route>
 				<Route path="/workers">
-					<ShowWorkers trigger={trigger} />
+					<ShowWorkers  />
 				</Route>
 				<Route path="/edit-worker/:id">
 					<EditWorker />

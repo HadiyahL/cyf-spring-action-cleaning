@@ -15,7 +15,7 @@ const JobsList = () => {
 	} else if (data) {
 		return (
 			<div>
-				<Table striped>
+				<Table striped hover responsive>
 					<JobsTableHead />
 					<JobsTableBody data={data} />
 				</Table>

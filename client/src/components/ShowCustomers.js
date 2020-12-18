@@ -18,7 +18,7 @@ const ShowCustomers = ({ customersTrigger }) => {
 		return <Spinner />;
 	} else {
 		return (
-			<Table striped hover>
+			<Table striped hover responsive>
 				<thead>
 					<tr>
 						<th>#</th>
