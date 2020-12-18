@@ -19,27 +19,23 @@ const Navigation = () => {
 		<div>
 			<Navbar color="light" light expand="md">
 				<NavbarBrand href="/">
-					<img
-						src={logo}
-						style={{ height: 50, width: 60, marginTop: -7 }}
-						alt="spring-action-logo"
-					/>
+					<img src={logo} className="navbar_logo" alt="spring-action-logo" />
 				</NavbarBrand>
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>
-					<Nav className="ml-auto d-flex justify-content-end" navbar>
-						<NavItem className="mr-5 pb-2">
-							<Link className="text-decoration-none" to="/customers">
+					<Nav className="ml-auto d-flex justify-content-end navItems" navbar>
+						<NavItem className="mr-5 pb-2 pt-2 pb-md-0 pt-md-0">
+							<Link className="text-decoration-none link" to="/customers">
 								Client{" "}
 							</Link>
 						</NavItem>
-						<NavItem className="mr-5 pb-2">
-							<Link className="text-decoration-none" to="/workers">
+						<NavItem className="mr-5 pb-2 pt-2 pb-md-0 pt-md-0">
+							<Link className="text-decoration-none link" to="/workers">
 								Cleaners{" "}
 							</Link>
 						</NavItem>
-						<NavItem className="mr-5 pb-2">
-							<Link className="text-decoration-none" to="/jobs">
+						<NavItem className="mr-5 pb-2 pt-2 pb-md-0 pt-md-0">
+							<Link className="text-decoration-none link" to="/jobs">
 								Jobs
 							</Link>
 						</NavItem>

@@ -1,11 +1,14 @@
-.logo {
-    width: 100px;
+.navbar_logo {
+    width: 60px;
+    /* height: auto; */
+}
+.link {
+    
+    color: rgb(116, 113, 113);
+    font-weight: 450;
 }
 
-.message {
-    color: blue;
-}
-
-.message:hover {
-    background-color: yellow;
+.link:hover {
+    background-color:  rgb(214, 207, 207);
+    color: #0063C7;
 }
