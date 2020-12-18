@@ -16,3 +16,4 @@ export { default as SelectDuration } from "./CreateJob/SelectDuration";
 export { default as PayRateInput } from "./CreateJob/PayRateInput";
 export { default as DetailsInput } from "./CreateJob/DetailsInput";
 export { default as SuccessAlert } from "./UI/SuccessAlert";
+export { default as AddNewButton } from "./UI/AddNewButton";
