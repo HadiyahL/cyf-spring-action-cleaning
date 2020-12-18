@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { Router } from "express";
 import { body, check, validationResult } from "express-validator";
 import db from "../db";
@@ -171,6 +172,19 @@ router.post(
 		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
 		body("pay_rate", "Pay rate is required").not().isEmpty(),
 		body("duration", "Duration is required").exists(),
+		body(
+			"start_time",
+			"Start time is not in a format of HH:MM (24h clock)"
+		).custom(
+			(value) =>
+				value === undefined ||
+				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
+		body("end_time", "End time is not in a format of HH:MM (24h clock)").custom(
+			(value) =>
+				value === undefined ||
+				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -235,13 +249,38 @@ router.put(
 		body("customer_id", "Please provide a customer id").not().isEmpty(),
 		body("branch_id", "Please provide a branch id").not().isEmpty(),
 		body("worker_id", "Please provide a worker id").not().isEmpty(),
-		body("details", "Details is required").not().isEmpty(),
+		body("details", "Details is required").exists(),
 		body("visit_on", "Visit date is required").not().isEmpty(),
+		body(
+			"visit_time",
+			"Start time is not in a format of HH:MM (24h clock)"
+		).custom((value) =>
+			/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
 		body("visit_time", "Visit time is required").not().isEmpty(),
+		body(
+			"pay_rate",
+			"Pay rate is not in a format of 10.50 or 10"
+		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
 		body("pay_rate", "Pay rate is required").not().isEmpty(),
+		body("duration", "Duration is required").exists(),
+		body(
+			"start_time",
+			"Start time is not in a format of HH:MM (24h clock)"
+		).custom(
+			(value) =>
+				value === undefined ||
+				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
+		body("end_time", "End time is not in a format of HH:MM (24h clock)").custom(
+			(value) =>
+				value === undefined ||
+				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
+
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
@@ -255,13 +294,18 @@ router.put(
 			visit_on,
 			visit_time,
 			pay_rate,
+			duration,
+			start_time,
+			end_time,
 		} = req.body;
+
+		const status = start_time && end_time ? 1 : 0;
 
 		db.query(
 			`
 				UPDATE jobs 
-				SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, pay_rate=$7
-				WHERE id=$8
+				SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, pay_rate=$7, duration=$8, start_time=$9, end_time=$10, status=$11
+				WHERE id=$12
 			`,
 			[
 				customer_id,
@@ -271,6 +315,10 @@ router.put(
 				visit_on,
 				visit_time,
 				pay_rate,
+				duration,
+				start_time,
+				end_time,
+				status,
 				id,
 			]
 		)
