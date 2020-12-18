@@ -31,11 +31,11 @@ router.get("/workers/:id", (req, res, next) => {
 router.post(
 	"/workers",
 	[
-		body("email", "Please provide a valid email").isEmail(),
-		body("name", "Name is required").not().isEmpty(),
-		body("address", "Address is required").not().isEmpty(),
-		body("phone", "Phone is required").not().isEmpty(),
-		body("whatsapp", "Whatsapp is required").not().isEmpty(),
+		body("email", "Please provide a valid email").isEmail().trim(),
+		body("name", "Name is required").not().isEmpty().trim(),
+		body("address", "Address is required").not().isEmpty().trim(),
+		body("phone", "Phone is required").not().isEmpty().trim(),
+		body("whatsapp", "Whatsapp is required").not().isEmpty().trim(),
 		body("contract", "Contract is required").isBoolean(),
 	],
 	(req, res, next) => {
@@ -70,11 +70,11 @@ router.post(
 router.put(
 	"/workers/:id",
 	[
-		body("email", "Please provide a valid email").isEmail(),
-		body("name", "Name is required").not().isEmpty(),
-		body("address", "Address is required").not().isEmpty(),
-		body("phone", "Phone is required").not().isEmpty(),
-		body("whatsapp", "Whatsapp is required").not().isEmpty(),
+		body("email", "Please provide a valid email").isEmail().trim(),
+		body("name", "Name is required").not().isEmpty().trim(),
+		body("address", "Address is required").not().isEmpty().trim(),
+		body("phone", "Phone is required").not().isEmpty().trim(),
+		body("whatsapp", "Whatsapp is required").not().isEmpty().trim(),
 		body("contract", "Contract is required").isBoolean(),
 	],
 	(req, res, next) => {
