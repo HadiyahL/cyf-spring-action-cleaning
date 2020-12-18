@@ -12,7 +12,7 @@ const ShowWorkersForm = ({ trigger }) => {
 
 	if (list) {
 		return (
-			<Table striped>
+			<Table striped hover responsive>
 				<thead>
 					<tr>
 						<th>#</th>
