@@ -1,12 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FormGroup, Label, Input, FormText } from "reactstrap";
+import { FormGroup, Label, Input, FormText, Button } from "reactstrap";
 
 const SelectStartTime = ({ state, setState, error }) => {
 	const handleChange = (e) => {
 		setState({
 			...state,
 			start_time: e.target.value,
+		});
+	};
+
+	const handleResetTime = () => {
+		setState({
+			...state,
+			start_time: undefined,
 		});
 	};
 
@@ -26,6 +33,11 @@ const SelectStartTime = ({ state, setState, error }) => {
 					placeholder="HH:MM (24h clock)"
 					pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
 				/>
+				<FormText>
+					<Button color="link" size="sm" onClick={handleResetTime}>
+						Reset
+					</Button>
+				</FormText>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>
 		</div>

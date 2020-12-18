@@ -9,6 +9,7 @@ import {
 	ShowWorkers,
 	Jobs,
 	CreateJob,
+	EditJob,
 } from "./pages";
 
 export function App() {
@@ -62,6 +63,9 @@ export function App() {
 				</Route>
 				<Route path="/create-job">
 					<CreateJob />
+				</Route>
+				<Route path="/edit-jobs/:id">
+					<EditJob />
 				</Route>
 			</Switch>
 		</Router>
