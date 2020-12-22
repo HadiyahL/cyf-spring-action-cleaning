@@ -1,7 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
-import { Navigation } from "./components";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Navigation, Spinner } from "./components";
+import { ProtectedRoute } from "./components/auth";
 import {
 	CreateWorker,
 	CreateCustomer,
@@ -12,42 +14,37 @@ import {
 	CreateJob,
 	EditJob,
 	EditWorker,
+	HomePage,
 } from "./pages";
 
 export function App() {
+	const { isLoading, error } = useAuth0();
+
+	if (isLoading) {
+		return <Spinner />;
+	}
+	if (error) {
+		return <div>Oops... {error.message}</div>;
+	}
+
 	return (
-		<Router>
+		<>
 			<Navigation />
 			<Switch>
-				<Route path="/add-worker">
-					<CreateWorker />
+				<Route exact path="/">
+					<HomePage />
 				</Route>
-				<Route path="/add-customer">
-					<CreateCustomer />
-				</Route>
-				<Route path="/edit-customer/:id">
-					<EditCustomer />
-				</Route>
-				<Route path="/customers">
-					<Customers />
-				</Route>
-				<Route path="/jobs">
-					<Jobs />
-				</Route>
-				<Route path="/workers">
-					<ShowWorkers />
-				</Route>
-				<Route path="/edit-worker/:id">
-					<EditWorker />
-				</Route>
-				<Route path="/create-job">
-					<CreateJob />
-				</Route>
-				<Route path="/edit-jobs/:id">
-					<EditJob />
-				</Route>
+				<ProtectedRoute path="/add-worker" component={CreateWorker} />
+				<ProtectedRoute path="/add-customer" component={CreateCustomer} />
+				<ProtectedRoute path="/edit-customer/:id" component={EditCustomer} />
+				<ProtectedRoute path="/customers" component={Customers} />
+				<ProtectedRoute path="/jobs" component={Jobs} />
+				<ProtectedRoute path="/workers" component={ShowWorkers} />
+				<ProtectedRoute path="/edit-worker/:id" component={EditWorker} />
+				<ProtectedRoute path="/create-job" component={CreateJob} />
+				<ProtectedRoute path="/edit-jobs/:id" component={EditJob} />
 			</Switch>
-		</Router>
+		</>
 	);
 }
 
