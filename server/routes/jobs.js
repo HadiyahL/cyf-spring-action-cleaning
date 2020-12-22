@@ -171,7 +171,7 @@ router.post(
 			"pay_rate",
 			"Pay rate is not in a format of 10.50 or 10"
 		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
-		body("pay_rate", "Pay rate is required").not().isEmpty(),
+		body("pay_rate", "Pay rate is required").exists(),
 		body("duration", "Duration is required").exists(),
 		body(
 			"start_time",
