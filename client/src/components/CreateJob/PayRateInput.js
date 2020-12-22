@@ -6,7 +6,7 @@ const PayRateInput = ({ state, setState, error }) => {
 	const handleChange = (e) => {
 		setState({
 			...state,
-			pay_rate: e.target.value,
+			pay_rate: e.target.value === "" ? undefined : e.target.value,
 		});
 	};
 
@@ -14,7 +14,7 @@ const PayRateInput = ({ state, setState, error }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="payRate" size="lg">
-					Pay rate
+          Pay rate
 				</Label>
 				<Input
 					invalid={!!error}

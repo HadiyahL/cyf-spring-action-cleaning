@@ -43,7 +43,7 @@ const Jobs = ({
 		visit_on: visit_on || "",
 		visit_time: visit_time || "",
 		duration: duration || "1",
-		pay_rate: pay_rate || "",
+		pay_rate: pay_rate || undefined,
 		start_time: start_time || undefined,
 		end_time: end_time || undefined,
 	});

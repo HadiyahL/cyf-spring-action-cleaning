@@ -170,8 +170,7 @@ router.post(
 		body(
 			"pay_rate",
 			"Pay rate is not in a format of 10.50 or 10"
-		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
-		body("pay_rate", "Pay rate is required").exists(),
+		).custom((value) => /^\d+(\.\d+)?$/.test(value) || value === undefined),
 		body("duration", "Duration is required").exists(),
 		body(
 			"start_time",
@@ -262,8 +261,7 @@ router.put(
 		body(
 			"pay_rate",
 			"Pay rate is not in a format of 10.50 or 10"
-		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
-		body("pay_rate", "Pay rate is required").not().isEmpty(),
+		).custom((value) => /^\d+(\.\d+)?$/.test(value) || value === undefined || value === ""),
 		body("duration", "Duration is required").exists(),
 		body(
 			"start_time",
