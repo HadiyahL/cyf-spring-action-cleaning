@@ -140,5 +140,5 @@ insert into admins (name, email, password) values ('Agustin Challenger', 'achall
 
 insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 1, 1, 1, 'hsuJJU88Hi', '2020-12-21', '15:20', 10);
 insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 2, 22, 2, 'ji2298Hi9w', '2020-12-12', '15:20', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 3, 3, 7, 'fvwei99ee9', '2020-12-12', '15:20', 10.5);
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5);
+insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 3, 3, 7, 'fvwei99ee9', '2020-12-12', '15:20', 10.5, 2);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5, 2);
