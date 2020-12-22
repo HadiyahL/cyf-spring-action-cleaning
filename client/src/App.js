@@ -12,7 +12,9 @@ import {
 	CreateJob,
 	EditJob,
 	EditWorker,
+	Reports,
 } from "./pages";
+import{ ResultPage } from "./components";
 
 export function App() {
 	return (
@@ -45,6 +47,12 @@ export function App() {
 				</Route>
 				<Route path="/edit-jobs/:id">
 					<EditJob />
+				</Route>
+				<Route path="/reports">
+					<Reports />
+				</Route>
+				<Route path="/result/:id/:start/:finish/:name">
+					<ResultPage />
 				</Route>
 			</Switch>
 		</Router>
