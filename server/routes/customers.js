@@ -1,35 +1,48 @@
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
 import db from "../db";
+import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
 
-router.get("/customers", (_, res, next) => {
-	db.query("SELECT * FROM customers")
-		.then(({ rows }) => {
-			return res.json({ customers: rows });
-		})
-		.catch((e) => {
-			console.error(e);
-			next(e);
-		});
-});
+router.get(
+	"/customers",
+	checkAuth,
+	checkPermission("get:customers"),
+	(_, res, next) => {
+		db.query("SELECT * FROM customers")
+			.then(({ rows }) => {
+				return res.json({ customers: rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
 
-router.get("/customers/:id", (req, res, next) => {
-	const { id } = req.params;
+router.get(
+	"/customers/:id",
+	checkAuth,
+	checkPermission("get:customers/:id"),
+	(req, res, next) => {
+		const { id } = req.params;
 
-	db.query("SELECT * FROM customers WHERE id=$1", [id])
-		.then(({ rows }) => {
-			return res.json({ rows });
-		})
-		.catch((e) => {
-			console.error(e);
-			next(e);
-		});
-});
+		db.query("SELECT * FROM customers WHERE id=$1", [id])
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
 
 router.post(
 	"/customers",
+	checkAuth,
+	checkPermission("post:customers"),
 	[
 		body("email", "Please provide a valid email").isEmail(),
 		body("name", "Name is required").not().isEmpty(),
@@ -67,6 +80,8 @@ router.post(
 
 router.put(
 	"/customers/:id",
+	checkAuth,
+	checkPermission("put:customers/:id"),
 	[
 		body("email", "Please provide a valid email").isEmail(),
 		body("name", "Name is required").not().isEmpty(),

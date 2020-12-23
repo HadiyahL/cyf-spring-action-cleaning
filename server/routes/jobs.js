@@ -1,33 +1,39 @@
 /* eslint-disable operator-linebreak */
 import { Router } from "express";
 import { body, check, validationResult } from "express-validator";
+import { checkAuth, checkPermission } from "../middleware";
 import db from "../db";
 
 const router = new Router();
 
-router.get("/jobs/:id", (req, res, next) => {
-	const { id } = req.params;
+router.get(
+	"/jobs/:id",
+	checkAuth,
+	checkPermission("get:jobs/:id"),
+	(req, res, next) => {
+		const { id } = req.params;
 
-	db.query(
-		`
+		db.query(
+			`
 	SELECT j.*, c.name customer, b.address branch, w.name worker
 	FROM jobs j
 	INNER JOIN customers c ON j.customer_id=c.id
 	INNER JOIN branches b ON j.branch_id=b.id
 	INNER JOIN workers w ON j.worker_id=w.id
 	WHERE j.id=$1`,
-		[id]
-	)
-		.then(({ rows }) => {
-			return res.json({ success: true, job: rows[0] });
-		})
-		.catch((e) => {
-			console.error(e);
-			next(e);
-		});
-});
+			[id]
+		)
+			.then(({ rows }) => {
+				return res.json({ success: true, job: rows[0] });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
 
-router.get("/jobs", (_, res, next) => {
+router.get("/jobs", checkAuth, checkPermission("get:jobs"), (_, res, next) => {
 	db.query(
 		`SELECT j.id, j.status, j.date_created,b.address, j.visit_on, j.visit_time, j.pay_rate, j.details, j.start_time, j.end_time, c.name customer, w.name worker
 		FROM jobs j 
@@ -44,112 +50,129 @@ router.get("/jobs", (_, res, next) => {
 		});
 });
 
-router.get("/jobs/customers/:id", async (req, res, next) => {
-	const { id } = req.params;
-	const client = await db.getClient();
+router.get(
+	"/jobs/customers/:id",
+	checkAuth,
+	checkPermission("get:jobs/customers/:id"),
+	async (req, res, next) => {
+		const { id } = req.params;
+		const client = await db.getClient();
 
-	try {
-		// customer has main branch and default worker
-		const fullJobDetails = await client.query(
-			`SELECT c.name customer_name, b.address, b.visit_time, b.duration, b.id branch_id, w.name worker_name, w.id worker_id
+		try {
+			// customer has main branch and default worker
+			const fullJobDetails = await client.query(
+				`SELECT c.name customer_name, b.address, b.visit_time, b.duration, b.id branch_id, w.name worker_name, w.id worker_id
 			FROM customers c
 			INNER JOIN branches b ON c.id=b.customer_id
 			INNER JOIN workers w ON w.id=b.worker_id
 			WHERE c.id=$1 AND b.id=c.main_branch_id`,
-			[id]
-		);
-		if (fullJobDetails.rows < 1) {
-			// customer has main branch but no default worker
-			const jobDetailsBranch = await client.query(
-				`
+				[id]
+			);
+			if (fullJobDetails.rows < 1) {
+				// customer has main branch but no default worker
+				const jobDetailsBranch = await client.query(
+					`
 				SELECT c.name customer_name, b.address, b.visit_time, b.duration, b.id branch_id
 				FROM customers c
 				INNER JOIN branches b ON c.id=b.customer_id
 				WHERE c.id=$1 AND b.id=c.main_branch_id
 			`,
-				[id]
-			);
+					[id]
+				);
 
-			if (jobDetailsBranch.rows < 1) {
-				// customer doesn't have main branch
-				const jobDetailsNoBranch = await client.query(
-					`
+				if (jobDetailsBranch.rows < 1) {
+					// customer doesn't have main branch
+					const jobDetailsNoBranch = await client.query(
+						`
 					SELECT c.name customer_name
 					FROM customers c
 					WHERE c.id=$1
 					`,
-					[id]
-				);
-				return res.json({ rows: jobDetailsNoBranch.rows });
+						[id]
+					);
+					return res.json({ rows: jobDetailsNoBranch.rows });
+				} else {
+					return res.json({ rows: jobDetailsBranch.rows });
+				}
 			} else {
-				return res.json({ rows: jobDetailsBranch.rows });
+				return res.json({ rows: fullJobDetails.rows });
 			}
-		} else {
-			return res.json({ rows: fullJobDetails.rows });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
 		}
-	} catch (e) {
-		next(e);
-	} finally {
-		client.release();
 	}
-});
+);
 
-router.get("/jobs/branches/:id", async (req, res, next) => {
-	const { id } = req.params;
-	const client = await db.getClient();
+router.get(
+	"/jobs/branches/:id",
+	checkAuth,
+	checkPermission("get:jobs/branches/:id"),
+	async (req, res, next) => {
+		const { id } = req.params;
+		const client = await db.getClient();
 
-	try {
-		// branch has default worker
-		const branchDetailsFull = await client.query(
-			`SELECT b.address, b.visit_time, b.duration, b.id branch_id, w.name worker_name, w.id worker_id
+		try {
+			// branch has default worker
+			const branchDetailsFull = await client.query(
+				`SELECT b.address, b.visit_time, b.duration, b.id branch_id, w.name worker_name, w.id worker_id
 			FROM branches b
 			INNER JOIN workers w ON w.id=b.worker_id
 			WHERE b.id=$1`,
-			[id]
-		);
-		if (branchDetailsFull.rows < 1) {
-			// branch don't have default worker
-			const branchDetailsNoDefaultWorker = await client.query(
-				`
+				[id]
+			);
+			if (branchDetailsFull.rows < 1) {
+				// branch don't have default worker
+				const branchDetailsNoDefaultWorker = await client.query(
+					`
 				SELECT b.address, b.visit_time, b.duration, b.id branch_id
 				FROM branches b
 				WHERE b.id=$1
 			`,
-				[id]
-			);
+					[id]
+				);
 
-			return res.json({ rows: branchDetailsNoDefaultWorker.rows });
-		} else {
-			return res.json({ rows: branchDetailsFull.rows });
+				return res.json({ rows: branchDetailsNoDefaultWorker.rows });
+			} else {
+				return res.json({ rows: branchDetailsFull.rows });
+			}
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
 		}
-	} catch (e) {
-		next(e);
-	} finally {
-		client.release();
 	}
-});
+);
 
-router.get("/jobs/workers/:id", async (req, res, next) => {
-	const { id } = req.params;
-	const client = await db.getClient();
+router.get(
+	"/jobs/workers/:id",
+	checkAuth,
+	checkPermission("get:jobs/workers/:id"),
+	async (req, res, next) => {
+		const { id } = req.params;
+		const client = await db.getClient();
 
-	try {
-		const workerDetails = await client.query(
-			`SELECT w.name worker_name, w.id worker_id
+		try {
+			const workerDetails = await client.query(
+				`SELECT w.name worker_name, w.id worker_id
 			FROM workers w
 			WHERE w.id=$1`,
-			[id]
-		);
-		return res.json({ rows: workerDetails.rows });
-	} catch (e) {
-		next(e);
-	} finally {
-		client.release();
+				[id]
+			);
+			return res.json({ rows: workerDetails.rows });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
-});
+);
 
 router.post(
 	"/jobs",
+	checkAuth,
+	checkPermission("post:jobs"),
 	[
 		body("customer_id", "Customer id is required").not().isEmpty(),
 		body("customer", "Client is required").not().isEmpty(),
@@ -245,6 +268,8 @@ router.post(
 
 router.put(
 	"/jobs/:id",
+	checkAuth,
+	checkPermission("put:jobs/:id"),
 	[
 		body("customer_id", "Please provide a customer id").not().isEmpty(),
 		body("branch_id", "Please provide a branch id").not().isEmpty(),
@@ -340,6 +365,8 @@ router.put(
 
 router.put(
 	"/jobs/:id/log_time",
+	checkAuth,
+	checkPermission("put:jobs/:id/log_time"),
 	[
 		body("start_time", "Please provide a start time").not().isEmpty(),
 		body("end_time", "Please provide an end time").not().isEmpty(),
