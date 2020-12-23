@@ -3,7 +3,7 @@
 }
 
 .navbar_logo {
-    width: 60px;
+	width: 60px;
 }
 
 .navbar_logo:hover {
@@ -11,6 +11,33 @@
 }
 
 .link {
-    font-weight: 600;
-    letter-spacing: 1px;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+.th-tile {
+	user-select: none;
+}
+
+.th-tile:hover {
+	cursor: pointer;
+	background-color: #dee2e6;
+}
+
+.cleaning-date {
+	min-width: 130px;
+}
+
+.th-hours-width {
+	width: 80px;
+}
+
+.jobs {
+	max-width: 1500px;
+}
+
+@media (min-width: 576px) {
+	.time-input-label {
+		display: inline-block;
+	}
 }
