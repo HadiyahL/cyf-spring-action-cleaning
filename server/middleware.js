@@ -44,3 +44,12 @@ export const checkAuth = jwt({
 	algorithms: ["RS256"],
 });
 
+export const checkPermission = (permission) => (req, res, next) => {
+	const { permissions } = req.user;
+
+	if (permissions.includes(permission)) {
+		return next();
+	}
+
+	res.status(401).json({ error: { message: "Unauthorized" } });
+};
