@@ -1,5 +1,13 @@
+.navbar {
+    height: 78px;
+}
+
 .navbar_logo {
     width: 60px;
+}
+
+.navbar_logo:hover {
+    cursor: pointer;
 }
 
 .link {

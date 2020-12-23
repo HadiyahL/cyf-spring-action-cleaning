@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
 	Collapse,
@@ -16,7 +17,13 @@ import Spinner from "./UI/Spinner";
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { isLoading, isAuthenticated } = useAuth0();
+	const history = useHistory();
+
 	const toggle = () => setIsOpen(!isOpen);
+
+	const handleLogoClick = () => {
+		history.push("/");
+	};
 
 	if (isLoading) {
 		return <Spinner />;
@@ -24,8 +31,8 @@ const Navigation = () => {
 
 	return (
 		<div>
-			<Navbar color="light" light expand="md">
-				<NavbarBrand href="/">
+			<Navbar color="light" light expand="md" className="navbar">
+				<NavbarBrand onClick={handleLogoClick}>
 					<img src={logo} className="navbar_logo" alt="spring-action-logo" />
 				</NavbarBrand>
 				<NavbarToggler onClick={toggle} />
