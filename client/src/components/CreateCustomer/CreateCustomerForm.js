@@ -11,19 +11,22 @@ import {
 	Col,
 } from "reactstrap";
 import { postCustomer, putCustomer } from "../../service";
+import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
 const CreateCustomerForm = ({ state, setState }) => {
 	const [errors, setErrors] = useState({});
+	const authorizationHeaders = useAuthorizationHeaders();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		if (!state.customer_id) {
-			postCustomer(state)
+			postCustomer(state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
 					} else {
+						setErrors({});
 						setState({
 							...state,
 							customer_id: res.id,
@@ -34,11 +37,12 @@ const CreateCustomerForm = ({ state, setState }) => {
 					console.error(e);
 				});
 		} else {
-			putCustomer(state.customer_id, state)
+			putCustomer(state.customer_id, state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
 					} else {
+						setErrors({});
 						setState({
 							...state,
 						});

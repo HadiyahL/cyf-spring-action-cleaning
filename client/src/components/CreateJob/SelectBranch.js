@@ -3,15 +3,17 @@ import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
 import { getBranches, getBranch } from "../../service";
 import Modal from "./Modal";
+import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
 const SelectBranch = ({ state, setState, error }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
+	const authorizationHeaders = useAuthorizationHeaders();
 
 	const toggle = () => setModal(!modal);
 
 	const fetchBranches = () => {
-		getBranches(state.customer_id)
+		getBranches(state.customer_id, authorizationHeaders)
 			.then((res) => {
 				setData({
 					name: "branches",
@@ -23,7 +25,7 @@ const SelectBranch = ({ state, setState, error }) => {
 	};
 
 	const fetchBranch = (id) => {
-		getBranch(id)
+		getBranch(id, authorizationHeaders)
 			.then((res) => {
 				const data = res.rows[0];
 				setState({

@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
 import { getCustomers, getJobsCustomer } from "../../service";
 import Modal from "./Modal";
+import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
 const SelectCustomer = ({ state, setState, error }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
+	const authorizationHeaders = useAuthorizationHeaders();
+
 	const toggle = () => setModal(!modal);
 
 	const fetchCustomers = () => {
-		getCustomers()
+		getCustomers(authorizationHeaders)
 			.then((res) => {
 				setData({
 					name: "customers",
@@ -22,7 +25,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 	};
 
 	const fetchCustomer = (id) => {
-		getJobsCustomer(id)
+		getJobsCustomer(id, authorizationHeaders)
 			.then((res) => {
 				const data = res.rows[0];
 				setState({

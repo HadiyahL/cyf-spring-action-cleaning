@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { postBranch, putBranch } from "../../service";
 import SelectWorker from "../CreateJob/SelectWorker";
+import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
 const BranchForm = ({
 	state,
@@ -36,11 +37,12 @@ const BranchForm = ({
 	const [mainBranchState, setMainBranchState] = useState(
 		main_branch_id === branch_id
 	);
+	const authorizationHeaders = useAuthorizationHeaders();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!state.branch_id) {
-			postBranch(state.customer_id, state)
+			postBranch(state.customer_id, state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
@@ -60,7 +62,7 @@ const BranchForm = ({
 					console.error(e);
 				});
 		} else {
-			putBranch(branch_id, customer_id, state)
+			putBranch(branch_id, customer_id, state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
