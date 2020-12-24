@@ -53,3 +53,16 @@ export const checkPermission = (permission) => (req, res, next) => {
 
 	res.status(401).json({ error: { message: "Unauthorized" } });
 };
+
+/*
+	Comment out above two functions and uncomment below to ignore authentication checks.
+*/
+
+// export const checkAuth = (req, res, next) => {
+// 	console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
+// 	next();
+// };
+//
+// export const checkPermission = () => (req, res, next) => {
+// 	next();
+// };
