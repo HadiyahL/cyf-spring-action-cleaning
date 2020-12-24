@@ -9,7 +9,7 @@ const HomePage = () => {
 		return <Jobs />;
 	} else {
 		return (
-			<div className="display-5">
+			<div className="h1">
 				Create something for this homepage hero section for not authenticated
 				visitors.
 			</div>
