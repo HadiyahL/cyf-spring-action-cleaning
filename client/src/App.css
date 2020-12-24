@@ -6,3 +6,12 @@
     font-weight: 600;
     letter-spacing: 1px;
 }
+
+.total {
+    font-weight: bold;
+    text-align: right;
+}
+
+.totalTime {
+    font-weight: bold;
+}
