@@ -6,6 +6,10 @@ import {
 	NavbarBrand,
 	Nav,
 	NavItem,
+	UncontrolledDropdown,
+	DropdownMenu,
+	DropdownItem,
+	DropdownToggle,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -29,7 +33,7 @@ const Navigation = () => {
 								className="text-decoration-none link text-secondary "
 								to="/customers"
 							>
-								Client{" "}
+                Client{" "}
 							</Link>
 						</NavItem>
 						<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center">
@@ -37,7 +41,7 @@ const Navigation = () => {
 								className="text-decoration-none link text-secondary "
 								to="/workers"
 							>
-								Cleaners{" "}
+                Cleaners{" "}
 							</Link>
 						</NavItem>
 						<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center">
@@ -45,16 +49,37 @@ const Navigation = () => {
 								className="text-decoration-none link text-secondary "
 								to="/jobs"
 							>
-								Jobs
+                Jobs
 							</Link>
 						</NavItem>
 						<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center">
-							<Link
+							<UncontrolledDropdown
+								nav
+								inNavbar
 								className="text-decoration-none link text-secondary "
-								to="/reports"
 							>
-								Reports
-							</Link>
+								<DropdownToggle nav caret className="p-0">
+                  Reports
+								</DropdownToggle>
+								<DropdownMenu right>
+									<DropdownItem>
+										<Link
+											className="text-decoration-none link text-secondary "
+											to="/workers_report"
+										>
+                      Cleaners
+										</Link>
+									</DropdownItem>
+									<DropdownItem>
+										<Link
+											className="text-decoration-none link text-secondary "
+											to="/customers_report"
+										>
+                      Clients
+										</Link>
+									</DropdownItem>
+								</DropdownMenu>
+							</UncontrolledDropdown>
 						</NavItem>
 					</Nav>
 				</Collapse>
