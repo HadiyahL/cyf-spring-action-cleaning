@@ -2,6 +2,7 @@
 import { Router } from "express";
 import { body, check, validationResult } from "express-validator";
 import db from "../db";
+import formatJobs from "../util/formatJobs";
 
 const router = new Router();
 
@@ -29,14 +30,14 @@ router.get("/jobs/:id", (req, res, next) => {
 
 router.get("/jobs", (_, res, next) => {
 	db.query(
-		`SELECT j.id, j.status, j.date_created,b.address, j.visit_on, j.visit_time, j.pay_rate, j.details, j.start_time, j.end_time, c.name customer, w.name worker
+		`SELECT j.*, b.address, c.name customer, w.name worker
 		FROM jobs j 
 		INNER JOIN branches b ON j.branch_id=b.id 
 		INNER JOIN customers c ON j.customer_id=c.id
 		INNER JOIN workers w ON w.id=j.worker_id ORDER BY visit_on, date_created`
 	)
 		.then(({ rows }) => {
-			return res.json({ jobs: rows });
+			return res.json({ jobs: formatJobs(rows) });
 		})
 		.catch((e) => {
 			console.error(e);
