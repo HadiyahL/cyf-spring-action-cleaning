@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { SelectDateU, SelectWorker } from "../components";
+import { SelectDateU, SelectCustomer } from "../components";
 import { Form, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
-const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
+const CreateCustomerReport = ({ customer, customer_id, start_date, finish_date }) => {
 	const history = useHistory();
 	const date = new Date(), y = date.getFullYear(), m = date.getMonth();
 	const firstDay = new Date(y, m, 1);
@@ -12,8 +12,8 @@ const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
 
 	const [state, setState] = useState({
 
-		worker: worker || "",
-		worker_id: worker_id || "",
+		customer: customer || "",
+		customer_id: customer_id || "",
 		start_date: start_date || firstDay,
 		finish_date: finish_date || lastDay,
 
@@ -23,7 +23,7 @@ const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(state);
-		history.push(`/result/${state.worker_id}/${state.start_date}/${state.finish_date}/${state.worker}/worker`);
+		history.push(`/result/${state.customer_id}/${state.start_date}/${state.finish_date}/${state.customer}/customer`);
 
 	};
 
@@ -36,7 +36,7 @@ const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
 	return (
 
 		<Form onSubmit={handleSubmit}>
-			<SelectWorker state={state} setState={setState} error={errors.worker} />
+			<SelectCustomer state={state} setState={setState} error={errors.customer} />
 			<SelectDateU state={state} setState={setState} error={errors.start_date}  dateAttribute="start_date" attributeTitle="Start date" />
 			<SelectDateU state={state} setState={setState} error={errors.finish_date}  dateAttribute="finish_date" attributeTitle="Finish date" />
 			<Button color="primary" size="lg">
@@ -45,10 +45,10 @@ const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
 		</Form>
 	);
 };
-CreateWorkerReport.propTypes = {
-	worker: PropTypes.string,
-	worker_id: PropTypes.number,
+CreateCustomerReport.propTypes = {
+	customer: PropTypes.string,
+	customer_id: PropTypes.number,
 	start_date: PropTypes.string,
 	finish_date: PropTypes.string,
 };
-export default CreateWorkerReport;
+export default CreateCustomerReport;

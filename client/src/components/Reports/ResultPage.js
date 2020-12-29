@@ -8,10 +8,12 @@ import ResultTableBody from "./ResultTableBody";
 
 const ResultPage = () => {
 
-	const { id, start, finish, name } = useParams();
-	const { data, error, isLoading } = useFetch(`/reports/worker/${id}/${start}/${finish}`);
-	const total_data = useFetch(`/reports/worker_total/${id}/${start}/${finish}`);
-	
+	const { id, start, finish, name, type } = useParams();
+
+
+	const { data, error, isLoading } = useFetch(`/reports/${type}/${id}/${start}/${finish}`);
+	const total_data = useFetch(`/reports/${type}_total/${id}/${start}/${finish}`);
+
 
 	if (total_data.error || error) {
 		return <div>Error</div>;
@@ -27,8 +29,8 @@ const ResultPage = () => {
 					{"Work duration from: "+start+" to: "+finish}
 				</h3>
 				<Table striped hover responsive>
-					<ResultTableHead labels={["Customer", "Address", "Duration"]} />
-					<ResultTableBody data={data} bold="" />
+					<ResultTableHead labels={[["Address", "Cleaner", "Duration"],["Customer", "Address", "Duration"]][Number(type==="worker")]} />
+					<ResultTableBody data={data} bold="" type={type} />
 
 					<ResultTableBody data={total_data.data} bold="total" />
 

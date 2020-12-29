@@ -12,7 +12,8 @@ import {
 	CreateJob,
 	EditJob,
 	EditWorker,
-	Reports,
+	WorkerReports,
+	CustomerReports,
 } from "./pages";
 import{ ResultPage } from "./components";
 
@@ -48,10 +49,13 @@ export function App() {
 				<Route path="/edit-jobs/:id">
 					<EditJob />
 				</Route>
-				<Route path="/reports">
-					<Reports />
+				<Route path="/workers_report">
+					<WorkerReports />
 				</Route>
-				<Route path="/result/:id/:start/:finish/:name">
+				<Route path="/customers_report">
+					<CustomerReports />
+				</Route>
+				<Route path="/result/:id/:start/:finish/:name/:type">
 					<ResultPage />
 				</Route>
 			</Switch>

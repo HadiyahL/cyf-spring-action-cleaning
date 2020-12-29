@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const ResultTableBody = ({ data, bold }) => {
+const ResultTableBody = ({ data, bold, type }) => {
 
 	const formatDate = (h,m) => {
 	  return (
@@ -16,19 +16,20 @@ const ResultTableBody = ({ data, bold }) => {
 					<tr
 						key={ind}
 					>
-						<th scope="row">{name}</th>
-						<td className={bold}>{bold ? "Total duration:":address}</td>
+						<th scope="row">{type==="worker" ? name  : address }</th>
+						<td className={bold}>{bold ? "Total duration:": type==="worker" ? address :name  }</td>
 						<td className={bold+"Time"}>{formatDate(duration.hours, duration.minutes)}</td>
 					</tr>
 				)
 			)}
-		
+
 		</tbody>
 	);
 };
 
 ResultTableBody.propTypes = {
 	data: PropTypes.object,
-	total_data: PropTypes.object,
+	bold: PropTypes.string,
+	type: PropTypes.string,
 };
 export default ResultTableBody;
