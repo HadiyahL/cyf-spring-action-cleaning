@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const ResultTableHead = ({ labels }) => {
 
@@ -9,6 +10,10 @@ const ResultTableHead = ({ labels }) => {
 			</tr>
 		</thead>
 	);
+};
+
+ResultTableHead.propTypes = {
+	labels: PropTypes.array,
 };
 
 export default ResultTableHead;

@@ -37,6 +37,8 @@ SelectDateU.propTypes = {
 	state: PropTypes.object.isRequired,
 	setState: PropTypes.func.isRequired,
 	error: PropTypes.string,
+	dateAttribute: PropTypes.string,
+	attributeTitle: PropTypes.string,
 };
 
 export default SelectDateU;

@@ -18,7 +18,6 @@ const CreateCustomerReport = ({ customer, customer_id, start_date, finish_date }
 		finish_date: finish_date || lastDay,
 
 	});
-	const [errors, setErrors] = useState({});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -27,18 +26,13 @@ const CreateCustomerReport = ({ customer, customer_id, start_date, finish_date }
 
 	};
 
-	// 	const formatErrors = (errors) =>
-	// 		errors.reduce((acc, error) => {
-	// 			acc[error.param] = error.msg;
-	// 			return acc;
-	// 		}, {});
 
 	return (
 
 		<Form onSubmit={handleSubmit}>
-			<SelectCustomer state={state} setState={setState} error={errors.customer} />
-			<SelectDateU state={state} setState={setState} error={errors.start_date}  dateAttribute="start_date" attributeTitle="Start date" />
-			<SelectDateU state={state} setState={setState} error={errors.finish_date}  dateAttribute="finish_date" attributeTitle="Finish date" />
+			<SelectCustomer state={state} setState={setState} />
+			<SelectDateU state={state} setState={setState}   dateAttribute="start_date" attributeTitle="Start date" />
+			<SelectDateU state={state} setState={setState}  dateAttribute="finish_date" attributeTitle="Finish date" />
 			<Button color="primary" size="lg">
 				Run
 			</Button>
