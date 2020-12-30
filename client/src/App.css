@@ -1,5 +1,5 @@
 .navbar {
-    height: 78px;
+	min-height: 78px;
 }
 
 .navbar_logo {
