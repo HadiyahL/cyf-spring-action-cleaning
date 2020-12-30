@@ -1,5 +1,4 @@
 import { Router } from "express";
-// import { body } from "express-validator";
 import db from "../db";
 
 const router = new Router();
@@ -21,8 +20,6 @@ router.get("/reports/customer/:id", (req, res, next) => {
 
 router.get("/reports/worker/:worker_id/:start/:finish", (req, res, next) => {
 	const { worker_id, start, finish } = req.params;
-	// const { start_date, finish_date } = req.body;
-	//console.log(start);
 	db.query(
 		`SELECT  c.name, b.address, SUM(j.end_time - j.start_time) duration 
 	FROM jobs j INNER JOIN workers w ON j.worker_id=w.id INNER JOIN branches b ON j.branch_id=b.id 
@@ -58,8 +55,6 @@ router.get("/reports/worker_total/:worker_id/:start/:finish", (req, res, next) =
 
 router.get("/reports/customer/:customer_id/:start/:finish", (req, res, next) => {
 	const { customer_id, start, finish } = req.params;
-	// const { start_date, finish_date } = req.body;
-	//console.log(start);
 	db.query(
 		`SELECT   b.address, w.name, SUM(j.end_time - j.start_time) duration 
 	FROM jobs j INNER JOIN workers w ON j.worker_id=w.id INNER JOIN branches b ON j.branch_id=b.id 
