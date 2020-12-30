@@ -6,24 +6,19 @@ import { useHistory } from "react-router-dom";
 
 const CreateCustomerReport = ({ customer, customer_id, start_date, finish_date }) => {
 	const history = useHistory();
-	const date = new Date(), y = date.getFullYear(), m = date.getMonth();
-	const firstDay = new Date(y, m, 1);
-	const lastDay = new Date(y, m + 1, 0);
 
 	const [state, setState] = useState({
 
 		customer: customer || "",
 		customer_id: customer_id || "",
-		start_date: start_date || firstDay,
-		finish_date: finish_date || lastDay,
+		start_date: start_date || "",
+		finish_date: finish_date || "",
 
 	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(state);
 		history.push(`/result/${state.customer_id}/${state.start_date}/${state.finish_date}/${state.customer}/customer`);
-
 	};
 
 

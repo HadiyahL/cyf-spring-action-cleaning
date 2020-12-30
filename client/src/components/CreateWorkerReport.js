@@ -6,23 +6,20 @@ import { useHistory } from "react-router-dom";
 
 const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
 	const history = useHistory();
-	const date = new Date(), y = date.getFullYear(), m = date.getMonth();
-	const firstDay = new Date(y, m, 1);
-	const lastDay = new Date(y, m + 1, 0);
+
 
 	const [state, setState] = useState({
 
 		worker: worker || "",
 		worker_id: worker_id || "",
-		start_date: start_date || firstDay,
-		finish_date: finish_date || lastDay,
+		start_date: start_date || "",
+		finish_date: finish_date || "",
 
 	});
 
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(state);
 		history.push(`/result/${state.worker_id}/${state.start_date}/${state.finish_date}/${state.worker}/worker`);
 
 	};

@@ -10,6 +10,7 @@ import {
 	DropdownMenu,
 	DropdownItem,
 	DropdownToggle,
+	List,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
@@ -53,33 +54,35 @@ const Navigation = () => {
 							</Link>
 						</NavItem>
 						<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center">
-							<UncontrolledDropdown
-								nav
-								inNavbar
-								className="text-decoration-none link text-secondary "
-							>
-								<DropdownToggle nav caret className="p-0">
+							<List>
+								<UncontrolledDropdown
+									nav
+									inNavbar
+									className="text-decoration-none link text-secondary "
+								>
+									<DropdownToggle nav caret className="p-0">
                   Reports
-								</DropdownToggle>
-								<DropdownMenu right>
-									<DropdownItem>
-										<Link
-											className="text-decoration-none link text-secondary "
-											to="/workers_report"
-										>
+									</DropdownToggle>
+									<DropdownMenu right>
+										<DropdownItem>
+											<Link
+												className="text-decoration-none link text-secondary "
+												to="/workers_report"
+											>
                       Cleaners
-										</Link>
-									</DropdownItem>
-									<DropdownItem>
-										<Link
-											className="text-decoration-none link text-secondary "
-											to="/customers_report"
-										>
+											</Link>
+										</DropdownItem>
+										<DropdownItem>
+											<Link
+												className="text-decoration-none link text-secondary "
+												to="/customers_report"
+											>
                       Clients
-										</Link>
-									</DropdownItem>
-								</DropdownMenu>
-							</UncontrolledDropdown>
+											</Link>
+										</DropdownItem>
+									</DropdownMenu>
+								</UncontrolledDropdown>
+							</List>
 						</NavItem>
 					</Nav>
 				</Collapse>
