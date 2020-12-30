@@ -12,6 +12,7 @@ import {
 	CreateJob,
 	EditJob,
 	EditWorker,
+	Recurring,
 } from "./pages";
 
 export function App() {
@@ -21,6 +22,9 @@ export function App() {
 			<Switch>
 				<Route path="/add-worker">
 					<CreateWorker />
+				</Route>
+				<Route path="/recurring">
+					<Recurring />
 				</Route>
 				<Route path="/add-customer">
 					<CreateCustomer />

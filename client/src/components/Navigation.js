@@ -27,6 +27,14 @@ const Navigation = () => {
 						<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center">
 							<Link
 								className="text-decoration-none link text-secondary "
+								to="/recurring"
+							>
+								Recurring{" "}
+							</Link>
+						</NavItem>
+						<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center">
+							<Link
+								className="text-decoration-none link text-secondary "
 								to="/customers"
 							>
 								Client{" "}

@@ -50,6 +50,11 @@ export const getBranch = async (id) => {
 	return response.data;
 };
 
+export const getJobs = async (start, end) => {
+	const response = await get(`/jobs/range?start=${start}&end=${end}`);
+	return response.data;
+};
+
 export const postJobs = async (data) => {
 	const response = await post("/jobs", data);
 	return response.data;

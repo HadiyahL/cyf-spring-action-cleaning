@@ -6,6 +6,32 @@ import formatJobs from "../util/formatJobs";
 
 const router = new Router();
 
+router.get("/jobs/range", (req, res, next) => {
+	console.log("req.query", req.query);
+	const {
+		query: { start, end },
+	} = req;
+
+	db.query(
+		`SELECT j.*, b.address, c.name customer, w.name worker
+		FROM jobs j
+		INNER JOIN branches b ON j.branch_id=b.id
+		INNER JOIN customers c ON j.customer_id=c.id
+		INNER JOIN workers w ON w.id=j.worker_id
+		WHERE j.visit_on >= $1 AND j.visit_on <= $2
+		`,
+		[start, end]
+	)
+		.then(({ rows }) => {
+			console.log("formatJobs(rows)", formatJobs(rows));
+			return res.json({ jobs: formatJobs(rows) });
+		})
+		.catch((e) => {
+			console.error(e);
+			next(e);
+		});
+});
+
 router.get("/jobs/:id", (req, res, next) => {
 	const { id } = req.params;
 
