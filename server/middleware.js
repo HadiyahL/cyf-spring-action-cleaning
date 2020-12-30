@@ -1,4 +1,6 @@
 import path from "path";
+import jwt from "express-jwt";
+import jwksRsa from "jwks-rsa";
 
 export const httpsOnly = () => (req, res, next) => {
 	if (!req.secure) {
@@ -21,3 +23,46 @@ export const pushStateRouting = (apiRoot, staticDir) => (req, res, next) => {
 	}
 	next();
 };
+
+// Authorization middleware. When used, the
+// Access Token must exist and be verified against
+// the Auth0 JSON Web Key Set
+export const checkAuth = jwt({
+	// Dynamically provide a signing key
+	// based on the kid in the header and
+	// the signing keys provided by the JWKS endpoint.
+	secret: jwksRsa.expressJwtSecret({
+		cache: true,
+		rateLimit: true,
+		jwksRequestsPerMinute: 5,
+		jwksUri: "https://dev-dfrupp50.eu.auth0.com/.well-known/jwks.json",
+	}),
+
+	// Validate the audience and the issuer.
+	audience: "https://springactioncleaning/",
+	issuer: "https://dev-dfrupp50.eu.auth0.com/",
+	algorithms: ["RS256"],
+});
+
+export const checkPermission = (permission) => (req, res, next) => {
+	const { permissions } = req.user;
+
+	if (permissions.includes(permission)) {
+		return next();
+	}
+
+	res.status(401).json({ error: { message: "Unauthorized" } });
+};
+
+/*
+	Comment out above two functions and uncomment below to ignore authentication checks.
+*/
+
+// export const checkAuth = (req, res, next) => {
+// 	console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
+// 	next();
+// };
+//
+// export const checkPermission = () => (req, res, next) => {
+// 	next();
+// };

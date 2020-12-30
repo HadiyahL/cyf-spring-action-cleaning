@@ -7,6 +7,7 @@ import customers from "./routes/customers";
 import workers from "./routes/workers";
 import jobs from "./routes/jobs";
 import branches from "./routes/branches";
+import reports from "./routes/reports";
 import { httpsOnly, logErrors, pushStateRouting } from "./middleware";
 
 const apiRoot = "/api";
@@ -33,6 +34,7 @@ app.use(apiRoot, customers);
 app.use(apiRoot, workers);
 app.use(apiRoot, jobs);
 app.use(apiRoot, branches);
+app.use(apiRoot, reports);
 
 app.use(express.static(staticDir));
 app.use(pushStateRouting(apiRoot, staticDir));

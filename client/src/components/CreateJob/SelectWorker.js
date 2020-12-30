@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
 import { getWorkers, getWorker } from "../../service";
 import Modal from "./Modal";
+import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
 const SelectWorker = ({ state, setState, error }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
+	const authorizationHeaders = useAuthorizationHeaders();
+
 	const toggle = () => setModal(!modal);
 
 	const fetchWorkers = () => {
-		getWorkers()
+		getWorkers(authorizationHeaders)
 			.then((res) => {
 				setData({
 					name: "workers",
@@ -22,7 +25,7 @@ const SelectWorker = ({ state, setState, error }) => {
 	};
 
 	const fetchWorker = (id) => {
-		getWorker(id)
+		getWorker(id, authorizationHeaders)
 			.then((res) => {
 				const data = res.rows[0];
 				setState({

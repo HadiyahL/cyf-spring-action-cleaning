@@ -65,17 +65,20 @@
     "webpack-merge": "^5.4.0"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.2.0",
     "@babel/runtime": "^7.12.5",
     "bootstrap": "^4.5.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
     "express-validator": "^6.8.0",
     "helmet": "^4.2.0",
+    "jwks-rsa": "^1.12.0",
     "luxon": "^1.25.0",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",
     "react-router-dom": "^5.2.0",
-    "reactstrap": "^8.7.1"
+    "reactstrap": "^8.8.1"
   },
   "engines": {
     "node": "^10 || ^12 || ^14"

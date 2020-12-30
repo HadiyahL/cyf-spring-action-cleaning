@@ -15,6 +15,7 @@ import {
 	SelectEndTime,
 } from "../components";
 import { postJobs, putJobs } from "../service";
+import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
 
 const Jobs = ({
 	customer,
@@ -49,22 +50,23 @@ const Jobs = ({
 	});
 	const [errors, setErrors] = useState({});
 	const history = useHistory();
+	const authorizationHeaders = useAuthorizationHeaders();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!job_id) {
-			postJobs(state)
+			postJobs(state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
 					} else {
-						history.push("/jobs");
 						clearForm();
+						history.push("/jobs");
 					}
 				})
 				.catch((err) => console.log(err));
 		} else {
-			putJobs(job_id, state)
+			putJobs(job_id, state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
