@@ -15,7 +15,10 @@ import {
 	EditJob,
 	EditWorker,
 	HomePage,
+	WorkerReports,
+	CustomerReports,
 } from "./pages";
+import { ResultPage } from "./components";
 
 export function App() {
 	const { isLoading, error } = useAuth0();
@@ -43,6 +46,12 @@ export function App() {
 				<ProtectedRoute path="/edit-worker/:id" component={EditWorker} />
 				<ProtectedRoute path="/create-job" component={CreateJob} />
 				<ProtectedRoute path="/edit-jobs/:id" component={EditJob} />
+				<ProtectedRoute path="/workers_report" component={WorkerReports} />
+				<ProtectedRoute path="/customers_report" component={CustomerReports} />
+				<ProtectedRoute
+					path="/result/:id/:start/:finish/:name/:type"
+					component={ResultPage}
+				/>
 			</Switch>
 		</>
 	);

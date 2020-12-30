@@ -40,7 +40,7 @@ router.get("/jobs", checkAuth, checkPermission("get:jobs"), (_, res, next) => {
 		FROM jobs j 
 		INNER JOIN branches b ON j.branch_id=b.id 
 		INNER JOIN customers c ON j.customer_id=c.id
-		INNER JOIN workers w ON w.id=j.worker_id`
+		INNER JOIN workers w ON w.id=j.worker_id ORDER BY visit_on, date_created`
 	)
 		.then(({ rows }) => {
 			return res.json({ jobs: formatJobs(rows) });
