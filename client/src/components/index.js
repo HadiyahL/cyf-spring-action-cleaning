@@ -18,4 +18,5 @@ export { default as PayRateInput } from "./CreateJob/PayRateInput";
 export { default as DetailsInput } from "./CreateJob/DetailsInput";
 export { default as SuccessAlert } from "./UI/SuccessAlert";
 export { default as AddNewButton } from "./UI/AddNewButton";
+export { default as Spinner } from "./UI/Spinner";
 export { default as ResultPage } from "./Reports/ResultPage";

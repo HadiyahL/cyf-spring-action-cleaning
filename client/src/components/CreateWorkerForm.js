@@ -12,6 +12,7 @@ import {
 	Col,
 } from "reactstrap";
 import { postWorkers, putWorkers } from "../service";
+import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
 
 const CreateWorkerForm = ({
 	name,
@@ -32,11 +33,12 @@ const CreateWorkerForm = ({
 	});
 	const [errors, setErrors] = useState({});
 	const history = useHistory();
+	const authorizationHeaders = useAuthorizationHeaders();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!worker_id) {
-			postWorkers(state)
+			postWorkers(state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));
@@ -49,7 +51,7 @@ const CreateWorkerForm = ({
 					console.error(e);
 				});
 		} else {
-			putWorkers(worker_id, state)
+			putWorkers(worker_id, state, authorizationHeaders)
 				.then((res) => {
 					if (res.errors) {
 						setErrors(formatErrors(res.errors));

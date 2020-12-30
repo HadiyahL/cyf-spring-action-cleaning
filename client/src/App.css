@@ -1,5 +1,24 @@
+ul {
+	text-decoration: none;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+a, a:hover, a:active {
+	text-decoration: none;
+}
+
+.navbar {
+	min-height: 78px;
+}
+
 .navbar_logo {
 	width: 60px;
+}
+
+.navbar_logo:hover {
+    cursor: pointer;
 }
 
 .link {
@@ -43,11 +62,4 @@
 		display: inline-block;
 	}
 
-}
-
-ul {
-	text-decoration: none;
-	list-style: none;
-	margin: 0;
-	padding: 0;
 }

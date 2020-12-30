@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { get } from "../api";
+import useAuthorizationHeaders from "./useAuthorizationHeaders";
 
 const useFetch = (url, trigger) => {
 	const [state, setState] = useState({
@@ -7,6 +8,7 @@ const useFetch = (url, trigger) => {
 		data: null,
 		error: null,
 	});
+	const authorizationHeaders = useAuthorizationHeaders();
 
 	useEffect(() => {
 		setState({
@@ -16,7 +18,7 @@ const useFetch = (url, trigger) => {
 		});
 		const fetchData = async () => {
 			try {
-				const res = await get(url);
+				const res = await get(url, authorizationHeaders);
 				setState({
 					isLoading: false,
 					data: res.data,
@@ -30,8 +32,8 @@ const useFetch = (url, trigger) => {
 				});
 			}
 		};
-		fetchData();
-	}, [setState, url, trigger]);
+		authorizationHeaders && fetchData();
+	}, [url, trigger, authorizationHeaders]);
 
 	return state;
 };
