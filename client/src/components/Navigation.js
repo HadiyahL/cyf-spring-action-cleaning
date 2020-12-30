@@ -80,22 +80,16 @@ const Navigation = () => {
 												Reports
 											</DropdownToggle>
 											<DropdownMenu right>
-												<DropdownItem>
-													<Link
-														className="text-decoration-none link text-secondary"
-														to="/workers_report"
-													>
+												<Link to="/workers_report">
+													<DropdownItem className="text-decoration-none link text-secondary text-center text-md-left">
 														Cleaners
-													</Link>
-												</DropdownItem>
-												<DropdownItem>
-													<Link
-														className="text-decoration-none link text-secondary"
-														to="/customers_report"
-													>
+													</DropdownItem>
+												</Link>
+												<Link to="/customers_report">
+													<DropdownItem className="text-decoration-none link text-secondary text-center text-md-left">
 														Clients
-													</Link>
-												</DropdownItem>
+													</DropdownItem>
+												</Link>
 											</DropdownMenu>
 										</UncontrolledDropdown>
 									</List>
