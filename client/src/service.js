@@ -50,6 +50,11 @@ export const getBranch = async (id) => {
 	return response.data;
 };
 
+// export const getWorkerReport = async (id, data) => {
+// 	const response = await get(`/reports/worker/${id}`, data);
+// 	return response.data;
+// };
+
 export const postJobs = async (data) => {
 	const response = await post("/jobs", data);
 	return response.data;

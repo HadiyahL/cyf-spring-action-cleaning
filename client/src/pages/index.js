@@ -7,3 +7,6 @@ export { default as Jobs } from "./Jobs.js";
 export { default as CreateJob } from "./CreateJob.js";
 export { default as EditJob } from "./EditJob.js";
 export { default as EditWorker } from "./EditWorker";
+export { default as WorkerReports } from "./WorkerReports";
+export { default as CustomerReports } from "./CustomerReports";
+

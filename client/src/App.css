@@ -7,6 +7,16 @@
 	letter-spacing: 1px;
 }
 
+
+.total {
+    font-weight: bold;
+    text-align: right;
+}
+
+.totalTime {
+    font-weight: bold;
+}
+
 .th-tile {
 	user-select: none;
 }
@@ -32,4 +42,12 @@
 	.time-input-label {
 		display: inline-block;
 	}
+
+}
+
+ul {
+	text-decoration: none;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
