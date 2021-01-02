@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Table } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../UI/Spinner";
-import Modal from "./Modal";
+import BranchModal from "./BranchModal";
 import { sortDescByABC } from "../../util/helpers";
 
 const BranchesTable = ({
@@ -82,7 +82,7 @@ const BranchesTable = ({
 						))}
 					</tbody>
 				</Table>
-				<Modal
+				<BranchModal
 					isOpen={isOpen}
 					toggle={toggleEditModal}
 					state={state}
