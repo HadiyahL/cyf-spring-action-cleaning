@@ -128,6 +128,7 @@ const BranchForm = ({
 							placeholder="Enter address"
 							onChange={handleChange}
 							value={address}
+							required
 						/>
 						{errors.address && (
 							<FormText color="danger">{errors.address}</FormText>
