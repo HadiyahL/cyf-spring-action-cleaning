@@ -11,6 +11,7 @@ const useFetch = (url, trigger) => {
 	const authorizationHeaders = useAuthorizationHeaders();
 
 	useEffect(() => {
+		let isActive = true;
 		setState({
 			isLoading: true,
 			data: null,
@@ -19,20 +20,28 @@ const useFetch = (url, trigger) => {
 		const fetchData = async () => {
 			try {
 				const res = await get(url, authorizationHeaders);
-				setState({
-					isLoading: false,
-					data: res.data,
-					error: null,
-				});
+				if (isActive) {
+					setState({
+						isLoading: false,
+						data: res.data,
+						error: null,
+					});
+				}
 			} catch (error) {
-				setState({
-					isLoading: false,
-					data: null,
-					error,
-				});
+				if (isActive) {
+					setState({
+						isLoading: false,
+						data: null,
+						error,
+					});
+				}
 			}
 		};
 		authorizationHeaders && fetchData();
+
+		return () => {
+			isActive = false;
+		};
 	}, [url, trigger, authorizationHeaders]);
 
 	return state;
