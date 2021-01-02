@@ -1,5 +1,6 @@
 import { Router } from "express";
 import db from "../db";
+import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
 
@@ -18,9 +19,12 @@ router.get("/reports/customer/:id", (req, res, next) => {
 		});
 });
 
-router.get("/reports/worker/:worker_id/:start/:finish", (req, res, next) => {
-	const { worker_id, start, finish } = req.params;
-	db.query(
+router.get(
+	"/reports/worker/:worker_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:reports/worker"),
+	(req, res, next) => {
+		const { worker_id, start, finish } = req.params;
 		`SELECT  c.name, b.address, SUM(j.end_time - j.start_time) duration 
 	FROM jobs j INNER JOIN workers w ON j.worker_id=w.id INNER JOIN branches b ON j.branch_id=b.id 
 	INNER JOIN customers c ON j.customer_id=c.id 
@@ -35,9 +39,12 @@ router.get("/reports/worker/:worker_id/:start/:finish", (req, res, next) => {
 		});
 });
 
-
-router.get("/reports/worker_total/:worker_id/:start/:finish", (req, res, next) => {
-	const { worker_id, start, finish } = req.params;
+router.get(
+	"/reports/worker_total/:worker_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:reports/worker_total"),
+	(req, res, next) => {
+		const { worker_id, start, finish } = req.params;
 
 	db.query(
 		`SELECT  w.id , SUM(j.end_time - j.start_time) duration 
@@ -53,9 +60,12 @@ router.get("/reports/worker_total/:worker_id/:start/:finish", (req, res, next) =
 		});
 });
 
-router.get("/reports/customer/:customer_id/:start/:finish", (req, res, next) => {
-	const { customer_id, start, finish } = req.params;
-	db.query(
+router.get(
+	"/reports/customer/:customer_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:reports/customer"),
+	(req, res, next) => {
+		const { customer_id, start, finish } = req.params;
 		`SELECT   b.address, w.name, SUM(j.end_time - j.start_time) duration 
 	FROM jobs j INNER JOIN workers w ON j.worker_id=w.id INNER JOIN branches b ON j.branch_id=b.id 
 	INNER JOIN customers c ON j.customer_id=c.id 
@@ -70,8 +80,12 @@ router.get("/reports/customer/:customer_id/:start/:finish", (req, res, next) => 
 		});
 });
 
-router.get("/reports/customer_total/:customer_id/:start/:finish", (req, res, next) => {
-	const { customer_id, start, finish } = req.params;
+router.get(
+	"/reports/customer_total/:customer_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:reports/customer_total"),
+	(req, res, next) => {
+		const { customer_id, start, finish } = req.params;
 
 	db.query(
 		`SELECT  SUM(j.end_time - j.start_time) duration 
