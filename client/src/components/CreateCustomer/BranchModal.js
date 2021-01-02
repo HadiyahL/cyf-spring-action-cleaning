@@ -14,7 +14,9 @@ const BranchModal = ({
 	return (
 		<div>
 			<Modal isOpen={isOpen} toggle={toggle}>
-				<ModalHeader toggle={toggle}>Add address</ModalHeader>
+				<ModalHeader toggle={toggle} className="px-md-4">
+					Add address
+				</ModalHeader>
 				<ModalBody>
 					<BranchForm
 						state={state}
@@ -24,7 +26,7 @@ const BranchModal = ({
 						branchSaved={branchSaved}
 					/>
 				</ModalBody>
-				<ModalFooter>
+				<ModalFooter className="px-md-4">
 					<Button color="secondary" onClick={toggle}>
 						Close
 					</Button>

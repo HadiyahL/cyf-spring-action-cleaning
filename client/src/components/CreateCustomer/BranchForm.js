@@ -117,7 +117,7 @@ const BranchForm = ({
 
 	return (
 		<Row className="justify-content-center">
-			<Col xs="12" sm="12" md="8" lg="6" xl="6">
+			<Col className="px-md-4">
 				<Form onSubmit={handleSubmit}>
 					<FormGroup>
 						<Label for="address">Address</Label>
@@ -228,7 +228,7 @@ const BranchForm = ({
 							<FormText color="danger">{errors.details}</FormText>
 						)}
 					</FormGroup>
-					<SelectWorker state={state} setState={setState} />
+					<SelectWorker state={state} setState={setState} size="md" />
 					<Button color="primary">{branch_id ? "Edit" : "Save"}</Button>
 				</Form>
 			</Col>
