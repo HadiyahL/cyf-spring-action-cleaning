@@ -95,7 +95,7 @@ const BranchForm = ({
 			address: "",
 			duration: "1",
 			contact_name: "",
-			visit_time: undefined,
+			visit_time: "",
 			details: "",
 			contact_phone: "",
 			branch_id: null,
@@ -122,6 +122,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="address">Address</Label>
 						<Input
+							invalid={!!errors.address}
 							type="text"
 							name="address"
 							id="address"
@@ -148,6 +149,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="contact_name">Name</Label>
 						<Input
+							invalid={!!errors.contact_name}
 							type="text"
 							name="contact_name"
 							id="contact_name"
@@ -162,6 +164,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="phone">Phone Number</Label>
 						<Input
+							invalid={!!errors.contact_phone}
 							type="text"
 							name="contact_phone"
 							id="phone"
@@ -176,7 +179,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="visit_time">Default visit time</Label>
 						<Input
-							// invalid={!!error}
+							invalid={!!errors.visit_time}
 							type="time"
 							name="visit_time"
 							id="visit_time"
@@ -192,7 +195,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="duration">Default duration of visit</Label>
 						<Input
-							// invalid={!!error}
+							invalid={!!errors.duration}
 							type="select"
 							name="duration"
 							id="duration"
@@ -217,6 +220,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="details">Details</Label>
 						<Input
+							invalid={!!errors.details}
 							name="details"
 							id="details"
 							placeholder="Enter additional information"

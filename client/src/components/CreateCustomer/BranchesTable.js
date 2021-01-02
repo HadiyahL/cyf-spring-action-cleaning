@@ -40,7 +40,7 @@ const BranchesTable = ({
 			details: details ?? "",
 			duration: duration ?? "1",
 			worker_id: worker_id,
-			visit_time: visit_time ?? undefined,
+			visit_time: visit_time ?? "",
 			branch_id: branchId,
 		});
 		toggleEditModal();
