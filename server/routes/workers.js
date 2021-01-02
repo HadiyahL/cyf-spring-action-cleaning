@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
+import { PhoneNumberUtil } from "google-libphonenumber";
 import db from "../db";
 import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
+const phoneUtil = PhoneNumberUtil.getInstance();
 
 router.get(
 	"/workers",
@@ -47,6 +49,9 @@ router.post(
 		body("email", "Please provide a valid email").isEmail().trim(),
 		body("name", "Name is required").not().isEmpty().trim(),
 		body("address", "Address is required").not().isEmpty().trim(),
+		body("phone", "Not a valid GB number").custom((value) =>
+			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
+		),
 		body("phone", "Phone is required").not().isEmpty().trim(),
 		body("whatsapp", "Whatsapp is required").not().isEmpty().trim(),
 		body("contract", "Contract is required").isBoolean(),
@@ -88,6 +93,9 @@ router.put(
 		body("email", "Please provide a valid email").isEmail().trim(),
 		body("name", "Name is required").not().isEmpty().trim(),
 		body("address", "Address is required").not().isEmpty().trim(),
+		body("phone", "Not a valid GB number").custom((value) =>
+			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
+		),
 		body("phone", "Phone is required").not().isEmpty().trim(),
 		body("whatsapp", "Whatsapp is required").not().isEmpty().trim(),
 		body("contract", "Contract is required").isBoolean(),
