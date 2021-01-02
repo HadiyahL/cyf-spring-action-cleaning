@@ -1,8 +1,10 @@
+/* eslint-disable operator-linebreak */
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import db from "../db";
 import { checkAuth, checkPermission } from "../middleware";
+import { changeEmptyStringToNull } from "../util/transform";
 
 const router = new Router();
 const phoneUtil = PhoneNumberUtil.getInstance();
@@ -112,11 +114,11 @@ router.post(
 			contact_name,
 			contact_phone,
 			details,
-			visit_time,
 			duration,
 			worker_id,
 			main_branch,
 		} = req.body;
+		const visit_time = changeEmptyStringToNull(req.body.visit_time);
 
 		const client = await db.getClient();
 
@@ -186,7 +188,7 @@ router.put(
 	],
 	async (req, res, next) => {
 		const errors = validationResult(req);
-		console.log("errors :>> ", errors);
+
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
@@ -197,11 +199,12 @@ router.put(
 			contact_name,
 			contact_phone,
 			details,
-			visit_time,
 			duration,
 			worker_id,
 			main_branch,
 		} = req.body;
+
+		const visit_time = changeEmptyStringToNull(req.body.visit_time);
 
 		const client = await db.getClient();
 
