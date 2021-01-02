@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 
-const formatJobs = (jobs) =>
+export const formatJobs = (jobs) =>
 	jobs.map((job) => ({
 		...job,
 		visit_time: formatHours(job.visit_time),
@@ -11,7 +11,7 @@ const formatJobs = (jobs) =>
 		actual_duration: countActualDuration(job.start_time, job.end_time),
 	}));
 
-const countActualDuration = (startTime, endTime) => {
+export const countActualDuration = (startTime, endTime) => {
 	if (!startTime || !endTime) {
 		return null;
 	}
@@ -24,7 +24,7 @@ const countActualDuration = (startTime, endTime) => {
 	return result;
 };
 
-const formatHours = (hoursWithSeconds) => {
+export const formatHours = (hoursWithSeconds) => {
 	if (!hoursWithSeconds) {
 		return null;
 	}
@@ -32,7 +32,7 @@ const formatHours = (hoursWithSeconds) => {
 	return DateTime.fromSQL(hoursWithSeconds).toFormat("HH:mm");
 };
 
-const countVisitEnd = (startTime, duration) => {
+export const countVisitEnd = (startTime, duration) => {
 	if (!duration) {
 		return null;
 	}
@@ -42,12 +42,10 @@ const countVisitEnd = (startTime, duration) => {
 		.toFormat("HH:mm");
 };
 
-const intToHours = (numberOfHours) => {
+export const intToHours = (numberOfHours) => {
 	if (!numberOfHours) {
 		return null;
 	}
 
 	return `${numberOfHours < 10 ? `0${numberOfHours}` : numberOfHours}:00`;
 };
-
-export default formatJobs;
