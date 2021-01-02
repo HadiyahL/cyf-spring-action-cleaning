@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Table, Button } from "reactstrap";
 import Spinner from "./UI/Spinner";
 import useFetch from "../hooks/useFetch";
-import { sortDescByABC } from "../util/helpers";
+import { sortAscByABC } from "../util/helpers";
 
 const ShowWorkersTable = ({ trigger }) => {
 	const { data, isLoading, error } = useFetch("/workers", trigger);
@@ -18,7 +18,7 @@ const ShowWorkersTable = ({ trigger }) => {
 	} else if (isLoading) {
 		return <Spinner />;
 	} else {
-		const workers = sortDescByABC(data.workers, "name");
+		const workers = sortAscByABC(data.workers, "name");
 
 		return (
 			<Table striped responsive>

@@ -4,7 +4,7 @@ import { Table } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../UI/Spinner";
 import Modal from "./Modal";
-import { sortDescByABC } from "../../util/helpers";
+import { sortAscByABC } from "../../util/helpers";
 
 const BranchesTable = ({
 	state,
@@ -51,7 +51,7 @@ const BranchesTable = ({
 	} else if (isLoading) {
 		return <Spinner />;
 	} else {
-		const branches = sortDescByABC(data.rows, "address");
+		const branches = sortAscByABC(data.rows, "address");
 		return (
 			<div className="mt-5">
 				<h3>Client&apos;s addresses</h3>
