@@ -99,6 +99,7 @@ const CreateWorkerForm = ({
 					<FormGroup>
 						<Label for="name">Name</Label>
 						<Input
+							invalid={!!errors.name}
 							type="text"
 							name="name"
 							id="name"
@@ -111,6 +112,7 @@ const CreateWorkerForm = ({
 					<FormGroup>
 						<Label for="email">Email</Label>
 						<Input
+							invalid={!!errors.email}
 							type="email"
 							name="email"
 							id="email"
@@ -123,6 +125,7 @@ const CreateWorkerForm = ({
 					<FormGroup>
 						<Label for="address">Address</Label>
 						<Input
+							invalid={!!errors.address}
 							type="text"
 							name="address"
 							id="address"
@@ -137,6 +140,7 @@ const CreateWorkerForm = ({
 					<FormGroup>
 						<Label for="phone">Phone Number</Label>
 						<Input
+							invalid={!!errors.phone}
 							type="text"
 							name="phone"
 							id="phone"
@@ -149,6 +153,7 @@ const CreateWorkerForm = ({
 					<FormGroup>
 						<Label for="whatsapp">Whatsapp Number</Label>
 						<Input
+							invalid={!!errors.whatsapp}
 							type="text"
 							name="whatsapp"
 							id="whatsapp"
