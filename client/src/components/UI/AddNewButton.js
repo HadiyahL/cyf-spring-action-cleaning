@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
-const AddNewButton = ({ pathname }) => {
+const AddNewButton = ({ pathname, text = "Add new" }) => {
 	const history = useHistory();
 
 	const handleClick = () => {
@@ -12,7 +12,7 @@ const AddNewButton = ({ pathname }) => {
 	return (
 		<div className="d-flex justify-content-end mb-4">
 			<Button onClick={handleClick} color="success">
-				Add new
+				{text}
 			</Button>
 		</div>
 	);
@@ -20,6 +20,7 @@ const AddNewButton = ({ pathname }) => {
 
 AddNewButton.propTypes = {
 	pathname: PropTypes.string,
+	text: PropTypes.string,
 };
 
 export default AddNewButton;
