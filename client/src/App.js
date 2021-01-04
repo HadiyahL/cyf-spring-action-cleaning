@@ -53,7 +53,7 @@ export function App() {
 					path="/result/:id/:start/:finish/:name/:type"
 					component={ResultPage}
 				/>
-				<ProtectedRoute path="/recurring" component={Recurring} />
+				<ProtectedRoute path="/create-jobs" component={Recurring} />
 			</Switch>
 		</>
 	);
