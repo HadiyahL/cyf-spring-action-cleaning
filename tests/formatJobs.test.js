@@ -48,5 +48,10 @@ describe("Time formatting functions", () => {
 		expect(countActualDuration("12:00", "13:00")).toBe("01:00");
 		expect(countActualDuration("10:00", "12:00")).toBe("02:00");
 		expect(countActualDuration("13:45", "15:05")).toBe("01:20");
+		expect(countActualDuration("23:45", "01:05")).toBe("01:20");
+		expect(countActualDuration("23:00", "01:00")).toBe("02:00");
+		expect(countActualDuration("23:59", "00:00")).toBe("00:01");
+		expect(countActualDuration("00:01", "00:02")).toBe("00:01");
+		expect(countActualDuration("00:02", "00:02")).toBe("00:00");
 	});
 });

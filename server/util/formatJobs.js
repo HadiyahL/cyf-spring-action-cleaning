@@ -18,7 +18,15 @@ export const countActualDuration = (startTime, endTime) => {
 
 	const end = DateTime.fromSQL(endTime);
 	const start = DateTime.fromSQL(startTime);
-	const difference = end.diff(start, ["hours", "minutes"]);
+	let difference = end.diff(start, ["hours", "minutes"]);
+
+	// unlikely to happen but this accounts for
+	// when cleaner worked from one day into another (23: 00 -> 01: 00)
+	if (difference.values.minutes < 0) {
+		difference = difference.plus({ hours: 23, minutes: 60 });
+	} else if (difference.values.hours < 0) {
+		difference = difference.plus({ hours: 24 });
+	}
 	const result = DateTime.fromObject(difference.values).toFormat("HH:mm");
 
 	return result;
