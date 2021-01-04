@@ -16,7 +16,7 @@ const Branches = ({ state, setState }) => {
 			address: "",
 			duration: "1",
 			contact_name: "",
-			visit_time: undefined,
+			visit_time: "",
 			details: "",
 			contact_phone: "",
 			branch_id: null,

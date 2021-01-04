@@ -1,9 +1,13 @@
+/* eslint-disable operator-linebreak */
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
+import { PhoneNumberUtil } from "google-libphonenumber";
 import db from "../db";
 import { checkAuth, checkPermission } from "../middleware";
+import { changeEmptyStringToNull } from "../util/transform";
 
 const router = new Router();
+const phoneUtil = PhoneNumberUtil.getInstance();
 
 router.get(
 	"/branches",
@@ -86,6 +90,11 @@ router.post(
 	[
 		body("address", "Address is required").not().isEmpty(),
 		body("contact_name", "Contact name is required").exists(),
+		body("contact_phone", "Not a valid GB number").custom(
+			(value) =>
+				value === "" ||
+				phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
+		),
 		body("contact_phone", "Contact phone is required").exists(),
 		body("details", "Details is required").exists(),
 		body(
@@ -105,11 +114,11 @@ router.post(
 			contact_name,
 			contact_phone,
 			details,
-			visit_time,
 			duration,
 			worker_id,
 			main_branch,
 		} = req.body;
+		const visit_time = changeEmptyStringToNull(req.body.visit_time);
 
 		const client = await db.getClient();
 
@@ -165,6 +174,11 @@ router.put(
 	[
 		body("address", "Address is required").not().isEmpty(),
 		body("contact_name", "Contact name is required").exists(),
+		body("contact_phone", "Not a valid GB number").custom(
+			(value) =>
+				value === "" ||
+				phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
+		),
 		body("contact_phone", "Contact number is required").exists(),
 		body("details", "Details is required").exists(),
 		body(
@@ -174,6 +188,7 @@ router.put(
 	],
 	async (req, res, next) => {
 		const errors = validationResult(req);
+
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
@@ -184,11 +199,12 @@ router.put(
 			contact_name,
 			contact_phone,
 			details,
-			visit_time,
 			duration,
 			worker_id,
 			main_branch,
 		} = req.body;
+
+		const visit_time = changeEmptyStringToNull(req.body.visit_time);
 
 		const client = await db.getClient();
 

@@ -95,7 +95,7 @@ const BranchForm = ({
 			address: "",
 			duration: "1",
 			contact_name: "",
-			visit_time: undefined,
+			visit_time: "",
 			details: "",
 			contact_phone: "",
 			branch_id: null,
@@ -117,17 +117,19 @@ const BranchForm = ({
 
 	return (
 		<Row className="justify-content-center">
-			<Col xs="12" sm="12" md="8" lg="6" xl="6">
+			<Col className="px-md-4">
 				<Form onSubmit={handleSubmit}>
 					<FormGroup>
 						<Label for="address">Address</Label>
 						<Input
+							invalid={!!errors.address}
 							type="text"
 							name="address"
 							id="address"
 							placeholder="Enter address"
 							onChange={handleChange}
 							value={address}
+							required
 						/>
 						{errors.address && (
 							<FormText color="danger">{errors.address}</FormText>
@@ -147,6 +149,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="contact_name">Name</Label>
 						<Input
+							invalid={!!errors.contact_name}
 							type="text"
 							name="contact_name"
 							id="contact_name"
@@ -161,6 +164,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="phone">Phone Number</Label>
 						<Input
+							invalid={!!errors.contact_phone}
 							type="text"
 							name="contact_phone"
 							id="phone"
@@ -175,7 +179,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="visit_time">Default visit time</Label>
 						<Input
-							// invalid={!!error}
+							invalid={!!errors.visit_time}
 							type="time"
 							name="visit_time"
 							id="visit_time"
@@ -191,7 +195,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="duration">Default duration of visit</Label>
 						<Input
-							// invalid={!!error}
+							invalid={!!errors.duration}
 							type="select"
 							name="duration"
 							id="duration"
@@ -216,6 +220,7 @@ const BranchForm = ({
 					<FormGroup>
 						<Label for="details">Details</Label>
 						<Input
+							invalid={!!errors.details}
 							name="details"
 							id="details"
 							placeholder="Enter additional information"
@@ -228,7 +233,7 @@ const BranchForm = ({
 							<FormText color="danger">{errors.details}</FormText>
 						)}
 					</FormGroup>
-					<SelectWorker state={state} setState={setState} />
+					<SelectWorker state={state} setState={setState} size="md" />
 					<Button color="primary">{branch_id ? "Edit" : "Save"}</Button>
 				</Form>
 			</Col>
