@@ -19,7 +19,7 @@ const CreateCustomer = ({
 		duration: "1",
 		address: "",
 		contact_name: "",
-		visit_time: undefined,
+		visit_time: "",
 		details: "",
 		contact_phone: "",
 		branch_id: null,

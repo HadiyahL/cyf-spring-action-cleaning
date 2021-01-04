@@ -57,6 +57,10 @@ a, a:hover, a:active {
 	max-width: 1500px;
 }
 
+.dropdown-link-item {
+	color: #6c757d;
+}
+
 .recurring-table {
 	min-width: 900px;
 }

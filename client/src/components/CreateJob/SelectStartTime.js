@@ -13,7 +13,7 @@ const SelectStartTime = ({ state, setState, error }) => {
 	const handleResetTime = () => {
 		setState({
 			...state,
-			start_time: undefined,
+			start_time: "",
 		});
 	};
 
@@ -28,7 +28,7 @@ const SelectStartTime = ({ state, setState, error }) => {
 					type="time"
 					name="time"
 					id="time"
-					value={state.start_time || ""}
+					value={state.start_time}
 					onChange={handleChange}
 					placeholder="HH:MM (24h clock)"
 					pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"

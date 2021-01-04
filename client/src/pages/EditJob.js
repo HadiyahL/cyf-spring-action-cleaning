@@ -4,7 +4,7 @@ import CreateJob from "./CreateJob";
 import Spinner from "../components/UI/Spinner";
 import useFetch from "../hooks/useFetch";
 
-const EditCustomer = () => {
+const EditJob = () => {
 	const { id } = useParams();
 	const { data, isLoading, error } = useFetch(`/jobs/${id}`);
 
@@ -55,4 +55,4 @@ const EditCustomer = () => {
 	}
 };
 
-export default EditCustomer;
+export default EditJob;
