@@ -45,17 +45,9 @@ const Navigation = () => {
 					<Nav className="ml-auto d-flex justify-content-end navItems" navbar>
 						{isAuthenticated ? (
 							<>
-								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center">
-									<Link
-										className="text-decoration-none link text-secondary "
-										to="/recurring"
-									>
-										Recurring{" "}
-									</Link>
-								</NavItem>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
 									<Link
-										className="text-decoration-none link text-secondary "
+										className="text-decoration-none link text-secondary"
 										to="/customers"
 									>
 										Client{" "}
@@ -63,7 +55,7 @@ const Navigation = () => {
 								</NavItem>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
 									<Link
-										className="text-decoration-none link text-secondary "
+										className="text-decoration-none link text-secondary"
 										to="/workers"
 									>
 										Cleaners{" "}
@@ -71,7 +63,7 @@ const Navigation = () => {
 								</NavItem>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
 									<Link
-										className="text-decoration-none link text-secondary "
+										className="text-decoration-none link text-secondary"
 										to="/jobs"
 									>
 										Jobs
@@ -82,7 +74,7 @@ const Navigation = () => {
 										<UncontrolledDropdown
 											nav
 											inNavbar
-											className="text-decoration-none link text-secondary "
+											className="text-decoration-none link text-secondary"
 										>
 											<DropdownToggle nav caret className="p-0">
 												Reports
