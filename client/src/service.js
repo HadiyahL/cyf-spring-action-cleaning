@@ -74,6 +74,11 @@ export const postJobs = async (data, options) => {
 	return response.data;
 };
 
+export const postBatchOfJobs = async (data, options) => {
+	const response = await post("/batch_of_jobs", data, options);
+	return response.data;
+};
+
 export const putJobs = async (id, data, options) => {
 	const response = await put(`/jobs/${id}`, data, options);
 	return response.data;

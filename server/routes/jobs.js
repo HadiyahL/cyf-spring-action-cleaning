@@ -8,7 +8,6 @@ import formatJobs from "../util/formatJobs";
 const router = new Router();
 
 router.get("/jobs/range", (req, res, next) => {
-	console.log("req.query", req.query);
 	const {
 		query: { start, end },
 	} = req;
@@ -24,7 +23,6 @@ router.get("/jobs/range", (req, res, next) => {
 		[start, end]
 	)
 		.then(({ rows }) => {
-			console.log("formatJobs(rows)", formatJobs(rows));
 			return res.json({ jobs: formatJobs(rows) });
 		})
 		.catch((e) => {
@@ -290,6 +288,56 @@ router.post(
 				console.error(e);
 				next(e);
 			});
+	}
+);
+
+router.post(
+	"/batch_of_jobs",
+	checkAuth,
+	checkPermission("post:batch_of_jobs"),
+	async (req, res, next) => {
+		const { jobs } = req.body;
+		const client = await db.getClient();
+
+		try {
+			jobs.forEach(
+				async ({
+					customer_id,
+					branch_id,
+					worker_id,
+					details,
+					visit_on,
+					visit_time,
+					pay_rate,
+					duration,
+				}) => {
+					await client.query(
+						`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, pay_rate, date_created, duration, start_time, end_time, status)
+				VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+						[
+							customer_id,
+							branch_id,
+							worker_id,
+							details,
+							visit_on,
+							visit_time,
+							pay_rate,
+							new Date(),
+							duration ? parseInt(duration.split(":")[0]) : null,
+							null,
+							null,
+							0,
+						]
+					);
+				}
+			);
+
+			return res.status(200).json({ success: true });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
