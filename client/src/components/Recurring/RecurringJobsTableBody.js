@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, Input } from "reactstrap";
 import { plusDayForJob, minusDayForJob } from "../../util/helpers";
+import ChangeWorkerButton from "./ChangeWorkerButton";
 import PlusIcon from "../UI/PlusIcon";
 import MinusIcon from "../UI/MinusIcon";
 
@@ -57,7 +58,18 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 				<tr key={id}>
 					<td className="align-middle">{customer}</td>
 					<td className="align-middle">{address}</td>
-					<td className="align-middle">{worker}</td>
+					<td className="align-middle">
+						{state.workers ? (
+							<ChangeWorkerButton
+								state={state}
+								setState={setState}
+								id={id}
+								text={worker}
+							/>
+						) : (
+							worker
+						)}
+					</td>
 					<td className="align-middle">
 						<Button outline onClick={() => handleMinusDay(id)} className="mr-3">
 							<MinusIcon />
