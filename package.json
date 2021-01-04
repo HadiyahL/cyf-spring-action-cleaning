@@ -74,6 +74,7 @@
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
     "express-validator": "^6.8.0",
+    "google-libphonenumber": "^3.2.15",
     "helmet": "^4.2.0",
     "jwks-rsa": "^1.12.0",
     "luxon": "^1.25.0",

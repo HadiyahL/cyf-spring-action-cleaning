@@ -50,7 +50,7 @@ const Navigation = () => {
 										className="text-decoration-none link text-secondary "
 										to="/customers"
 									>
-										Client{" "}
+										Clients{" "}
 									</Link>
 								</NavItem>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
@@ -74,19 +74,19 @@ const Navigation = () => {
 										<UncontrolledDropdown
 											nav
 											inNavbar
-											className="text-decoration-none link text-secondary "
+											className="text-decoration-none link text-secondary"
 										>
 											<DropdownToggle nav caret className="p-0">
 												Reports
 											</DropdownToggle>
 											<DropdownMenu right>
 												<Link to="/workers_report">
-													<DropdownItem className="text-decoration-none link text-secondary text-center text-md-left">
+													<DropdownItem className="text-decoration-none link dropdown-link-item text-center text-md-left">
 														Cleaners
 													</DropdownItem>
 												</Link>
 												<Link to="/customers_report">
-													<DropdownItem className="text-decoration-none link text-secondary text-center text-md-left">
+													<DropdownItem className="text-decoration-none link dropdown-link-item text-center text-md-left">
 														Clients
 													</DropdownItem>
 												</Link>

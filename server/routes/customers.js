@@ -1,9 +1,11 @@
 import { Router } from "express";
 import { body, validationResult } from "express-validator";
+import { PhoneNumberUtil } from "google-libphonenumber";
 import db from "../db";
 import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
+const phoneUtil = PhoneNumberUtil.getInstance();
 
 router.get(
 	"/customers",
@@ -46,6 +48,9 @@ router.post(
 	[
 		body("email", "Please provide a valid email").isEmail(),
 		body("name", "Name is required").not().isEmpty(),
+		body("phone_number", "Not a valid GB number").custom((value) =>
+			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
+		),
 		body("phone_number", "Phone is required").not().isEmpty(),
 	],
 	(req, res, next) => {
@@ -85,6 +90,9 @@ router.put(
 	[
 		body("email", "Please provide a valid email").isEmail(),
 		body("name", "Name is required").not().isEmpty(),
+		body("phone_number", "Not a valid GB number").custom((value) =>
+			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
+		),
 		body("phone_number", "Phone is required").not().isEmpty(),
 		body(
 			"main_branch_id",

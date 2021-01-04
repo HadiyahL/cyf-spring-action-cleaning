@@ -25,7 +25,6 @@ const PayRateInput = ({ state, setState, error }) => {
 					value={state.pay_rate}
 					pattern="^\d+(\.\d+)?$"
 					onChange={handleChange}
-					required
 				/>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>

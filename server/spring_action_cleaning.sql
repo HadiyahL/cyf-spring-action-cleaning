@@ -1,10 +1,8 @@
 ALTER TABLE if exists customers DROP COLUMN if exists main_branch_id;
-drop table if exists job_codes;
 drop table if exists jobs;
 drop table if exists branches;
 drop table if exists workers;
 drop table if exists customers;
-drop table if exists admins;
 
 CREATE TABLE workers (
   id                    SERIAL PRIMARY KEY,
@@ -28,7 +26,7 @@ CREATE TABLE branches (
   address         VARCHAR(200) NOT NULL,
   contact_name    VARCHAR(100) NOT NULL,
   contact_phone   VARCHAR(50) NOT NULL,
-  details         VARCHAR(150),
+  details         VARCHAR(250),
   customer_id     INT REFERENCES customers(id),
   worker_id       INT REFERENCES workers(id),
   visit_time      TIME,
@@ -43,8 +41,7 @@ CREATE TABLE jobs (
   customer_id     INT REFERENCES customers(id),
   branch_id       INT REFERENCES branches(id),
   worker_id       INT REFERENCES workers(id),
-  unique_url      VARCHAR(10),
-  details         VARCHAR(1000),
+  details         VARCHAR(500),
   visit_on        DATE NOT NULL,
   visit_time      TIME (0) NOT NULL,
   status          INT NOT NULL DEFAULT 0,
@@ -53,20 +50,6 @@ CREATE TABLE jobs (
   duration        INT,
   pay_rate        FLOAT
 );
-
-CREATE TABLE job_codes (
-  id      SERIAL PRIMARY KEY,
-  code    VARCHAR(4),
-  job_id  INT REFERENCES jobs(id)
-);
-
-CREATE TABLE admins (
-  id          SERIAL PRIMARY KEY,
-  name        VARCHAR(100) NOT NULL,
-  email       VARCHAR(60) NOT NULL,
-  password    VARCHAR(200) NOT NULL
-);
-
 
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '997-883-3933', '34409 La Follette Pass', '852-452-4383', false);
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Codie Bamfield', 'cbamfield1@tumblr.com', '503-704-8699', '4 Continental Lane', '144-207-5560', true);
@@ -134,11 +117,7 @@ UPDATE customers SET main_branch_id=8 WHERE id=8;
 UPDATE customers SET main_branch_id=9 WHERE id=9;
 UPDATE customers SET main_branch_id=10 WHERE id=10;
 
-insert into admins (name, email, password) values ('Brandais Moyne', 'bmoyne0@state.gov', 'xQUXYIzjv8V');
-insert into admins (name, email, password) values ('Raquela Ramage', 'rramage1@salon.com', 'hBG6fkwhZN');
-insert into admins (name, email, password) values ('Agustin Challenger', 'achallenger2@godaddy.com', 'UQ3FcKNdI');
-
-insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 1, 1, 1, 'hsuJJU88Hi', '2020-12-21', '15:20', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate) values ('2020-12-09', 2, 22, 2, 'ji2298Hi9w', '2020-12-12', '15:20', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, unique_url, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 3, 3, 7, 'fvwei99ee9', '2020-12-12', '15:20', 10.5, 2);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 1, 1, 1, '2020-12-21', '15:20', 10);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 2, 22, 2, '2020-12-12', '15:20', 10);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 3, 3, 7, '2020-12-12', '15:20', 10.5, 2);
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5, 2);

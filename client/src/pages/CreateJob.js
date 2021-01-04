@@ -45,8 +45,8 @@ const Jobs = ({
 		visit_time: visit_time || "",
 		duration: duration || "1",
 		pay_rate: pay_rate || "",
-		start_time: start_time || undefined,
-		end_time: end_time || undefined,
+		start_time: start_time || "",
+		end_time: end_time || "",
 	});
 	const [errors, setErrors] = useState({});
 	const history = useHistory();

@@ -4,6 +4,7 @@ import { body, check, validationResult } from "express-validator";
 import { checkAuth, checkPermission } from "../middleware";
 import db from "../db";
 import { formatJobs } from "../util/formatJobs";
+import { changeEmptyStringToNull } from "../util/transform";
 
 const router = new Router();
 
@@ -16,12 +17,12 @@ router.get(
 
 		db.query(
 			`
-	SELECT j.*, c.name customer, b.address branch, w.name worker
-	FROM jobs j
-	INNER JOIN customers c ON j.customer_id=c.id
-	INNER JOIN branches b ON j.branch_id=b.id
-	INNER JOIN workers w ON j.worker_id=w.id
-	WHERE j.id=$1`,
+			SELECT j.*, c.name customer, b.address branch, w.name worker
+			FROM jobs j
+			INNER JOIN customers c ON j.customer_id=c.id
+			INNER JOIN branches b ON j.branch_id=b.id
+			INNER JOIN workers w ON j.worker_id=w.id
+			WHERE j.id=$1`,
 			[id]
 		)
 			.then(({ rows }) => {
@@ -190,23 +191,22 @@ router.post(
 			/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 		),
 		body("visit_time", "Visit time is required").not().isEmpty(),
-		body(
-			"pay_rate",
-			"Pay rate is not in a format of 10.50 or 10"
-		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
-		body("pay_rate", "Pay rate is required").not().isEmpty(),
+		body("pay_rate", "Pay rate is not in a format of 10.50 or 10").custom(
+			(value) => value === "" || /^\d+(\.\d+)?$/.test(value)
+		),
+		body("pay_rate", "Pay rate is required").exists(),
 		body("duration", "Duration is required").exists(),
 		body(
 			"start_time",
 			"Start time is not in a format of HH:MM (24h clock)"
 		).custom(
 			(value) =>
-				value === undefined ||
+				value === "" ||
 				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 		),
 		body("end_time", "End time is not in a format of HH:MM (24h clock)").custom(
 			(value) =>
-				value === undefined ||
+				value === "" ||
 				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 		),
 	],
@@ -222,15 +222,14 @@ router.post(
 			worker_id,
 			details,
 			visit_on,
-			visit_time,
-			pay_rate,
 			duration,
-			start_time,
-			end_time,
 		} = req.body;
+		const visit_time = changeEmptyStringToNull(req.body.visit_time);
+		const start_time = changeEmptyStringToNull(req.body.start_time);
+		const end_time = changeEmptyStringToNull(req.body.end_time);
+		const pay_rate = changeEmptyStringToNull(req.body.pay_rate);
 
 		const date = new Date();
-
 		const status = start_time && end_time ? 1 : 0;
 
 		db.query(
@@ -284,23 +283,22 @@ router.put(
 			/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 		),
 		body("visit_time", "Visit time is required").not().isEmpty(),
-		body(
-			"pay_rate",
-			"Pay rate is not in a format of 10.50 or 10"
-		).custom((value) => /^\d+(\.\d+)?$/.test(value)),
-		body("pay_rate", "Pay rate is required").not().isEmpty(),
+		body("pay_rate", "Pay rate is not in a format of 10.50 or 10").custom(
+			(value) => value === "" || /^\d+(\.\d+)?$/.test(value)
+		),
+		body("pay_rate", "Pay rate is required").exists(),
 		body("duration", "Duration is required").exists(),
 		body(
 			"start_time",
 			"Start time is not in a format of HH:MM (24h clock)"
 		).custom(
 			(value) =>
-				value === undefined ||
+				value === "" ||
 				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 		),
 		body("end_time", "End time is not in a format of HH:MM (24h clock)").custom(
 			(value) =>
-				value === undefined ||
+				value === "" ||
 				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 		),
 	],
@@ -318,12 +316,13 @@ router.put(
 			worker_id,
 			details,
 			visit_on,
-			visit_time,
-			pay_rate,
 			duration,
-			start_time,
-			end_time,
 		} = req.body;
+
+		const visit_time = changeEmptyStringToNull(req.body.visit_time);
+		const start_time = changeEmptyStringToNull(req.body.start_time);
+		const end_time = changeEmptyStringToNull(req.body.end_time);
+		const pay_rate = changeEmptyStringToNull(req.body.pay_rate);
 
 		const status = start_time && end_time ? 1 : 0;
 
