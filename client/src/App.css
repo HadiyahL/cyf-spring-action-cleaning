@@ -57,9 +57,10 @@ a, a:hover, a:active {
 	max-width: 1500px;
 }
 
-@media (min-width: 576px) {
-	.time-input-label {
-		display: inline-block;
-	}
+.recurring-table {
+	min-width: 900px;
+}
 
+.time-input {
+	max-width: 120px;
 }
