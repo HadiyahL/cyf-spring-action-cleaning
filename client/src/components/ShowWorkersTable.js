@@ -27,7 +27,7 @@ const ShowWorkersTable = ({ trigger }) => {
 		const workers = sortAscByABC(data.workers, "name");
 
 		return (
-			<Table striped responsive>
+			<Table striped hover responsive>
 				<thead>
 					<tr>
 						<th>#</th>
