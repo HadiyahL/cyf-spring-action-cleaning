@@ -3,7 +3,7 @@ import { Router } from "express";
 import { body, check, validationResult } from "express-validator";
 import { checkAuth, checkPermission } from "../middleware";
 import db from "../db";
-import formatJobs from "../util/formatJobs";
+import { formatJobs } from "../util/formatJobs";
 import { changeEmptyStringToNull } from "../util/transform";
 
 const router = new Router();
