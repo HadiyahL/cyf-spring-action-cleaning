@@ -12,31 +12,31 @@ import { DateTime } from "luxon";
 const JobsList = () => {
 	const { data, error, isLoading } = useFetch("/jobs");
 	const [state, setState] = useState({
-		start_time: DateTime.local().toISODate(),
-		end_time: "",
+		startDate: DateTime.local().toISODate(),
+		endDate: "",
 		status: "",
 	});
 	const [sortBy, setSortBy] = useState("visit_on");
 	const [isAscending, setIsAscending] = useState(null);
 
-	const { start_time, end_time, status } = state;
+	const { startDate, endDate, status } = state;
 
 	const filterByDate = (jobs) => {
 		const afterStartTime = (time) => {
-			if (!start_time) {
+			if (!startDate) {
 				return true;
 			}
 			const visitTime = new Date(time).getTime();
-			const startTime = new Date(start_time).getTime();
+			const startTime = new Date(startDate).getTime();
 			return visitTime >= startTime;
 		};
 
 		const beforeEndTime = (time) => {
-			if (!end_time) {
+			if (!endDate) {
 				return true;
 			}
 			const visitTime = new Date(time).getTime();
-			const endTime = new Date(end_time).getTime();
+			const endTime = new Date(endDate).getTime();
 			return visitTime <= endTime;
 		};
 
