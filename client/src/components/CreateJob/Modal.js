@@ -10,8 +10,9 @@ import {
 	Button,
 } from "reactstrap";
 import Spinner from "../UI/Spinner";
+import FilterInput from "../UI/FilterInput";
 
-const ModalComponent = ({ isOpen, toggle, data }) => {
+const ModalComponent = ({ isOpen, toggle, data, setData, filterBy }) => {
 	return (
 		<div>
 			<Modal isOpen={isOpen} toggle={toggle}>
@@ -19,6 +20,7 @@ const ModalComponent = ({ isOpen, toggle, data }) => {
 					<>
 						<ModalHeader toggle={toggle}>Select {data.name}</ModalHeader>
 						<ModalBody>
+							<FilterInput setData={setData} filterBy={filterBy} />
 							<ListGroup>
 								{data.data.map((item) => {
 									return (
@@ -55,6 +57,8 @@ ModalComponent.propTypes = {
 	toggle: PropTypes.func.isRequired,
 	isOpen: PropTypes.bool.isRequired,
 	data: PropTypes.object,
+	setData: PropTypes.func,
+	filterBy: PropTypes.string,
 };
 
 export default ModalComponent;
