@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Table, Button } from "reactstrap";
+import { Table } from "reactstrap";
 import Spinner from "./UI/Spinner";
 import useFetch from "../hooks/useFetch";
 import { sortAscByABC } from "../util/helpers";
@@ -13,6 +13,12 @@ const ShowWorkersTable = ({ trigger }) => {
 		history.push(`/edit-worker/${id}`);
 	};
 
+	const handleKeyPress = (id, e) => {
+		if (e.key === "Enter") {
+			history.push(`/edit-worker/${id}`);
+		}
+	};
+
 	if (error) {
 		return <div>Oops, something wrong.</div>;
 	} else if (isLoading) {
@@ -21,7 +27,7 @@ const ShowWorkersTable = ({ trigger }) => {
 		const workers = sortAscByABC(data.workers, "name");
 
 		return (
-			<Table striped responsive>
+			<Table striped hover responsive>
 				<thead>
 					<tr>
 						<th>#</th>
@@ -30,29 +36,31 @@ const ShowWorkersTable = ({ trigger }) => {
 						<th>Email</th>
 						<th>Phone</th>
 						<th>WhatsApp</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					{workers.map((worker, i) => {
-						return (
-							<tr key={worker.id}>
-								<th scope="row" className="align-middle">
-									{i + 1}
-								</th>
-								<td className="align-middle">{worker.name}</td>
-								<td className="align-middle">{worker.address}</td>
-								<td className="align-middle">{worker.email}</td>
-								<td className="align-middle">{worker.phone_number}</td>
-								<td className="align-middle">{worker.whatsapp}</td>
-								<td className="align-middle">
-									<Button size="sm" onClick={() => handleClick(worker.id)}>
-										EDIT
-									</Button>
-								</td>
-							</tr>
-						);
-					})}
+					{workers.map(
+						({ id, name, address, email, phone_number, whatsapp }, i) => {
+							return (
+								<tr
+									key={id}
+									role="button"
+									onClick={() => handleClick(id)}
+									onKeyPress={(e) => handleKeyPress(id, e)}
+									tabIndex={0}
+								>
+									<th scope="row" className="align-middle">
+										{i + 1}
+									</th>
+									<td className="align-middle">{name}</td>
+									<td className="align-middle">{address}</td>
+									<td className="align-middle">{email}</td>
+									<td className="align-middle">{phone_number}</td>
+									<td className="align-middle">{whatsapp}</td>
+								</tr>
+							);
+						}
+					)}
 				</tbody>
 			</Table>
 		);

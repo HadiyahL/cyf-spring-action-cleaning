@@ -18,6 +18,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 				setData({
 					name: "customers",
 					data: res.customers,
+					originalData: res.customers,
 					fetchFunction: fetchCustomer,
 				});
 			})
@@ -65,7 +66,13 @@ const SelectCustomer = ({ state, setState, error }) => {
 				</Button>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>
-			<Modal isOpen={modal} toggle={toggle} data={data} />
+			<Modal
+				isOpen={modal}
+				toggle={toggle}
+				data={data}
+				setData={setData}
+				filterBy="name"
+			/>
 		</div>
 	);
 };

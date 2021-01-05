@@ -1,13 +1,5 @@
-ul {
-	text-decoration: none;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-a, a:hover, a:active {
-	text-decoration: none;
-}
+@import './custom.scss';
+@import '~bootstrap/scss/bootstrap';
 
 .navbar {
 	min-height: 78px;
@@ -18,22 +10,21 @@ a, a:hover, a:active {
 }
 
 .navbar_logo:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .link {
-	font-weight: 600;
-	letter-spacing: 1px;
+  font-weight: 600;
+	letter-spacing: .4px;
 }
 
-
 .total {
-    font-weight: bold;
-    text-align: right;
+  font-weight: bold;
+  text-align: right;
 }
 
 .totalTime {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .th-tile {
@@ -55,10 +46,6 @@ a, a:hover, a:active {
 
 .jobs {
 	max-width: 1500px;
-}
-
-.dropdown-link-item {
-	color: #6c757d;
 }
 
 @media (min-width: 576px) {

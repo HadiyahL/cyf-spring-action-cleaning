@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Button } from "reactstrap";
+import { Col, Row, Button } from "reactstrap";
 import BranchesTable from "./BranchesTable";
 
 const Branches = ({ state, setState }) => {
@@ -26,17 +26,19 @@ const Branches = ({ state, setState }) => {
 	};
 
 	return (
-		<div>
-			<BranchesTable
-				state={state}
-				trigger={branchSaved}
-				toggleEditModal={toggle}
-				setBranchSaved={setBranchSaved}
-				setState={setState}
-				isOpen={isOpen}
-			/>
-			<Button onClick={handleClick}>Add New Address</Button>
-		</div>
+		<Row className="justify-content-center">
+			<Col xs="12" sm="12" md="8" lg="6" xl="6">
+				<BranchesTable
+					state={state}
+					trigger={branchSaved}
+					toggleEditModal={toggle}
+					setBranchSaved={setBranchSaved}
+					setState={setState}
+					isOpen={isOpen}
+				/>
+				<Button onClick={handleClick}>Add New Address</Button>
+			</Col>
+		</Row>
 	);
 };
 

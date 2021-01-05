@@ -2,8 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FormGroup, Label, Input, FormText } from "reactstrap";
 
-const SelectDateU = ({ state, setState, error, dateAttribute, attributeTitle }) => {
-
+const SelectDateU = ({
+	state,
+	setState,
+	error,
+	dateAttribute,
+	attributeTitle,
+}) => {
 	const handleChange = (e) => {
 		setState({
 			...state,
@@ -14,14 +19,14 @@ const SelectDateU = ({ state, setState, error, dateAttribute, attributeTitle }) 
 	return (
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
-				<Label for="date" size="lg">
+				<Label for={dateAttribute} size="lg">
 					{attributeTitle}
 				</Label>
 				<Input
 					invalid={!!error}
 					type="date"
-					name="date"
-					id="date"
+					name={dateAttribute}
+					id={dateAttribute}
 					value={state[dateAttribute]}
 					onChange={handleChange}
 					placeholder="DD-MM-YYYY"
