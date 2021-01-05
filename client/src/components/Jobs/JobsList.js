@@ -7,11 +7,12 @@ import JobsTableBody from "./JobsTableBody";
 import DateFilter from "./DateFilter";
 import StatusFilter from "./StatusFilter";
 import { sortByField } from "../../util/helpers";
+import { DateTime } from "luxon";
 
 const JobsList = () => {
 	const { data, error, isLoading } = useFetch("/jobs");
 	const [state, setState] = useState({
-		start_time: "",
+		start_time: DateTime.local().toISODate(),
 		end_time: "",
 		status: "",
 	});
