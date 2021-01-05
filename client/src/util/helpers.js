@@ -44,11 +44,14 @@ export const getWeekFromDate = (date = new Date()) => {
 	};
 };
 
-export const addDaysToCleaningTime = (jobs, days) =>
-	jobs.map((job) => ({
-		...job,
-		visit_on: DateTime.fromISO(job.visit_on).plus({ days }).toISODate(),
-	}));
+export const setCleaningTimeForNextWeek = (jobs) =>
+	jobs.map((job) => ({ ...job, visit_on: getDateForNextWeek(job.visit_on) }));
+
+export const getDateForNextWeek = (date) => {
+	const nextWeekStartDate = DateTime.local().plus({ weeks: 1 }).startOf("week");
+	const originalVisitDate = DateTime.fromISO(date);
+	return nextWeekStartDate.plus({ days: originalVisitDate.weekday - 1 });
+};
 
 export const plusDayForJob = (jobs, id) =>
 	jobs.map((job) => {

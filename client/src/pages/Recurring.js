@@ -6,7 +6,7 @@ import DateFilter from "../components/Jobs/DateFilter";
 import {
 	getWeekFromDate,
 	sortByField,
-	addDaysToCleaningTime,
+	setCleaningTimeForNextWeek,
 } from "../util/helpers";
 import { Spinner } from "../components";
 import { RecurringJobsTableHead, RecurringJobsTableBody } from "../components";
@@ -34,7 +34,7 @@ const Recurring = () => {
 							...state,
 							isLoading: false,
 							error: null,
-							jobs: addDaysToCleaningTime(data.jobs, 14),
+							jobs: setCleaningTimeForNextWeek(data.jobs),
 						}));
 					}
 				})
