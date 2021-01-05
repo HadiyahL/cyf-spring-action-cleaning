@@ -79,11 +79,14 @@ const JobsList = () => {
 					<DateFilter state={state} setState={setState} />
 					<StatusFilter state={state} setState={setState} />
 				</div>
-				<Table striped hover responsive>
-					<JobsTableHead changeSearchField={changeSearchField} />
-					<JobsTableBody data={sortedData} />
-				</Table>
-				{sortedData.length === 0 && <div>No matches</div>}
+				{sortedData.length === 0 ? (
+					<div className="mt-5">No matching jobs for selected time period.</div>
+				) : (
+					<Table striped hover responsive>
+						<JobsTableHead changeSearchField={changeSearchField} />
+						<JobsTableBody data={sortedData} />
+					</Table>
+				)}
 			</div>
 		);
 	}
