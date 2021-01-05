@@ -14,7 +14,7 @@ const PayRateInput = ({ state, setState, error }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="payRate" size="lg">
-					Pay rate
+					Pay rate <span className="text-muted">(optional)</span>
 				</Label>
 				<Input
 					invalid={!!error}

@@ -17,6 +17,33 @@ module.exports = {
 				test: /\.css$/,
 				use: ["style-loader", "css-loader"],
 			},
+			{
+				test: /\.(scss)$/,
+				use: [
+					{
+						loader: "style-loader", // inject CSS to page
+					},
+					{
+						loader: "css-loader", // translates CSS into CommonJS modules
+					},
+					{
+						loader: "postcss-loader", // Run postcss actions
+						options: {
+							// `postcssOptions` is needed for postcss 8.x;
+							// if you use postcss 7.x skip the key
+							postcssOptions: {
+								// postcss plugins, can be exported to postcss.config.js
+								plugins: function () {
+									return [require("autoprefixer")];
+								},
+							},
+						},
+					},
+					{
+						loader: "sass-loader", // compiles Sass to CSS
+					},
+				],
+			},
 		],
 	},
 	output: {

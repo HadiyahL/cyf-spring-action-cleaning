@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigation, Spinner } from "./components";
 import { ProtectedRoute } from "./components/auth";

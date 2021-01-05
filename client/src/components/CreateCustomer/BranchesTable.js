@@ -4,7 +4,7 @@ import { Table } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../UI/Spinner";
 import BranchModal from "./BranchModal";
-import { sortDescByABC } from "../../util/helpers";
+import { sortAscByABC } from "../../util/helpers";
 
 const BranchesTable = ({
 	state,
@@ -21,7 +21,7 @@ const BranchesTable = ({
 
 	const isMainBranch = (branchId) => state.main_branch_id === branchId;
 
-	const handleClick = (id) => {
+	const openModal = (id) => {
 		const {
 			address,
 			contact_phone,
@@ -46,12 +46,22 @@ const BranchesTable = ({
 		toggleEditModal();
 	};
 
+	const handleClick = (id) => {
+		openModal(id);
+	};
+
+	const handleKeyPress = (id, e) => {
+		if (e.key === "Enter") {
+			openModal(id);
+		}
+	};
+
 	if (error) {
 		return <div>Oops, something went wrong.</div>;
 	} else if (isLoading) {
 		return <Spinner />;
 	} else {
-		const branches = sortDescByABC(data.rows, "address");
+		const branches = sortAscByABC(data.rows, "address");
 		return (
 			<div className="mt-5">
 				<h3>Client&apos;s addresses</h3>
@@ -67,6 +77,7 @@ const BranchesTable = ({
 							<tr
 								key={b.id}
 								onClick={() => handleClick(b.id)}
+								onKeyPress={(e) => handleKeyPress(b.id, e)}
 								role="button"
 								tabIndex={0}
 							>

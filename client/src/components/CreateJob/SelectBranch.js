@@ -18,6 +18,7 @@ const SelectBranch = ({ state, setState, error }) => {
 				setData({
 					name: "branches",
 					data: res.rows,
+					originalData: res.rows,
 					fetchFunction: fetchBranch,
 				});
 			})
@@ -64,7 +65,13 @@ const SelectBranch = ({ state, setState, error }) => {
 				</Button>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>
-			<Modal isOpen={modal} toggle={toggle} data={data} />
+			<Modal
+				isOpen={modal}
+				toggle={toggle}
+				data={data}
+				setData={setData}
+				filterBy="address"
+			/>
 		</div>
 	);
 };

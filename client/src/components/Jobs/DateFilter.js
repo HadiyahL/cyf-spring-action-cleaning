@@ -10,31 +10,31 @@ const DateFilter = ({ state, setState }) => {
 		});
 	};
 
-	const { start_time, end_time } = state;
+	const { startDate, endDate } = state;
 
 	return (
 		<div className="mb-1">
 			<FormGroup className="d-inline-block">
-				<Label htmlFor="start_time" className="mr-3 d-flex">
+				<Label htmlFor="startDate" className="mr-3 d-flex">
 					<div className="align-self-center">From: </div>
 					<Input
 						type="date"
-						id="start_time"
-						name="start_time"
-						value={start_time}
+						id="startDate"
+						name="startDate"
+						value={startDate}
 						onChange={handleDateChange}
 						className="ml-1"
 					/>
 				</Label>
 			</FormGroup>
 			<FormGroup className="d-inline-block">
-				<Label htmlFor="end_time" className="d-flex">
+				<Label htmlFor="endDate" className="d-flex">
 					<div className="align-self-center">To: </div>
 					<Input
 						type="date"
-						id="end_time"
-						name="end_time"
-						value={end_time}
+						id="endDate"
+						name="endDate"
+						value={endDate}
 						onChange={handleDateChange}
 						className="ml-1"
 					/>

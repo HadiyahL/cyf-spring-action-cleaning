@@ -28,18 +28,18 @@ const ShowCustomers = ({ customersTrigger }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{data.customers.map((customer) => {
+					{data.customers.map(({ id, name, email, phone_number }, i) => {
 						return (
 							<tr
-								key={customer.id}
-								onClick={() => handleClick(customer.id)}
+								key={id}
+								onClick={() => handleClick(id)}
 								role="button"
 								tabIndex={0}
 							>
-								<th scope="row">{customer.id}</th>
-								<td>{customer.name}</td>
-								<td>{customer.email}</td>
-								<td>{customer.phone_number}</td>
+								<th scope="row">{i + 1}</th>
+								<td>{name}</td>
+								<td>{email}</td>
+								<td>{phone_number}</td>
 							</tr>
 						);
 					})}

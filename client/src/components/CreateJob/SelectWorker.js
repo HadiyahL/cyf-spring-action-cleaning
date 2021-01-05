@@ -18,6 +18,7 @@ const SelectWorker = ({ state, setState, error, size = "lg" }) => {
 				setData({
 					name: "workers",
 					data: res.workers,
+					originalData: res.workers,
 					fetchFunction: fetchWorker,
 				});
 			})
@@ -59,7 +60,13 @@ const SelectWorker = ({ state, setState, error, size = "lg" }) => {
 				</Button>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>
-			<Modal isOpen={modal} toggle={toggle} data={data} />
+			<Modal
+				isOpen={modal}
+				toggle={toggle}
+				data={data}
+				setData={setData}
+				filterBy="name"
+			/>
 		</div>
 	);
 };

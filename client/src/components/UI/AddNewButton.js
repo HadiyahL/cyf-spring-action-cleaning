@@ -11,9 +11,7 @@ const AddNewButton = ({ pathname, text = "Add new" }) => {
 	};
 	return (
 		<div className="d-flex justify-content-end mb-4">
-			<Button onClick={handleClick} color="success">
-				{text}
-			</Button>
+			<Button onClick={handleClick}>{text}</Button>
 		</div>
 	);
 };
