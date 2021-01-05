@@ -13,6 +13,7 @@ import {
 	DropdownItem,
 	DropdownToggle,
 	List,
+	NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LoginButton, LogoutButton } from "./auth";
@@ -46,55 +47,60 @@ const Navigation = () => {
 						{isAuthenticated ? (
 							<>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
-									<Link
-										className="text-decoration-none link text-secondary "
+									<NavLink
+										tag={Link}
+										className="text-primary link"
 										to="/customers"
 									>
 										Clients{" "}
-									</Link>
+									</NavLink>
 								</NavItem>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
-									<Link
-										className="text-decoration-none link text-secondary "
+									<NavLink
+										tag={Link}
+										className="link text-primary"
 										to="/workers"
 									>
 										Cleaners{" "}
-									</Link>
+									</NavLink>
 								</NavItem>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
-									<Link
-										className="text-decoration-none link text-secondary "
-										to="/jobs"
-									>
+									<NavLink tag={Link} className="link text-primary" to="/jobs">
 										Jobs
-									</Link>
+									</NavLink>
 								</NavItem>
 								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
-									<List>
-										<UncontrolledDropdown
-											nav
-											inNavbar
-											className="text-decoration-none link text-secondary"
-										>
-											<DropdownToggle nav caret className="p-0">
+									<List type="unstyled">
+										<UncontrolledDropdown nav inNavbar>
+											<DropdownToggle
+												nav
+												caret
+												className="text-primary link pb-2 pt-2"
+											>
 												Reports
 											</DropdownToggle>
 											<DropdownMenu right>
-												<Link to="/workers_report">
-													<DropdownItem className="text-decoration-none link dropdown-link-item text-center text-md-left">
-														Cleaners
-													</DropdownItem>
-												</Link>
-												<Link to="/customers_report">
-													<DropdownItem className="text-decoration-none link dropdown-link-item text-center text-md-left">
-														Clients
-													</DropdownItem>
-												</Link>
+												<DropdownItem
+													tag={Link}
+													to="/workers_report"
+													className="text-center link text-md-left pb-2 pt-2"
+												>
+													Cleaners
+												</DropdownItem>
+												<DropdownItem
+													tag={Link}
+													to="/customers_report"
+													className=" text-center link text-md-left pb-2 pt-2"
+												>
+													Clients
+												</DropdownItem>
 											</DropdownMenu>
 										</UncontrolledDropdown>
 									</List>
 								</NavItem>
-								<LogoutButton />
+								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+									<LogoutButton />
+								</NavItem>
 							</>
 						) : (
 							<LoginButton />
