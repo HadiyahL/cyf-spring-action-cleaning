@@ -21,7 +21,7 @@ const SelectStartTime = ({ state, setState, error }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="time" size="lg">
-					Start time
+					Start time <span className="text-muted">(optional)</span>{" "}
 				</Label>
 				<Input
 					invalid={!!error}

@@ -14,7 +14,7 @@ const DetailsInput = ({ state, setState }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="details" size="lg">
-					Details
+					Details <span className="text-muted">(optional)</span>
 				</Label>
 				<Input
 					type="textarea"
