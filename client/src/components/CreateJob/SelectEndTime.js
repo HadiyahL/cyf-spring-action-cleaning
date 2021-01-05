@@ -21,15 +21,15 @@ const SelectEndTime = ({ state, setState, error }) => {
 	return (
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
-				<Label for="time" size="lg">
+				<Label for="endTime" size="lg">
 					End time <span className="text-muted">(optional)</span>{" "}
-					<InfoPopover name="endTime" />
+					<InfoPopover name="popoverEndTime" />
 				</Label>
 				<Input
 					invalid={!!error}
 					type="time"
-					name="time"
-					id="time"
+					name="endTime"
+					id="endTime"
 					value={state.end_time}
 					onChange={handleChange}
 					placeholder="HH:MM (24h clock)"

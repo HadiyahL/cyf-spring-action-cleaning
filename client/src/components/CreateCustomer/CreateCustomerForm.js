@@ -94,11 +94,11 @@ const CreateCustomerForm = ({ state, setState }) => {
 						{errors.email && <FormText color="danger">{errors.email}</FormText>}
 					</FormGroup>
 					<FormGroup>
-						<Label for="phone">Phone Number</Label>
+						<Label for="customerPhone">Phone Number</Label>
 						<Input
 							type="text"
 							name="phone_number"
-							id="phone"
+							id="customerPhone"
 							placeholder="Enter Phone Number"
 							onChange={handleChange}
 							value={state.phone_number}
