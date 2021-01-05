@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ResultTableBody = ({ data, bold, type }) => {
-	const formatDate = (h, m) => {
-		return ("00" + (h ? h : "")).slice(-2) + ":" + ("00" + m).slice(-2);
+	const formatDate = (h = 0, m = 0) => {
+		return ("00" + h).slice(-2) + ":" + ("00" + m).slice(-2);
 	};
 
 	return (
