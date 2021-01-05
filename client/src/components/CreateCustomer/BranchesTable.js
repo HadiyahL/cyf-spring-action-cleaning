@@ -21,7 +21,7 @@ const BranchesTable = ({
 
 	const isMainBranch = (branchId) => state.main_branch_id === branchId;
 
-	const handleClick = (id) => {
+	const openModal = (id) => {
 		const {
 			address,
 			contact_phone,
@@ -46,6 +46,16 @@ const BranchesTable = ({
 		toggleEditModal();
 	};
 
+	const handleClick = (id) => {
+		openModal(id);
+	};
+
+	const handleKeyPress = (id, e) => {
+		if (e.key === "Enter") {
+			openModal(id);
+		}
+	};
+
 	if (error) {
 		return <div>Oops, something went wrong.</div>;
 	} else if (isLoading) {
@@ -67,6 +77,7 @@ const BranchesTable = ({
 							<tr
 								key={b.id}
 								onClick={() => handleClick(b.id)}
+								onKeyPress={(e) => handleKeyPress(b.id, e)}
 								role="button"
 								tabIndex={0}
 							>
