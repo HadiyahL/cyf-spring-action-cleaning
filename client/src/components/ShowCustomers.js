@@ -12,6 +12,12 @@ const ShowCustomers = ({ customersTrigger }) => {
 		history.push(`/edit-customer/${id}`);
 	};
 
+	const handleKeyPress = (id, e) => {
+		if (e.key === "Enter") {
+			history.push(`/edit-customer/${id}`);
+		}
+	};
+
 	if (error) {
 		return <div>Oops, something went wrong.</div>;
 	} else if (isLoading) {
@@ -33,6 +39,7 @@ const ShowCustomers = ({ customersTrigger }) => {
 							<tr
 								key={id}
 								onClick={() => handleClick(id)}
+								onKeyPress={(e) => handleKeyPress(id, e)}
 								role="button"
 								tabIndex={0}
 							>

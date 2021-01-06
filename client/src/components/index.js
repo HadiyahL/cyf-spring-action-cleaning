@@ -20,3 +20,5 @@ export { default as SuccessAlert } from "./UI/SuccessAlert";
 export { default as AddNewButton } from "./UI/AddNewButton";
 export { default as Spinner } from "./UI/Spinner";
 export { default as ResultPage } from "./Reports/ResultPage";
+export { default as RecurringJobsTableBody } from "./Recurring/RecurringJobsTableBody";
+export { default as RecurringJobsTableHead } from "./Recurring/RecurringJobsTableHead";

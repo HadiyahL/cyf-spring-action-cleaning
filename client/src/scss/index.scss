@@ -48,9 +48,18 @@
 	max-width: 1500px;
 }
 
-@media (min-width: 576px) {
-	.time-input-label {
-		display: inline-block;
-	}
+.dropdown-link-item {
+	color: #6c757d;
+}
 
+.recurring-table {
+	min-width: 900px;
+}
+
+.time-input {
+	max-width: 120px;
+}
+
+.next-cleaning-date {
+	width: 140px;
 }

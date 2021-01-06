@@ -42,3 +42,48 @@ export const determineJobStatus = (status, date) => {
 		return "awaiting";
 	}
 };
+
+export const getWeekFromDate = (date = new Date()) => {
+	const start = DateTime.fromJSDate(date)
+		.minus({ days: 7 })
+		.startOf("week")
+		.toISODate();
+	const end = DateTime.fromJSDate(date)
+		.minus({ days: 7 })
+		.endOf("week")
+		.toISODate();
+
+	return {
+		start,
+		end,
+	};
+};
+
+export const setCleaningTimeForNextWeek = (jobs) =>
+	jobs.map((job) => ({ ...job, visit_on: getDateForNextWeek(job.visit_on) }));
+
+export const getDateForNextWeek = (date) => {
+	const nextWeekStartDate = DateTime.local().plus({ weeks: 1 }).startOf("week");
+	const originalVisitDate = DateTime.fromISO(date);
+	return nextWeekStartDate.plus({ days: originalVisitDate.weekday - 1 });
+};
+
+export const plusDayForJob = (jobs, id) =>
+	jobs.map((job) => {
+		if (job.id === id) {
+			job.visit_on = DateTime.fromISO(job.visit_on)
+				.plus({ days: 1 })
+				.toISODate();
+		}
+		return job;
+	});
+
+export const minusDayForJob = (jobs, id) =>
+	jobs.map((job) => {
+		if (job.id === id) {
+			job.visit_on = DateTime.fromISO(job.visit_on)
+				.minus({ days: 1 })
+				.toISODate();
+		}
+		return job;
+	});
