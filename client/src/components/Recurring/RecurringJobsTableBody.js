@@ -71,11 +71,13 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 						)}
 					</td>
 					<td className="align-middle">
-						<Button outline onClick={() => handleMinusDay(id)} className="mr-3">
+						<Button onClick={() => handleMinusDay(id)} className="mr-2">
 							<MinusIcon />
 						</Button>
-						<div className="d-inline-block">{formatDate(visit_on)}</div>
-						<Button outline onClick={() => handlePlusDay(id)} className="ml-3">
+						<div className="d-inline-block text-center next-cleaning-date">
+							{formatDate(visit_on)}
+						</div>
+						<Button onClick={() => handlePlusDay(id)} className="ml-2">
 							<PlusIcon />
 						</Button>
 					</td>
