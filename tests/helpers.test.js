@@ -1,4 +1,8 @@
-import { sortAscByABC, sortByField } from "../client/src/util/helpers";
+import {
+	sortAscByABC,
+	sortByField,
+	determineJobStatus,
+} from "../client/src/util/helpers";
 
 describe("Client side helper functions", () => {
 	test("sortAscByABC sorts array of objects ascending by abc", () => {
@@ -59,5 +63,22 @@ describe("Client side helper functions", () => {
 			{ foo: "Z", num: 2 },
 		];
 		expect(sortByField(arrayToSort, "num", true)).toStrictEqual(sortedArray);
+	});
+
+	test("", () => {});
+
+	test("determineJobStatus() works as expected", () => {
+		// taken from https://codewithhugo.com/mocking-the-current-date-in-jest-tests/
+		jest
+			.spyOn(global.Date, "now")
+			.mockImplementationOnce(() =>
+				new Date("2021-01-06T11:01:58.135Z").valueOf()
+			);
+
+		expect(determineJobStatus(0, "2021-01-05")).toBe("missed");
+		expect(determineJobStatus(0, "2021-01-06")).toBe("awaiting");
+		expect(determineJobStatus(0, "2020-01-01")).toBe("missed");
+		expect(determineJobStatus(1, "2020-01-05")).toBe("completed");
+		expect(determineJobStatus(1, "2020-01-07")).toBe("completed");
 	});
 });
