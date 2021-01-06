@@ -135,7 +135,7 @@ const BranchForm = ({
 							<FormText color="danger">{errors.address}</FormText>
 						)}
 					</FormGroup>
-					<FormGroup check>
+					<FormGroup check className="mb-2">
 						<Label check>
 							<Input
 								name="main_branch"
@@ -143,11 +143,13 @@ const BranchForm = ({
 								onChange={handleChange}
 								checked={mainBranchState}
 							/>
-							Set as a main address
+							Set as main address
 						</Label>
 					</FormGroup>
 					<FormGroup>
-						<Label for="contact_name">Name</Label>
+						<Label for="contact_name">
+							Name <span className="text-muted">(optional)</span>
+						</Label>
 						<Input
 							invalid={!!errors.contact_name}
 							type="text"
@@ -162,7 +164,9 @@ const BranchForm = ({
 						)}
 					</FormGroup>
 					<FormGroup>
-						<Label for="phone">Phone Number</Label>
+						<Label for="phone">
+							Phone Number <span className="text-muted">(optional)</span>
+						</Label>
 						<Input
 							invalid={!!errors.contact_phone}
 							type="text"
@@ -177,7 +181,9 @@ const BranchForm = ({
 						)}
 					</FormGroup>
 					<FormGroup>
-						<Label for="visit_time">Default visit time</Label>
+						<Label for="visit_time">
+							Default visit time <span className="text-muted">(optional)</span>
+						</Label>
 						<Input
 							invalid={!!errors.visit_time}
 							type="time"
@@ -193,7 +199,10 @@ const BranchForm = ({
 						)}
 					</FormGroup>
 					<FormGroup>
-						<Label for="duration">Default duration of visit</Label>
+						<Label for="duration">
+							Default duration of visit{" "}
+							<span className="text-muted">(optional)</span>
+						</Label>
 						<Input
 							invalid={!!errors.duration}
 							type="select"
@@ -218,7 +227,9 @@ const BranchForm = ({
 						)}
 					</FormGroup>
 					<FormGroup>
-						<Label for="details">Details</Label>
+						<Label for="details">
+							Details <span className="text-muted">(optional)</span>
+						</Label>
 						<Input
 							invalid={!!errors.details}
 							name="details"
