@@ -233,8 +233,13 @@ const BranchForm = ({
 							<FormText color="danger">{errors.details}</FormText>
 						)}
 					</FormGroup>
-					<SelectWorker state={state} setState={setState} size="md" />
-					<Button color="primary">{branch_id ? "Edit" : "Save"}</Button>
+					<SelectWorker
+						state={state}
+						setState={setState}
+						size="md"
+						isOptional={true}
+					/>
+					<Button>Save</Button>
 				</Form>
 			</Col>
 		</Row>
