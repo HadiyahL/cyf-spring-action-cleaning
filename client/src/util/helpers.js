@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 // sort array of objects for specified field
 export const sortAscByABC = (array, field) => {
 	return array.sort((first, second) => {
@@ -24,4 +26,19 @@ export const sortByField = (array, field, isAscending) => {
 				: res2[field] - res1[field];
 		}
 	});
+};
+
+export const determineJobStatus = (status, date) => {
+	if (status === 1) {
+		return "completed";
+	}
+
+	const today = DateTime.local().minus({ days: 1 });
+	const visitDate = DateTime.fromISO(date);
+
+	if (visitDate < today) {
+		return "missed";
+	} else {
+		return "awaiting";
+	}
 };
