@@ -14,8 +14,8 @@ import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
 
 const Recurring = () => {
 	const [state, setState] = useState({
-		start_time: getWeekFromDate().start,
-		end_time: getWeekFromDate().end,
+		startDate: getWeekFromDate().start,
+		endDate: getWeekFromDate().end,
 		jobs: [],
 		isLoading: true,
 		error: null,
@@ -27,7 +27,7 @@ const Recurring = () => {
 		let isActive = true;
 
 		const fetchJobs = () =>
-			getJobs(state.start_time, state.end_time, authorizationHeaders)
+			getJobs(state.startDate, state.endDate, authorizationHeaders)
 				.then((data) => {
 					if (isActive) {
 						setState((state) => ({
@@ -51,7 +51,7 @@ const Recurring = () => {
 		return () => {
 			isActive = false;
 		};
-	}, [state.start_time, state.end_time, authorizationHeaders]);
+	}, [state.startDate, state.endDate, authorizationHeaders]);
 
 	useEffect(() => {
 		const fetchWorkers = () =>
