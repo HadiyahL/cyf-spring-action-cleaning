@@ -5,12 +5,22 @@ import WorkersModal from "./WorkersModal";
 
 const ChangeWorkerButton = ({ state, setState, id, text }) => {
 	const [modal, setModal] = useState(false);
+	const [workers, setWorkers] = useState({
+		data: state.workers,
+		originalData: state.workers,
+	});
 
-	const toggle = () => setModal(!modal);
+	const toggle = () => {
+		setModal(!modal);
+		setWorkers({
+			...workers,
+			data: workers.originalData,
+		});
+	};
 
 	return (
 		<>
-			<Button color="secondary" outline onClick={toggle}>
+			<Button color="secondary" block onClick={toggle}>
 				{text}
 			</Button>
 			<WorkersModal
@@ -19,6 +29,8 @@ const ChangeWorkerButton = ({ state, setState, id, text }) => {
 				state={state}
 				setState={setState}
 				id={id}
+				workers={workers}
+				setWorkers={setWorkers}
 			/>
 		</>
 	);

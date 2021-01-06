@@ -9,8 +9,17 @@ import {
 	ListGroupItem,
 	Button,
 } from "reactstrap";
+import FilterInput from "../UI/FilterInput";
 
-const WorkersModal = ({ isOpen, toggle, state, setState, id }) => {
+const WorkersModal = ({
+	isOpen,
+	toggle,
+	state,
+	setState,
+	id,
+	workers,
+	setWorkers,
+}) => {
 	const handleClick = (workerId, workerName) => {
 		updateWorker(id, workerId, workerName);
 		toggle();
@@ -36,8 +45,9 @@ const WorkersModal = ({ isOpen, toggle, state, setState, id }) => {
 			<Modal isOpen={isOpen} toggle={toggle}>
 				<ModalHeader toggle={toggle}>Select cleaner</ModalHeader>
 				<ModalBody>
+					<FilterInput setData={setWorkers} filterBy="name" />
 					<ListGroup>
-						{state.workers.map((item) => {
+						{workers.data.map((item) => {
 							return (
 								<ListGroupItem
 									tag="button"
@@ -69,6 +79,8 @@ WorkersModal.propTypes = {
 	state: PropTypes.object.isRequired,
 	setState: PropTypes.func.isRequired,
 	id: PropTypes.number.isRequired,
+	workers: PropTypes.object.isRequired,
+	setWorkers: PropTypes.func.isRequired,
 };
 
 export default WorkersModal;
