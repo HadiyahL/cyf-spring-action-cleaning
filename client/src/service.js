@@ -50,6 +50,11 @@ export const getBranch = async (id, options) => {
 	return response.data;
 };
 
+export const getJobs = async (start, end, options) => {
+	const response = await get(`/jobs/range?start=${start}&end=${end}`, options);
+	return response.data;
+};
+
 export const postBranch = async (id, data, options) => {
 	const response = await post(`/branches/${id}`, data, options);
 	return response.data;
@@ -66,6 +71,11 @@ export const putBranch = async (branch_id, customer_id, data, options) => {
 
 export const postJobs = async (data, options) => {
 	const response = await post("/jobs", data, options);
+	return response.data;
+};
+
+export const postBatchOfJobs = async (data, options) => {
+	const response = await post("/batch_of_jobs", data, options);
 	return response.data;
 };
 

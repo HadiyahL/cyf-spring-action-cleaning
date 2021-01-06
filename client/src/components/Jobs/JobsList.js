@@ -35,6 +35,7 @@ const JobsList = () => {
 			if (!endDate) {
 				return true;
 			}
+
 			const visitTime = new Date(time).getTime();
 			const endTime = new Date(endDate).getTime();
 			return visitTime <= endTime;

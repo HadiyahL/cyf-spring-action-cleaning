@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormGroup, Label, Input } from "reactstrap";
 
 const DateFilter = ({ state, setState }) => {
 	const handleDateChange = (e) => {
@@ -13,28 +14,32 @@ const DateFilter = ({ state, setState }) => {
 
 	return (
 		<div className="mb-1">
-			<label htmlFor="startDate" className="mr-3">
-				<div className="time-input-label">From: </div>
-				<input
-					type="date"
-					id="startDate"
-					name="startDate"
-					value={startDate}
-					onChange={handleDateChange}
-					className="ml-1"
-				/>
-			</label>
-			<label htmlFor="endDate" className="ml-sm-4">
-				<div className="time-input-label">To: </div>
-				<input
-					type="date"
-					id="endDate"
-					name="endDate"
-					value={endDate}
-					onChange={handleDateChange}
-					className="ml-1"
-				/>
-			</label>
+			<FormGroup className="d-inline-block">
+				<Label htmlFor="startDate" className="mr-3 d-flex">
+					<div className="align-self-center">From: </div>
+					<Input
+						type="date"
+						id="startDate"
+						name="startDate"
+						value={startDate}
+						onChange={handleDateChange}
+						className="ml-1"
+					/>
+				</Label>
+			</FormGroup>
+			<FormGroup className="d-inline-block">
+				<Label htmlFor="endDate" className="d-flex">
+					<div className="align-self-center">To: </div>
+					<Input
+						type="date"
+						id="endDate"
+						name="endDate"
+						value={endDate}
+						onChange={handleDateChange}
+						className="ml-1"
+					/>
+				</Label>
+			</FormGroup>
 		</div>
 	);
 };

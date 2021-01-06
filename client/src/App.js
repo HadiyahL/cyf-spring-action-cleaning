@@ -13,6 +13,7 @@ import {
 	CreateJob,
 	EditJob,
 	EditWorker,
+	Recurring,
 	HomePage,
 	WorkerReports,
 	CustomerReports,
@@ -51,6 +52,7 @@ export function App() {
 					path="/result/:id/:start/:finish/:name/:type"
 					component={ResultPage}
 				/>
+				<ProtectedRoute path="/create-jobs" component={Recurring} />
 			</Switch>
 		</>
 	);

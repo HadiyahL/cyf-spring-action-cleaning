@@ -103,7 +103,9 @@ const Navigation = () => {
 								</NavItem>
 							</>
 						) : (
-							<LoginButton />
+							<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+								<LoginButton />
+							</NavItem>
 						)}
 					</Nav>
 				</Collapse>
