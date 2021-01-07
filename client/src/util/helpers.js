@@ -28,6 +28,21 @@ export const sortByField = (array, field, isAscending) => {
 	});
 };
 
+export const determineJobStatus = (status, date) => {
+	if (status === 1) {
+		return "completed";
+	}
+
+	const today = DateTime.local().minus({ days: 1 });
+	const visitDate = DateTime.fromISO(date);
+
+	if (visitDate < today) {
+		return "missed";
+	} else {
+		return "awaiting";
+	}
+};
+
 export const getWeekFromDate = (date = new Date()) => {
 	const start = DateTime.fromJSDate(date)
 		.minus({ days: 7 })

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import SelectIcon from "../UI/SelectIcon";
+import StatusIndicator from "./StatusIndicator";
 
 const JobsTableBody = ({ data }) => {
 	const history = useHistory();
@@ -53,11 +53,7 @@ const JobsTableBody = ({ data }) => {
 						tabIndex={0}
 					>
 						<td className={"text-center"}>
-							{status ? (
-								<SelectIcon type="success" />
-							) : (
-								<SelectIcon type="warning" />
-							)}
+							<StatusIndicator status={status} date={visit_on} />
 						</td>
 						<td>{customer}</td>
 						<td>{address}</td>
