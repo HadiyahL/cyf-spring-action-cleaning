@@ -5,7 +5,13 @@ import { getWorkers, getWorker } from "../../service";
 import Modal from "./Modal";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
-const SelectWorker = ({ state, setState, error, size = "lg" }) => {
+const SelectWorker = ({
+	state,
+	setState,
+	error,
+	size = "lg",
+	isOptional = false,
+}) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
 	const authorizationHeaders = useAuthorizationHeaders();
@@ -47,7 +53,7 @@ const SelectWorker = ({ state, setState, error, size = "lg" }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="worker" size={size}>
-					Cleaner
+					Cleaner {isOptional && <span className="text-muted">(optional)</span>}
 				</Label>
 				<Button
 					outline
@@ -76,6 +82,7 @@ SelectWorker.propTypes = {
 	setState: PropTypes.func.isRequired,
 	error: PropTypes.string,
 	size: PropTypes.string,
+	isOptional: PropTypes.bool,
 };
 
 export default SelectWorker;

@@ -143,7 +143,7 @@ const Jobs = ({
 					setState={setState}
 					error={errors.end_time}
 				/>
-				<Button size="lg">{job_id ? "Update" : "Create"}</Button>
+				<Button>Save</Button>
 			</Form>
 		</Container>
 	);

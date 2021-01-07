@@ -84,7 +84,7 @@ const BranchesTable = ({
 								<th scope="row">{i + 1}</th>
 								<td>
 									{isMainBranch(b.id) ? (
-										<strong>{b.address}</strong>
+										<strong>{`${b.address} (main address)`}</strong>
 									) : (
 										b.address
 									)}
