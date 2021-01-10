@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 import { Router } from "express";
 import { body, check, validationResult } from "express-validator";
+import { DateTime } from "luxon";
 import { checkAuth, checkPermission } from "../middleware";
 import db from "../db";
 import { formatJobs } from "../util/formatJobs";
@@ -447,11 +448,24 @@ router.put(
 	checkAuth,
 	checkPermission("put:jobs/:id/log_time"),
 	[
-		body("start_time", "Please provide a start time").not().isEmpty(),
-		body("end_time", "Please provide an end time").not().isEmpty(),
-		check("start_time", "End time should be greater than start time")
-			.exists()
-			.custom((value, { req }) => value < req.body.end_time),
+		body(
+			"startTime",
+			"Start time is not in a format of HH:MM (24h clock)"
+		).custom(
+			(value) =>
+				value === "" ||
+				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
+		body("endTime", "End time is not in a format of HH:MM (24h clock)").custom(
+			(value) =>
+				value === "" ||
+				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
+		check("startTime", "End time should be greater than start time").custom(
+			(value, { req }) =>
+				DateTime.fromISO(value) < DateTime.fromISO(req.body.endTime) ||
+				(value === "" && req.body.endTime === "")
+		),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -459,17 +473,31 @@ router.put(
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
 
+		const email = req.user["https://springactioncleaning/email"];
 		const { id } = req.params;
-		const { start_time, end_time } = req.body;
+		const { startTime, endTime, feedback } = req.body;
 
-		db.query(
-			`
-				UPDATE jobs 
-				SET start_time=$1, end_time=$2, status=1
-				WHERE id=$3
-			`,
-			[start_time, end_time, id]
-		)
+		let queryString = `
+				UPDATE jobs j
+					SET start_time=$1, end_time=$2, status=1, feedback=$3
+				FROM workers w
+				WHERE j.id=$4 AND w.email=$5
+			`;
+		let dependencyArray = [startTime, endTime, feedback, id, email];
+
+		// worker don't submit times but sends only the feedback message to spring-action-cleaning team
+		if (startTime === "" && endTime === "") {
+			queryString = `
+				UPDATE jobs j
+					SET feedback=$1
+				FROM workers w
+				WHERE j.id=$2 AND w.email=$3
+			`;
+
+			dependencyArray = [feedback, id, email];
+		}
+
+		db.query(queryString, dependencyArray)
 			.then(({ rowCount }) => {
 				if (rowCount < 1) {
 					return res
