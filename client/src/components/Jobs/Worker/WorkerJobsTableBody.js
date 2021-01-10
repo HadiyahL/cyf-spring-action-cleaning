@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../../util/helpers";
+import StatusIndicator from "../StatusIndicator";
 
 const WorkerJobsTableBody = ({ data }) => {
 	const history = useHistory();
@@ -18,7 +19,7 @@ const WorkerJobsTableBody = ({ data }) => {
 
 	return (
 		<tbody>
-			{data.map(({ id, address, visit_on, visit_time }) => {
+			{data.map(({ id, address, visit_on, visit_time, status }) => {
 				return (
 					<tr
 						key={id}
@@ -27,11 +28,13 @@ const WorkerJobsTableBody = ({ data }) => {
 						onKeyPress={(e) => handleKeyPress(id, e)}
 						tabIndex={0}
 					>
+						<td className={"text-center"}>
+							<StatusIndicator status={status} date={visit_on} />
+						</td>
 						<td className="align-middle">{address}</td>
 						<td className="align-middle">
 							{formatDate(visit_on, {
-								year: "numeric",
-								month: "short",
+								month: "long",
 								day: "numeric",
 							})}
 						</td>

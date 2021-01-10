@@ -58,6 +58,7 @@ const WorkerJobsList = () => {
 				<Table striped hover responsive>
 					<thead>
 						<tr>
+							<th></th>
 							<th>Address</th>
 							<th>Date</th>
 							<th>Time</th>
