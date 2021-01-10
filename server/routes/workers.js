@@ -30,11 +30,12 @@ router.get(
 	checkPermission("get:workers/jobs"),
 	(req, res, next) => {
 		db.query(
-			`SELECT j.id, b.address, j.visit_on, j.visit_time
+			`SELECT j.id, j.visit_on, j.visit_time, j.status, b.address
 				FROM jobs j
 				INNER JOIN branches b ON j.branch_id=b.id
 				INNER JOIN workers w ON w.id=j.worker_id
 				WHERE w.email=$1
+				ORDER BY j.visit_on DESC
 			`,
 			[req.user["https://springactioncleaning/email"]]
 		)
