@@ -46,7 +46,7 @@ router.post(
 	checkAuth,
 	checkPermission("post:workers"),
 	[
-		body("email", "Please provide a valid email").isEmail().trim(),
+		body("email", "Please provide a valid email").isEmail().normalizeEmail(),
 		body("name", "Name is required").not().isEmpty().trim(),
 		body("address", "Address is required").not().isEmpty().trim(),
 		body("phone", "Not a valid GB number").custom((value) =>
@@ -90,7 +90,7 @@ router.put(
 	checkAuth,
 	checkPermission("put:workers"),
 	[
-		body("email", "Please provide a valid email").isEmail().trim(),
+		body("email", "Please provide a valid email").isEmail().normalizeEmail(),
 		body("name", "Name is required").not().isEmpty().trim(),
 		body("address", "Address is required").not().isEmpty().trim(),
 		body("phone", "Not a valid GB number").custom((value) =>
