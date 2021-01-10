@@ -475,29 +475,19 @@ router.put(
 
 		const email = req.user["https://springactioncleaning/email"];
 		const { id } = req.params;
-		const { startTime, endTime, feedback } = req.body;
+		const { feedback } = req.body;
+		const startTime = changeEmptyStringToNull(req.body.startTime);
+		const endTime = changeEmptyStringToNull(req.body.endTime);
+		const status = startTime && endTime ? 1 : 0;
 
-		let queryString = `
-				UPDATE jobs j
-					SET start_time=$1, end_time=$2, status=1, feedback=$3
-				FROM workers w
-				WHERE j.id=$4 AND w.email=$5
-			`;
-		let dependencyArray = [startTime, endTime, feedback, id, email];
-
-		// worker don't submit times but sends only the feedback message to spring-action-cleaning team
-		if (startTime === "" && endTime === "") {
-			queryString = `
-				UPDATE jobs j
-					SET feedback=$1
-				FROM workers w
-				WHERE j.id=$2 AND w.email=$3
-			`;
-
-			dependencyArray = [feedback, id, email];
-		}
-
-		db.query(queryString, dependencyArray)
+		db.query(
+			`
+			UPDATE jobs j
+				SET start_time=$1, end_time=$2, status=$3, feedback=$4
+			FROM workers w
+			WHERE j.id=$5 AND w.email=$6`,
+			[startTime, endTime, status, feedback, id, email]
+		)
 			.then(({ rowCount }) => {
 				if (rowCount < 1) {
 					return res
