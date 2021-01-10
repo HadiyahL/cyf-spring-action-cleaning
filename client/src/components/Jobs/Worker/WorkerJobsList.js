@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Table } from "reactstrap";
-import { useAuth0 } from "@auth0/auth0-react";
 import { DateTime } from "luxon";
 import useFetch from "../../../hooks/useFetch";
 import Spinner from "../../UI/Spinner";
@@ -13,10 +12,7 @@ const WorkerJobsList = () => {
 		endDate: "",
 	});
 
-	const {
-		user: { email },
-	} = useAuth0();
-	const { isLoading, error, data } = useFetch(`workers/jobs?email=${email}`);
+	const { isLoading, error, data } = useFetch("workers/jobs");
 
 	const { startDate, endDate } = state;
 
