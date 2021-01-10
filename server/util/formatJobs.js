@@ -11,6 +11,12 @@ export const formatJobs = (jobs) =>
 		actual_duration: countActualDuration(job.start_time, job.end_time),
 	}));
 
+export const formatWorkerJobs = (jobs) =>
+	jobs.map((job) => ({
+		...job,
+		visit_time: formatHours(job.visit_time),
+	}));
+
 export const countActualDuration = (startTime, endTime) => {
 	if (!startTime || !endTime) {
 		return null;
