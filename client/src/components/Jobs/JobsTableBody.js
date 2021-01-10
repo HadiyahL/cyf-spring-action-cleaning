@@ -2,21 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import SelectIcon from "../UI/SelectIcon";
+import { formatDate } from "../../util/helpers";
 
 const JobsTableBody = ({ data }) => {
 	const history = useHistory();
-
-	const formatDate = (dateISO) => {
-		const date = new Date(dateISO);
-		const options = {
-			// weekday: "short",
-			year: "numeric",
-			month: "short",
-			day: "numeric",
-		};
-
-		return date.toLocaleDateString("en-GB", options);
-	};
 
 	const handleClick = (id) => {
 		history.push(`/edit-jobs/${id}`);
@@ -62,7 +51,13 @@ const JobsTableBody = ({ data }) => {
 						<td>{customer}</td>
 						<td>{address}</td>
 						<td>{worker}</td>
-						<td>{formatDate(visit_on)}</td>
+						<td>
+							{formatDate(visit_on, {
+								year: "numeric",
+								month: "short",
+								day: "numeric",
+							})}
+						</td>
 						<td>{visit_time}</td>
 						<td>{visit_end}</td>
 						<td>{duration}</td>
