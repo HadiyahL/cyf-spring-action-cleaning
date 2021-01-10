@@ -8,7 +8,7 @@ CREATE TABLE workers (
   id                    SERIAL PRIMARY KEY,
   name                  VARCHAR(100) NOT NULL,
   address               VARCHAR(200) NOT NULL,
-  email                 VARCHAR(60) NOT NULL,
+  email                 VARCHAR(60) NOT NULL UNIQUE,
   phone_number          VARCHAR(50) NOT NULL,
   whatsapp              VARCHAR(50) NOT NULL,
   permanent_contract    BOOLEAN NOT NULL
@@ -48,7 +48,8 @@ CREATE TABLE jobs (
   start_time      TIME (0),
   end_time        TIME (0),
   duration        INT,
-  pay_rate        FLOAT
+  pay_rate        FLOAT,
+  feedback        VARCHAR(500),
 );
 
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '997-883-3933', '34409 La Follette Pass', '852-452-4383', false);
