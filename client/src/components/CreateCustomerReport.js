@@ -41,7 +41,7 @@ const CreateCustomerReport = ({
 				dateAttribute="finish_date"
 				attributeTitle="Finish date"
 			/>
-			<Button size="lg">Run</Button>
+			<Button>Run</Button>
 		</Form>
 	);
 };

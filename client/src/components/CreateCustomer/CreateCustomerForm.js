@@ -107,7 +107,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 							<FormText color="danger">{errors.phone_number}</FormText>
 						)}
 					</FormGroup>
-					<Button>{state.customer_id ? "Edit" : "Save"}</Button>
+					<Button>Save</Button>
 				</Form>
 			</Col>
 		</Row>

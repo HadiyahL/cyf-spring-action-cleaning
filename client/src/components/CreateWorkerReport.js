@@ -36,7 +36,7 @@ const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
 				dateAttribute="finish_date"
 				attributeTitle="Finish date"
 			/>
-			<Button size="lg">Run</Button>
+			<Button>Run</Button>
 		</Form>
 	);
 };

@@ -176,7 +176,7 @@ const CreateWorkerForm = ({
 							Permanent contract
 						</Label>
 					</FormGroup>
-					<Button>Submit</Button>
+					<Button>Save</Button>
 				</Form>
 			</Col>
 		</Row>
