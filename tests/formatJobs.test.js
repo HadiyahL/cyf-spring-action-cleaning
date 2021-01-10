@@ -28,8 +28,8 @@ describe("Time formatting functions", () => {
 		expect(countVisitEnd("23:30", 1)).toBe("00:30");
 	});
 
-	test("formatHours returns null if time is missing", () => {
-		expect(formatHours()).toBe(null);
+	test("formatHours returns empty string if the time is missing", () => {
+		expect(formatHours()).toBe("");
 	});
 
 	test("formatHours formats HH:mm:ss to HH:mm", () => {
