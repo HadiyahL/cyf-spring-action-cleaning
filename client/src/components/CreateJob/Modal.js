@@ -40,7 +40,7 @@ const ModalComponent = ({ isOpen, toggle, data, setData, filterBy }) => {
 							</ListGroup>
 						</ModalBody>
 						<ModalFooter>
-							<Button color="secondary" onClick={toggle}>
+							<Button color="primary" onClick={toggle}>
 								Close
 							</Button>
 						</ModalFooter>

@@ -100,7 +100,7 @@ const Navigation = () => {
 										</UncontrolledDropdown>
 									</List>
 								</NavItem>
-								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+								<NavItem className="pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
 									<LogoutButton />
 								</NavItem>
 							</>

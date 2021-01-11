@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FormGroup, Label, Input, FormText, Button } from "reactstrap";
-import InfoPopover from "./InfoPopover";
 
 const SelectStartTime = ({ state, setState, error }) => {
 	const handleChange = (e) => {
@@ -19,11 +18,10 @@ const SelectStartTime = ({ state, setState, error }) => {
 	};
 
 	return (
-		<div className="mb-3 mb-md-4 mb-lg-5">
+		<div className="w-100 mr-3 mr-md-5">
 			<FormGroup>
 				<Label for="startTime" size="lg">
-					Start time <span className="text-muted">(optional)</span>{" "}
-					<InfoPopover name="popoverStartTime" />
+					Start time <span className="text-muted">(optional)</span>
 				</Label>
 				<Input
 					invalid={!!error}

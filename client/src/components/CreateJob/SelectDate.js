@@ -11,7 +11,7 @@ const SelectDate = ({ state, setState, error }) => {
 	};
 
 	return (
-		<div className="mb-3 mb-md-4 mb-lg-5">
+		<div className="mb-3 mb-md-4 mb-lg-5 w-100 mr-3 mr-md-5">
 			<FormGroup>
 				<Label for="date" size="lg">
 					Date

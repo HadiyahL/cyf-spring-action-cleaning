@@ -1,8 +1,12 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Navigation, Spinner } from "./components";
-import { ProtectedRoute, config } from "./components/auth";
+import { Navigation, Footer, Spinner } from "./components";
+import {
+	ProtectedRoute,
+	config,
+	CheckIfItIsAFirstLogin,
+} from "./components/auth";
 import {
 	CreateWorker,
 	CreateCustomer,
@@ -38,47 +42,57 @@ export function App() {
 
 	return (
 		<>
-			<Navigation />
-			<Switch>
-				{role === "admin" && (
-					<>
-						<Route exact path="/">
-							<HomePage />
-						</Route>
-						<ProtectedRoute path="/add-worker" component={CreateWorker} />
-						<ProtectedRoute path="/add-customer" component={CreateCustomer} />
-						<ProtectedRoute
-							path="/edit-customer/:id"
-							component={EditCustomer}
-						/>
-						<ProtectedRoute path="/customers" component={Customers} />
-						<ProtectedRoute path="/jobs" component={Jobs} />
-						<ProtectedRoute path="/workers" component={ShowWorkers} />
-						<ProtectedRoute path="/edit-worker/:id" component={EditWorker} />
-						<ProtectedRoute path="/create-job" component={CreateJob} />
-						<ProtectedRoute path="/edit-jobs/:id" component={EditJob} />
-						<ProtectedRoute path="/workers_report" component={WorkerReports} />
-						<ProtectedRoute
-							path="/customers_report"
-							component={CustomerReports}
-						/>
-						<ProtectedRoute
-							path="/result/:id/:start/:finish/:name/:type"
-							component={ResultPage}
-						/>
-						<ProtectedRoute path="/create-jobs" component={Recurring} />
-					</>
-				)}
-				{role === "worker" && (
-					<>
-						<Route exact path="/">
-							<WorkerHomePage />
-						</Route>
-						<ProtectedRoute path="/jobs" component={WorkerJobs} />
-						<ProtectedRoute path="/worker/job/:id" component={WorkerJobPage} />
-					</>
-				)}
-			</Switch>
+			<main className="flex-shrink-0">
+				<Navigation />
+				<Switch>
+					{role === "admin" && (
+						<>
+							<Route exact path="/">
+								<HomePage />
+							</Route>
+							<ProtectedRoute path="/add-worker" component={CreateWorker} />
+							<ProtectedRoute path="/add-customer" component={CreateCustomer} />
+							<ProtectedRoute
+								path="/edit-customer/:id"
+								component={EditCustomer}
+							/>
+							<ProtectedRoute path="/customers" component={Customers} />
+							<ProtectedRoute path="/jobs" component={Jobs} />
+							<ProtectedRoute path="/workers" component={ShowWorkers} />
+							<ProtectedRoute path="/edit-worker/:id" component={EditWorker} />
+							<ProtectedRoute path="/create-job" component={CreateJob} />
+							<ProtectedRoute path="/edit-jobs/:id" component={EditJob} />
+							<ProtectedRoute
+								path="/workers_report"
+								component={WorkerReports}
+							/>
+							<ProtectedRoute
+								path="/customers_report"
+								component={CustomerReports}
+							/>
+							<ProtectedRoute
+								path="/result/:id/:start/:finish/:name/:type"
+								component={ResultPage}
+							/>
+							<ProtectedRoute path="/create-jobs" component={Recurring} />
+						</>
+					)}
+					{role === "worker" && (
+						<>
+							<Route exact path="/">
+								<WorkerHomePage />
+							</Route>
+							<ProtectedRoute path="/jobs" component={WorkerJobs} />
+							<ProtectedRoute
+								path="/worker/job/:id"
+								component={WorkerJobPage}
+							/>
+						</>
+					)}
+				</Switch>
+			</main>
+			<Footer />
+			<CheckIfItIsAFirstLogin />
 		</>
 	);
 }

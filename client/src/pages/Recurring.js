@@ -87,7 +87,7 @@ const Recurring = () => {
 				</h2>
 				<DateFilter state={state} setState={setState} />
 				{sortedJobs.length < 1 ? (
-					<div>No jobs found for specified time period.</div>
+					<div>No jobs found for the specified time.</div>
 				) : (
 					<>
 						<Table striped hover responsive className="recurring-table">

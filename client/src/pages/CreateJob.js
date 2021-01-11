@@ -13,6 +13,7 @@ import {
 	DetailsInput,
 	SelectStartTime,
 	SelectEndTime,
+	WorkerFeedback,
 } from "../components";
 import { postJobs, putJobs } from "../service";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
@@ -32,6 +33,7 @@ const Jobs = ({
 	start_time,
 	end_time,
 	job_id,
+	feedback,
 }) => {
 	const [state, setState] = useState({
 		customer: customer || "",
@@ -47,6 +49,7 @@ const Jobs = ({
 		pay_rate: pay_rate || "",
 		start_time: start_time || "",
 		end_time: end_time || "",
+		feedback,
 	});
 	const [errors, setErrors] = useState({});
 	const history = useHistory();
@@ -116,33 +119,51 @@ const Jobs = ({
 				/>
 				<SelectBranch state={state} setState={setState} error={errors.branch} />
 				<SelectWorker state={state} setState={setState} error={errors.worker} />
-				<SelectDate state={state} setState={setState} error={errors.visit_on} />
-				<SelectTime
-					state={state}
-					setState={setState}
-					error={errors.visit_time}
-				/>
-				<SelectDuration
-					state={state}
-					setState={setState}
-					error={errors.duration}
-				/>
-				<PayRateInput
-					state={state}
-					setState={setState}
-					error={errors.pay_rate}
-				/>
+				<div className="d-flex justify-content-between">
+					<SelectDate
+						state={state}
+						setState={setState}
+						error={errors.visit_on}
+					/>
+					<SelectTime
+						state={state}
+						setState={setState}
+						error={errors.visit_time}
+					/>
+				</div>
+				<div className="d-flex justify-content-between">
+					<SelectDuration
+						state={state}
+						setState={setState}
+						error={errors.duration}
+					/>
+					<PayRateInput
+						state={state}
+						setState={setState}
+						error={errors.pay_rate}
+					/>
+				</div>
 				<DetailsInput state={state} setState={setState} />
-				<SelectStartTime
-					state={state}
-					setState={setState}
-					error={errors.start_time}
-				/>
-				<SelectEndTime
-					state={state}
-					setState={setState}
-					error={errors.end_time}
-				/>
+				<hr />
+				<WorkerFeedback feedback={feedback} />
+				<div className="border rounded-lg p-3 mb-5">
+					<div className="mb-2">
+						These fields should be completed only if the cleaner is unable to
+						log time by himself.
+					</div>
+					<div className="d-flex justify-content-between">
+						<SelectStartTime
+							state={state}
+							setState={setState}
+							error={errors.start_time}
+						/>
+						<SelectEndTime
+							state={state}
+							setState={setState}
+							error={errors.end_time}
+						/>
+					</div>
+				</div>
 				<Button>Save</Button>
 			</Form>
 		</Container>
@@ -164,6 +185,7 @@ Jobs.propTypes = {
 	start_time: PropTypes.string,
 	end_time: PropTypes.string,
 	job_id: PropTypes.number,
+	feedback: PropTypes.string,
 };
 
 export default Jobs;

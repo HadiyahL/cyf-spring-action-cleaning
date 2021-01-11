@@ -19,7 +19,7 @@ const WorkerJobsTableBody = ({ data }) => {
 
 	return (
 		<tbody>
-			{data.map(({ id, address, visit_on, visit_time, status }) => {
+			{data.map(({ id, address, visit_on, visit_time, status }, index) => {
 				return (
 					<tr
 						key={id}
@@ -28,8 +28,8 @@ const WorkerJobsTableBody = ({ data }) => {
 						onKeyPress={(e) => handleKeyPress(id, e)}
 						tabIndex={0}
 					>
-						<td className={"text-center"}>
-							<StatusIndicator status={status} date={visit_on} />
+						<td className={"text-center"} id={`status-${index}`}>
+							<StatusIndicator status={status} date={visit_on} index={index} />
 						</td>
 						<td className="align-middle">{address}</td>
 						<td className="align-middle">
