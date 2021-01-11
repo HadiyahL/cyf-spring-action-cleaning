@@ -13,6 +13,7 @@ import {
 	DetailsInput,
 	SelectStartTime,
 	SelectEndTime,
+	WorkerFeedback,
 } from "../components";
 import { postJobs, putJobs } from "../service";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
@@ -32,6 +33,7 @@ const Jobs = ({
 	start_time,
 	end_time,
 	job_id,
+	feedback,
 }) => {
 	const [state, setState] = useState({
 		customer: customer || "",
@@ -47,6 +49,7 @@ const Jobs = ({
 		pay_rate: pay_rate || "",
 		start_time: start_time || "",
 		end_time: end_time || "",
+		feedback,
 	});
 	const [errors, setErrors] = useState({});
 	const history = useHistory();
@@ -133,6 +136,8 @@ const Jobs = ({
 					error={errors.pay_rate}
 				/>
 				<DetailsInput state={state} setState={setState} />
+				<hr />
+				<WorkerFeedback feedback={feedback} />
 				<SelectStartTime
 					state={state}
 					setState={setState}
@@ -164,6 +169,7 @@ Jobs.propTypes = {
 	start_time: PropTypes.string,
 	end_time: PropTypes.string,
 	job_id: PropTypes.number,
+	feedback: PropTypes.string,
 };
 
 export default Jobs;
