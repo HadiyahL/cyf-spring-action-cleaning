@@ -5,20 +5,9 @@ import { plusDayForJob, minusDayForJob } from "../../util/helpers";
 import ChangeWorkerButton from "./ChangeWorkerButton";
 import PlusIcon from "../UI/PlusIcon";
 import MinusIcon from "../UI/MinusIcon";
+import { formatDate } from "../../util/helpers";
 
 const RecurringJobsTableBody = ({ data, state, setState }) => {
-	const formatDate = (dateISO) => {
-		const date = new Date(dateISO);
-		const options = {
-			weekday: "short",
-			year: "numeric",
-			month: "short",
-			day: "numeric",
-		};
-
-		return date.toLocaleDateString("en-GB", options);
-	};
-
 	const handleRemoveJob = (idToRemove) => {
 		setState({
 			...state,
@@ -75,7 +64,12 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 							<MinusIcon />
 						</Button>
 						<div className="d-inline-block text-center next-cleaning-date">
-							{formatDate(visit_on)}
+							{formatDate(visit_on, {
+								weekday: "short",
+								year: "numeric",
+								month: "short",
+								day: "numeric",
+							})}
 						</div>
 						<Button onClick={() => handlePlusDay(id)} className="ml-2">
 							<PlusIcon />

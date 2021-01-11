@@ -2,6 +2,7 @@ import { Router } from "express";
 import { body, validationResult } from "express-validator";
 import { PhoneNumberUtil } from "google-libphonenumber";
 import db from "../db";
+import { formatWorkerJobs } from "../util/formatJobs";
 import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
@@ -15,6 +16,31 @@ router.get(
 		db.query("SELECT * FROM workers")
 			.then(({ rows }) => {
 				return res.json({ workers: rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/workers/jobs",
+	checkAuth,
+	checkPermission("get:workers/jobs"),
+	(req, res, next) => {
+		db.query(
+			`SELECT j.id, j.visit_on, j.visit_time, j.status, b.address
+				FROM jobs j
+				INNER JOIN branches b ON j.branch_id=b.id
+				INNER JOIN workers w ON w.id=j.worker_id
+				WHERE w.email=$1
+				ORDER BY j.visit_on DESC
+			`,
+			[req.user["https://springactioncleaning/email"]]
+		)
+			.then(({ rows }) => {
+				return res.json({ jobs: formatWorkerJobs(rows) });
 			})
 			.catch((e) => {
 				console.error(e);
@@ -41,12 +67,40 @@ router.get(
 	}
 );
 
+router.get(
+	"/workers/job/:id",
+	checkAuth,
+	checkPermission("get:workers/job/:id"),
+	(req, res, next) => {
+		const { id } = req.params;
+		const email = req.user["https://springactioncleaning/email"];
+
+		db.query(
+			`SELECT b.address, b.contact_name, b.contact_phone, b.details branch_details, j.*, c.name customer, w.name worker, w.email
+				FROM jobs j
+				INNER JOIN branches b ON j.branch_id=b.id
+				INNER JOIN customers c ON j.customer_id=c.id
+				INNER JOIN workers w ON w.id=j.worker_id
+				WHERE j.id=$1 AND w.email=$2
+			`,
+			[id, email]
+		)
+			.then(({ rows }) => {
+				return res.json({ jobs: formatWorkerJobs(rows) });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
 router.post(
 	"/workers",
 	checkAuth,
 	checkPermission("post:workers"),
 	[
-		body("email", "Please provide a valid email").isEmail().trim(),
+		body("email", "Please provide a valid email").isEmail().normalizeEmail(),
 		body("name", "Name is required").not().isEmpty().trim(),
 		body("address", "Address is required").not().isEmpty().trim(),
 		body("phone", "Not a valid GB number").custom((value) =>
@@ -90,7 +144,7 @@ router.put(
 	checkAuth,
 	checkPermission("put:workers"),
 	[
-		body("email", "Please provide a valid email").isEmail().trim(),
+		body("email", "Please provide a valid email").isEmail().normalizeEmail(),
 		body("name", "Name is required").not().isEmpty().trim(),
 		body("address", "Address is required").not().isEmpty().trim(),
 		body("phone", "Not a valid GB number").custom((value) =>

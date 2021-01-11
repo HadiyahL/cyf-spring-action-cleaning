@@ -87,3 +87,9 @@ export const minusDayForJob = (jobs, id) =>
 		}
 		return job;
 	});
+
+export const formatDate = (dateISO, options) => {
+	const date = new Date(dateISO);
+
+	return date.toLocaleDateString("en-GB", options);
+};

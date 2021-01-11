@@ -83,3 +83,8 @@ export const putJobs = async (id, data, options) => {
 	const response = await put(`/jobs/${id}`, data, options);
 	return response.data;
 };
+
+export const putLogTimes = async (id, data, options) => {
+	const response = await put(`/jobs/${id}/log_time`, data, options);
+	return response.data;
+};
