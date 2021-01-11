@@ -50,7 +50,7 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 	const { startTime, endTime, feedback, errors } = state;
 
 	return (
-		<Form className="mb-5">
+		<Form className="mb-5" onSubmit={handleSubmit}>
 			<FormGroup>
 				<Label for="startTime">Time when you started working</Label>
 				<Input
@@ -94,7 +94,7 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 				/>
 			</FormGroup>
 			<div className="d-flex justify-content-between">
-				<Button onClick={handleSubmit}>Submit</Button>
+				<Button type="submit">Submit</Button>
 				<BackButton />
 			</div>
 		</Form>

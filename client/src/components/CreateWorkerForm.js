@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { postWorkers, putWorkers } from "../service";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
+import BackButton from "./UI/BackButton";
 
 const CreateWorkerForm = ({
 	name,
@@ -176,7 +177,10 @@ const CreateWorkerForm = ({
 							Permanent contract
 						</Label>
 					</FormGroup>
-					<Button>Save</Button>
+					<div className="d-flex justify-content-between">
+						<Button type="submit">Save</Button>
+						<BackButton />
+					</div>
 				</Form>
 			</Col>
 		</Row>

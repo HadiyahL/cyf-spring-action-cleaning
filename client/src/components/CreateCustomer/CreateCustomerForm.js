@@ -13,6 +13,7 @@ import {
 import { postCustomer, putCustomer } from "../../service";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 import SuccessAlert from "../UI/SuccessAlert";
+import BackButton from "../UI/BackButton";
 
 const CreateCustomerForm = ({ state, setState }) => {
 	const [errors, setErrors] = useState({});
@@ -117,7 +118,10 @@ const CreateCustomerForm = ({ state, setState }) => {
 							<FormText color="danger">{errors.phone_number}</FormText>
 						)}
 					</FormGroup>
-					<Button>Save</Button>
+					<div className="d-flex justify-content-between">
+						<Button type="submit">Save</Button>
+						<BackButton />
+					</div>
 				</Form>
 			</Col>
 		</Row>
