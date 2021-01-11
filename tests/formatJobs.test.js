@@ -6,10 +6,10 @@ import {
 } from "../server/util/formatJobs";
 
 describe("Time formatting functions", () => {
-	test("intToHours returns null if argument is missing, null or 0", () => {
-		expect(intToHours()).toBe(null);
-		expect(intToHours(null)).toBe(null);
-		expect(intToHours(0)).toBe(null);
+	test("intToHours returns empty string if argument is missing, null or 0", () => {
+		expect(intToHours()).toBe("");
+		expect(intToHours(null)).toBe("");
+		expect(intToHours(0)).toBe("");
 	});
 
 	test("intToHours converts integer to hours in HH:mm format", () => {
@@ -17,9 +17,9 @@ describe("Time formatting functions", () => {
 		expect(intToHours(13)).toBe("13:00");
 	});
 
-	test("countVisitEnd returns null if duration is missing", () => {
-		expect(countVisitEnd("15:30", null)).toBe(null);
-		expect(countVisitEnd("15:30")).toBe(null);
+	test("countVisitEnd returns empty string if duration is missing", () => {
+		expect(countVisitEnd("15:30", null)).toBe("");
+		expect(countVisitEnd("15:30")).toBe("");
 	});
 
 	test("countVisitEnd adds duration to time correctly", () => {
@@ -38,10 +38,10 @@ describe("Time formatting functions", () => {
 		expect(formatHours("00:00:54")).toBe("00:00");
 	});
 
-	test("countActualDuration returns null if start or end time is missing", () => {
-		expect(countActualDuration()).toBe(null);
-		expect(countActualDuration("12:00")).toBe(null);
-		expect(countActualDuration(null, "12:00")).toBe(null);
+	test("countActualDuration returns empty string if start or end time is missing", () => {
+		expect(countActualDuration()).toBe("");
+		expect(countActualDuration("12:00")).toBe("");
+		expect(countActualDuration(null, "12:00")).toBe("");
 	});
 
 	test("countActualDuration counts duration correctly", () => {

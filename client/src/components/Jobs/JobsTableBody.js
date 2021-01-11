@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../util/helpers";
 import StatusIndicator from "./StatusIndicator";
+import WorkerFeedbackIconButton from "./Worker/WorkerFeedbackIconButton";
 
 const JobsTableBody = ({ data }) => {
 	const history = useHistory();
@@ -12,7 +13,7 @@ const JobsTableBody = ({ data }) => {
 	};
 
 	const handleKeyPress = (id, e) => {
-		if (e.key === "Enter") {
+		if (e.key === "Enter" && e.target.tagName === "TR") {
 			history.push(`/edit-jobs/${id}`);
 		}
 	};
@@ -63,6 +64,11 @@ const JobsTableBody = ({ data }) => {
 						<td>{start_time}</td>
 						<td>{end_time}</td>
 						<td>{actual_duration}</td>
+						<td className="text-center">
+							{feedback && (
+								<WorkerFeedbackIconButton feedback={feedback} worker={worker} />
+							)}
+						</td>
 					</tr>
 				)
 			)}

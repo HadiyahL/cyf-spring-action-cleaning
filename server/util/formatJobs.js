@@ -9,6 +9,7 @@ export const formatJobs = (jobs) =>
 		start_time: formatHours(job.start_time),
 		end_time: formatHours(job.end_time),
 		actual_duration: countActualDuration(job.start_time, job.end_time),
+		feedback: job.feedback ? job.feedback : "",
 	}));
 
 export const formatWorkerJobs = (jobs) =>
@@ -22,7 +23,7 @@ export const formatWorkerJobs = (jobs) =>
 
 export const countActualDuration = (startTime, endTime) => {
 	if (!startTime || !endTime) {
-		return null;
+		return "";
 	}
 
 	const end = DateTime.fromSQL(endTime);
@@ -51,7 +52,7 @@ export const formatHours = (hoursWithSeconds) => {
 
 export const countVisitEnd = (startTime, duration) => {
 	if (!duration) {
-		return null;
+		return "";
 	}
 
 	return DateTime.fromSQL(startTime)
@@ -61,7 +62,7 @@ export const countVisitEnd = (startTime, duration) => {
 
 export const intToHours = (numberOfHours) => {
 	if (!numberOfHours) {
-		return null;
+		return "";
 	}
 
 	return `${numberOfHours < 10 ? `0${numberOfHours}` : numberOfHours}:00`;
