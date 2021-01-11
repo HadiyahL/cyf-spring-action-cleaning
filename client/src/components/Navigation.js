@@ -20,6 +20,7 @@ import { LoginButton, LogoutButton, config } from "./auth";
 import logo from "../assets/logo.png";
 import Spinner from "./UI/Spinner";
 
+
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { isLoading, isAuthenticated, user } = useAuth0();
@@ -48,7 +49,7 @@ const Navigation = () => {
 					<Nav className="ml-auto d-flex justify-content-end navItems" navbar>
 						{isAuthenticated && role === "admin" && (
 							<>
-								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center navItem">
 									<NavLink
 										tag={Link}
 										className="text-primary link"
@@ -57,7 +58,7 @@ const Navigation = () => {
 										Clients{" "}
 									</NavLink>
 								</NavItem>
-								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center navItem">
 									<NavLink
 										tag={Link}
 										className="link text-primary"
@@ -66,12 +67,12 @@ const Navigation = () => {
 										Cleaners{" "}
 									</NavLink>
 								</NavItem>
-								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center navItem">
 									<NavLink tag={Link} className="link text-primary" to="/jobs">
 										Jobs
 									</NavLink>
 								</NavItem>
-								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center navItem">
 									<List type="unstyled">
 										<UncontrolledDropdown nav inNavbar>
 											<DropdownToggle
