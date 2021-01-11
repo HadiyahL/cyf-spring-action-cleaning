@@ -35,6 +35,7 @@ const JobsTableBody = ({ data }) => {
 						start_time,
 						end_time,
 						actual_duration,
+						feedback,
 					},
 					index
 				) => (
