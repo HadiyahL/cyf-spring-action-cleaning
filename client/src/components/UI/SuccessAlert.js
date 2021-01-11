@@ -9,10 +9,17 @@ const SuccessAlert = ({ text, resetAlert }) => {
 
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: "smooth" });
-		setTimeout(() => {
+		const alertTimeout = setTimeout(() => {
 			setVisible(false);
+		}, 2000);
+		const stateTimeout = setTimeout(() => {
 			resetAlert(false);
-		}, 4000);
+		}, 2500);
+
+		return () => {
+			clearTimeout(alertTimeout);
+			clearTimeout(stateTimeout);
+		};
 	}, [resetAlert]);
 
 	return (
