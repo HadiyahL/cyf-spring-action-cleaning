@@ -22,9 +22,10 @@ import {
 	WorkerJobPage,
 } from "./pages";
 import { ResultPage } from "./components";
+import HomepageImg from "./components/homepageImg";
 
 export function App() {
-	const { isLoading, error, user } = useAuth0();
+	const { isLoading, error, user, isAuthenticated } = useAuth0();
 
 	if (isLoading) {
 		return <Spinner />;
@@ -40,6 +41,11 @@ export function App() {
 		<>
 			<Navigation />
 			<Switch>
+				{!isAuthenticated && (
+					<Route exact path="/">
+						<HomepageImg />
+					</Route>
+				)}
 				{role === "admin" && (
 					<>
 						<Route exact path="/">
