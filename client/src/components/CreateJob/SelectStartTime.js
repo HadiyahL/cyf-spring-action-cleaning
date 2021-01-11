@@ -18,14 +18,10 @@ const SelectStartTime = ({ state, setState, error }) => {
 	};
 
 	return (
-		<div className="mb-3 mb-md-4 mb-lg-5">
+		<div className="w-100 mr-3 mr-md-5">
 			<FormGroup>
 				<Label for="startTime" size="lg">
 					Start time <span className="text-muted">(optional)</span>
-					<FormText>
-						This field should be completed only if the cleaner is unable to log
-						time by himself.
-					</FormText>
 				</Label>
 				<Input
 					invalid={!!error}

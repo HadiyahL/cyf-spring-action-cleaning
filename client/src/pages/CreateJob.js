@@ -119,35 +119,51 @@ const Jobs = ({
 				/>
 				<SelectBranch state={state} setState={setState} error={errors.branch} />
 				<SelectWorker state={state} setState={setState} error={errors.worker} />
-				<SelectDate state={state} setState={setState} error={errors.visit_on} />
-				<SelectTime
-					state={state}
-					setState={setState}
-					error={errors.visit_time}
-				/>
-				<SelectDuration
-					state={state}
-					setState={setState}
-					error={errors.duration}
-				/>
-				<PayRateInput
-					state={state}
-					setState={setState}
-					error={errors.pay_rate}
-				/>
+				<div className="d-flex justify-content-between">
+					<SelectDate
+						state={state}
+						setState={setState}
+						error={errors.visit_on}
+					/>
+					<SelectTime
+						state={state}
+						setState={setState}
+						error={errors.visit_time}
+					/>
+				</div>
+				<div className="d-flex justify-content-between">
+					<SelectDuration
+						state={state}
+						setState={setState}
+						error={errors.duration}
+					/>
+					<PayRateInput
+						state={state}
+						setState={setState}
+						error={errors.pay_rate}
+					/>
+				</div>
 				<DetailsInput state={state} setState={setState} />
 				<hr />
 				<WorkerFeedback feedback={feedback} />
-				<SelectStartTime
-					state={state}
-					setState={setState}
-					error={errors.start_time}
-				/>
-				<SelectEndTime
-					state={state}
-					setState={setState}
-					error={errors.end_time}
-				/>
+				<div className="border rounded-lg p-3 mb-5">
+					<div className="mb-2">
+						These fields should be completed only if the cleaner is unable to
+						log time by himself.
+					</div>
+					<div className="d-flex justify-content-between">
+						<SelectStartTime
+							state={state}
+							setState={setState}
+							error={errors.start_time}
+						/>
+						<SelectEndTime
+							state={state}
+							setState={setState}
+							error={errors.end_time}
+						/>
+					</div>
+				</div>
 				<Button>Save</Button>
 			</Form>
 		</Container>
