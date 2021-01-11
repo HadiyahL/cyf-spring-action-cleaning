@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Tooltip } from "reactstrap";
 
 const TooltipComponent = ({ id, text }) => {
@@ -11,6 +12,11 @@ const TooltipComponent = ({ id, text }) => {
 			{text}
 		</Tooltip>
 	);
+};
+
+TooltipComponent.propTypes = {
+	id: PropTypes.string,
+	text: PropTypes.string,
 };
 
 export default TooltipComponent;
