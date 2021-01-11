@@ -30,16 +30,16 @@ export const sortByField = (array, field, isAscending) => {
 
 export const determineJobStatus = (status, date) => {
 	if (status === 1) {
-		return "completed";
+		return "Completed";
 	}
 
 	const today = DateTime.local().minus({ days: 1 });
 	const visitDate = DateTime.fromISO(date);
 
 	if (visitDate < today) {
-		return "missed";
+		return "Missing";
 	} else {
-		return "awaiting";
+		return "Awaiting";
 	}
 };
 
