@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FormGroup, Label, Input, FormText, Button } from "reactstrap";
-import InfoPopover from "./InfoPopover";
 
 const SelectStartTime = ({ state, setState, error }) => {
 	const handleChange = (e) => {
@@ -22,8 +21,11 @@ const SelectStartTime = ({ state, setState, error }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="startTime" size="lg">
-					Start time <span className="text-muted">(optional)</span>{" "}
-					<InfoPopover name="popoverStartTime" />
+					Start time <span className="text-muted">(optional)</span>
+					<FormText>
+						This field should be completed only if the cleaner is unable to log
+						time by himself.
+					</FormText>
 				</Label>
 				<Input
 					invalid={!!error}
