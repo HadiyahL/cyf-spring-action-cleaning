@@ -1,6 +1,16 @@
 @import './custom.scss';
 @import '~bootstrap/scss/bootstrap';
 
+#root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+main {
+	margin-bottom: 10rem;
+}
+
 .jumbotron {
 	background-image: url("../assets/homepage.jpg");
 	background-position: center;
@@ -17,6 +27,7 @@
 
 .navbar {
 	min-height: 78px;
+	padding: 0 2rem;
 }
 
 .navbar_logo {
@@ -83,4 +94,13 @@
 
 .next-cleaning-date {
 	width: 140px;
+}
+
+.footer-list {
+	line-height: 1.7;
+}
+
+.worker-feedback-title {
+	font-size: 1.25rem;
+	line-height: 1.5;
 }

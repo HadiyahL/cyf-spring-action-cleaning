@@ -12,9 +12,12 @@ import {
 } from "reactstrap";
 import { postCustomer, putCustomer } from "../../service";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
+import SuccessAlert from "../UI/SuccessAlert";
+import BackButton from "../UI/BackButton";
 
 const CreateCustomerForm = ({ state, setState }) => {
 	const [errors, setErrors] = useState({});
+	const [isAlertOpen, setIsAlertOpen] = useState(false);
 	const authorizationHeaders = useAuthorizationHeaders();
 
 	const handleSubmit = (e) => {
@@ -31,6 +34,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 							...state,
 							customer_id: res.id,
 						});
+						setIsAlertOpen(true);
 					}
 				})
 				.catch((e) => {
@@ -46,6 +50,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 						setState({
 							...state,
 						});
+						setIsAlertOpen(true);
 					}
 				})
 				.catch((e) => {
@@ -68,6 +73,12 @@ const CreateCustomerForm = ({ state, setState }) => {
 	return (
 		<Row className="justify-content-center">
 			<Col xs="12" sm="12" md="8" lg="6" xl="6">
+				{isAlertOpen && (
+					<SuccessAlert
+						text="Client details successfully updated"
+						resetAlert={setIsAlertOpen}
+					/>
+				)}
 				<Form onSubmit={handleSubmit}>
 					<FormGroup>
 						<Label for="name">Name</Label>
@@ -107,7 +118,10 @@ const CreateCustomerForm = ({ state, setState }) => {
 							<FormText color="danger">{errors.phone_number}</FormText>
 						)}
 					</FormGroup>
-					<Button>Save</Button>
+					<div className="d-flex justify-content-between">
+						<Button type="submit">Save</Button>
+						<BackButton />
+					</div>
 				</Form>
 			</Col>
 		</Row>

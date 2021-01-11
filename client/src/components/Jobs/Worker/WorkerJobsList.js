@@ -53,7 +53,7 @@ const WorkerJobsList = () => {
 		<div>
 			<DateFilter state={state} setState={setState} />
 			{filteredDataByDate.length === 0 ? (
-				<div className="mt-5">No jobs found for this time period.</div>
+				<div className="mt-5">No jobs found for the specified time.</div>
 			) : (
 				<Table striped hover responsive>
 					<thead>

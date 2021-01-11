@@ -1,4 +1,5 @@
 export { default as Navigation } from "./Navigation";
+export { default as Footer } from "./Footer/Footer";
 export { default as CreateWorkerForm } from "./CreateWorkerForm";
 export { default as CreateCustomerForm } from "./CreateCustomer/CreateCustomerForm";
 export { default as Branches } from "./CreateCustomer/Branches";
@@ -16,6 +17,7 @@ export { default as SelectEndTime } from "./CreateJob/SelectEndTime";
 export { default as SelectDuration } from "./CreateJob/SelectDuration";
 export { default as PayRateInput } from "./CreateJob/PayRateInput";
 export { default as DetailsInput } from "./CreateJob/DetailsInput";
+export { default as WorkerFeedback } from "./CreateJob/WorkerFeedback";
 export { default as SuccessAlert } from "./UI/SuccessAlert";
 export { default as AddNewButton } from "./UI/AddNewButton";
 export { default as Spinner } from "./UI/Spinner";

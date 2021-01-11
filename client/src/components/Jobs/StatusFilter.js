@@ -23,7 +23,7 @@ const StatusFilter = ({ state, setState }) => {
 				name="statusSelect"
 				id="statusSelect"
 				onChange={handleChange}
-				bsSize="sm"
+				bsSize="md"
 			>
 				<option value="">All</option>
 				<option value={1}>Completed</option>
