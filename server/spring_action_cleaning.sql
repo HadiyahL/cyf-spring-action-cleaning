@@ -49,7 +49,7 @@ CREATE TABLE jobs (
   end_time        TIME (0),
   duration        INT,
   pay_rate        FLOAT,
-  feedback        VARCHAR(500),
+  feedback        VARCHAR(500)
 );
 
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '997-883-3933', '34409 La Follette Pass', '852-452-4383', false);
