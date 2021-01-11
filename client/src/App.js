@@ -2,7 +2,11 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigation, Footer, Spinner } from "./components";
-import { ProtectedRoute, config } from "./components/auth";
+import {
+	ProtectedRoute,
+	config,
+	CheckIfItIsAFirstLogin,
+} from "./components/auth";
 import {
 	CreateWorker,
 	CreateCustomer,
@@ -88,6 +92,7 @@ export function App() {
 				</Switch>
 			</main>
 			<Footer />
+			<CheckIfItIsAFirstLogin />
 		</>
 	);
 }
