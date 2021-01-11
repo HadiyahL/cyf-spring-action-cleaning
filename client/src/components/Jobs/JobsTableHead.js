@@ -60,6 +60,10 @@ const JobsTableHead = ({ changeSearchField }) => {
 				>
 					Actual duration
 				</th>
+				<th
+					className="th-tile"
+					onClick={() => changeSearchField("feedback")}
+				></th>
 			</tr>
 		</thead>
 	);
