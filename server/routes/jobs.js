@@ -213,6 +213,7 @@ router.post(
 		body("worker_id", "Worker id is required").exists(),
 		body("worker", "Cleaner is required").not().isEmpty(),
 		body("details", "Details are required").exists(),
+		body("details", "Max length is 500 characters").isLength({ max: 500 }),
 		body("visit_on", "Visit date is required").not().isEmpty(),
 		body(
 			"visit_time",
@@ -355,6 +356,7 @@ router.put(
 		body("branch_id", "Please provide a branch id").not().isEmpty(),
 		body("worker_id", "Please provide a worker id").not().isEmpty(),
 		body("details", "Details is required").exists(),
+		body("details", "Max length is 500 characters").isLength({ max: 500 }),
 		body("visit_on", "Visit date is required").not().isEmpty(),
 		body(
 			"visit_time",
@@ -466,6 +468,7 @@ router.put(
 				DateTime.fromISO(value) < DateTime.fromISO(req.body.endTime) ||
 				(value === "" && req.body.endTime === "")
 		),
+		body("feedback", "Max length is 500 characters").isLength({ max: 500 }),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
