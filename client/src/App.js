@@ -18,7 +18,6 @@ import {
 	EditJob,
 	EditWorker,
 	Recurring,
-	HomePage,
 	WorkerReports,
 	CustomerReports,
 	WorkerHomePage,
@@ -47,9 +46,7 @@ export function App() {
 				<Switch>
 					{role === "admin" && (
 						<>
-							<Route exact path="/">
-								<HomePage />
-							</Route>
+							<ProtectedRoute exact path="/" component={Jobs} />
 							<ProtectedRoute path="/add-worker" component={CreateWorker} />
 							<ProtectedRoute path="/add-customer" component={CreateCustomer} />
 							<ProtectedRoute
