@@ -10,6 +10,5 @@ export { default as EditWorker } from "./EditWorker";
 export { default as Recurring } from "./Recurring";
 export { default as WorkerReports } from "./WorkerReports";
 export { default as CustomerReports } from "./CustomerReports";
-export { default as WorkerHomePage } from "./WorkerHomePage";
 export { default as WorkerJobs } from "./WorkerJobs";
 export { default as WorkerJobPage } from "./WorkerJobPage";

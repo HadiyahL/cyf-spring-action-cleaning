@@ -8,7 +8,7 @@ const Jobs = () => {
 			<Title text="Jobs" />
 			<div className="d-flex justify-content-end align-items-center">
 				<AddNewButton pathname="/create-job" />
-				<div className="mr-3" />
+				<div className="mr-4" />
 				<AddNewButton pathname="/create-jobs" text="Recreate" />
 			</div>
 			<JobsList />

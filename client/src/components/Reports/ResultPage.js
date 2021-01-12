@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Table } from "reactstrap";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { Spinner, Title } from "../index";
+import { Spinner, Title, BackButton } from "../index";
 import ResultTableHead from "./ResultTableHead";
 import ResultTableBody from "./ResultTableBody";
 
@@ -37,9 +37,11 @@ const ResultPage = () => {
 						}
 					/>
 					<ResultTableBody data={data} bold="" type={type} />
-
 					<ResultTableBody data={total_data.data} bold="total" />
 				</Table>
+				<div className="d-flex justify-content-end mt-5">
+					<BackButton />
+				</div>
 			</Container>
 		);
 	}

@@ -177,9 +177,11 @@ const CreateWorkerForm = ({
 							Permanent contract
 						</Label>
 					</FormGroup>
-					<div className="d-flex justify-content-between">
-						<Button type="submit">Save</Button>
+					<div className="d-flex justify-content-end mb-4">
 						<BackButton />
+						<Button type="submit" className="ml-4">
+							Save
+						</Button>
 					</div>
 				</Form>
 			</Col>
