@@ -94,6 +94,9 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 					maxLength={500}
 				/>
 				<FormText className="text-right">{feedback.length}/500</FormText>
+				{errors.feedback && (
+					<FormText color="danger">{errors.feedback}</FormText>
+				)}
 			</FormGroup>
 			<div className="d-flex justify-content-between">
 				<Button type="submit">Submit</Button>
