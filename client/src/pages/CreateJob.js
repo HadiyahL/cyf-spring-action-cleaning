@@ -14,6 +14,7 @@ import {
 	SelectStartTime,
 	SelectEndTime,
 	WorkerFeedback,
+	Title,
 } from "../components";
 import { postJobs, putJobs } from "../service";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
@@ -108,9 +109,7 @@ const Jobs = ({
 
 	return (
 		<Container className="mb-5">
-			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-				{job_id ? "Edit Job" : "Create Job"}
-			</h2>
+			<Title text={job_id ? "Edit Job" : "Create Job"} />
 			<Form onSubmit={handleSubmit}>
 				<SelectCustomer
 					state={state}

@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "reactstrap";
 import { useParams } from "react-router-dom";
 import CreateWorkerForm from "../components/CreateWorkerForm";
-import Spinner from "../components/UI/Spinner";
+import { Spinner, Title } from "../components";
 import useFetch from "../hooks/useFetch";
 
 const EditWorker = () => {
@@ -25,7 +25,7 @@ const EditWorker = () => {
 
 		return (
 			<Container>
-				<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">Edit cleaner</h2>
+				<Title text="Edit cleaner" />
 				<CreateWorkerForm
 					name={name}
 					email={email}

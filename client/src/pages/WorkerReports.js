@@ -1,17 +1,14 @@
 import React from "react";
 import { Container } from "reactstrap";
 import CreateWorkerReport from "../components/CreateWorkerReport";
+import { Title } from "../components";
 
 const WorkerReports = () => {
-
 	return (
 		<Container>
-			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-            Cleaner Report
-			</h2>
+			<Title text="Cleaner Report" />
 			<CreateWorkerReport />
 		</Container>
-
 	);
 };
 

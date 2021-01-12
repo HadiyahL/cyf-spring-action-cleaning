@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Container } from "reactstrap";
-import { CreateCustomerForm, Branches } from "../components";
+import { CreateCustomerForm, Branches, Title } from "../components";
 
 const CreateCustomer = ({
 	email,
@@ -31,9 +31,7 @@ const CreateCustomer = ({
 
 	return (
 		<Container>
-			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-				{customer_id ? `${name}` : "Add a new Client"}
-			</h2>
+			<Title text={customer_id ? `${name}` : "Add a new Client"} />
 			<CreateCustomerForm state={state} setState={setState} />
 			{customer_id && <Branches state={state} setState={setState} />}
 		</Container>
