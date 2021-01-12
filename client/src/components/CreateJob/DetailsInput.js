@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FormGroup, Label, Input } from "reactstrap";
+import { FormGroup, Label, Input, FormText } from "reactstrap";
 
 const DetailsInput = ({ state, setState }) => {
 	const handleChange = (e) => {
@@ -22,8 +22,10 @@ const DetailsInput = ({ state, setState }) => {
 					id="details"
 					value={state.details || ""}
 					onChange={handleChange}
+					maxLength={500}
 					rows={4}
 				/>
+				<FormText className="text-right">{state.details.length}/500</FormText>
 			</FormGroup>
 		</div>
 	);
