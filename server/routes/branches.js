@@ -89,7 +89,9 @@ router.post(
 	checkPermission("post:branches/:customerId"),
 	[
 		body("address", "Address is required").not().isEmpty(),
+		body("address", "Max length is 100 characters").isLength({ max: 100 }),
 		body("contact_name", "Contact name is required").exists(),
+		body("contact_name", "Max length is 100 characters").isLength({ max: 100 }),
 		body("contact_phone", "Not a valid GB number").custom(
 			(value) =>
 				value === "" ||
@@ -97,9 +99,10 @@ router.post(
 		),
 		body("contact_phone", "Contact phone is required").exists(),
 		body("details", "Details is required").exists(),
+		body("details", "Max length is 250 characters").isLength({ max: 250 }),
 		body(
 			"main_branch",
-			"Specifying if branch is main or not is required"
+			"Specifying if a branch is main or not is required"
 		).exists(),
 	],
 	async (req, res, next) => {
@@ -173,7 +176,9 @@ router.put(
 	checkPermission("put:branches/:customerId/:branchId"),
 	[
 		body("address", "Address is required").not().isEmpty(),
+		body("address", "Max length is 100 characters").isLength({ max: 100 }),
 		body("contact_name", "Contact name is required").exists(),
+		body("contact_name", "Max length is 100 characters").isLength({ max: 100 }),
 		body("contact_phone", "Not a valid GB number").custom(
 			(value) =>
 				value === "" ||
@@ -181,6 +186,7 @@ router.put(
 		),
 		body("contact_phone", "Contact number is required").exists(),
 		body("details", "Details is required").exists(),
+		body("details", "Max length is 250 characters").isLength({ max: 250 }),
 		body(
 			"main_branch",
 			"Specifying if branch is main or not is required"

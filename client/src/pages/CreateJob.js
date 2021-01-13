@@ -143,7 +143,11 @@ const Jobs = ({
 						error={errors.pay_rate}
 					/>
 				</div>
-				<DetailsInput state={state} setState={setState} />
+				<DetailsInput
+					state={state}
+					setState={setState}
+					error={errors.details}
+				/>
 				<hr />
 				<WorkerFeedback feedback={feedback} />
 				<div className="border rounded-lg p-3 mb-5">

@@ -47,7 +47,9 @@ router.post(
 	checkPermission("post:customers"),
 	[
 		body("email", "Please provide a valid email").isEmail(),
+		body("email", "Max length is 60 characters").isLength({ max: 60 }),
 		body("name", "Name is required").not().isEmpty(),
+		body("name", "Max length is 100 characters").isLength({ max: 100 }),
 		body("phone_number", "Not a valid GB number").custom((value) =>
 			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
 		),
@@ -89,7 +91,9 @@ router.put(
 	checkPermission("put:customers/:id"),
 	[
 		body("email", "Please provide a valid email").isEmail(),
+		body("email", "Max length is 60 characters").isLength({ max: 60 }),
 		body("name", "Name is required").not().isEmpty(),
+		body("name", "Max length is 100 characters").isLength({ max: 100 }),
 		body("phone_number", "Not a valid GB number").custom((value) =>
 			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
 		),
