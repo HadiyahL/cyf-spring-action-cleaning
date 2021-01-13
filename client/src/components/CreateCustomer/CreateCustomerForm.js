@@ -90,6 +90,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 							placeholder="Enter name"
 							onChange={handleChange}
 							value={state.name}
+							maxLength={100}
 						/>
 						{errors.name && <FormText color="danger">{errors.name}</FormText>}
 					</FormGroup>
@@ -103,6 +104,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 							placeholder="Enter email"
 							onChange={handleChange}
 							value={state.email}
+							maxLength={60}
 						/>
 						{errors.email && <FormText color="danger">{errors.email}</FormText>}
 					</FormGroup>
@@ -116,6 +118,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 							placeholder="Enter Phone Number"
 							onChange={handleChange}
 							value={state.phone_number}
+							maxLength={50}
 						/>
 						{errors.phone_number && (
 							<FormText color="danger">{errors.phone_number}</FormText>
