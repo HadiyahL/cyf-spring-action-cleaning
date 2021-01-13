@@ -33,7 +33,9 @@ const CreateWorkerReport = () => {
 				dateAttribute="finish_date"
 				attributeTitle="Finish date"
 			/>
-			<Button>Run</Button>
+			<div className="d-flex justify-content-end">
+				<Button>Run</Button>
+			</div>
 		</Form>
 	);
 };

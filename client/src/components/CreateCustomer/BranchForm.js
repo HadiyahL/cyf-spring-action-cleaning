@@ -255,7 +255,12 @@ const BranchForm = ({
 						size="md"
 						isOptional={true}
 					/>
-					<Button>Save</Button>
+					<div className="d-flex justify-content-end mb-4">
+						<Button color="primary" onClick={toggle}>
+							Close
+						</Button>
+						<Button className="ml-4">Save</Button>
+					</div>
 				</Form>
 			</Col>
 		</Row>

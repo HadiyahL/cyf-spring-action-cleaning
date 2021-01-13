@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container } from "reactstrap";
-import { ShowCustomers, AddNewButton } from "../components";
+import { ShowCustomers, AddNewButton, Title } from "../components";
 
 const Customers = ({ customersTrigger }) => {
 	return (
 		<Container>
-			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">Clients</h2>
+			<Title text="Clients" />
 			<AddNewButton pathname="/add-customer" />
 			<ShowCustomers customersTrigger={customersTrigger} />
 		</Container>

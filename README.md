@@ -7,6 +7,10 @@ Spring action cleaning
 
 A full-stack PERN (PostgreSQL, Express, React, Node) project that aims to ease the tracking and recording of workers' hours.
 
+- Add and edit Clients, Cleaners & Jobs
+- Cleaners can log in and submit their working times
+- Generate reports to calculate total time of services provided for a given period 
+
 [![Spring Action Cleaning demo](./client/src/assets/screenshots.png)](https://spring-action-cleaning.herokuapp.com/)
 
 ## Table of content
@@ -89,7 +93,7 @@ get:workers/job/:id | Worker access single job
 get:workers/jobs | Worker access his jobs
 put:jobs/:id/log_time | Worker update job start and end times
 
-- Now you need to add the following rules [rules](https://auth0.com/docs/rules):
+- Now you need to add the following [rules](https://auth0.com/docs/rules):
 
 1. Rule to assign a role to the user on the first login. You can get role id from the address bar when you are in the role page, it's in the format of `rol_xxxxxxxxxxxxxxxx` in the URL.
 ```javascript
