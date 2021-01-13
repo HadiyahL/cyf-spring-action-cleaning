@@ -488,7 +488,7 @@ router.put(
 			UPDATE jobs j
 				SET start_time=$1, end_time=$2, status=$3, feedback=$4
 			FROM workers w
-			WHERE j.id=$5 AND w.email=$6`,
+			WHERE j.id=$5 AND w.email=$6 AND j.status=0`,
 			[startTime, endTime, status, feedback, id, email]
 		)
 			.then(({ rowCount }) => {

@@ -28,6 +28,7 @@ const WorkerJobPage = () => {
 		start_time,
 		end_time,
 		feedback,
+		status,
 	} = data.jobs[0];
 
 	return (
@@ -49,6 +50,7 @@ const WorkerJobPage = () => {
 						start_time={start_time}
 						end_time={end_time}
 						worker_feedback={feedback}
+						status={status}
 					/>
 				</Col>
 			</Row>
