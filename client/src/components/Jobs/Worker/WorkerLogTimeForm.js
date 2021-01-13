@@ -98,9 +98,11 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 					<FormText color="danger">{errors.feedback}</FormText>
 				)}
 			</FormGroup>
-			<div className="d-flex justify-content-between">
-				<Button type="submit">Submit</Button>
+			<div className="d-flex justify-content-end">
 				<BackButton />
+				<Button type="submit" className="ml-4">
+					Submit
+				</Button>
 			</div>
 		</Form>
 	);
