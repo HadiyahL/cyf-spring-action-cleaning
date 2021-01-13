@@ -1,5 +1,6 @@
 @import './custom.scss';
 @import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
 
 #root {
 	display: flex;
@@ -12,17 +13,40 @@ main {
 }
 
 .jumbotron {
-	background-image: url("../assets/homepage.jpg");
+	background-image: linear-gradient(to right,rgba(0, 0, 0, 0.664),rgba(10, 10, 12, 0.596)), url("../assets/homepage.jpg");
 	background-position: center;
 	background-size: cover;
-	filter: brightness(40%);
 	height: 100vh;
 	padding: 0;
-	margin: 0;
+	margin: 0 auto;
 	border-radius: 0;
 	display:flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	color:  #fff;
+		main & {
+			margin-bottom: -10rem;
+		}
+}
+
+.homepage_text {
+ 	display:flex;
+ 	flex-direction: column;
+ 	justify-content: center;
+	align-items: center;
+	padding: 0.75rem;
+}
+
+.homepage_text h2 {
+	font-family: 'Potta One', cursive;
+	margin-bottom: 1rem;
+}
+.homepage_text li {
+	list-style-type: none;
+	display: flex;
+	align-items: center;
+	// justify-content: center;
 }
 
 .navbar {
@@ -48,6 +72,17 @@ main {
 .link {
   font-weight: 600;
 	letter-spacing: .4px;
+}
+
+.react-icons {
+	font-size: 2rem;
+	color:#f8ae37;
+	margin-bottom:0.5rem ;
+}
+
+.react-icons1 {
+	font-size: 1.3rem;
+	color: #0f70b7;
 }
 
 .total {
@@ -104,3 +139,46 @@ main {
 	font-size: 1.25rem;
 	line-height: 1.5;
 }
+
+
+@media screen and (max-width: 560px) {
+	.homepage_text h2 {
+		text-align: center;
+		font-size: 1.5rem;
+	}
+	.homepage_text li {
+		font-size: 14px;
+	}
+	.react-icons {
+	font-size: 1.5rem;
+	}
+	.homepage_text li:nth-child(3) > svg {
+	min-width: 2.65rem;
+	margin-left: -0.5rem;
+	
+	}
+	.homepage_text li:nth-child(3) p {
+	margin-left: -0.5rem;
+	}
+}
+// @media screen and (max-width: 520px) {
+// 	.homepage_text li:nth-child(3) > svg {
+// 	font-size: 1.8rem;
+// 	}
+// }
+
+// @media screen and (max-width: 480px) {
+// 	.homepage_text li:nth-child(3) > svg {
+// 	font-size: 1.8rem;
+// 	}
+// }
+// @media screen and (max-width: 450px) {
+// 	.homepage_text li:nth-child(3) > svg {
+// 	font-size: 2.2rem;
+// 	}
+// }
+// @media screen and (max-width: 400px) {
+// 	.homepage_text li:nth-child(3) > svg {
+// 	font-size: 2.1rem;
+// 	}
+// }

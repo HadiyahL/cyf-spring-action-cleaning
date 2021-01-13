@@ -46,11 +46,11 @@ export function App() {
 			<main className="flex-shrink-0">
 				<Navigation />
 				<Switch>
-        {!isAuthenticated && (
-					<Route exact path="/">
-						<HomepageImg />
-					</Route>
-				)}
+					{!isAuthenticated && (
+						<Route exact path="/">
+							<HomepageImg />
+						</Route>
+					)}
 					{role === "admin" && (
 						<>
 							<Route exact path="/">

@@ -16,7 +16,7 @@ import {
 	NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { LoginButton, LogoutButton, config } from "./auth";
+import { LogoutButton, config } from "./auth";
 import logo from "../assets/logo.png";
 import Spinner from "./UI/Spinner";
 
@@ -108,7 +108,7 @@ const Navigation = () => {
 						)}
 						{isAuthenticated && role === "worker" && (
 							<>
-								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
+								<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center navItem">
 									<NavLink tag={Link} className="link text-primary" to="/jobs">
 										Jobs
 									</NavLink>
@@ -117,11 +117,6 @@ const Navigation = () => {
 									<LogoutButton />
 								</NavItem>
 							</>
-						)}
-						{!isAuthenticated && (
-							<NavItem className="mr-md-5 pb-2 pt-2 pb-md-0 pt-md-0 text-center d-md-flex align-items-center">
-								<LoginButton />
-							</NavItem>
 						)}
 					</Nav>
 				</Collapse>
