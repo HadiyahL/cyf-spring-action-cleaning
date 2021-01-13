@@ -1,7 +1,7 @@
 {
-  "name": "starter-kit",
+  "name": "spring-action-cleaning",
   "version": "0.0.1",
-  "description": "Starter kit for full-stack JavaScript projects",
+  "description": "Application that helps keep track and record cleaners working hours",
   "private": true,
   "scripts": {
     "prebuild": "npm run cleanup",
@@ -22,15 +22,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/textbook/starter-kit.git"
+    "url": "git+https://github.com/HadiyahL/spring-action-cleaning.git"
   },
-  "author": "Jonathan Sharpe <mail@jonrshar.pe>",
+  "author": "Gennady Tabala, Gintaras Stankus, Hadiyah Lawal",
   "contributors": [],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/textbook/starter-kit/issues"
+    "url": "https://github.com/HadiyahL/spring-action-cleaning/issues"
   },
-  "homepage": "https://github.com/textbook/starter-kit#readme",
+  "homepage": "https://github.com/HadiyahL/spring-action-cleaning#readme",
   "devDependencies": {
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",
