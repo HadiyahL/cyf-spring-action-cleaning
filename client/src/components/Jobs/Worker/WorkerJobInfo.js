@@ -13,34 +13,43 @@ const WorkerJobInfo = ({
 	visit_on,
 }) => {
 	return (
-		<>
-			<h1 className="text-center mt-4 mt-md-5">{customer}</h1>
-			<h2 className="text-center">{address}</h2>
-			<h2 className="text-center">
+		<div className="mt-4 mt-md-5 mb-5">
+			<p className="worker-info-text-size">
+				<strong>Client:</strong> {customer}
+			</p>
+			<p className="worker-info-text-size">
+				<strong>Address:</strong> {address}
+			</p>
+			<p className="worker-info-text-size">
+				<strong>Date:</strong>{" "}
 				{formatDate(visit_on, {
 					weekday: "long",
 					month: "long",
 					day: "numeric",
 				})}{" "}
 				at {visit_time}
-			</h2>
-			<div className="my-4">
-				<div>
-					<strong>Contact:</strong> {contact_name}, {contact_phone}
-				</div>
-				{duration && (
-					<div>
-						<strong>Planned duration:</strong> {duration}{" "}
-						{duration === 1 ? "hour" : "hours"}
-					</div>
-				)}
-				{details && (
-					<div>
-						<strong>Job details:</strong> {details}
-					</div>
-				)}
-			</div>
-		</>
+			</p>
+			<p className="worker-info-text-size">
+				<strong>Contact name: </strong>
+				{contact_name}
+			</p>
+			<p className="worker-info-text-size">
+				<strong>Contact phone: </strong>
+				{contact_phone}
+			</p>
+
+			{duration && (
+				<p className="worker-info-text-size">
+					<strong>Planned duration:</strong> {duration}{" "}
+					{duration === 1 ? "hour" : "hours"}
+				</p>
+			)}
+			{details && (
+				<p className="worker-info-text-size">
+					<strong>Job details:</strong> {details}
+				</p>
+			)}
+		</div>
 	);
 };
 

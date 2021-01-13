@@ -87,3 +87,9 @@ p {
 	font-size: 1.25rem;
 	line-height: 1.5;
 }
+
+@media (min-width: 768px) {
+	.worker-info-text-size {
+		font-size: 1.25rem;
+	}
+}
