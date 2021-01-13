@@ -19,29 +19,39 @@ const WorkerJobsTableBody = ({ data }) => {
 
 	return (
 		<tbody>
-			{data.map(({ id, address, visit_on, visit_time, status }, index) => {
-				return (
-					<tr
-						key={id}
-						role="button"
-						onClick={() => handleClick(id)}
-						onKeyPress={(e) => handleKeyPress(id, e)}
-						tabIndex={0}
-					>
-						<td className={"text-center"} id={`status-${index}`}>
-							<StatusIndicator status={status} date={visit_on} index={index} />
-						</td>
-						<td className="align-middle">{address}</td>
-						<td className="align-middle">
-							{formatDate(visit_on, {
-								month: "long",
-								day: "numeric",
-							})}
-						</td>
-						<td className="align-middle">{visit_time}</td>
-					</tr>
-				);
-			})}
+			{data.map(
+				({ id, address, name, visit_on, visit_time, status }, index) => {
+					return (
+						<tr
+							key={id}
+							role="button"
+							onClick={() => handleClick(id)}
+							onKeyPress={(e) => handleKeyPress(id, e)}
+							tabIndex={0}
+						>
+							<td className="text-center align-middle" id={`status-${index}`}>
+								<StatusIndicator
+									status={status}
+									date={visit_on}
+									index={index}
+								/>
+							</td>
+							<td className="align-middle">
+								<strong>{name}</strong>
+								<br />
+								{address}
+							</td>
+							<td className="align-middle">
+								{formatDate(visit_on, {
+									month: "long",
+									day: "numeric",
+								})}
+							</td>
+							<td className="align-middle">{visit_time}</td>
+						</tr>
+					);
+				}
+			)}
 		</tbody>
 	);
 };
