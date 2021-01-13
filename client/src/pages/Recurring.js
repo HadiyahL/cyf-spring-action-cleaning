@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { getJobs, postBatchOfJobs, getWorkers } from "../service";
 import { Table, Button, Container } from "reactstrap";
 import DateFilter from "../components/Jobs/DateFilter";
-import {
-	getWeekFromDate,
-	sortByField,
-	setCleaningTimeForNextWeek,
-} from "../util/helpers";
+import { sortByField, setCleaningTimeForNextWeek } from "../util/helpers";
 import { Spinner } from "../components";
 import { RecurringJobsTableHead, RecurringJobsTableBody } from "../components";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
+import { RecurringJobsContext } from "../contexts/RecurringJobs";
 
 const Recurring = () => {
 	const [state, setState] = useState({
-		startDate: getWeekFromDate().start,
-		endDate: getWeekFromDate().end,
 		jobs: [],
 		isLoading: true,
 		error: null,
 	});
+	const [date, setDate] = useContext(RecurringJobsContext);
 	const history = useHistory();
 	const authorizationHeaders = useAuthorizationHeaders();
 
@@ -27,7 +23,7 @@ const Recurring = () => {
 		let isActive = true;
 
 		const fetchJobs = () =>
-			getJobs(state.startDate, state.endDate, authorizationHeaders)
+			getJobs(date.startDate, date.endDate, authorizationHeaders)
 				.then((data) => {
 					if (isActive) {
 						setState((state) => ({
@@ -51,7 +47,7 @@ const Recurring = () => {
 		return () => {
 			isActive = false;
 		};
-	}, [state.startDate, state.endDate, authorizationHeaders]);
+	}, [date.startDate, date.endDate, authorizationHeaders]);
 
 	useEffect(() => {
 		const fetchWorkers = () =>
@@ -85,7 +81,7 @@ const Recurring = () => {
 				<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
 					Recreate from previous jobs
 				</h2>
-				<DateFilter state={state} setState={setState} />
+				<DateFilter state={date} setState={setDate} />
 				{sortedJobs.length < 1 ? (
 					<div>No jobs found for the specified time.</div>
 				) : (
