@@ -69,6 +69,7 @@ const WorkerLogTimeForm = ({
 					invalid={!!errors.startTime}
 					placeholder="HH:MM (24h clock)"
 					pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
+					required
 				/>
 				{errors.startTime && (
 					<FormText color="danger">{errors.startTime}</FormText>
@@ -86,6 +87,7 @@ const WorkerLogTimeForm = ({
 					invalid={!!errors.endTime}
 					placeholder="HH:MM (24h clock)"
 					pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
+					required
 				/>
 				{errors.endTime && <FormText color="danger">{errors.endTime}</FormText>}
 			</FormGroup>
