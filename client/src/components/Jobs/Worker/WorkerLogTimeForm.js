@@ -32,6 +32,13 @@ const WorkerLogTimeForm = ({
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (
+			!window.confirm(
+				`Do you confirm that the times (start: ${startTime} — end: ${endTime}) are correct? You cannot change the time after you submit.`
+			)
+		) {
+			return;
+		}
 
 		putLogTimes(id, state, authorizationHeaders)
 			.then((res) => {
