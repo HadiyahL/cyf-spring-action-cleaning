@@ -26,6 +26,7 @@ import {
 	WorkerJobPage,
 } from "./pages";
 import { ResultPage } from "./components";
+import ContextProviders from "./contexts/ContextProviders";
 
 export function App() {
 	const { isLoading, error, user } = useAuth0();
@@ -41,7 +42,7 @@ export function App() {
 	const role = user?.[config.roleUrl][0];
 
 	return (
-		<>
+		<ContextProviders>
 			<main className="flex-shrink-0">
 				<Navigation />
 				<Switch>
@@ -93,7 +94,7 @@ export function App() {
 			</main>
 			<Footer />
 			<CheckIfItIsAFirstLogin />
-		</>
+		</ContextProviders>
 	);
 }
 
