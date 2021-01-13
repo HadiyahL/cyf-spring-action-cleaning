@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Table } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
 import Spinner from "../UI/Spinner";
@@ -7,15 +7,11 @@ import JobsTableBody from "./JobsTableBody";
 import DateFilter from "./DateFilter";
 import StatusFilter from "./StatusFilter";
 import { sortByField } from "../../util/helpers";
-import { DateTime } from "luxon";
+import { JobsContext } from "../../contexts/Jobs";
 
 const JobsList = () => {
 	const { data, error, isLoading } = useFetch("/jobs");
-	const [state, setState] = useState({
-		startDate: DateTime.local().toISODate(),
-		endDate: "",
-		status: "",
-	});
+	const [state, setState] = useContext(JobsContext);
 	const [sortBy, setSortBy] = useState("visit_on");
 	const [isAscending, setIsAscending] = useState(null);
 
