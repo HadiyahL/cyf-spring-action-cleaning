@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import BranchForm from "./BranchForm";
 
 const BranchModal = ({
@@ -26,11 +26,6 @@ const BranchModal = ({
 						branchSaved={branchSaved}
 					/>
 				</ModalBody>
-				<ModalFooter className="px-md-4">
-					<Button color="primary" onClick={toggle}>
-						Close
-					</Button>
-				</ModalFooter>
 			</Modal>
 		</div>
 	);

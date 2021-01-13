@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigation, Footer, Spinner } from "./components";
 import {
@@ -18,10 +18,8 @@ import {
 	EditJob,
 	EditWorker,
 	Recurring,
-	HomePage,
 	WorkerReports,
 	CustomerReports,
-	WorkerHomePage,
 	WorkerJobs,
 	WorkerJobPage,
 } from "./pages";
@@ -47,9 +45,7 @@ export function App() {
 				<Switch>
 					{role === "admin" && (
 						<>
-							<Route exact path="/">
-								<HomePage />
-							</Route>
+							<ProtectedRoute exact path="/" component={Jobs} />
 							<ProtectedRoute path="/add-worker" component={CreateWorker} />
 							<ProtectedRoute path="/add-customer" component={CreateCustomer} />
 							<ProtectedRoute
@@ -79,9 +75,7 @@ export function App() {
 					)}
 					{role === "worker" && (
 						<>
-							<Route exact path="/">
-								<WorkerHomePage />
-							</Route>
+							<ProtectedRoute exact path="/" component={WorkerJobs} />
 							<ProtectedRoute path="/jobs" component={WorkerJobs} />
 							<ProtectedRoute
 								path="/worker/job/:id"

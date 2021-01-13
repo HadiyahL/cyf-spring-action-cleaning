@@ -83,6 +83,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 					<FormGroup>
 						<Label for="name">Name</Label>
 						<Input
+							invalid={!!errors.name}
 							type="text"
 							name="name"
 							id="name"
@@ -96,6 +97,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 					<FormGroup>
 						<Label for="email">Email</Label>
 						<Input
+							invalid={!!errors.email}
 							type="email"
 							name="email"
 							id="email"
@@ -109,6 +111,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 					<FormGroup>
 						<Label for="customerPhone">Phone Number</Label>
 						<Input
+							invalid={!!errors.phone_number}
 							type="text"
 							name="phone_number"
 							id="customerPhone"
@@ -121,9 +124,11 @@ const CreateCustomerForm = ({ state, setState }) => {
 							<FormText color="danger">{errors.phone_number}</FormText>
 						)}
 					</FormGroup>
-					<div className="d-flex justify-content-between">
-						<Button type="submit">Save</Button>
+					<div className="d-flex justify-content-end mb-4">
 						<BackButton />
+						<Button type="submit" className="ml-4">
+							Save
+						</Button>
 					</div>
 				</Form>
 			</Col>

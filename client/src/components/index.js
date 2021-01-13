@@ -21,6 +21,7 @@ export { default as WorkerFeedback } from "./CreateJob/WorkerFeedback";
 export { default as SuccessAlert } from "./UI/SuccessAlert";
 export { default as AddNewButton } from "./UI/AddNewButton";
 export { default as Spinner } from "./UI/Spinner";
+export { default as Title } from "./UI/Title";
 export { default as BackButton } from "./UI/BackButton";
 export { default as ResultPage } from "./Reports/ResultPage";
 export { default as RecurringJobsTableBody } from "./Recurring/RecurringJobsTableBody";

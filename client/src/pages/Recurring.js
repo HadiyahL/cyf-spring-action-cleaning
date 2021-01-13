@@ -8,7 +8,7 @@ import {
 	sortByField,
 	setCleaningTimeForNextWeek,
 } from "../util/helpers";
-import { Spinner } from "../components";
+import { Spinner, Title, BackButton } from "../components";
 import { RecurringJobsTableHead, RecurringJobsTableBody } from "../components";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
 
@@ -82,15 +82,13 @@ const Recurring = () => {
 		const sortedJobs = sortByField(jobs, "customer", true);
 		return (
 			<Container className="pr-lg-5 pl-lg-5 jobs">
-				<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-					Recreate from previous jobs
-				</h2>
+				<Title text="Recreate from previous jobs" />
 				<DateFilter state={state} setState={setState} />
 				{sortedJobs.length < 1 ? (
 					<div>No jobs found for the specified time.</div>
 				) : (
 					<>
-						<Table striped hover responsive className="recurring-table">
+						<Table striped hover responsive className="recurring-table mb-5">
 							<RecurringJobsTableHead />
 							<RecurringJobsTableBody
 								data={sortedJobs}
@@ -99,7 +97,8 @@ const Recurring = () => {
 							/>
 						</Table>
 						<div className="d-flex justify-content-end mb-4">
-							<Button onClick={handleClick} color="success">
+							<BackButton />
+							<Button onClick={handleClick} color="success" className="ml-4">
 								Create {jobs.length} jobs
 							</Button>
 						</div>
