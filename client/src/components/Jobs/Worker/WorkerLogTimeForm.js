@@ -81,7 +81,7 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 				/>
 				{errors.endTime && <FormText color="danger">{errors.endTime}</FormText>}
 			</FormGroup>
-			<FormGroup>
+			<FormGroup className="mb-4">
 				<Label for="feedback">Details</Label>
 				<Input
 					type="textarea"
@@ -91,11 +91,18 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 					value={feedback}
 					onChange={handleChange}
 					rows={4}
+					maxLength={500}
 				/>
+				<FormText className="text-right">{feedback.length}/500</FormText>
+				{errors.feedback && (
+					<FormText color="danger">{errors.feedback}</FormText>
+				)}
 			</FormGroup>
-			<div className="d-flex justify-content-between">
-				<Button type="submit">Submit</Button>
+			<div className="d-flex justify-content-end">
 				<BackButton />
+				<Button type="submit" className="ml-4">
+					Submit
+				</Button>
 			</div>
 		</Form>
 	);

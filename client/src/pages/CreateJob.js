@@ -14,6 +14,8 @@ import {
 	SelectStartTime,
 	SelectEndTime,
 	WorkerFeedback,
+	Title,
+	BackButton,
 } from "../components";
 import { postJobs, putJobs } from "../service";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
@@ -108,9 +110,7 @@ const Jobs = ({
 
 	return (
 		<Container className="mb-5">
-			<h2 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-				{job_id ? "Edit Job" : "Create Job"}
-			</h2>
+			<Title text={job_id ? "Edit Job" : "Create Job"} />
 			<Form onSubmit={handleSubmit}>
 				<SelectCustomer
 					state={state}
@@ -143,9 +143,11 @@ const Jobs = ({
 						error={errors.pay_rate}
 					/>
 				</div>
-				<DetailsInput state={state} setState={setState} />
-				<hr />
-				<WorkerFeedback feedback={feedback} />
+				<DetailsInput
+					state={state}
+					setState={setState}
+					error={errors.details}
+				/>
 				<div className="border rounded-lg p-3 mb-5">
 					<div className="mb-2">
 						These fields should be completed only if the cleaner is unable to
@@ -163,8 +165,14 @@ const Jobs = ({
 							error={errors.end_time}
 						/>
 					</div>
+					<WorkerFeedback feedback={feedback} />
 				</div>
-				<Button>Save</Button>
+				<div className="d-flex justify-content-end mb-4">
+					<BackButton />
+					<Button type="submit" className="ml-4">
+						Save
+					</Button>
+				</div>
 			</Form>
 		</Container>
 	);

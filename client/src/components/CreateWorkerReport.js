@@ -1,23 +1,20 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { SelectDateU, SelectWorker } from "../components";
+import React, { useContext } from "react";
 import { Form, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { SelectDateU, SelectWorker } from "../components";
+import { WorkerReportContext } from "../contexts/WorkerReport";
 
-const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
+const CreateWorkerReport = () => {
+	const [state, setState] = useContext(WorkerReportContext);
 	const history = useHistory();
-
-	const [state, setState] = useState({
-		worker: worker || "",
-		worker_id: worker_id || "",
-		start_date: start_date || "",
-		finish_date: finish_date || "",
-	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		const { worker_id, worker, start_date, finish_date } = state;
+
 		history.push(
-			`/result/${state.worker_id}/${state.start_date}/${state.finish_date}/${state.worker}/worker`
+			`/result/${worker_id}/${start_date}/${finish_date}/${worker}/worker`
 		);
 	};
 
@@ -36,14 +33,11 @@ const CreateWorkerReport = ({ worker, worker_id, start_date, finish_date }) => {
 				dateAttribute="finish_date"
 				attributeTitle="Finish date"
 			/>
-			<Button>Run</Button>
+			<div className="d-flex justify-content-end">
+				<Button>Run</Button>
+			</div>
 		</Form>
 	);
 };
-CreateWorkerReport.propTypes = {
-	worker: PropTypes.string,
-	worker_id: PropTypes.number,
-	start_date: PropTypes.string,
-	finish_date: PropTypes.string,
-};
+
 export default CreateWorkerReport;

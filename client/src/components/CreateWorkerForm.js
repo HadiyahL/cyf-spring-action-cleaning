@@ -107,6 +107,7 @@ const CreateWorkerForm = ({
 							placeholder="Enter full name"
 							onChange={handleChange}
 							value={state.name}
+							maxLength={100}
 						/>
 						{errors.name && <FormText color="danger">{errors.name}</FormText>}
 					</FormGroup>
@@ -120,6 +121,7 @@ const CreateWorkerForm = ({
 							placeholder="Enter email"
 							onChange={handleChange}
 							value={state.email}
+							maxLength={60}
 						/>
 						{errors.email && <FormText color="danger">{errors.email}</FormText>}
 					</FormGroup>
@@ -133,6 +135,7 @@ const CreateWorkerForm = ({
 							placeholder="Enter address"
 							onChange={handleChange}
 							value={state.address}
+							maxLength={100}
 						/>
 						{errors.address && (
 							<FormText color="danger">{errors.address}</FormText>
@@ -148,6 +151,7 @@ const CreateWorkerForm = ({
 							placeholder="Enter phone number"
 							onChange={handleChange}
 							value={state.phone}
+							maxLength={50}
 						/>
 						{errors.phone && <FormText color="danger">{errors.phone}</FormText>}
 					</FormGroup>
@@ -161,6 +165,7 @@ const CreateWorkerForm = ({
 							placeholder="Enter whatsapp"
 							onChange={handleChange}
 							value={state.whatsapp}
+							maxLength={50}
 						/>
 						{errors.whatsapp && (
 							<FormText color="danger">{errors.whatsapp}</FormText>
@@ -177,9 +182,11 @@ const CreateWorkerForm = ({
 							Permanent contract
 						</Label>
 					</FormGroup>
-					<div className="d-flex justify-content-between">
-						<Button type="submit">Save</Button>
+					<div className="d-flex justify-content-end mb-4">
 						<BackButton />
+						<Button type="submit" className="ml-4">
+							Save
+						</Button>
 					</div>
 				</Form>
 			</Col>

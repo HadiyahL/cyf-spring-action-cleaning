@@ -42,7 +42,13 @@ const Navigation = () => {
 		<div>
 			<Navbar color="light" light expand="md" className="navbar">
 				<NavbarBrand onClick={handleLogoClick}>
-					<img src={logo} className="navbar_logo" alt="spring-action-logo" />
+					<img
+						src={logo}
+						width={60}
+						height={52}
+						className="navbar_logo"
+						alt="spring-action-logo"
+					/>
 				</NavbarBrand>
 				<NavbarToggler onClick={toggle} />
 				<Collapse isOpen={isOpen} navbar>

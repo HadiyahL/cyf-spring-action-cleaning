@@ -60,7 +60,12 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 						)}
 					</td>
 					<td className="align-middle">
-						<Button onClick={() => handleMinusDay(id)} className="mr-2">
+						<Button
+							onClick={() => handleMinusDay(id)}
+							className="mr-2"
+							title="Previous day"
+							aria-label="Previous day"
+						>
 							<MinusIcon />
 						</Button>
 						<div className="d-inline-block text-center next-cleaning-date">
@@ -71,7 +76,12 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 								day: "numeric",
 							})}
 						</div>
-						<Button onClick={() => handlePlusDay(id)} className="ml-2">
+						<Button
+							onClick={() => handlePlusDay(id)}
+							className="ml-2"
+							title="Next day"
+							aria-label="Next day"
+						>
 							<PlusIcon />
 						</Button>
 					</td>
@@ -91,6 +101,7 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 						<Button
 							close
 							aria-label="Remove"
+							title="Remove"
 							onClick={() => handleRemoveJob(id)}
 							className="mx-auto"
 						/>

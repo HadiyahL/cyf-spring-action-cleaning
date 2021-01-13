@@ -47,6 +47,10 @@ main {
 	display: flex;
 	align-items: center;
 	// justify-content: center;
+
+p {
+	white-space: pre-wrap;
+
 }
 
 .navbar {
@@ -135,11 +139,10 @@ main {
 	line-height: 1.7;
 }
 
-.worker-feedback-title {
+  .worker-feedback-title {
 	font-size: 1.25rem;
 	line-height: 1.5;
 }
-
 
 @media screen and (max-width: 560px) {
 	.homepage_text h2 {
@@ -161,24 +164,3 @@ main {
 	margin-left: -0.5rem;
 	}
 }
-// @media screen and (max-width: 520px) {
-// 	.homepage_text li:nth-child(3) > svg {
-// 	font-size: 1.8rem;
-// 	}
-// }
-
-// @media screen and (max-width: 480px) {
-// 	.homepage_text li:nth-child(3) > svg {
-// 	font-size: 1.8rem;
-// 	}
-// }
-// @media screen and (max-width: 450px) {
-// 	.homepage_text li:nth-child(3) > svg {
-// 	font-size: 2.2rem;
-// 	}
-// }
-// @media screen and (max-width: 400px) {
-// 	.homepage_text li:nth-child(3) > svg {
-// 	font-size: 2.1rem;
-// 	}
-// }

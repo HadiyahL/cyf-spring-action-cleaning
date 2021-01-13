@@ -83,44 +83,52 @@ const CreateCustomerForm = ({ state, setState }) => {
 					<FormGroup>
 						<Label for="name">Name</Label>
 						<Input
+							invalid={!!errors.name}
 							type="text"
 							name="name"
 							id="name"
 							placeholder="Enter name"
 							onChange={handleChange}
 							value={state.name}
+							maxLength={100}
 						/>
 						{errors.name && <FormText color="danger">{errors.name}</FormText>}
 					</FormGroup>
 					<FormGroup>
 						<Label for="email">Email</Label>
 						<Input
+							invalid={!!errors.email}
 							type="email"
 							name="email"
 							id="email"
 							placeholder="Enter email"
 							onChange={handleChange}
 							value={state.email}
+							maxLength={60}
 						/>
 						{errors.email && <FormText color="danger">{errors.email}</FormText>}
 					</FormGroup>
 					<FormGroup>
 						<Label for="customerPhone">Phone Number</Label>
 						<Input
+							invalid={!!errors.phone_number}
 							type="text"
 							name="phone_number"
 							id="customerPhone"
 							placeholder="Enter Phone Number"
 							onChange={handleChange}
 							value={state.phone_number}
+							maxLength={50}
 						/>
 						{errors.phone_number && (
 							<FormText color="danger">{errors.phone_number}</FormText>
 						)}
 					</FormGroup>
-					<div className="d-flex justify-content-between">
-						<Button type="submit">Save</Button>
+					<div className="d-flex justify-content-end mb-4">
 						<BackButton />
+						<Button type="submit" className="ml-4">
+							Save
+						</Button>
 					</div>
 				</Form>
 			</Col>

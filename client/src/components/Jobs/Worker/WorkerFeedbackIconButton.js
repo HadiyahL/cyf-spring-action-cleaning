@@ -19,6 +19,8 @@ const WorkerFeedbackIconButton = ({ feedback, worker }) => {
 		<button
 			className="border-0 bg-transparent"
 			onClick={(e) => handleFeedbackIconClick(e)}
+			aria-label="Worker Feedback Icon"
+			title="Feedback message"
 		>
 			<TextIcon />
 			<WorkerFeedbackModal

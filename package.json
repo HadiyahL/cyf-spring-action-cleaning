@@ -1,7 +1,7 @@
 {
-  "name": "starter-kit",
+  "name": "spring-action-cleaning",
   "version": "0.0.1",
-  "description": "Starter kit for full-stack JavaScript projects",
+  "description": "Application that helps keep track and record cleaners working hours",
   "private": true,
   "scripts": {
     "prebuild": "npm run cleanup",
@@ -22,23 +22,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/textbook/starter-kit.git"
+    "url": "git+https://github.com/HadiyahL/spring-action-cleaning.git"
   },
-  "author": "Jonathan Sharpe <mail@jonrshar.pe>",
+  "author": "Gennady Tabala, Gintaras Stankus, Hadiyah Lawal",
   "contributors": [],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/textbook/starter-kit/issues"
+    "url": "https://github.com/HadiyahL/spring-action-cleaning/issues"
   },
-  "homepage": "https://github.com/textbook/starter-kit#readme",
+  "homepage": "https://github.com/HadiyahL/spring-action-cleaning#readme",
   "devDependencies": {
-    "@babel/cli": "^7.12.8",
-    "@babel/core": "^7.12.9",
-    "@babel/node": "^7.12.6",
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.7",
-    "@babel/preset-react": "^7.12.7",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
     "@codeyourfuture/eslint-config-standard": "^2.0.3",
     "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
@@ -46,37 +46,37 @@
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
-    "eslint": "^7.15.0",
+    "eslint": "^7.17.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^5.0.0-alpha.15",
+    "html-webpack-plugin": "^5.0.0-beta.4",
     "html-webpack-tags-plugin": "^2.0.17",
     "jest": "^26.6.3",
-    "nodemon": "^2.0.6",
+    "nodemon": "^2.0.7",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "rimraf": "^3.0.2",
     "style-loader": "^2.0.0",
     "wait-on": "^5.2.1",
-    "webpack": "^5.10.0",
-    "webpack-cli": "^4.2.0",
-    "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^5.4.0"
+    "webpack": "^5.13.0",
+    "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.1",
+    "webpack-merge": "^5.7.3"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.2.0",
     "@babel/runtime": "^7.12.5",
-    "autoprefixer": "^10.1.0",
+    "autoprefixer": "^10.2.1",
     "bootstrap": "^4.5.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
-    "express-validator": "^6.8.0",
+    "express-validator": "^6.9.2",
     "google-libphonenumber": "^3.2.15",
-    "helmet": "^4.2.0",
+    "helmet": "^4.3.1",
     "jwks-rsa": "^1.12.2",
     "luxon": "^1.25.0",
     "morgan": "^1.10.0",
@@ -86,7 +86,7 @@
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "reactstrap": "^8.8.1",
-    "sass-loader": "^10.1.0"
+    "sass-loader": "^10.1.1"
   },
   "engines": {
     "node": "^10 || ^12 || ^14"

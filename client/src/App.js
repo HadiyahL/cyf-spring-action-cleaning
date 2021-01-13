@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigation, Footer, Spinner } from "./components";
 import {
@@ -18,15 +18,14 @@ import {
 	EditJob,
 	EditWorker,
 	Recurring,
-	HomePage,
 	WorkerReports,
 	CustomerReports,
-	WorkerHomePage,
 	WorkerJobs,
 	WorkerJobPage,
 } from "./pages";
 import { ResultPage } from "./components";
 import HomepageImg from "./components/homepageImg";
+import ContextProviders from "./contexts/ContextProviders";
 
 export function App() {
 	const { isLoading, error, user, isAuthenticated } = useAuth0();
@@ -42,7 +41,7 @@ export function App() {
 	const role = user?.[config.roleUrl][0];
 
 	return (
-		<>
+		<ContextProviders>
 			<main className="flex-shrink-0">
 				<Navigation />
 				<Switch>
@@ -53,9 +52,7 @@ export function App() {
 					)}
 					{role === "admin" && (
 						<>
-							<Route exact path="/">
-								<HomePage />
-							</Route>
+							<ProtectedRoute exact path="/" component={Jobs} />
 							<ProtectedRoute path="/add-worker" component={CreateWorker} />
 							<ProtectedRoute path="/add-customer" component={CreateCustomer} />
 							<ProtectedRoute
@@ -85,9 +82,7 @@ export function App() {
 					)}
 					{role === "worker" && (
 						<>
-							<Route exact path="/">
-								<WorkerHomePage />
-							</Route>
+							<ProtectedRoute exact path="/" component={WorkerJobs} />
 							<ProtectedRoute path="/jobs" component={WorkerJobs} />
 							<ProtectedRoute
 								path="/worker/job/:id"
@@ -99,7 +94,7 @@ export function App() {
 			</main>
 			<Footer />
 			<CheckIfItIsAFirstLogin />
-		</>
+		</ContextProviders>
 	);
 }
 

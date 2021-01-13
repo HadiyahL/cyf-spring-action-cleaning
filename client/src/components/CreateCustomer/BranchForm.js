@@ -130,6 +130,7 @@ const BranchForm = ({
 							onChange={handleChange}
 							value={address}
 							required
+							maxLength={100}
 						/>
 						{errors.address && (
 							<FormText color="danger">{errors.address}</FormText>
@@ -158,6 +159,7 @@ const BranchForm = ({
 							placeholder="Enter contact name"
 							onChange={handleChange}
 							value={contact_name}
+							maxLength={100}
 						/>
 						{errors.contact_name && (
 							<FormText color="danger">{errors.contact_name}</FormText>
@@ -175,6 +177,7 @@ const BranchForm = ({
 							placeholder="Enter Phone Number"
 							onChange={handleChange}
 							value={contact_phone}
+							maxLength={50}
 						/>
 						{errors.contact_phone && (
 							<FormText color="danger">{errors.contact_phone}</FormText>
@@ -239,7 +242,9 @@ const BranchForm = ({
 							value={details}
 							type="textarea"
 							rows={4}
+							maxLength={250}
 						/>
+						<FormText className="text-right">{details.length}/250</FormText>
 						{errors.details && (
 							<FormText color="danger">{errors.details}</FormText>
 						)}
@@ -250,7 +255,12 @@ const BranchForm = ({
 						size="md"
 						isOptional={true}
 					/>
-					<Button>Save</Button>
+					<div className="d-flex justify-content-end mb-4">
+						<Button color="primary" onClick={toggle}>
+							Close
+						</Button>
+						<Button className="ml-4">Save</Button>
+					</div>
 				</Form>
 			</Col>
 		</Row>

@@ -7,7 +7,7 @@ drop table if exists customers;
 CREATE TABLE workers (
   id                    SERIAL PRIMARY KEY,
   name                  VARCHAR(100) NOT NULL,
-  address               VARCHAR(200) NOT NULL,
+  address               VARCHAR(100) NOT NULL,
   email                 VARCHAR(60) NOT NULL UNIQUE,
   phone_number          VARCHAR(50) NOT NULL,
   whatsapp              VARCHAR(50) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE customers (
 
 CREATE TABLE branches (
   id              SERIAL PRIMARY KEY,
-  address         VARCHAR(200) NOT NULL,
+  address         VARCHAR(100) NOT NULL,
   contact_name    VARCHAR(100) NOT NULL,
   contact_phone   VARCHAR(50) NOT NULL,
   details         VARCHAR(250),

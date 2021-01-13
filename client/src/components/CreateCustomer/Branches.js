@@ -36,7 +36,9 @@ const Branches = ({ state, setState }) => {
 					setState={setState}
 					isOpen={isOpen}
 				/>
-				<Button onClick={handleClick}>Add New Address</Button>
+				<div className="d-flex justify-content-end">
+					<Button onClick={handleClick}>Add New Address</Button>
+				</div>
 			</Col>
 		</Row>
 	);
