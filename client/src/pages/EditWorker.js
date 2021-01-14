@@ -21,6 +21,7 @@ const EditWorker = () => {
 			whatsapp,
 			permanent_contract,
 			languages,
+			archived,
 			id,
 		} = data.workers[0];
 
@@ -35,6 +36,7 @@ const EditWorker = () => {
 					whatsapp={whatsapp}
 					contract={permanent_contract}
 					languages={languages}
+					archived={archived}
 					worker_id={id}
 				/>
 			</Container>
