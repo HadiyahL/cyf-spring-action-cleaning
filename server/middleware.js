@@ -55,7 +55,10 @@ export const checkPermission = (permission) => (req, res, next) => {
 };
 
 /*
-	Comment out above two functions and uncomment below to ignore authentication checks.
+	Comment out above two functions and uncomment below to ignore authentication checks but be aware
+	that some role based stuff is not going to work
+	For example email with token will not come and
+	db queries fail / come back empty
 */
 
 // export const checkAuth = (req, res, next) => {
@@ -64,5 +67,6 @@ export const checkPermission = (permission) => (req, res, next) => {
 // };
 //
 // export const checkPermission = () => (req, res, next) => {
+// 	req.user = {};
 // 	next();
 // };
