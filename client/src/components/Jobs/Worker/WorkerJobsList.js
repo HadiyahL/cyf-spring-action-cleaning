@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Table } from "reactstrap";
-import { DateTime } from "luxon";
 import useFetch from "../../../hooks/useFetch";
 import Spinner from "../../UI/Spinner";
 import WorkerJobsTableBody from "./WorkerJobsTableBody";
 import DateFilter from "../DateFilter";
+import { WorkerJobsContext } from "../../../contexts/WorkerJobs";
 
 const WorkerJobsList = () => {
-	const [state, setState] = useState({
-		startDate: DateTime.local().toISODate(),
-		endDate: "",
-	});
+	const [state, setState] = useContext(WorkerJobsContext);
 
 	const { isLoading, error, data } = useFetch("workers/jobs");
 
