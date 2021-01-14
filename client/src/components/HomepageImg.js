@@ -3,9 +3,7 @@ import React from "react";
 import HomepageText from "./HomepageText";
 import LoginButton from "./auth/LoginButton";
 
-
-const HomepageImg=()=> {
-
+const HomepageImg = () => {
 	return (
 		<div className="jumbotron">
 			<HomepageText />
