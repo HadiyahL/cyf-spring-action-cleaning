@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigation, Footer, Spinner } from "./components";
 import {
@@ -24,10 +24,11 @@ import {
 	WorkerJobPage,
 } from "./pages";
 import { ResultPage } from "./components";
+import HomepageImg from "./components/HomepageImg";
 import ContextProviders from "./contexts/ContextProviders";
 
 export function App() {
-	const { isLoading, error, user } = useAuth0();
+	const { isLoading, error, user, isAuthenticated } = useAuth0();
 
 	if (isLoading) {
 		return <Spinner />;
@@ -44,6 +45,11 @@ export function App() {
 			<main className="flex-shrink-0">
 				<Navigation />
 				<Switch>
+					{!isAuthenticated && (
+						<Route exact path="/">
+							<HomepageImg />
+						</Route>
+					)}
 					{role === "admin" && (
 						<>
 							<ProtectedRoute exact path="/" component={Jobs} />

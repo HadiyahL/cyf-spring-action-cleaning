@@ -4,13 +4,16 @@ import { JobsProvider } from "./Jobs";
 import { RecurringJobsProvider } from "./RecurringJobs";
 import { CustomerReportProvider } from "./CustomerReport";
 import { WorkerReportProvider } from "./WorkerReport";
+import { WorkerJobsProvider } from "./WorkerJobs";
 
 const ContextProviders = ({ children }) => {
 	return (
 		<JobsProvider>
 			<RecurringJobsProvider>
 				<WorkerReportProvider>
-					<CustomerReportProvider>{children}</CustomerReportProvider>
+					<WorkerJobsProvider>
+						<CustomerReportProvider>{children}</CustomerReportProvider>
+					</WorkerJobsProvider>
 				</WorkerReportProvider>
 			</RecurringJobsProvider>
 		</JobsProvider>
