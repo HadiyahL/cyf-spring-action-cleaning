@@ -151,6 +151,10 @@ p {
 	line-height: 1.5;
 }
 
+.languages-column {
+	max-width: 10rem;
+}
+
 @media screen and (max-width: 560px) {
 	.homepage_text h2 {
 		text-align: center;

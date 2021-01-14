@@ -23,6 +23,7 @@ const CreateWorkerForm = ({
 	whatsapp,
 	contract,
 	worker_id,
+	languages,
 }) => {
 	const [state, setState] = useState({
 		name: name || "",
@@ -31,6 +32,7 @@ const CreateWorkerForm = ({
 		phone: phone || "",
 		whatsapp: whatsapp || "",
 		contract: contract || false,
+		languages: languages || "",
 	});
 	const [errors, setErrors] = useState({});
 	const history = useHistory();
@@ -142,6 +144,22 @@ const CreateWorkerForm = ({
 						)}
 					</FormGroup>
 					<FormGroup>
+						<Label for="languages">Main languages spoken</Label>
+						<Input
+							invalid={!!errors.languages}
+							type="text"
+							name="languages"
+							id="languages"
+							placeholder="French, Arabic, etc..."
+							onChange={handleChange}
+							value={state.languages}
+							maxLength={50}
+						/>
+						{errors.languages && (
+							<FormText color="danger">{errors.languages}</FormText>
+						)}
+					</FormGroup>
+					<FormGroup>
 						<Label for="phone">Phone Number</Label>
 						<Input
 							invalid={!!errors.phone}
@@ -202,6 +220,7 @@ CreateWorkerForm.propTypes = {
 	whatsapp: PropTypes.string,
 	contract: PropTypes.bool,
 	worker_id: PropTypes.number,
+	languages: PropTypes.string,
 };
 
 export default CreateWorkerForm;

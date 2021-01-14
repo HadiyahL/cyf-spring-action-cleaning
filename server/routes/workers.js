@@ -114,6 +114,7 @@ router.post(
 		body("whatsapp", "Whatsapp is required").not().isEmpty().trim(),
 		body("whatsapp", "Max length is 50 characters").isLength({ max: 50 }),
 		body("contract", "Contract is required").isBoolean(),
+		body("languages", "Max length is 50 characters").isLength({ max: 50 }),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -121,12 +122,20 @@ router.post(
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
 
-		const { name, address, email, phone, whatsapp, contract } = req.body;
+		const {
+			name,
+			address,
+			email,
+			phone,
+			whatsapp,
+			contract,
+			languages,
+		} = req.body;
 
 		db.query(
-			`INSERT INTO workers (name, email, phone_number, address, whatsapp, permanent_contract)
-			VALUES ($1, $2, $3, $4, $5, $6)`,
-			[name, email, phone, address, whatsapp, contract]
+			`INSERT INTO workers (name, email, phone_number, address, whatsapp, permanent_contract, languages)
+			VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+			[name, email, phone, address, whatsapp, contract, languages]
 		)
 			.then(({ rowCount }) => {
 				if (rowCount < 1) {
@@ -162,6 +171,7 @@ router.put(
 		body("whatsapp", "Whatsapp is required").not().isEmpty().trim(),
 		body("whatsapp", "Max length is 50 characters").isLength({ max: 50 }),
 		body("contract", "Contract is required").isBoolean(),
+		body("languages", "Max length is 50 characters").isLength({ max: 50 }),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -169,15 +179,23 @@ router.put(
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
 		const { id } = req.params;
-		const { name, address, email, phone, whatsapp, contract } = req.body;
+		const {
+			name,
+			address,
+			email,
+			phone,
+			whatsapp,
+			contract,
+			languages,
+		} = req.body;
 
 		db.query(
 			`
 			UPDATE workers
-			SET name=$1, address=$2, email=$3, phone_number=$4, whatsapp=$5, permanent_contract=$6
-			WHERE id=$7 
+			SET name=$1, address=$2, email=$3, phone_number=$4, whatsapp=$5, permanent_contract=$6, languages=$7
+			WHERE id=$8
 			`,
-			[name, address, email, phone, whatsapp, contract, id]
+			[name, address, email, phone, whatsapp, contract, languages, id]
 		)
 			.then(() => {
 				return res.json({ success: true });

@@ -32,6 +32,7 @@ const ShowWorkersTable = ({ trigger }) => {
 					<tr>
 						<th>#</th>
 						<th>Name</th>
+						<th title="Main languages spoken">Languages</th>
 						<th>Address</th>
 						<th>Email</th>
 						<th>Phone</th>
@@ -40,7 +41,10 @@ const ShowWorkersTable = ({ trigger }) => {
 				</thead>
 				<tbody>
 					{workers.map(
-						({ id, name, address, email, phone_number, whatsapp }, i) => {
+						(
+							{ id, name, address, email, phone_number, whatsapp, languages },
+							i
+						) => {
 							return (
 								<tr
 									key={id}
@@ -53,6 +57,7 @@ const ShowWorkersTable = ({ trigger }) => {
 										{i + 1}
 									</th>
 									<td className="align-middle">{name}</td>
+									<td className="align-middle languages-column">{languages}</td>
 									<td className="align-middle">{address}</td>
 									<td className="align-middle">{email}</td>
 									<td className="align-middle">{phone_number}</td>
