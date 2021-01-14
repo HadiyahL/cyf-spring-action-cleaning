@@ -6,7 +6,13 @@ import { putLogTimes } from "../../../service";
 import BackButton from "../../UI/BackButton";
 import useAuthorizationHeaders from "../../../hooks/useAuthorizationHeaders";
 
-const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
+const WorkerLogTimeForm = ({
+	id,
+	start_time,
+	end_time,
+	worker_feedback,
+	status,
+}) => {
 	const [state, setState] = useState({
 		startTime: start_time,
 		endTime: end_time,
@@ -26,6 +32,13 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (
+			!window.confirm(
+				`Do you confirm that the times (start: ${startTime} — end: ${endTime}) are correct? You cannot change the time after you submit.`
+			)
+		) {
+			return;
+		}
 
 		putLogTimes(id, state, authorizationHeaders)
 			.then((res) => {
@@ -54,6 +67,7 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 			<FormGroup>
 				<Label for="startTime">Time when you started working</Label>
 				<Input
+					disabled={!!status}
 					type="time"
 					name="startTime"
 					id="startTime"
@@ -62,6 +76,7 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 					invalid={!!errors.startTime}
 					placeholder="HH:MM (24h clock)"
 					pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
+					required
 				/>
 				{errors.startTime && (
 					<FormText color="danger">{errors.startTime}</FormText>
@@ -70,6 +85,7 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 			<FormGroup>
 				<Label for="endTime">Time when you finished working</Label>
 				<Input
+					disabled={!!status}
 					type="time"
 					name="endTime"
 					id="endTime"
@@ -78,12 +94,14 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 					invalid={!!errors.endTime}
 					placeholder="HH:MM (24h clock)"
 					pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
+					required
 				/>
 				{errors.endTime && <FormText color="danger">{errors.endTime}</FormText>}
 			</FormGroup>
 			<FormGroup className="mb-4">
 				<Label for="feedback">Details</Label>
 				<Input
+					disabled={!!status}
 					type="textarea"
 					name="feedback"
 					id="feedback"
@@ -100,7 +118,7 @@ const WorkerLogTimeForm = ({ id, start_time, end_time, worker_feedback }) => {
 			</FormGroup>
 			<div className="d-flex justify-content-end">
 				<BackButton />
-				<Button type="submit" className="ml-4">
+				<Button type="submit" className="ml-4" disabled={!!status}>
 					Submit
 				</Button>
 			</div>
@@ -113,6 +131,7 @@ WorkerLogTimeForm.propTypes = {
 	start_time: PropTypes.string,
 	end_time: PropTypes.string,
 	worker_feedback: PropTypes.string,
+	status: PropTypes.number,
 };
 
 export default WorkerLogTimeForm;

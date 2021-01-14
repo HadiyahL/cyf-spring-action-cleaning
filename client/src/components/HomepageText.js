@@ -3,7 +3,6 @@ import { GiVacuumCleaner } from "react-icons/gi";
 import { IconContext } from "react-icons/lib";
 
 const HomepageText = () => {
-
 	return (
 		<>
 			<IconContext.Provider value={{ className: "homepage-icons" }}>
@@ -19,7 +18,7 @@ const HomepageText = () => {
 							<p>Cleaners log and submit time</p>
 						</li>
 						<li>
-							<GiVacuumCleaner /> 
+							<GiVacuumCleaner />
 							<p>
 								Generate reports to calculate total time of services provided
 								for a given period
