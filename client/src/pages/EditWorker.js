@@ -20,6 +20,7 @@ const EditWorker = () => {
 			phone_number,
 			whatsapp,
 			permanent_contract,
+			languages,
 			id,
 		} = data.workers[0];
 
@@ -33,6 +34,7 @@ const EditWorker = () => {
 					phone={phone_number}
 					whatsapp={whatsapp}
 					contract={permanent_contract}
+					languages={languages}
 					worker_id={id}
 				/>
 			</Container>
