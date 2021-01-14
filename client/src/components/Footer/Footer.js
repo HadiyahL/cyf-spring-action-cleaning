@@ -8,7 +8,7 @@ const Footer = () => {
 	return (
 		<footer className="footer mt-auto py-4 bg-light">
 			<Container>
-				<IconContext.Provider value={{ className: "react-icons1" }}>
+				<IconContext.Provider value={{ className: "footer-icons" }}>
 					<List
 						type="unstyled"
 						className="footer-list mb-0 text-muted text-center"

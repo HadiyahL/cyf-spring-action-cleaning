@@ -6,7 +6,7 @@ const HomepageText = () => {
 
 	return (
 		<>
-			<IconContext.Provider value={{ className: "react-icons" }}>
+			<IconContext.Provider value={{ className: "homepage-icons" }}>
 				<div className="homepage_text">
 					<h2>Spring Action Cleaning Application</h2>
 					<ul>
