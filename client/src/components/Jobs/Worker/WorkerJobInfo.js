@@ -44,11 +44,10 @@ const WorkerJobInfo = ({
 					{duration === 1 ? "hour" : "hours"}
 				</p>
 			)}
-			{details && (
-				<p className="worker-info-text-size">
-					<strong>Job details:</strong> {details}
-				</p>
-			)}
+			<p className="worker-info-text-size">
+				<strong>Job details:</strong>
+				{details}
+			</p>
 		</div>
 	);
 };
