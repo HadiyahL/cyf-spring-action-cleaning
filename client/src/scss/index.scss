@@ -46,7 +46,13 @@ main {
 	list-style-type: none;
 	display: flex;
 	align-items: center;
-	// justify-content: center;
+}
+
+.homepage_text p {
+	padding-left: 1rem;
+	font-size: 1.2rem;
+	margin-block-end: 0;
+}
 
 p {
 	white-space: pre-wrap;
@@ -78,13 +84,13 @@ p {
 	letter-spacing: .4px;
 }
 
-.react-icons {
+.homepage-icons {
 	font-size: 2rem;
 	color:#f8ae37;
 	margin-bottom:0.5rem ;
 }
 
-.react-icons1 {
+.footer-icons {
 	font-size: 1.3rem;
 	color: #0f70b7;
 }
@@ -152,7 +158,7 @@ p {
 	.homepage_text li {
 		font-size: 14px;
 	}
-	.react-icons {
+	.homepage-icons {
 	font-size: 1.5rem;
 	}
 	.homepage_text li:nth-child(3) > svg {

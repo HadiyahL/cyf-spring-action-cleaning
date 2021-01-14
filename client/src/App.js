@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigation, Footer, Spinner } from "./components";
 import {
@@ -24,7 +24,7 @@ import {
 	WorkerJobPage,
 } from "./pages";
 import { ResultPage } from "./components";
-import HomepageImg from "./components/homepageImg";
+import HomepageImg from "./components/HomepageImg";
 import ContextProviders from "./contexts/ContextProviders";
 
 export function App() {
