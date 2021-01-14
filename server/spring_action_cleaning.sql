@@ -12,14 +12,16 @@ CREATE TABLE workers (
   phone_number          VARCHAR(50) NOT NULL,
   whatsapp              VARCHAR(50) NOT NULL,
   permanent_contract    BOOLEAN NOT NULL,
-  languages             VARCHAR(50) DEFAULT ''
+  languages             VARCHAR(50) DEFAULT '',
+  archived              BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE customers (
   id              SERIAL PRIMARY KEY,
   name            VARCHAR(100) NOT NULL,
   email           VARCHAR(60) NOT NULL,
-  phone_number    VARCHAR(50) NOT NULL
+  phone_number    VARCHAR(50) NOT NULL,
+  archived        BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE branches (

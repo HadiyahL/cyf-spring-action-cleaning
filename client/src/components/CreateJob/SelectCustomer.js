@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
-import { getCustomers, getJobsCustomer } from "../../service";
+import { getCustomersSelect, getJobsCustomer } from "../../service";
 import Modal from "./Modal";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
@@ -13,7 +13,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 	const toggle = () => setModal(!modal);
 
 	const fetchCustomers = () => {
-		getCustomers(authorizationHeaders)
+		getCustomersSelect(authorizationHeaders)
 			.then((res) => {
 				setData({
 					name: "customers",

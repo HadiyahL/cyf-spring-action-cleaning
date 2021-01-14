@@ -10,6 +10,7 @@ import {
 	Input,
 	Row,
 	Col,
+	CustomInput,
 } from "reactstrap";
 import { postWorkers, putWorkers } from "../service";
 import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
@@ -24,6 +25,7 @@ const CreateWorkerForm = ({
 	contract,
 	worker_id,
 	languages,
+	archived,
 }) => {
 	const [state, setState] = useState({
 		name: name || "",
@@ -32,6 +34,7 @@ const CreateWorkerForm = ({
 		phone: phone || "",
 		whatsapp: whatsapp || "",
 		contract: contract || false,
+		archived: archived || false,
 		languages: languages || "",
 	});
 	const [errors, setErrors] = useState({});
@@ -99,6 +102,18 @@ const CreateWorkerForm = ({
 		<Row className="justify-content-center">
 			<Col xs="12" sm="12" md="8" lg="6" xl="6">
 				<Form onSubmit={handleSubmit}>
+					<FormGroup className="mb-0 d-flex justify-content-end user-select-none">
+						<Label check for="archived">
+							<CustomInput
+								type="switch"
+								id="archived"
+								name="archived"
+								label="Archived"
+								onChange={handleChange}
+								checked={state.archived}
+							/>
+						</Label>
+					</FormGroup>
 					<FormGroup>
 						<Label for="name">Name</Label>
 						<Input
@@ -189,7 +204,7 @@ const CreateWorkerForm = ({
 							<FormText color="danger">{errors.whatsapp}</FormText>
 						)}
 					</FormGroup>
-					<FormGroup check className="mb-4">
+					<FormGroup check className="mb-4 user-select-none">
 						<Label check>
 							<Input
 								name="contract"
@@ -219,6 +234,7 @@ CreateWorkerForm.propTypes = {
 	phone: PropTypes.string,
 	whatsapp: PropTypes.string,
 	contract: PropTypes.bool,
+	archived: PropTypes.bool,
 	worker_id: PropTypes.number,
 	languages: PropTypes.string,
 };

@@ -5,6 +5,11 @@ export const getWorkers = async (options) => {
 	return response.data;
 };
 
+export const getWorkersSelect = async (options) => {
+	const response = await get("/workers/select", options);
+	return response.data;
+};
+
 export const getWorker = async (id, options) => {
 	const response = await get(`/jobs/workers/${id}`, options);
 	return response.data;
@@ -22,6 +27,11 @@ export const putWorkers = async (worker_id, data, options) => {
 
 export const getCustomers = async (options) => {
 	const response = await get("/customers", options);
+	return response.data;
+};
+
+export const getCustomersSelect = async (options) => {
+	const response = await get("/customers/select", options);
 	return response.data;
 };
 

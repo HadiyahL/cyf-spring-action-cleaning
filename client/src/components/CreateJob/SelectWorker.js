@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
-import { getWorkers, getWorker } from "../../service";
+import { getWorkersSelect, getWorker } from "../../service";
 import Modal from "./Modal";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
@@ -19,7 +19,7 @@ const SelectWorker = ({
 	const toggle = () => setModal(!modal);
 
 	const fetchWorkers = () => {
-		getWorkers(authorizationHeaders)
+		getWorkersSelect(authorizationHeaders)
 			.then((res) => {
 				setData({
 					name: "workers",
