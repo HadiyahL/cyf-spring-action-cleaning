@@ -24,10 +24,11 @@ import {
 	WorkerJobPage,
 } from "./pages";
 import { ResultPage } from "./components";
+import HomepageImg from "./components/homepageImg";
 import ContextProviders from "./contexts/ContextProviders";
 
 export function App() {
-	const { isLoading, error, user } = useAuth0();
+	const { isLoading, error, user, isAuthenticated } = useAuth0();
 
 	if (isLoading) {
 		return <Spinner />;
@@ -44,6 +45,11 @@ export function App() {
 			<main className="flex-shrink-0">
 				<Navigation />
 				<Switch>
+					{!isAuthenticated && (
+						<Route exact path="/">
+							<HomepageImg />
+						</Route>
+					)}
 					{role === "admin" && (
 						<>
 							<ProtectedRoute exact path="/" component={Jobs} />
