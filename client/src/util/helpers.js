@@ -60,7 +60,11 @@ export const getWeekFromDate = (date = new Date()) => {
 };
 
 export const setCleaningTimeForNextWeek = (jobs) =>
-	jobs.map((job) => ({ ...job, visit_on: getDateForNextWeek(job.visit_on) }));
+	jobs.map((job) => ({
+		...job,
+		details: job.branch_details,
+		visit_on: getDateForNextWeek(job.visit_on),
+	}));
 
 export const getDateForNextWeek = (date) => {
 	const nextWeekStartDate = DateTime.local().plus({ weeks: 1 }).startOf("week");

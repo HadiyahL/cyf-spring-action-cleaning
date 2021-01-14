@@ -19,7 +19,7 @@ router.get(
 		} = req;
 
 		db.query(
-			`SELECT j.*, b.address, c.name customer, w.name worker
+			`SELECT j.*, b.address, c.name customer, w.name worker, b.details branch_details
 		FROM jobs j
 		INNER JOIN branches b ON j.branch_id=b.id
 		INNER JOIN customers c ON j.customer_id=c.id
@@ -93,7 +93,7 @@ router.get(
 		try {
 			// customer has main branch and default worker
 			const fullJobDetails = await client.query(
-				`SELECT c.name customer_name, b.address, b.visit_time, b.duration, b.id branch_id, w.name worker_name, w.id worker_id
+				`SELECT c.name customer_name, b.address, b.visit_time, b.duration, b.id branch_id, b.details branch_details, w.name worker_name, w.id worker_id
 			FROM customers c
 			INNER JOIN branches b ON c.id=b.customer_id
 			INNER JOIN workers w ON w.id=b.worker_id
@@ -104,7 +104,7 @@ router.get(
 				// customer has main branch but no default worker
 				const jobDetailsBranch = await client.query(
 					`
-				SELECT c.name customer_name, b.address, b.visit_time, b.duration, b.id branch_id
+				SELECT c.name customer_name, b.address, b.visit_time, b.duration, b.id branch_id, b.details branch_details
 				FROM customers c
 				INNER JOIN branches b ON c.id=b.customer_id
 				WHERE c.id=$1 AND b.id=c.main_branch_id
@@ -148,7 +148,7 @@ router.get(
 		try {
 			// branch has default worker
 			const branchDetailsFull = await client.query(
-				`SELECT b.address, b.visit_time, b.duration, b.id branch_id, w.name worker_name, w.id worker_id
+				`SELECT b.address, b.visit_time, b.duration, b.details branch_details, b.id branch_id, w.name worker_name, w.id worker_id
 			FROM branches b
 			INNER JOIN workers w ON w.id=b.worker_id
 			WHERE b.id=$1`,
@@ -158,7 +158,7 @@ router.get(
 				// branch don't have default worker
 				const branchDetailsNoDefaultWorker = await client.query(
 					`
-				SELECT b.address, b.visit_time, b.duration, b.id branch_id
+				SELECT b.address, b.visit_time, b.duration, b.id branch_id, b.details branch_details
 				FROM branches b
 				WHERE b.id=$1
 			`,
