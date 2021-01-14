@@ -9,6 +9,7 @@ import {
 	Input,
 	Row,
 	Col,
+	CustomInput,
 } from "reactstrap";
 import { postCustomer, putCustomer } from "../../service";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
@@ -66,8 +67,13 @@ const CreateCustomerForm = ({ state, setState }) => {
 		}, {});
 
 	const handleChange = (e) => {
-		const { name, value } = e.target;
-		setState({ ...state, [name]: value });
+		const { name, value, checked, type } = e.target;
+		console.log("name, value, checked, type", name, value, checked, type);
+		if (type === "checkbox") {
+			setState({ ...state, [name]: checked });
+		} else {
+			setState({ ...state, [name]: value });
+		}
 	};
 
 	return (
@@ -80,6 +86,18 @@ const CreateCustomerForm = ({ state, setState }) => {
 					/>
 				)}
 				<Form onSubmit={handleSubmit}>
+					<FormGroup className="mb-0 d-flex justify-content-end user-select-none">
+						<Label check for="archived">
+							<CustomInput
+								type="switch"
+								id="archived"
+								name="archived"
+								label="Archived"
+								onChange={handleChange}
+								checked={state.archived}
+							/>
+						</Label>
+					</FormGroup>
 					<FormGroup>
 						<Label for="name">Name</Label>
 						<Input

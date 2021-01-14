@@ -13,7 +13,14 @@ const EditCustomer = () => {
 	} else if (isLoading) {
 		return <Spinner />;
 	} else {
-		const { email, id, main_branch_id, name, phone_number } = data.rows[0];
+		const {
+			email,
+			id,
+			main_branch_id,
+			name,
+			phone_number,
+			archived,
+		} = data.rows[0];
 		return (
 			<div>
 				<CreateCustomer
@@ -22,6 +29,7 @@ const EditCustomer = () => {
 					main_branch_id={main_branch_id}
 					customer_name={name}
 					phone_number={phone_number}
+					archived={archived}
 				/>
 			</div>
 		);

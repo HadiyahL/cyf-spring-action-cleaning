@@ -24,6 +24,22 @@ router.get(
 );
 
 router.get(
+	"/customers/select",
+	checkAuth,
+	checkPermission("get:customers/select"),
+	(_, res, next) => {
+		db.query("SELECT * FROM customers WHERE archived='f'")
+			.then(({ rows }) => {
+				return res.json({ customers: rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
 	"/customers/:id",
 	checkAuth,
 	checkPermission("get:customers/:id"),
@@ -54,6 +70,7 @@ router.post(
 			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
 		),
 		body("phone_number", "Phone is required").not().isEmpty(),
+		body("archived", "Archived is required").isBoolean(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -61,13 +78,13 @@ router.post(
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
 
-		const { name, email, phone_number } = req.body;
+		const { name, email, phone_number, archived } = req.body;
 
 		db.query(
-			` INSERT INTO customers (name, email, phone_number)
-				VALUES ($1, $2, $3)
+			` INSERT INTO customers (name, email, phone_number, archived)
+				VALUES ($1, $2, $3, $4)
 				RETURNING id`,
-			[name, email, phone_number]
+			[name, email, phone_number, archived]
 		)
 			.then(({ rows, rowCount }) => {
 				if (rowCount < 1) {
@@ -102,6 +119,7 @@ router.put(
 			"main_branch_id",
 			"Main branch id is required (or set as null)"
 		).exists(),
+		body("archived", "Archived is required").isBoolean(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -109,15 +127,15 @@ router.put(
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
 		const { id } = req.params;
-		const { main_branch_id, name, email, phone_number } = req.body;
+		const { main_branch_id, name, email, phone_number, archived } = req.body;
 
 		db.query(
 			`
 			UPDATE customers
-			SET main_branch_id=$1, name=$2, email=$3, phone_number=$4
-			WHERE id=$5
+			SET main_branch_id=$1, name=$2, email=$3, phone_number=$4, archived=$5
+			WHERE id=$6
 		`,
-			[main_branch_id, name, email, phone_number, id]
+			[main_branch_id, name, email, phone_number, archived, id]
 		)
 			.then(({ rows }) => {
 				res.json({ success: true, rows });
