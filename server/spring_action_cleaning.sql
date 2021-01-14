@@ -11,7 +11,8 @@ CREATE TABLE workers (
   email                 VARCHAR(60) NOT NULL UNIQUE,
   phone_number          VARCHAR(50) NOT NULL,
   whatsapp              VARCHAR(50) NOT NULL,
-  permanent_contract    BOOLEAN NOT NULL
+  permanent_contract    BOOLEAN NOT NULL,
+  languages             VARCHAR(50) DEFAULT ''
 );
 
 CREATE TABLE customers (
@@ -52,12 +53,12 @@ CREATE TABLE jobs (
   feedback        VARCHAR(500)
 );
 
-insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '997-883-3933', '34409 La Follette Pass', '852-452-4383', false);
-insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Codie Bamfield', 'cbamfield1@tumblr.com', '503-704-8699', '4 Continental Lane', '144-207-5560', true);
-insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Marrilee MacCole', 'mmaccole2@rakuten.co.jp', '716-658-6477', '87 John Wall Road', '207-855-1099', false);
-insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Marylou Alltimes', 'malltimes3@mac.com', '673-326-5905', '7245 Beilfuss Road', '479-778-2850', true);
-insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Doralynne Harrad', 'dharrad4@netscape.com', '766-539-9540', '43 Birchwood Circle', '405-368-4404', false);
-insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Jeanelle Faragan', 'jfaragan5@bigcartel.com', '469-988-0012', '9 Blackbird Alley', '138-391-3086', true);
+insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '997-883-3933', '34409 La Follette Pass', '852-452-4383', false, 'French');
+insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Codie Bamfield', 'cbamfield1@tumblr.com', '503-704-8699', '4 Continental Lane', '144-207-5560', true, 'French');
+insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Marrilee MacCole', 'mmaccole2@rakuten.co.jp', '716-658-6477', '87 John Wall Road', '207-855-1099', false, 'English');
+insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Marylou Alltimes', 'malltimes3@mac.com', '673-326-5905', '7245 Beilfuss Road', '479-778-2850', true, 'English, French');
+insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Doralynne Harrad', 'dharrad4@netscape.com', '766-539-9540', '43 Birchwood Circle', '405-368-4404', false, 'Hindi');
+insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Jeanelle Faragan', 'jfaragan5@bigcartel.com', '469-988-0012', '9 Blackbird Alley', '138-391-3086', true, 'Arabic');
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Klement Criple', 'kcriple6@ycombinator.com', '179-490-4162', '38 Talmadge Way', '242-778-2477', false);
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Fara Pettyfer', 'fpettyfer7@businessinsider.com', '424-350-2595', '4048 Heffernan Road', '565-970-1133', false);
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Haroun Croci', 'hcroci8@ustream.tv', '101-499-0339', '542 Huxley Crossing', '729-529-3467', true);
