@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import { Form, FormGroup, FormText, Label, Input, Button } from "reactstrap";
+import {
+	Form,
+	FormGroup,
+	FormText,
+	Label,
+	Input,
+	Button,
+	Alert,
+} from "reactstrap";
 import { putLogTimes } from "../../../service";
 import BackButton from "../../UI/BackButton";
 import useAuthorizationHeaders from "../../../hooks/useAuthorizationHeaders";
@@ -116,6 +124,11 @@ const WorkerLogTimeForm = ({
 					<FormText color="danger">{errors.feedback}</FormText>
 				)}
 			</FormGroup>
+			<Alert color="dark">
+				<strong>Important:</strong> When you submit your time using this form,
+				this acts as your signature. The time acts as a true record of your
+				work.
+			</Alert>
 			<div className="d-flex justify-content-end">
 				<BackButton />
 				<Button type="submit" className="ml-4" disabled={!!status}>

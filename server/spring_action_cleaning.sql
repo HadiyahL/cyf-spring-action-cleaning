@@ -29,7 +29,7 @@ CREATE TABLE branches (
   address         VARCHAR(100) NOT NULL,
   contact_name    VARCHAR(100) NOT NULL,
   contact_phone   VARCHAR(50) NOT NULL,
-  details         VARCHAR(250),
+  details         VARCHAR(250) DEFAULT '',
   customer_id     INT REFERENCES customers(id),
   worker_id       INT REFERENCES workers(id),
   visit_time      TIME,
@@ -44,7 +44,7 @@ CREATE TABLE jobs (
   customer_id     INT REFERENCES customers(id),
   branch_id       INT REFERENCES branches(id),
   worker_id       INT REFERENCES workers(id),
-  details         VARCHAR(500),
+  details         VARCHAR(500) DEFAULT '',
   visit_on        DATE NOT NULL,
   visit_time      TIME (0) NOT NULL,
   status          INT NOT NULL DEFAULT 0,
@@ -52,7 +52,7 @@ CREATE TABLE jobs (
   end_time        TIME (0),
   duration        INT,
   pay_rate        FLOAT,
-  feedback        VARCHAR(500)
+  feedback        VARCHAR(500) DEFAULT ''
 );
 
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '997-883-3933', '34409 La Follette Pass', '852-452-4383', false, 'French');

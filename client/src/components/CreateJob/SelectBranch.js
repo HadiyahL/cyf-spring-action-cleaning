@@ -37,6 +37,7 @@ const SelectBranch = ({ state, setState, error }) => {
 					worker_id: data.worker_id ?? null,
 					visit_time: data.visit_time ?? null,
 					duration: data.duration ?? null,
+					details: data.branch_details,
 				});
 			})
 			.catch((e) => console.log(e));
