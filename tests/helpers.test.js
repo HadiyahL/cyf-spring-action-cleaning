@@ -77,26 +77,26 @@ describe("determineJobStatus", () => {
 	});
 
 	test("with status 0 and day set to today results in awaiting", () => {
-		expect(determineJobStatus(0, "2021-01-06")).toBe("awaiting");
+		expect(determineJobStatus(0, "2021-01-06")).toBe("Awaiting");
 	});
 
 	test("with status 0 and day set to tomorrow results in awaiting", () => {
-		expect(determineJobStatus(0, "2021-01-07")).toBe("awaiting");
+		expect(determineJobStatus(0, "2021-01-07")).toBe("Awaiting");
 	});
 
-	test("with status 0 and day set to yesterday results in missed", () => {
-		expect(determineJobStatus(0, "2021-01-05")).toBe("missed");
+	test("with status 0 and day set to yesterday results in missing", () => {
+		expect(determineJobStatus(0, "2021-01-05")).toBe("Missing");
 	});
 
 	test("with status 1 and day set to yesterday results in completed", () => {
-		expect(determineJobStatus(1, "2020-01-05")).toBe("completed");
+		expect(determineJobStatus(1, "2020-01-05")).toBe("Completed");
 	});
 
 	test("with status 1 and day set to today results in completed", () => {
-		expect(determineJobStatus(1, "2020-01-06")).toBe("completed");
+		expect(determineJobStatus(1, "2020-01-06")).toBe("Completed");
 	});
 
 	test("with status 1 and day set to tomorrow results in completed", () => {
-		expect(determineJobStatus(1, "2020-01-07")).toBe("completed");
+		expect(determineJobStatus(1, "2020-01-07")).toBe("Completed");
 	});
 });
