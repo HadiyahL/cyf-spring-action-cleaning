@@ -205,8 +205,8 @@ helmet({
 
 ### We are team "React it"
 
-- Andrea Nagel - Project Manager
-- Sonjide Hussain - Project Manager (CYF)
+- Andrea Nagel - Product Manager
+- Sonjide Hussain - Product Manager (Trainee)
 - Harriet Horobin-Worley - Technical Assistant
 - Gennady Tabala - Developer
 - Hadiyah Lawal - Developer
