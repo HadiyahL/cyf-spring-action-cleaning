@@ -66,6 +66,10 @@ router.post(
 		body("email", "Max length is 60 characters").isLength({ max: 60 }),
 		body("name", "Name is required").not().isEmpty(),
 		body("name", "Max length is 100 characters").isLength({ max: 100 }),
+		body("customer_contact_name", "Contact name is required").not().isEmpty(),
+		body("customer_contact_name", "Max length is 100 characters").isLength({
+			max: 100,
+		}),
 		body("phone_number", "Not a valid GB number").custom((value) =>
 			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
 		),
@@ -78,13 +82,19 @@ router.post(
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
 
-		const { name, email, phone_number, archived } = req.body;
+		const {
+			name,
+			email,
+			phone_number,
+			archived,
+			customer_contact_name,
+		} = req.body;
 
 		db.query(
-			` INSERT INTO customers (name, email, phone_number, archived)
-				VALUES ($1, $2, $3, $4)
+			` INSERT INTO customers (name, email, phone_number, archived, contact_name)
+				VALUES ($1, $2, $3, $4, $5)
 				RETURNING id`,
-			[name, email, phone_number, archived]
+			[name, email, phone_number, archived, customer_contact_name]
 		)
 			.then(({ rows, rowCount }) => {
 				if (rowCount < 1) {
@@ -111,6 +121,10 @@ router.put(
 		body("email", "Max length is 60 characters").isLength({ max: 60 }),
 		body("name", "Name is required").not().isEmpty(),
 		body("name", "Max length is 100 characters").isLength({ max: 100 }),
+		body("customer_contact_name", "Contact name is required").not().isEmpty(),
+		body("customer_contact_name", "Max length is 100 characters").isLength({
+			max: 100,
+		}),
 		body("phone_number", "Not a valid GB number").custom((value) =>
 			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
 		),
@@ -127,15 +141,30 @@ router.put(
 			return res.status(200).json({ success: false, errors: errors.array() });
 		}
 		const { id } = req.params;
-		const { main_branch_id, name, email, phone_number, archived } = req.body;
+		const {
+			main_branch_id,
+			name,
+			email,
+			phone_number,
+			archived,
+			customer_contact_name,
+		} = req.body;
 
 		db.query(
 			`
 			UPDATE customers
-			SET main_branch_id=$1, name=$2, email=$3, phone_number=$4, archived=$5
-			WHERE id=$6
+			SET main_branch_id=$1, name=$2, email=$3, phone_number=$4, archived=$5, contact_name=$6
+			WHERE id=$7
 		`,
-			[main_branch_id, name, email, phone_number, archived, id]
+			[
+				main_branch_id,
+				name,
+				email,
+				phone_number,
+				archived,
+				customer_contact_name,
+				id,
+			]
 		)
 			.then(({ rows }) => {
 				res.json({ success: true, rows });

@@ -21,6 +21,7 @@ CREATE TABLE customers (
   name            VARCHAR(100) NOT NULL,
   email           VARCHAR(60) NOT NULL,
   phone_number    VARCHAR(50) NOT NULL,
+  contact_name    VARCHAR(100) NOT NULL,
   archived        BOOLEAN DEFAULT FALSE
 );
 
@@ -66,16 +67,16 @@ insert into workers (name, email, phone_number , address, whatsapp, permanent_co
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Haroun Croci', 'hcroci8@ustream.tv', '01833-827387', '542 Huxley Crossing', '729-529-3467', true);
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract) values ('Meryl Windrass', 'mwindrass9@ustream.tv', '07516-351366', '235 Susan Point', '864-737-0454', false);
 
-insert into customers (name, email, phone_number ) values ('Kwinu', 'vcassam0@umn.edu', '522-124-1500');
-insert into customers (name, email, phone_number ) values ('Thoughtbeat', 'mdeandisie1@g.co', '513-305-6189');
-insert into customers (name, email, phone_number ) values ('Latz', 'rnapolione2@mozilla.com', '865-139-9520');
-insert into customers (name, email, phone_number ) values ('Jayo', 'hhowselee3@omniture.com', '744-502-8775');
-insert into customers (name, email, phone_number ) values ('Jaxspan', 'agoodman4@yahoo.co.jp', '113-798-8476');
-insert into customers (name, email, phone_number ) values ('Avamm', 'dpapps5@seattletimes.com', '816-312-1419');
-insert into customers (name, email, phone_number ) values ('Jabbersphere', 'ghaselhurst6@networkadvertising.org', '380-496-6072');
-insert into customers (name, email, phone_number ) values ('Realblab', 'rtemblett7@uol.com.br', '837-987-3494');
-insert into customers (name, email, phone_number ) values ('Flipbug', 'ebrou8@imageshack.us', '886-701-4124');
-insert into customers (name, email, phone_number ) values ('Zooveo', 'dpittel9@amazon.de', '248-509-4767');
+insert into customers (name, email, phone_number, contact_name ) values ('Kwinu', 'vcassam0@umn.edu', '01837-339296', 'Keely Ross');
+insert into customers (name, email, phone_number, contact_name ) values ('Thoughtbeat', 'mdeandisie1@g.co', '01747-934670', 'Billy Fields');
+insert into customers (name, email, phone_number, contact_name ) values ('Latz', 'rnapolione2@mozilla.com', '02881-885056', 'Jordan Patton');
+insert into customers (name, email, phone_number, contact_name ) values ('Jayo', 'hhowselee3@omniture.com', '01988-301630', 'Cristofer Mathews');
+insert into customers (name, email, phone_number, contact_name ) values ('Jaxspan', 'agoodman4@yahoo.co.jp', '01773-655113', 'Dayami Curry');
+insert into customers (name, email, phone_number, contact_name ) values ('Avamm', 'dpapps5@seattletimes.com', '01752-246276', 'Shea Lutz');
+insert into customers (name, email, phone_number, contact_name ) values ('Jabbersphere', 'ghaselhurst6@networkadvertising.org', '07861-725864', 'Karley Larson');
+insert into customers (name, email, phone_number, contact_name ) values ('Realblab', 'rtemblett7@uol.com.br', '07864-444105', 'Dawson Booker');
+insert into customers (name, email, phone_number, contact_name ) values ('Flipbug', 'ebrou8@imageshack.us', '07710-846296', 'Cheyanne Sheppard');
+insert into customers (name, email, phone_number, contact_name ) values ('Zooveo', 'dpittel9@amazon.de', '07640-123068', 'Genesis Gillespie');
 
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id, visit_time, duration) values ('Gan Clerc', '9404 Manley Lane', '07406-490770', 1, 1, '15:20', 2);
 insert into branches (contact_name, address, contact_phone, customer_id, worker_id) values ('Israel Devericks', '88 Eliot Avenue', '07549-792459', 2, 2);

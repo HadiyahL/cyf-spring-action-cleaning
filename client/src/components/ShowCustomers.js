@@ -29,27 +29,31 @@ const ShowCustomers = ({ customersTrigger }) => {
 					<tr>
 						<th>#</th>
 						<th>Name</th>
+						<th>Contact Name</th>
 						<th>Email</th>
 						<th>Phone Number</th>
 					</tr>
 				</thead>
 				<tbody>
-					{data.customers.map(({ id, name, email, phone_number }, i) => {
-						return (
-							<tr
-								key={id}
-								onClick={() => handleClick(id)}
-								onKeyPress={(e) => handleKeyPress(id, e)}
-								role="button"
-								tabIndex={0}
-							>
-								<th scope="row">{i + 1}</th>
-								<td>{name}</td>
-								<td>{email}</td>
-								<td>{phone_number}</td>
-							</tr>
-						);
-					})}
+					{data.customers.map(
+						({ id, name, email, phone_number, contact_name }, i) => {
+							return (
+								<tr
+									key={id}
+									onClick={() => handleClick(id)}
+									onKeyPress={(e) => handleKeyPress(id, e)}
+									role="button"
+									tabIndex={0}
+								>
+									<th scope="row">{i + 1}</th>
+									<td>{name}</td>
+									<td>{contact_name}</td>
+									<td>{email}</td>
+									<td>{phone_number}</td>
+								</tr>
+							);
+						}
+					)}
 				</tbody>
 			</Table>
 		);
