@@ -39,13 +39,7 @@ const Navigation = () => {
 
 	return (
 		<div>
-			<Navbar
-				light
-				expand="md"
-				className={`navbar ${
-					isAuthenticated && role === "worker" && "navbar-bg-worker"
-				}`}
-			>
+			<Navbar light expand="md" className="navbar">
 				<NavbarBrand onClick={handleLogoClick}>
 					<img
 						src={logo}
