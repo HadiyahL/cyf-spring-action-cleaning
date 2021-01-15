@@ -14,23 +14,27 @@ const Footer = () => {
 						className="footer-list mb-0 text-muted text-center"
 					>
 						<li>
-							<a
-								href="mailto:info@springactioncleaning.co.uk"
-								className="text-muted"
-							>
-								<MdEmail />
-								  info@springactioncleaning.co.uk
-							</a>
+							<MdEmail />
+							<span className="pl-1">
+								<a
+									href="mailto:info@springactioncleaning.co.uk"
+									className="text-muted"
+								>
+									info@springactioncleaning.co.uk
+								</a>
+							</span>
 						</li>
 						<li>
-							<MdPhoneInTalk /> 07799628095
+							<MdPhoneInTalk />
+							<span className="pl-1">07799628095</span>
 						</li>
 						<li>
-							<BsFillHouseFill /> Norton House
+							<BsFillHouseFill />
+							<span className="pl-1">Norton House</span>
 						</li>
 						<li>
 							<MdLocationOn />
-							Bird Street, Coventry, CV1 5FX
+							<span className="pl-1">Bird Street, Coventry, CV1 5FX</span>
 						</li>
 						<li className="mt-3">
 							A Social enterprise founded by Coventry Refugee and Migrant Centre

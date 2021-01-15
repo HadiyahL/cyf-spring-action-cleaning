@@ -55,7 +55,7 @@ const Navigation = () => {
 						alt="spring-action-logo"
 					/>
 				</NavbarBrand>
-				<NavbarToggler onClick={toggle} />
+				{isAuthenticated && <NavbarToggler onClick={toggle} />}
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="ml-auto d-flex justify-content-end navItems" navbar>
 						{isAuthenticated && role === "admin" && (
