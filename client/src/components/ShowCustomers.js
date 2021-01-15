@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Table } from "reactstrap";
 import Spinner from "../components/UI/Spinner";
 import useFetch from "../hooks/useFetch";
+import { sortAscByABC } from "../util/helpers";
 
 const ShowCustomers = ({ customersTrigger }) => {
 	const history = useHistory();
@@ -23,6 +24,8 @@ const ShowCustomers = ({ customersTrigger }) => {
 	} else if (isLoading) {
 		return <Spinner />;
 	} else {
+		const sortedCustomers = sortAscByABC(data.customers, "name");
+
 		return (
 			<Table striped hover responsive>
 				<thead>
@@ -35,7 +38,7 @@ const ShowCustomers = ({ customersTrigger }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{data.customers.map(
+					{sortedCustomers.map(
 						({ id, name, email, phone_number, contact_name }, i) => {
 							return (
 								<tr
