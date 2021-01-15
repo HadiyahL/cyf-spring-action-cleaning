@@ -28,7 +28,7 @@ const StatusFilter = ({ state, setState }) => {
 			>
 				<option value="">All</option>
 				<option value={1}>Completed</option>
-				<option value={0}>Missing</option>
+				<option value={0}>Not completed</option>
 			</Input>
 		</FormGroup>
 	);

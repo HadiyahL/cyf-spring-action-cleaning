@@ -10,10 +10,12 @@ const CreateCustomer = ({
 	customer_name,
 	phone_number,
 	archived,
+	contact_name,
 }) => {
 	const [state, setState] = useState({
 		name: customer_name || "",
 		email: email || "",
+		customer_contact_name: contact_name || "",
 		phone_number: phone_number || "",
 		archived: archived || false,
 		customer_id: id || "",
@@ -46,6 +48,7 @@ CreateCustomer.propTypes = {
 	main_branch_id: PropTypes.number,
 	customer_name: PropTypes.string,
 	phone_number: PropTypes.string,
+	contact_name: PropTypes.string,
 	archived: PropTypes.bool,
 };
 

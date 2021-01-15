@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Navigation, Footer, Spinner } from "./components";
 import {
@@ -46,9 +46,12 @@ export function App() {
 				<Navigation />
 				<Switch>
 					{!isAuthenticated && (
-						<Route exact path="/">
-							<HomepageImg />
-						</Route>
+						<>
+							<Route exact path="/">
+								<HomepageImg />
+							</Route>
+							<Redirect to="/" />
+						</>
 					)}
 					{role === "admin" && (
 						<>

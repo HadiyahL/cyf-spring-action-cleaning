@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { getJobs, postBatchOfJobs, getWorkers } from "../service";
+import { getJobs, postBatchOfJobs, getWorkersSelect } from "../service";
 import { Table, Button, Container } from "reactstrap";
 import DateFilter from "../components/Jobs/DateFilter";
 import { sortByField, setCleaningTimeForNextWeek } from "../util/helpers";
@@ -51,7 +51,7 @@ const Recurring = () => {
 
 	useEffect(() => {
 		const fetchWorkers = () =>
-			getWorkers(authorizationHeaders)
+			getWorkersSelect(authorizationHeaders)
 				.then((res) => {
 					setState((state) => ({
 						...state,

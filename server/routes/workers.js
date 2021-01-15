@@ -13,7 +13,7 @@ router.get(
 	checkAuth,
 	checkPermission("get:workers"),
 	(_, res, next) => {
-		db.query("SELECT * FROM workers")
+		db.query("SELECT * FROM workers ORDER BY name")
 			.then(({ rows }) => {
 				return res.json({ workers: rows });
 			})
@@ -52,7 +52,7 @@ router.get(
 				INNER JOIN workers w ON w.id=j.worker_id
 				INNER JOIN customers c ON c.id=j.customer_id
 				WHERE w.email=$1
-				ORDER BY j.visit_on DESC
+				ORDER BY j.visit_on
 			`,
 			[req.user["https://springactioncleaning/email"]]
 		)
@@ -131,7 +131,9 @@ router.post(
 		body("whatsapp", "Max length is 50 characters").isLength({ max: 50 }),
 		body("contract", "Contract is required").isBoolean(),
 		body("archived", "Archived is required").isBoolean(),
-		body("languages", "Max length is 50 characters").isLength({ max: 50 }),
+		body("languages", "Max length is 50 characters")
+			.isLength({ max: 50 })
+			.trim(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -190,7 +192,9 @@ router.put(
 		body("whatsapp", "Max length is 50 characters").isLength({ max: 50 }),
 		body("contract", "Contract is required").isBoolean(),
 		body("archived", "Archived is required").isBoolean(),
-		body("languages", "Max length is 50 characters").isLength({ max: 50 }),
+		body("languages", "Max length is 50 characters")
+			.isLength({ max: 50 })
+			.trim(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);

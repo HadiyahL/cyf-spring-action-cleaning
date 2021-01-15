@@ -1,18 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Container } from "reactstrap";
-import { ShowCustomers, AddNewButton, Title } from "../components";
+import { Title, CustomersData } from "../components";
 
-const Customers = ({ customersTrigger }) => {
+const Customers = () => {
 	return (
 		<Container>
 			<Title text="Clients" />
-			<AddNewButton pathname="/add-customer" />
-			<ShowCustomers customersTrigger={customersTrigger} />
+			<CustomersData />
 		</Container>
 	);
 };
-
-Customers.propTypes = { customersTrigger: PropTypes.bool };
 
 export default Customers;

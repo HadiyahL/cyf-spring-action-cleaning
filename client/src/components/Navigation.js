@@ -20,7 +20,6 @@ import { LogoutButton, config } from "./auth";
 import logo from "../assets/logo.png";
 import Spinner from "./UI/Spinner";
 
-
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { isLoading, isAuthenticated, user } = useAuth0();
@@ -40,7 +39,13 @@ const Navigation = () => {
 
 	return (
 		<div>
-			<Navbar color="light" light expand="md" className="navbar">
+			<Navbar
+				light
+				expand="md"
+				className={`navbar ${
+					isAuthenticated && role === "worker" && "navbar-bg-worker"
+				}`}
+			>
 				<NavbarBrand onClick={handleLogoClick}>
 					<img
 						src={logo}
@@ -50,7 +55,7 @@ const Navigation = () => {
 						alt="spring-action-logo"
 					/>
 				</NavbarBrand>
-				<NavbarToggler onClick={toggle} />
+				{isAuthenticated && <NavbarToggler onClick={toggle} />}
 				<Collapse isOpen={isOpen} navbar>
 					<Nav className="ml-auto d-flex justify-content-end navItems" navbar>
 						{isAuthenticated && role === "admin" && (

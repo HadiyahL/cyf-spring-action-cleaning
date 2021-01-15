@@ -20,6 +20,7 @@ const EditCustomer = () => {
 			name,
 			phone_number,
 			archived,
+			contact_name,
 		} = data.rows[0];
 		return (
 			<div>
@@ -30,6 +31,7 @@ const EditCustomer = () => {
 					customer_name={name}
 					phone_number={phone_number}
 					archived={archived}
+					contact_name={contact_name}
 				/>
 			</div>
 		);

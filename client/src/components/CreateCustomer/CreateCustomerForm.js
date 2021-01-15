@@ -113,6 +113,22 @@ const CreateCustomerForm = ({ state, setState }) => {
 						{errors.name && <FormText color="danger">{errors.name}</FormText>}
 					</FormGroup>
 					<FormGroup>
+						<Label for="customer_contact_name">Contact name</Label>
+						<Input
+							invalid={!!errors.customer_contact_name}
+							type="text"
+							name="customer_contact_name"
+							id="customer_contact_name"
+							placeholder="Enter contact name"
+							onChange={handleChange}
+							value={state.customer_contact_name}
+							maxLength={100}
+						/>
+						{errors.customer_contact_name && (
+							<FormText color="danger">{errors.customer_contact_name}</FormText>
+						)}
+					</FormGroup>
+					<FormGroup>
 						<Label for="email">Email</Label>
 						<Input
 							invalid={!!errors.email}

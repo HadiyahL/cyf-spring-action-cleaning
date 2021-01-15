@@ -45,6 +45,10 @@ const WorkerJobsList = () => {
 		return <Spinner />;
 	}
 
+	if (data.jobs.length < 1) {
+		return <p>You don&apos;t have assigned jobs yet.</p>;
+	}
+
 	const filteredDataByDate = filterByDate(data.jobs);
 	return (
 		<div>

@@ -124,7 +124,7 @@ const WorkerLogTimeForm = ({
 					<FormText color="danger">{errors.feedback}</FormText>
 				)}
 			</FormGroup>
-			<Alert color="dark">
+			<Alert color="dark" fade={false}>
 				<strong>Important:</strong> When you submit your time using this form,
 				this acts as your signature. The time acts as a true record of your
 				work.
