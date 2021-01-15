@@ -52,7 +52,7 @@ router.get(
 				INNER JOIN workers w ON w.id=j.worker_id
 				INNER JOIN customers c ON c.id=j.customer_id
 				WHERE w.email=$1
-				ORDER BY j.visit_on DESC
+				ORDER BY j.visit_on
 			`,
 			[req.user["https://springactioncleaning/email"]]
 		)
