@@ -4,7 +4,7 @@ const RecurringJobsTableHead = () => {
 	return (
 		<thead>
 			<tr>
-				<th>Customer</th>
+				<th>Client</th>
 				<th>Address</th>
 				<th>Cleaner</th>
 				<th>Next cleaning date</th>
