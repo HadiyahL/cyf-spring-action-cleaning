@@ -7,7 +7,7 @@ export const WorkerJobsContext = createContext([{}, () => {}]);
 export const WorkerJobsProvider = ({ children }) => {
 	const [state, setState] = useState({
 		startDate: DateTime.local().toISODate(),
-		endDate: "",
+		endDate: DateTime.local().plus({ months: 1 }).toISODate(),
 	});
 
 	return (
