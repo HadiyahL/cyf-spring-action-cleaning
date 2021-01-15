@@ -16,7 +16,9 @@ const DateFilter = ({ state, setState }) => {
 		<div className="mb-1">
 			<FormGroup className="d-inline-block">
 				<Label htmlFor="startDate" className="mr-3 d-flex">
-					<div className="align-self-center">From: </div>
+					<div className="align-self-center text-right date-input-label">
+						From:{" "}
+					</div>
 					<Input
 						type="date"
 						id="startDate"
@@ -29,7 +31,9 @@ const DateFilter = ({ state, setState }) => {
 			</FormGroup>
 			<FormGroup className="d-inline-block">
 				<Label htmlFor="endDate" className="d-flex">
-					<div className="align-self-center">To: </div>
+					<div className="align-self-center text-right date-input-label">
+						To:{" "}
+					</div>
 					<Input
 						type="date"
 						id="endDate"

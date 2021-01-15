@@ -68,7 +68,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 
 	const handleChange = (e) => {
 		const { name, value, checked, type } = e.target;
-		console.log("name, value, checked, type", name, value, checked, type);
+
 		if (type === "checkbox") {
 			setState({ ...state, [name]: checked });
 		} else {

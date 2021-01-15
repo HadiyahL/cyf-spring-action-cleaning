@@ -59,7 +59,7 @@ const WorkerLogTimeForm = ({
 					history.push("/jobs");
 				}
 			})
-			.catch((e) => console.log("e", e));
+			.catch((e) => console.log(e));
 	};
 
 	const formatErrors = (errors) =>

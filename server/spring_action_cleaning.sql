@@ -57,7 +57,7 @@ CREATE TABLE jobs (
 );
 
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '01482-822945', '34409 La Follette Pass', '852-452-4383', false, 'French');
-insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Codie Bamfield', 'cbamfield1@tumblr.com', '01439-292569', '4 Continental Lane', '144-207-5560', true, 'French');
+insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Codie Bamfield', 'worker@dot.com', '01439-292569', '4 Continental Lane', '144-207-5560', true, 'French');
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Marrilee MacCole', 'mmaccole2@rakuten.co.jp', '01536-339567', '87 John Wall Road', '207-855-1099', false, 'English');
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Marylou Alltimes', 'malltimes3@mac.com', '01320-784607', '7245 Beilfuss Road', '479-778-2850', true, 'English, French');
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Doralynne Harrad', 'dharrad4@netscape.com', '01622-060686', '43 Birchwood Circle', '405-368-4404', false, 'Hindi');
@@ -123,6 +123,8 @@ UPDATE customers SET main_branch_id=9 WHERE id=9;
 UPDATE customers SET main_branch_id=10 WHERE id=10;
 
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 1, 1, 1, '2020-12-21', '15:20', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 2, 22, 2, '2020-12-12', '15:20', 10);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 2, 22, 2, '2021-02-02', '12:10', 10);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2021-01-15', 2, 2, 2, '2021-01-28', '10:00', 10);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2021-01-15', 3, 23, 2, '2021-02-04', '12:45', 10);
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 3, 3, 7, '2020-12-12', '15:20', 10.5, 2);
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5, 2);

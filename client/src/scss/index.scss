@@ -75,10 +75,6 @@ ul {
 	background-color: #f8f9fa;
 }
 
-.navbar-bg-worker {
-	background-color: #e3f2fd;
-}
-
 .navbar_logo {
 	width: 60px;
 }
@@ -169,6 +165,11 @@ ul {
 
 .languages-column {
 	max-width: 10rem;
+}
+
+.date-input-label {
+	min-width: 48px;
+	margin-right: 0.25rem;
 }
 
 @media screen and (max-width: 560px) {
