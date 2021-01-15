@@ -81,7 +81,6 @@ export function App() {
 								component={ResultPage}
 							/>
 							<ProtectedRoute path="/create-jobs" component={Recurring} />
-							<Redirect to="/jobs" />
 						</>
 					)}
 					{role === "worker" && (
@@ -92,7 +91,6 @@ export function App() {
 								path="/worker/job/:id"
 								component={WorkerJobPage}
 							/>
-							<Redirect to="/jobs" />
 						</>
 					)}
 				</Switch>
