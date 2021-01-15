@@ -240,6 +240,11 @@ router.post(
 				value === "" ||
 				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 		),
+		check("start_time", "Start time should be before the end time").custom(
+			(value, { req }) =>
+				DateTime.fromISO(value) < DateTime.fromISO(req.body.end_time) ||
+				(value === "" && req.body.end_time === "")
+		),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -382,6 +387,11 @@ router.put(
 			(value) =>
 				value === "" ||
 				/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
+		),
+		check("start_time", "Start time should be before the end time").custom(
+			(value, { req }) =>
+				DateTime.fromISO(value) < DateTime.fromISO(req.body.end_time) ||
+				(value === "" && req.body.end_time === "")
 		),
 	],
 	(req, res, next) => {
