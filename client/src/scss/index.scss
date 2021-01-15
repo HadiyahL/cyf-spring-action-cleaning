@@ -167,6 +167,11 @@ ul {
 	max-width: 10rem;
 }
 
+.date-input-label {
+	min-width: 48px;
+	margin-right: 0.25rem;
+}
+
 @media screen and (max-width: 560px) {
 	.homepage_text li {
 		font-size: 14px;
