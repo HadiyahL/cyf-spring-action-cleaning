@@ -131,7 +131,9 @@ router.post(
 		body("whatsapp", "Max length is 50 characters").isLength({ max: 50 }),
 		body("contract", "Contract is required").isBoolean(),
 		body("archived", "Archived is required").isBoolean(),
-		body("languages", "Max length is 50 characters").isLength({ max: 50 }),
+		body("languages", "Max length is 50 characters")
+			.isLength({ max: 50 })
+			.trim(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
@@ -190,7 +192,9 @@ router.put(
 		body("whatsapp", "Max length is 50 characters").isLength({ max: 50 }),
 		body("contract", "Contract is required").isBoolean(),
 		body("archived", "Archived is required").isBoolean(),
-		body("languages", "Max length is 50 characters").isLength({ max: 50 }),
+		body("languages", "Max length is 50 characters")
+			.isLength({ max: 50 })
+			.trim(),
 	],
 	(req, res, next) => {
 		const errors = validationResult(req);
