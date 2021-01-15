@@ -5,6 +5,7 @@ import Spinner from "../../UI/Spinner";
 import WorkerJobsTableBody from "./WorkerJobsTableBody";
 import DateFilter from "../DateFilter";
 import { WorkerJobsContext } from "../../../contexts/WorkerJobs";
+import WorkerHelpModal from "./WorkerHelpModal";
 
 const WorkerJobsList = () => {
 	const [state, setState] = useContext(WorkerJobsContext);
@@ -52,7 +53,10 @@ const WorkerJobsList = () => {
 	const filteredDataByDate = filterByDate(data.jobs);
 	return (
 		<div>
-			<DateFilter state={state} setState={setState} />
+			<div className="d-flex justify-content-between">
+				<DateFilter state={state} setState={setState} />
+				<WorkerHelpModal />
+			</div>
 			{filteredDataByDate.length === 0 ? (
 				<div className="mt-5">No jobs found for the specified time.</div>
 			) : (
