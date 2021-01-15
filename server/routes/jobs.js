@@ -24,7 +24,7 @@ router.get(
 		INNER JOIN branches b ON j.branch_id=b.id
 		INNER JOIN customers c ON j.customer_id=c.id
 		INNER JOIN workers w ON w.id=j.worker_id
-		WHERE j.visit_on >= $1 AND j.visit_on <= $2
+		WHERE j.visit_on >= $1 AND j.visit_on <= $2 AND c.archived='f'
 		`,
 			[start, end]
 		)
