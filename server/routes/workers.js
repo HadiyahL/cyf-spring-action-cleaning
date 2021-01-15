@@ -13,7 +13,7 @@ router.get(
 	checkAuth,
 	checkPermission("get:workers"),
 	(_, res, next) => {
-		db.query("SELECT * FROM workers")
+		db.query("SELECT * FROM workers ORDER BY name")
 			.then(({ rows }) => {
 				return res.json({ workers: rows });
 			})

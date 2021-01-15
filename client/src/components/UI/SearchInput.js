@@ -11,7 +11,7 @@ const SearchInput = ({ setFilterInput }) => {
 	return (
 		<FormGroup>
 			<Input
-				placeholder="Filter..."
+				placeholder="Search..."
 				name="searchInput"
 				onChange={handleChange}
 			/>
