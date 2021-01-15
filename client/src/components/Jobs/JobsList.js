@@ -13,7 +13,7 @@ const JobsList = () => {
 	const { data, error, isLoading } = useFetch("/jobs");
 	const [state, setState] = useContext(JobsContext);
 	const [sortBy, setSortBy] = useState("visit_on");
-	const [isAscending, setIsAscending] = useState(null);
+	const [isAscending, setIsAscending] = useState(true);
 
 	const { startDate, endDate, status } = state;
 
