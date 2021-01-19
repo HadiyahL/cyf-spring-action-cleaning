@@ -153,7 +153,7 @@ router.post(
 		} = req.body;
 
 		db.query(
-			`INSERT INTO workers (name, email, phone_number, address, whatsapp, permanent_contract, languages)
+			`INSERT INTO workers (name, email, phone_number, address, whatsapp, permanent_contract, languages, archived)
 			VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
 			[name, email, phone, address, whatsapp, contract, languages, archived]
 		)
