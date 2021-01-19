@@ -19,7 +19,7 @@ const CreateCustomer = ({
 		phone_number: phone_number || "",
 		archived: archived || false,
 		customer_id: id || "",
-		main_branch_id: main_branch_id || null,
+		main_branch_id: main_branch_id || "",
 		duration: "1",
 		address: "",
 		contact_name: "",
