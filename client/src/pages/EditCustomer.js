@@ -6,7 +6,9 @@ import useFetch from "../hooks/useFetch";
 
 const EditCustomer = () => {
 	const { id } = useParams();
-	const { data, isLoading, error } = useFetch(`/customers/${id}`);
+	const { data, isLoading, error } = useFetch(`/customers/${id}`, {
+		cacheTime: 0,
+	});
 
 	if (error) {
 		return <div>Oops, something went wrong.</div>;
