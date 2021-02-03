@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import PropTypes from "prop-types";
 import {
 	Button,
@@ -14,13 +15,7 @@ import { postBranch, putBranch } from "../../service";
 import SelectWorker from "../CreateJob/SelectWorker";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
-const BranchForm = ({
-	state,
-	setState,
-	toggle,
-	branchSaved,
-	setBranchSaved,
-}) => {
+const BranchForm = ({ state, setState, toggle, refetchBranches }) => {
 	const {
 		main_branch_id,
 		main_branch,
@@ -37,49 +32,83 @@ const BranchForm = ({
 	const [mainBranchState, setMainBranchState] = useState(
 		main_branch_id === branch_id
 	);
+	console.log(
+		"branch_id, main_branch_id, isMainBranch",
+		branch_id,
+		main_branch_id,
+		main_branch
+	);
+	console.log("mainBranchState", mainBranchState);
+	const createBranchMutation = useMutation(
+		({ id, data, options }) => {
+			return postBranch(id, data, options);
+		},
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: (data) => {
+				console.log("create mutation");
+				if (data.errors) {
+					setErrors(formatErrors(data.errors));
+				} else {
+					updateStuff(data.id);
+				}
+			},
+		}
+	);
+
+	const updateBranchMutation = useMutation(
+		({ branchId, customerId, data, options }) => {
+			console.log({ branchId, customerId, data, options });
+			return putBranch(branchId, customerId, data, options);
+		},
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: (data) => {
+				console.log("update mutation");
+
+				if (data.errors) {
+					setErrors(formatErrors(data.errors));
+				} else {
+					console.log("state", state);
+					updateStuff(state.branch_id);
+				}
+			},
+		}
+	);
+
+	const updateStuff = (id) => {
+		if (main_branch) {
+			// but set new default branch
+			clearBranchFieldsFromState(id);
+		} else {
+			clearBranchFieldsFromState();
+		}
+
+		refetchBranches();
+		toggle();
+	};
+
 	const authorizationHeaders = useAuthorizationHeaders();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!state.branch_id) {
-			postBranch(state.customer_id, state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						if (main_branch) {
-							// but set new default branch
-							clearBranchFieldsFromState(res.id);
-						} else {
-							clearBranchFieldsFromState();
-						}
-						// trigger BranchesTable update
-						setBranchSaved(!branchSaved);
-						toggle();
-					}
-				})
-				.catch((e) => {
-					console.error(e);
-				});
+		if (!branch_id) {
+			createBranchMutation.mutate({
+				id: customer_id,
+				data: state,
+				options: authorizationHeaders,
+			});
 		} else {
-			putBranch(branch_id, customer_id, state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						if (main_branch) {
-							clearBranchFieldsFromState(branch_id);
-						} else {
-							clearBranchFieldsFromState();
-						}
-						// trigger BranchesTable update
-						setBranchSaved(!branchSaved);
-						toggle();
-					}
-				})
-				.catch((e) => {
-					console.error(e);
-				});
+			updateBranchMutation.mutate({
+				branchId: branch_id,
+				customerId: customer_id,
+				data: state,
+				options: authorizationHeaders,
+			});
 		}
 	};
 
@@ -270,9 +299,8 @@ const BranchForm = ({
 BranchForm.propTypes = {
 	state: PropTypes.object.isRequired,
 	setState: PropTypes.func.isRequired,
-	toggle: PropTypes.func,
-	branchSaved: PropTypes.bool,
-	setBranchSaved: PropTypes.func,
+	toggle: PropTypes.func.isRequired,
+	refetchBranches: PropTypes.func.isRequired,
 };
 
 export default BranchForm;

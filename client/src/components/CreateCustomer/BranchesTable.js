@@ -6,17 +6,10 @@ import Spinner from "../UI/Spinner";
 import BranchModal from "./BranchModal";
 import { sortAscByABC } from "../../util/helpers";
 
-const BranchesTable = ({
-	state,
-	trigger,
-	toggleEditModal,
-	setState,
-	setBranchSaved,
-	isOpen,
-}) => {
-	const { data, isLoading, error } = useFetch(
+const BranchesTable = ({ state, toggleEditModal, setState, isOpen }) => {
+	const { data, isLoading, error, refetch } = useFetch(
 		`/branches/customer/${state.customer_id}`,
-		trigger
+		refetch
 	);
 
 	const isMainBranch = (branchId) => state.main_branch_id === branchId;
@@ -98,8 +91,7 @@ const BranchesTable = ({
 					toggle={toggleEditModal}
 					state={state}
 					setState={setState}
-					setBranchSaved={setBranchSaved}
-					branchSaved={trigger}
+					refetchBranches={refetch}
 				/>
 			</div>
 		);
@@ -108,7 +100,9 @@ const BranchesTable = ({
 
 BranchesTable.propTypes = {
 	state: PropTypes.object.isRequired,
-	trigger: PropTypes.bool.isRequired,
+	setState: PropTypes.func.isRequired,
+	toggleEditModal: PropTypes.func.isRequired,
+	isOpen: PropTypes.bool.isRequired,
 };
 
 export default BranchesTable;
