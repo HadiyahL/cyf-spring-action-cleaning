@@ -2,12 +2,13 @@ import { useQuery } from "react-query";
 import { get } from "../api";
 import useAuthorizationHeaders from "./useAuthorizationHeaders";
 
-const useFetch = (url) => {
+const useFetch = (url, options) => {
 	const authorizationHeaders = useAuthorizationHeaders();
 	const { data, isLoading, isIdle, error, refetch } = useQuery(
 		url,
 		() => get(url, authorizationHeaders),
 		{
+			...options,
 			enabled: !!authorizationHeaders,
 		}
 	);
