@@ -7,7 +7,13 @@ import PlusIcon from "../UI/PlusIcon";
 import MinusIcon from "../UI/MinusIcon";
 import { formatDate } from "../../util/helpers";
 
-const RecurringJobsTableBody = ({ data, state, setState }) => {
+const RecurringJobsTableBody = ({
+	data,
+	state,
+	setState,
+	workers,
+	setWorkers,
+}) => {
 	const handleRemoveJob = (idToRemove) => {
 		setState({
 			...state,
@@ -48,16 +54,14 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 					<td className="align-middle">{customer}</td>
 					<td className="align-middle">{address}</td>
 					<td className="align-middle">
-						{state.workers ? (
-							<ChangeWorkerButton
-								state={state}
-								setState={setState}
-								id={id}
-								text={worker}
-							/>
-						) : (
-							worker
-						)}
+						<ChangeWorkerButton
+							state={state}
+							setState={setState}
+							workers={workers}
+							setWorkers={setWorkers}
+							id={id}
+							text={worker}
+						/>
 					</td>
 					<td className="align-middle">
 						<Button
@@ -113,9 +117,11 @@ const RecurringJobsTableBody = ({ data, state, setState }) => {
 };
 
 RecurringJobsTableBody.propTypes = {
-	data: PropTypes.array,
-	state: PropTypes.object,
-	setState: PropTypes.func,
+	data: PropTypes.array.isRequired,
+	state: PropTypes.object.isRequired,
+	setState: PropTypes.func.isRequired,
+	workers: PropTypes.object.isRequired,
+	setWorkers: PropTypes.func.isRequired,
 };
 
 export default RecurringJobsTableBody;

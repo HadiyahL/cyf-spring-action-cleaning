@@ -3,12 +3,15 @@ import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 import WorkersModal from "./WorkersModal";
 
-const ChangeWorkerButton = ({ state, setState, id, text }) => {
+const ChangeWorkerButton = ({
+	state,
+	setState,
+	id,
+	text,
+	workers,
+	setWorkers,
+}) => {
 	const [modal, setModal] = useState(false);
-	const [workers, setWorkers] = useState({
-		data: state.workers,
-		originalData: state.workers,
-	});
 
 	const toggle = () => {
 		setModal(!modal);
@@ -39,6 +42,8 @@ const ChangeWorkerButton = ({ state, setState, id, text }) => {
 ChangeWorkerButton.propTypes = {
 	state: PropTypes.object.isRequired,
 	setState: PropTypes.func.isRequired,
+	workers: PropTypes.object.isRequired,
+	setWorkers: PropTypes.func.isRequired,
 	id: PropTypes.number.isRequired,
 	text: PropTypes.string.isRequired,
 };
