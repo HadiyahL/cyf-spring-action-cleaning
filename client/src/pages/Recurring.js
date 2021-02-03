@@ -117,7 +117,8 @@ const Recurring = () => {
 						<div className="d-flex justify-content-end mb-4">
 							<BackButton />
 							<Button onClick={handleClick} color="success" className="ml-4">
-								Create {sortedJobs.length} jobs
+								Create {sortedJobs.length} job
+								{sortedJobs.length > 1 && "s"}
 							</Button>
 						</div>
 					</>
