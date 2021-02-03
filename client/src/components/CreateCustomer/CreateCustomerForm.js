@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useMutation, useQueryClient } from "react-query";
 import {
 	Button,
 	Form,
@@ -21,42 +22,64 @@ const CreateCustomerForm = ({ state, setState }) => {
 	const [isAlertOpen, setIsAlertOpen] = useState(false);
 	const authorizationHeaders = useAuthorizationHeaders();
 
+	const createCustomerMutation = useMutation(
+		({ data, options }) => postCustomer(data, options),
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: (data) => {
+				if (data.errors) {
+					setErrors(formatErrors(data.errors));
+				} else {
+					setErrors({});
+					setState({
+						...state,
+						customer_id: data.id,
+					});
+					setIsAlertOpen(true);
+				}
+			},
+		}
+	);
+
+	const queryClient = useQueryClient();
+
+	const updateCustomerMutation = useMutation(
+		({ id, data, options }) => putCustomer(id, data, options),
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: (data, { id }) => {
+				if (data.errors) {
+					setErrors(formatErrors(data.errors));
+				} else {
+					queryClient.setQueryData(`/customers/${id}`, (oldData) => ({
+						...oldData,
+						data,
+					}));
+					setErrors({});
+					setIsAlertOpen(true);
+				}
+			},
+		}
+	);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		if (!state.customer_id) {
-			postCustomer(state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						setErrors({});
-						setState({
-							...state,
-							customer_id: res.id,
-						});
-						setIsAlertOpen(true);
-					}
-				})
-				.catch((e) => {
-					console.error(e);
-				});
+			createCustomerMutation.mutate({
+				data: state,
+				options: authorizationHeaders,
+			});
 		} else {
-			putCustomer(state.customer_id, state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						setErrors({});
-						setState({
-							...state,
-						});
-						setIsAlertOpen(true);
-					}
-				})
-				.catch((e) => {
-					console.error(e);
-				});
+			updateCustomerMutation.mutate({
+				id: state.customer_id,
+				data: state,
+				options: authorizationHeaders,
+			});
 		}
 	};
 
