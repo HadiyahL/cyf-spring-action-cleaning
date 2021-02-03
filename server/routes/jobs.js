@@ -423,6 +423,7 @@ router.put(
 				UPDATE jobs 
 				SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, pay_rate=$7, duration=$8, start_time=$9, end_time=$10, status=$11
 				WHERE id=$12
+				RETURNING *
 			`,
 			[
 				customer_id,
@@ -439,13 +440,15 @@ router.put(
 				id,
 			]
 		)
-			.then(({ rowCount }) => {
+			.then(({ rowCount, rows }) => {
 				if (rowCount < 1) {
+					console.log("not updated");
 					return res
 						.status(400)
-						.json({ success: false, message: "Job not added." });
+						.json({ success: false, message: "Job not updated." });
 				} else {
-					return res.json({ success: true });
+					console.log("updated, rows =", rows);
+					return res.json({ success: true, job: rows[0] });
 				}
 			})
 			.catch((e) => {
