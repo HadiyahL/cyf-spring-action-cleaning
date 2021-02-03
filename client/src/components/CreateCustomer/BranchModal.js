@@ -6,7 +6,6 @@ import BranchForm from "./BranchForm";
 const BranchModal = ({ isOpen, toggle, state, setState, refetchBranches }) => {
 	return (
 		<div>
-			{console.log("state", state)}
 			<Modal isOpen={isOpen} toggle={toggle}>
 				<ModalHeader toggle={toggle} className="px-md-4">
 					{state.branch_id ? "Edit" : "Add"} Address

@@ -18,7 +18,6 @@ import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 const BranchForm = ({ state, setState, toggle, refetchBranches }) => {
 	const {
 		main_branch_id,
-		main_branch,
 		branch_id,
 		customer_id,
 		address,
@@ -29,59 +28,44 @@ const BranchForm = ({ state, setState, toggle, refetchBranches }) => {
 		details,
 	} = state;
 	const [errors, setErrors] = useState({});
-	const [mainBranchState, setMainBranchState] = useState(
+	const [isMainBranch, setIsMainBranch] = useState(
 		main_branch_id === branch_id
 	);
-	console.log(
-		"branch_id, main_branch_id, isMainBranch",
-		branch_id,
-		main_branch_id,
-		main_branch
-	);
-	console.log("mainBranchState", mainBranchState);
 	const createBranchMutation = useMutation(
-		({ id, data, options }) => {
-			return postBranch(id, data, options);
-		},
+		({ id, data, options }) => postBranch(id, data, options),
 		{
 			onError: (error) => {
 				console.log(error);
 			},
 			onSuccess: (data) => {
-				console.log("create mutation");
 				if (data.errors) {
 					setErrors(formatErrors(data.errors));
 				} else {
-					updateStuff(data.id);
+					updateUI(data.id);
 				}
 			},
 		}
 	);
 
 	const updateBranchMutation = useMutation(
-		({ branchId, customerId, data, options }) => {
-			console.log({ branchId, customerId, data, options });
-			return putBranch(branchId, customerId, data, options);
-		},
+		({ branchId, customerId, data, options }) =>
+			putBranch(branchId, customerId, data, options),
 		{
 			onError: (error) => {
 				console.log(error);
 			},
 			onSuccess: (data) => {
-				console.log("update mutation");
-
 				if (data.errors) {
 					setErrors(formatErrors(data.errors));
 				} else {
-					console.log("state", state);
-					updateStuff(state.branch_id);
+					updateUI(state.branch_id);
 				}
 			},
 		}
 	);
 
-	const updateStuff = (id) => {
-		if (main_branch) {
+	const updateUI = (id) => {
+		if (isMainBranch) {
 			// but set new default branch
 			clearBranchFieldsFromState(id);
 		} else {
@@ -137,8 +121,8 @@ const BranchForm = ({ state, setState, toggle, refetchBranches }) => {
 	const handleChange = (e) => {
 		const { name, value, type } = e.target;
 		if (type === "checkbox") {
-			setMainBranchState(!mainBranchState);
-			setState({ ...state, [name]: !mainBranchState });
+			setIsMainBranch(!isMainBranch);
+			setState({ ...state, [name]: !isMainBranch });
 		} else {
 			setState({ ...state, [name]: value });
 		}
@@ -171,7 +155,7 @@ const BranchForm = ({ state, setState, toggle, refetchBranches }) => {
 								name="main_branch"
 								type="checkbox"
 								onChange={handleChange}
-								checked={mainBranchState}
+								checked={isMainBranch}
 							/>
 							Set as main address
 						</Label>
