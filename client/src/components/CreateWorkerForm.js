@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import {
@@ -40,34 +41,52 @@ const CreateWorkerForm = ({
 	const [errors, setErrors] = useState({});
 	const history = useHistory();
 	const authorizationHeaders = useAuthorizationHeaders();
+	const queryClient = useQueryClient();
+
+	const workerMutation = useMutation(
+		({ method, id, data, options }) => {
+			if (method === "post") {
+				return postWorkers(data, options);
+			} else {
+				return putWorkers(id, data, options);
+			}
+		},
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: (data, { id }) => {
+				if (data.errors) {
+					setErrors(formatErrors(data.errors));
+				} else {
+					if (id) {
+						// update cached data needed only when updating (put) worker
+						queryClient.setQueryData(`/workers/${id}`, (oldData) => ({
+							...oldData,
+							data,
+						}));
+					}
+					history.push("/workers");
+				}
+			},
+		}
+	);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!worker_id) {
-			postWorkers(state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						clearForm();
-						history.push("/workers");
-					}
-				})
-				.catch((e) => {
-					console.error(e);
-				});
+			workerMutation.mutate({
+				method: "post",
+				data: state,
+				options: authorizationHeaders,
+			});
 		} else {
-			putWorkers(worker_id, state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						history.push("/workers");
-					}
-				})
-				.catch((e) => {
-					console.error(e);
-				});
+			workerMutation.mutate({
+				method: "put",
+				id: worker_id,
+				data: state,
+				options: authorizationHeaders,
+			});
 		}
 	};
 
@@ -76,18 +95,6 @@ const CreateWorkerForm = ({
 			acc[error.param] = error.msg;
 			return acc;
 		}, {});
-
-	const clearForm = () => {
-		setState({
-			name: "",
-			email: "",
-			address: "",
-			phone: "",
-			whatsapp: "",
-			contract: false,
-		});
-		setErrors({});
-	};
 
 	const handleChange = (e) => {
 		const { name, value, checked, type } = e.target;
