@@ -442,12 +442,10 @@ router.put(
 		)
 			.then(({ rowCount, rows }) => {
 				if (rowCount < 1) {
-					console.log("not updated");
 					return res
 						.status(400)
 						.json({ success: false, message: "Job not updated." });
 				} else {
-					console.log("updated, rows =", rows);
 					return res.json({ success: true, job: rows[0] });
 				}
 			})
