@@ -156,6 +156,7 @@ router.put(
 			UPDATE customers
 			SET name=$1, email=$2, phone_number=$3, archived=$4, contact_name=$5
 			WHERE id=$6
+			RETURNING *
 		`,
 			[name, email, phone_number, archived, customer_contact_name, id]
 		)
