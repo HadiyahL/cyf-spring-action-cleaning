@@ -394,7 +394,7 @@ router.put(
 				(value === "" && req.body.end_time === "")
 		),
 	],
-	(req, res, next) => {
+	async (req, res, next) => {
 		const errors = validationResult(req);
 
 		if (!errors.isEmpty()) {
@@ -418,41 +418,47 @@ router.put(
 
 		const status = start_time && end_time ? 1 : 0;
 
-		db.query(
-			`
+		const client = await db.getClient();
+
+		try {
+			await client.query(
+				`
 				UPDATE jobs 
 				SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, pay_rate=$7, duration=$8, start_time=$9, end_time=$10, status=$11
 				WHERE id=$12
-				RETURNING *
 			`,
-			[
-				customer_id,
-				branch_id,
-				worker_id,
-				details,
-				visit_on,
-				visit_time,
-				pay_rate,
-				duration,
-				start_time,
-				end_time,
-				status,
-				id,
-			]
-		)
-			.then(({ rowCount, rows }) => {
-				if (rowCount < 1) {
-					return res
-						.status(400)
-						.json({ success: false, message: "Job not updated." });
-				} else {
-					return res.json({ success: true, job: rows[0] });
-				}
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
+				[
+					customer_id,
+					branch_id,
+					worker_id,
+					details,
+					visit_on,
+					visit_time,
+					pay_rate,
+					duration,
+					start_time,
+					end_time,
+					status,
+					id,
+				]
+			);
+
+			const { rows } = await client.query(
+				`
+				SELECT j.*, c.name customer, b.address branch, w.name worker
+				FROM jobs j
+				INNER JOIN customers c ON j.customer_id=c.id
+				INNER JOIN branches b ON j.branch_id=b.id
+				INNER JOIN workers w ON j.worker_id=w.id
+				WHERE j.id=$1`,
+				[id]
+			);
+			return res.json({ success: true, job: rows[0] });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
