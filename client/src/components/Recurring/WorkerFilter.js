@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import { FormGroup, Label, Input } from "reactstrap";
 import { sortByField } from "../../util/helpers";
 
-const WorkerFilter = ({ state, setState }) => {
-	const { workers } = state;
-
+const WorkerFilter = ({ state, setState, workers }) => {
 	const handleWorkerChange = (e) => {
 		const { value } = e.target;
 		const { originalJobs } = state;
@@ -54,8 +52,9 @@ const WorkerFilter = ({ state, setState }) => {
 };
 
 WorkerFilter.propTypes = {
-	state: PropTypes.object,
-	setState: PropTypes.func,
+	state: PropTypes.object.isRequired,
+	setState: PropTypes.func.isRequired,
+	workers: PropTypes.array.isRequired,
 };
 
 export default WorkerFilter;

@@ -21,12 +21,29 @@ const Recurring = () => {
 		jobs: [],
 		isLoading: true,
 		error: null,
-		workers: [],
 		selectedWorker: "all",
+	});
+	const [workers, setWorkers] = useState({
+		data: [],
+		originalData: [],
 	});
 	const [date, setDate] = useContext(RecurringJobsContext);
 	const history = useHistory();
 	const authorizationHeaders = useAuthorizationHeaders();
+
+	useEffect(() => {
+		const fetchWorkers = () =>
+			getWorkersSelect(authorizationHeaders)
+				.then((res) => {
+					setWorkers({
+						data: res.workers,
+						originalData: res.workers,
+					});
+				})
+				.catch((e) => console.log(e));
+
+		authorizationHeaders && fetchWorkers();
+	}, [authorizationHeaders]);
 
 	useEffect(() => {
 		let isActive = true;
@@ -68,20 +85,6 @@ const Recurring = () => {
 		};
 	}, [date.startDate, date.endDate, authorizationHeaders]);
 
-	useEffect(() => {
-		const fetchWorkers = () =>
-			getWorkersSelect(authorizationHeaders)
-				.then((res) => {
-					setState((state) => ({
-						...state,
-						workers: res.workers,
-					}));
-				})
-				.catch((e) => console.log(e));
-
-		authorizationHeaders && fetchWorkers();
-	}, [authorizationHeaders]);
-
 	const handleClick = () => {
 		postBatchOfJobs(state, authorizationHeaders)
 			.then(() => history.push("/jobs"))
@@ -100,7 +103,11 @@ const Recurring = () => {
 				<Title text="Recreate from previous jobs" />
 				<div className="d-flex justify-content-between">
 					<DateFilter state={date} setState={setDate} />
-					<WorkerFilter state={state} setState={setState} />
+					<WorkerFilter
+						state={state}
+						setState={setState}
+						workers={workers.data}
+					/>
 				</div>
 				{sortedJobs.length < 1 ? (
 					<div>No jobs found for the specified time.</div>
@@ -112,6 +119,8 @@ const Recurring = () => {
 								data={sortedJobs}
 								state={state}
 								setState={setState}
+								workers={workers}
+								setWorkers={setWorkers}
 							/>
 						</Table>
 						<div className="d-flex justify-content-end mb-4">
