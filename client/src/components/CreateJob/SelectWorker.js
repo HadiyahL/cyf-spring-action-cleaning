@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
 import { getWorkersSelect, getWorker } from "../../service";
@@ -15,11 +16,15 @@ const SelectWorker = ({
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
 	const authorizationHeaders = useAuthorizationHeaders();
+	const queryClient = useQueryClient();
 
 	const toggle = () => setModal(!modal);
 
 	const fetchWorkers = () => {
-		getWorkersSelect(authorizationHeaders)
+		queryClient
+			.fetchQuery("getWorkersSelect", () =>
+				getWorkersSelect(authorizationHeaders)
+			)
 			.then((res) => {
 				setData({
 					name: "workers",
@@ -32,7 +37,8 @@ const SelectWorker = ({
 	};
 
 	const fetchWorker = (id) => {
-		getWorker(id, authorizationHeaders)
+		queryClient
+			.fetchQuery("getWorker", () => getWorker(id, authorizationHeaders))
 			.then((res) => {
 				const data = res.rows[0];
 				setState({

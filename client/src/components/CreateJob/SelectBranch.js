@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useQueryClient } from "react-query";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
 import { getBranches, getBranch } from "../../service";
 import Modal from "./Modal";
@@ -9,11 +10,14 @@ const SelectBranch = ({ state, setState, error }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
 	const authorizationHeaders = useAuthorizationHeaders();
-
+	const queryClient = useQueryClient();
 	const toggle = () => setModal(!modal);
 
 	const fetchBranches = () => {
-		getBranches(state.customer_id, authorizationHeaders)
+		queryClient
+			.fetchQuery("getBranches", () =>
+				getBranches(state.customer_id, authorizationHeaders)
+			)
 			.then((res) => {
 				setData({
 					name: "branches",
@@ -26,7 +30,8 @@ const SelectBranch = ({ state, setState, error }) => {
 	};
 
 	const fetchBranch = (id) => {
-		getBranch(id, authorizationHeaders)
+		queryClient
+			.fetchQuery("getBranch", () => getBranch(id, authorizationHeaders))
 			.then((res) => {
 				const data = res.rows[0];
 				setState({
