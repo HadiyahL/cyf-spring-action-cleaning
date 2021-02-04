@@ -10,11 +10,8 @@ const CreateWorkerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		const { worker_id, worker, start_date, finish_date } = state;
-
 		history.push(
-			`/result/${worker_id}/${start_date}/${finish_date}/${worker}/worker`
+			"/result/worker"
 		);
 	};
 

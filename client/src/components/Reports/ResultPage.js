@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Table } from "reactstrap";
-import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { Spinner, Title, BackButton } from "../index";
 import ResultTableHead from "./ResultTableHead";
 import ResultTableBody from "./ResultTableBody";
+import { WorkerReportContext } from "../../contexts/WorkerReport";
+import { CustomerReportContext } from "../../contexts/CustomerReport";
+import { useParams } from "react-router-dom";
 
 const ResultPage = () => {
-	const { id, start, finish, name, type } = useParams();
+	const { type } = useParams();
+	const [state] = useContext([CustomerReportContext, WorkerReportContext][Number(type === "worker")]);
+	const { start_date, finish_date } = state;
+	const name = [state.customer, state.worker][Number(type === "worker")];
+	const id = [state.customer_id, state.worker_id][Number(type === "worker")];
 
 	const { data, error, isLoading } = useFetch(
-		`/reports/${type}/${id}/${start}/${finish}`
+		`/reports/${type}/${id}/${start_date}/${finish_date}`
 	);
 	const total_data = useFetch(
-		`/reports/${type}_total/${id}/${start}/${finish}`
+		`/reports/${type}_total/${id}/${start_date}/${finish_date}`
 	);
 
 	if (total_data.error || error) {
@@ -25,7 +31,7 @@ const ResultPage = () => {
 			<Container>
 				<Title text={name} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-					{"Work duration from " + start + " to " + finish}
+					{"Work duration from " + start_date + " to " + finish_date}
 				</h3>
 				{total_data.data.rows.length < 1 ? (
 					<p>No data for this period.</p>

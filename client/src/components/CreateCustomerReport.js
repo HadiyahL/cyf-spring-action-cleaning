@@ -10,11 +10,8 @@ const CreateCustomerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		const { customer_id, customer, start_date, finish_date } = state;
-
 		history.push(
-			`/result/${customer_id}/${start_date}/${finish_date}/${customer}/customer`
+			"/result/customer"
 		);
 	};
 
