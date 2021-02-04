@@ -487,7 +487,7 @@ router.put(
 		),
 		body("feedback", "Max length is 500 characters").isLength({ max: 500 }),
 	],
-	(req, res, next) => {
+	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
@@ -500,27 +500,34 @@ router.put(
 		const endTime = changeEmptyStringToNull(req.body.endTime);
 		const status = startTime && endTime ? 1 : 0;
 
-		db.query(
-			`
+		const client = await db.getClient();
+
+		try {
+			await client.query(
+				`
 			UPDATE jobs j
 				SET start_time=$1, end_time=$2, status=$3, feedback=$4
 			FROM workers w
 			WHERE j.id=$5 AND w.email=$6 AND j.status=0`,
-			[startTime, endTime, status, feedback, id, email]
-		)
-			.then(({ rowCount }) => {
-				if (rowCount < 1) {
-					return res
-						.status(400)
-						.json({ success: false, message: "Job not updated." });
-				} else {
-					return res.json({ success: true });
-				}
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
+				[startTime, endTime, status, feedback, id, email]
+			);
+
+			const { rows } = await client.query(
+				`
+				SELECT j.*, c.name customer, b.address branch, w.name worker
+				FROM jobs j
+				INNER JOIN customers c ON j.customer_id=c.id
+				INNER JOIN branches b ON j.branch_id=b.id
+				INNER JOIN workers w ON j.worker_id=w.id
+				WHERE j.id=$1`,
+				[id]
+			);
+			return res.json({ success: true, jobs: rows });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
