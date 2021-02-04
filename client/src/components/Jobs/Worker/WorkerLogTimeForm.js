@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import {
@@ -29,6 +30,31 @@ const WorkerLogTimeForm = ({
 	});
 	const history = useHistory();
 	const authorizationHeaders = useAuthorizationHeaders();
+	const queryClient = useQueryClient();
+
+	const putLogTimeMutation = useMutation(
+		({ id, data, options }) => putLogTimes(id, data, options),
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: (res, { id }) => {
+				if (res.errors) {
+					setState({
+						...state,
+						errors: formatErrors(res.errors),
+					});
+				} else {
+					queryClient.setQueryData(`/workers/job/${id}`, (oldData) => ({
+						...oldData,
+						data: res,
+					}));
+
+					history.push("/jobs");
+				}
+			},
+		}
+	);
 
 	const handleChange = (e) => {
 		const { value, name } = e.target;
@@ -48,18 +74,11 @@ const WorkerLogTimeForm = ({
 			return;
 		}
 
-		putLogTimes(id, state, authorizationHeaders)
-			.then((res) => {
-				if (res.errors) {
-					setState({
-						...state,
-						errors: formatErrors(res.errors),
-					});
-				} else {
-					history.push("/jobs");
-				}
-			})
-			.catch((e) => console.log(e));
+		putLogTimeMutation.mutate({
+			id,
+			data: state,
+			options: authorizationHeaders,
+		});
 	};
 
 	const formatErrors = (errors) =>
