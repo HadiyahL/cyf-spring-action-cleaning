@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SelectDateU, SelectCustomer } from "../components";
-import { Form, Button } from "reactstrap";
+import { Form, Button, Label, Input } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { CustomerReportContext } from "../contexts/CustomerReport";
 
@@ -13,6 +13,15 @@ const CreateCustomerReport = () => {
 		history.push(
 			"/result/customer"
 		);
+	};
+
+	const handleChange = (e) => {
+		const { name, value, checked, type } = e.target;
+		if (type === "checkbox") {
+			setState({ ...state, [name]: checked });
+		} else {
+			setState({ ...state, [name]: value });
+		}
 	};
 
 	return (
@@ -30,7 +39,16 @@ const CreateCustomerReport = () => {
 				dateAttribute="finish_date"
 				attributeTitle="Finish date"
 			/>
-			<div className="d-flex justify-content-end">
+			<div className="d-flex justify-content-between">
+				<Label check>
+					<Input
+						name="detailed"
+						type="checkbox"
+						onChange={handleChange}
+						checked={state.detailed}
+					/>{" "}
+							Detailed
+				</Label>
 				<Button>Run</Button>
 			</div>
 		</Form>

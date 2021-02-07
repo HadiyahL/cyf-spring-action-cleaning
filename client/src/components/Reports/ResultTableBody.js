@@ -11,7 +11,7 @@ const ResultTableBody = ({ data, bold, detailed }) => {
 			<tbody>
 				{data.map((line, ind) => (
 					<tr key={ind}>
-						<th scope="row">{!!line.column_0 ? formatDate(line.column_0, {
+						<th scope="row">{line.column_0 ? formatDate(line.column_0, {
 							year: "numeric",
 							month: "numeric",
 							day: "numeric",
@@ -30,7 +30,7 @@ const ResultTableBody = ({ data, bold, detailed }) => {
 	} else {
 		return (
 			<tbody>
-				{data.rows.map((line, ind) => (
+				{data.map((line, ind) => (
 					<tr key={ind}>
 						<th scope="row">{line.column_1}</th>
 						<td className={bold}>
@@ -47,7 +47,7 @@ const ResultTableBody = ({ data, bold, detailed }) => {
 };
 
 ResultTableBody.propTypes = {
-	data: PropTypes.object,
+	data: PropTypes.array,
 	bold: PropTypes.string,
 	detailed: PropTypes.bool,
 };
