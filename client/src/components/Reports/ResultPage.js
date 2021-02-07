@@ -11,12 +11,12 @@ import { useParams } from "react-router-dom";
 const ResultPage = () => {
 	const { type } = useParams();
 	const [state] = useContext([CustomerReportContext, WorkerReportContext][Number(type === "worker")]);
-	const { start_date, finish_date } = state;
+	const { start_date, finish_date, detailed } = state;
 	const name = [state.customer, state.worker][Number(type === "worker")];
 	const id = [state.customer_id, state.worker_id][Number(type === "worker")];
 
 	const { data, error, isLoading } = useFetch(
-		`/reports/${type}/${id}/${start_date}/${finish_date}`
+		`/reports/${type}${detailed ? "_detailed":""}/${id}/${start_date}/${finish_date}`
 	);
 	const total_data = useFetch(
 		`/reports/${type}_total/${id}/${start_date}/${finish_date}`
@@ -38,15 +38,10 @@ const ResultPage = () => {
 				) : (
 					<Table striped hover responsive>
 						<ResultTableHead
-							labels={
-								[
-									["Address", "Cleaner", "Duration"],
-									["Customer", "Address", "Duration"],
-								][Number(type === "worker")]
-							}
+							labels={data.labels}
 						/>
-						<ResultTableBody data={data} bold="" type={type} />
-						<ResultTableBody data={total_data.data} bold="total" />
+						<ResultTableBody data={data.rows} bold="" type={type} detailed={detailed} />
+						<ResultTableBody data={total_data.data.rows} bold="total" detailed={detailed} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

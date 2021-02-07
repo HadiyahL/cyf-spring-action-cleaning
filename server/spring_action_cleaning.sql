@@ -128,3 +128,24 @@ insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, vi
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2021-01-15', 3, 23, 2, '2021-02-04', '12:45', 10);
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 3, 3, 7, '2020-12-12', '15:20', 10.5, 2);
 insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5, 2);
+
+
+SELECT j.visit_on column_0, c.name column_1, b.address column_2, (j.end_time - j.start_time) duration 
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			INNER JOIN branches b ON j.branch_id=b.id
+			INNER JOIN customers c ON j.customer_id=c.id
+			WHERE w.id=2
+				AND j.visit_on BETWEEN '20201201' AND '20210207'
+				AND j.status = 1
+			ORDER BY j.visit_on;
+
+SELECT c.name column_1, b.address column_2, (j.end_time - j.start_time) duration 
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			INNER JOIN branches b ON j.branch_id=b.id
+			INNER JOIN customers c ON j.customer_id=c.id
+			WHERE w.id=2
+				AND j.visit_on BETWEEN '20201201' AND '20210207'
+				AND j.status = 1
+			ORDER BY j.visit_on;
