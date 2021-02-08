@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
 import { getJobs, postBatchOfJobs, getWorkersSelect } from "../service";
 import { Table, Button, Container } from "reactstrap";
 import DateFilter from "../components/Jobs/DateFilter";
@@ -18,12 +19,16 @@ const Recurring = () => {
 	const [date, setDate] = useContext(RecurringJobsContext);
 	const history = useHistory();
 	const authorizationHeaders = useAuthorizationHeaders();
+	const queryClient = useQueryClient();
 
 	useEffect(() => {
 		let isActive = true;
 
 		const fetchJobs = () =>
-			getJobs(date.startDate, date.endDate, authorizationHeaders)
+			queryClient
+				.fetchQuery("getJobs", () =>
+					getJobs(date.startDate, date.endDate, authorizationHeaders)
+				)
 				.then((data) => {
 					if (isActive) {
 						setState((state) => ({
@@ -47,11 +52,14 @@ const Recurring = () => {
 		return () => {
 			isActive = false;
 		};
-	}, [date.startDate, date.endDate, authorizationHeaders]);
+	}, [date.startDate, date.endDate, authorizationHeaders, queryClient]);
 
 	useEffect(() => {
 		const fetchWorkers = () =>
-			getWorkersSelect(authorizationHeaders)
+			queryClient
+				.fetchQuery("getWorkersSelect", () =>
+					getWorkersSelect(authorizationHeaders)
+				)
 				.then((res) => {
 					setState((state) => ({
 						...state,
@@ -61,12 +69,27 @@ const Recurring = () => {
 				.catch((e) => console.log(e));
 
 		authorizationHeaders && fetchWorkers();
-	}, [authorizationHeaders]);
+	}, [authorizationHeaders, queryClient]);
+
+	const recurringJobsMutation = useMutation(
+		({ data, options }) => {
+			return postBatchOfJobs(data, options);
+		},
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: () => {
+				history.push("/jobs");
+			},
+		}
+	);
 
 	const handleClick = () => {
-		postBatchOfJobs(state, authorizationHeaders)
-			.then(() => history.push("/jobs"))
-			.catch((e) => console.log(e));
+		recurringJobsMutation.mutate({
+			data: state,
+			options: authorizationHeaders,
+		});
 	};
 
 	const { error, isLoading, jobs } = state;
