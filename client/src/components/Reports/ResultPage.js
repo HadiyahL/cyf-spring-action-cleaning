@@ -40,8 +40,8 @@ const ResultPage = () => {
 						<ResultTableHead
 							labels={data.labels}
 						/>
-						<ResultTableBody data={data.rows} bold="" type={type} detailed={detailed} />
-						<ResultTableBody data={total_data.data.rows} bold="total" detailed={detailed} />
+						<ResultTableBody data={data.rows}  type={type} detailed={detailed} />
+						<ResultTableBody data={total_data.data.rows} tableFooter={true} detailed={detailed} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { formatDate } from "../../util/helpers";
 
-const ResultTableBody = ({ data, bold, detailed }) => {
+const ResultTableBody = ({ data, detailed, tableFooter=false }) => {
 	const formatDuration = (h = 0, m = 0) => {
 		return ("00" + h).slice(-2) + ":" + ("00" + m).slice(-2);
 	};
@@ -17,10 +17,10 @@ const ResultTableBody = ({ data, bold, detailed }) => {
 							day: "numeric",
 						}):""}</th>
 						<td>{line.column_1}</td>
-						<td className={bold}>
-							{bold ? "Total duration:" : line.column_2}
+						<td className={tableFooter && "font-weight-bold text-right"}>
+							{tableFooter ? "Total duration:" : line.column_2}
 						</td>
-						<td className={bold + "Time"}>
+						<td className={tableFooter && "font-weight-bold"}>
 							{formatDuration(line.duration.hours, line.duration.minutes)}
 						</td>
 					</tr>
@@ -33,10 +33,10 @@ const ResultTableBody = ({ data, bold, detailed }) => {
 				{data.map((line, ind) => (
 					<tr key={ind}>
 						<th scope="row">{line.column_1}</th>
-						<td className={bold}>
-							{bold ? "Total duration:" : line.column_2}
+						<td className={tableFooter && "font-weight-bold text-right"}>
+							{tableFooter ? "Total duration:" : line.column_2}
 						</td>
-						<td className={bold + "Time"}>
+						<td className={tableFooter && "font-weight-bold"}>
 							{formatDuration(line.duration.hours, line.duration.minutes)}
 						</td>
 					</tr>
