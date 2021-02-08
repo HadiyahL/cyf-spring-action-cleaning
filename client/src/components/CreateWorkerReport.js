@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Container, Form, Button, Label, Input } from "reactstrap";
+import { Form, Button, Label, Input } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { SelectDateU, SelectWorker } from "../components";
 import { WorkerReportContext } from "../contexts/WorkerReport";
@@ -27,7 +27,7 @@ const CreateWorkerReport = () => {
 	return (
 		<Form onSubmit={handleSubmit}>
 			<SelectWorker state={state} setState={setState} />
-			<div className="d-flex justify-content-between">
+			<div className="d-sm-flex justify-content-between">
 				<SelectDateU
 					state={state}
 					setState={setState}
