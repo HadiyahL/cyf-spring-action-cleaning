@@ -22,9 +22,9 @@ import {
 	CustomerReports,
 	WorkerJobs,
 	WorkerJobPage,
+	HomePage,
 } from "./pages";
 import { ResultPage } from "./components";
-import HomepageImg from "./components/HomepageImg";
 import ContextProviders from "./contexts/ContextProviders";
 
 export function App() {
@@ -48,7 +48,7 @@ export function App() {
 					{!isAuthenticated && (
 						<>
 							<Route exact path="/">
-								<HomepageImg />
+								<HomePage />
 							</Route>
 							<Redirect to="/" />
 						</>

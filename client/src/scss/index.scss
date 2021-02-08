@@ -1,6 +1,6 @@
-@import './custom.scss';
-@import '~bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+@import "./custom.scss";
+@import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css2?family=Potta+One&display=swap");
 
 #root {
 	display: flex;
@@ -22,27 +22,37 @@ ul {
 }
 
 .jumbotron {
-	background-image: linear-gradient(to right,rgba(0, 0, 0, 0.664),rgba(10, 10, 12, 0.596)), url("../assets/homepage.jpg");
+	background-image: linear-gradient(
+			to right,
+			rgba(0, 0, 0, 0.664),
+			rgba(10, 10, 12, 0.596)
+		),
+		url("../assets/homepage.jpg");
 	background-position: center;
 	background-size: cover;
-	height: calc(100vh - 278px);
+	min-height: calc(100vh - 278px);
 	padding: 0;
 	margin: 0 auto;
 	border-radius: 0;
-	display:flex;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	color:  #fff;
-		main & {
-			margin-bottom: -10rem;
-		}
+	color: #fff;
+	main & {
+		margin-bottom: -10rem;
+	}
 }
 
-.homepage_text {
- 	display:flex;
- 	flex-direction: column;
- 	justify-content: center;
+.homepage-button {
+	margin-top: 2rem;
+	margin-bottom: 5rem;
+}
+
+.homepage-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 	align-items: center;
 	padding: 0.75rem;
 
@@ -51,7 +61,7 @@ ul {
 	}
 
 	h2 {
-		font-family: 'Potta One', cursive;
+		font-family: "Potta One", cursive;
 		font-size: 2.5rem;
 		margin-bottom: 1rem;
 	}
@@ -61,7 +71,7 @@ ul {
 		display: flex;
 		align-items: center;
 	}
-	
+
 	p {
 		padding-left: 1rem;
 		font-size: 1.2rem;
@@ -80,7 +90,7 @@ ul {
 }
 
 .navbar_logo:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .navItem {
@@ -88,19 +98,19 @@ ul {
 }
 
 .navItem:hover {
-	border-bottom: 2px solid  #f8ae37;
+	border-bottom: 2px solid #f8ae37;
 }
 
 .link {
-  font-weight: 600;
-	letter-spacing: .4px;
+	font-weight: 600;
+	letter-spacing: 0.4px;
 }
 
 .homepage-icons {
 	min-width: 32px;
 	min-height: 32px;
-	color:#f8ae37;
-	margin-bottom:0.5rem ;
+	color: #f8ae37;
+	margin-bottom: 0.5rem;
 }
 
 .footer-icons {
@@ -109,12 +119,12 @@ ul {
 }
 
 .total {
-  font-weight: bold;
-  text-align: right;
+	font-weight: bold;
+	text-align: right;
 }
 
 .totalTime {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .th-tile {
@@ -173,7 +183,7 @@ ul {
 }
 
 @media screen and (max-width: 560px) {
-	.homepage_text li {
+	.homepage-text li {
 		font-size: 14px;
 	}
 
@@ -184,14 +194,10 @@ ul {
 	.worker-info-text-size {
 		font-size: 1.25rem;
 	}
-
-	.jumbotron {
-		min-height: 600px;
-	}
 }
 
 @media screen and (max-width: 800px) {
-	.homepage_text h2 {
+	.homepage-text h2 {
 		text-align: center;
 		font-size: 1.5rem;
 	}

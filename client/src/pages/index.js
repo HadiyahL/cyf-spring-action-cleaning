@@ -12,3 +12,4 @@ export { default as WorkerReports } from "./WorkerReports";
 export { default as CustomerReports } from "./CustomerReports";
 export { default as WorkerJobs } from "./WorkerJobs";
 export { default as WorkerJobPage } from "./WorkerJobPage";
+export { default as HomePage } from "./HomePage";
