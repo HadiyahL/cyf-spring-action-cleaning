@@ -17,11 +17,7 @@ const SelectDateU = ({
 	};
 
 	return (
-		<div
-			className={`mb-3 mb-md-4 mb-lg-5 w-100 ${
-				dateAttribute === "start_date" ? "mr-sm-3 mr-md-5" : "ml-sm-3 ml-md-5"
-			}`}
-		>
+		<div className="mb-3 mb-md-4 mb-lg-5 w-100 mr-3 mr-md-5">
 			<FormGroup>
 				<Label for={dateAttribute} size="lg">
 					{attributeTitle}
