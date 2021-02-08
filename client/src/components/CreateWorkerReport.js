@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Form, Button, Label, Input } from "reactstrap";
+import { Container, Form, Button, Label, Input } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { SelectDateU, SelectWorker } from "../components";
 import { WorkerReportContext } from "../contexts/WorkerReport";
@@ -25,20 +25,23 @@ const CreateWorkerReport = () => {
 	};
 
 	return (
+		// <Container className="mb-5">
 		<Form onSubmit={handleSubmit}>
 			<SelectWorker state={state} setState={setState} />
-			<SelectDateU
-				state={state}
-				setState={setState}
-				dateAttribute="start_date"
-				attributeTitle="Start date"
-			/>
-			<SelectDateU
-				state={state}
-				setState={setState}
-				dateAttribute="finish_date"
-				attributeTitle="Finish date"
-			/>
+			<div className="d-flex justify-content-between">
+				<SelectDateU
+					state={state}
+					setState={setState}
+					dateAttribute="start_date"
+					attributeTitle="Start date"
+				/>
+				<SelectDateU
+					state={state}
+					setState={setState}
+					dateAttribute="finish_date"
+					attributeTitle="Finish date"
+				/>
+			</div>
 			<div className="d-flex justify-content-between">
 				<Label check>
 					<Input
@@ -53,6 +56,7 @@ const CreateWorkerReport = () => {
 				<Button>Run</Button>
 			</div>
 		</Form>
+		// </Container>
 	);
 };
 

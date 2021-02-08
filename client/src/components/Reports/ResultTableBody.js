@@ -11,7 +11,7 @@ const ResultTableBody = ({ data, bold, detailed }) => {
 			<tbody>
 				{data.map((line, ind) => (
 					<tr key={ind}>
-						<th scope="row">{line.column_0 ? formatDate(line.column_0, {
+						<th scope="row">{line.visit_on ? formatDate(line.visit_on, {
 							year: "numeric",
 							month: "numeric",
 							day: "numeric",

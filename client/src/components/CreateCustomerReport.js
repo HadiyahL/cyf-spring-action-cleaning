@@ -27,18 +27,20 @@ const CreateCustomerReport = () => {
 	return (
 		<Form onSubmit={handleSubmit}>
 			<SelectCustomer state={state} setState={setState} />
-			<SelectDateU
-				state={state}
-				setState={setState}
-				dateAttribute="start_date"
-				attributeTitle="Start date"
-			/>
-			<SelectDateU
-				state={state}
-				setState={setState}
-				dateAttribute="finish_date"
-				attributeTitle="Finish date"
-			/>
+			<div className="d-flex justify-content-between">
+				<SelectDateU
+					state={state}
+					setState={setState}
+					dateAttribute="start_date"
+					attributeTitle="Start date"
+				/>
+				<SelectDateU
+					state={state}
+					setState={setState}
+					dateAttribute="finish_date"
+					attributeTitle="Finish date"
+				/>
+			</div>
 			<div className="d-flex justify-content-between">
 				<Label check>
 					<Input
