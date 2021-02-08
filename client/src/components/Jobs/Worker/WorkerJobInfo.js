@@ -45,7 +45,7 @@ const WorkerJobInfo = ({
 				</p>
 			)}
 			<p className="worker-info-text-size">
-				<strong>Job details:</strong>
+				<strong>Job details: </strong>
 				{details}
 			</p>
 		</div>
