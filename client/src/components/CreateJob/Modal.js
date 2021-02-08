@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import Spinner from "../UI/Spinner";
 import FilterInput from "../UI/FilterInput";
+import { sortAscByABC } from "../../util/helpers";
 
 const ModalComponent = ({ isOpen, toggle, data, setData, filterBy }) => {
 	return (
@@ -22,7 +23,7 @@ const ModalComponent = ({ isOpen, toggle, data, setData, filterBy }) => {
 						<ModalBody>
 							<FilterInput setData={setData} filterBy={filterBy} />
 							<ListGroup>
-								{data.data.map((item) => {
+								{sortAscByABC(data.data, filterBy).map((item) => {
 									return (
 										<ListGroupItem
 											tag="button"
