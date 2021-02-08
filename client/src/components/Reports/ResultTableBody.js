@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { formatDate } from "../../util/helpers";
 
-const ResultTableBody = ({ data, detailed, tableFooter=false }) => {
+const ResultTableBody = ({ data, detailed, tableFooter }) => {
 	const formatDuration = (h = 0, m = 0) => {
 		return ("00" + h).slice(-2) + ":" + ("00" + m).slice(-2);
 	};
@@ -48,7 +48,7 @@ const ResultTableBody = ({ data, detailed, tableFooter=false }) => {
 
 ResultTableBody.propTypes = {
 	data: PropTypes.array,
-	bold: PropTypes.string,
+	tableFooter: PropTypes.bool,
 	detailed: PropTypes.bool,
 };
 export default ResultTableBody;
