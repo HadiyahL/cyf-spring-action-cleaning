@@ -40,9 +40,7 @@ const CreateCustomerReport = () => {
 					dateAttribute="finish_date"
 					attributeTitle="Finish date"
 				/>
-			</div>
-			<div className="d-flex justify-content-between">
-				<Label check>
+				<Label check className="d-flex align-items-center">
 					<Input
 						name="detailed"
 						type="checkbox"
@@ -51,6 +49,8 @@ const CreateCustomerReport = () => {
 					/>{" "}
 							Detailed
 				</Label>
+			</div>
+			<div className="d-flex justify-content-end">
 				<Button>Run</Button>
 			</div>
 		</Form>
