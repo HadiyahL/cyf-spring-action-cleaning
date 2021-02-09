@@ -77,7 +77,7 @@ export function App() {
 								component={CustomerReports}
 							/>
 							<ProtectedRoute
-								path="/result/:id/:start/:finish/:name/:type"
+								path="/result/:type"
 								component={ResultPage}
 							/>
 							<ProtectedRoute path="/create-jobs" component={Recurring} />

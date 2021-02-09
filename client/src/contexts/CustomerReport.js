@@ -9,6 +9,7 @@ export const CustomerReportProvider = ({ children }) => {
 		customer_id: "",
 		start_date: "",
 		finish_date: "",
+		detailed: true,
 	});
 
 	return (

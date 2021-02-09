@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Form, Button } from "reactstrap";
+import { Form, Button, Label, Input } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { SelectDateU, SelectWorker } from "../components";
 import { WorkerReportContext } from "../contexts/WorkerReport";
@@ -10,29 +10,46 @@ const CreateWorkerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		const { worker_id, worker, start_date, finish_date } = state;
-
 		history.push(
-			`/result/${worker_id}/${start_date}/${finish_date}/${worker}/worker`
+			"/result/worker"
 		);
+	};
+
+	const handleChange = (e) => {
+		const { name, value, checked, type } = e.target;
+		if (type === "checkbox") {
+			setState({ ...state, [name]: checked });
+		} else {
+			setState({ ...state, [name]: value });
+		}
 	};
 
 	return (
 		<Form onSubmit={handleSubmit}>
 			<SelectWorker state={state} setState={setState} />
-			<SelectDateU
-				state={state}
-				setState={setState}
-				dateAttribute="start_date"
-				attributeTitle="Start date"
-			/>
-			<SelectDateU
-				state={state}
-				setState={setState}
-				dateAttribute="finish_date"
-				attributeTitle="Finish date"
-			/>
+			<div className="d-sm-flex justify-content-between">
+				<SelectDateU
+					state={state}
+					setState={setState}
+					dateAttribute="start_date"
+					attributeTitle="Start date"
+				/>
+				<SelectDateU
+					state={state}
+					setState={setState}
+					dateAttribute="finish_date"
+					attributeTitle="Finish date"
+				/>
+				<Label check className="d-flex align-items-center">
+					<Input
+						name="detailed"
+						type="checkbox"
+						onChange={handleChange}
+						checked={state.detailed}
+					/>{" "}
+							Detailed
+				</Label>
+			</div>
 			<div className="d-flex justify-content-end">
 				<Button>Run</Button>
 			</div>
