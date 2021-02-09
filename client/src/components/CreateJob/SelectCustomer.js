@@ -36,7 +36,6 @@ const SelectCustomer = ({ state, setState, error }) => {
 				getJobsCustomer(id, authorizationHeaders)
 			)
 			.then((res) => {
-				console.log("res", res);
 				const data = res.rows[0];
 				setState({
 					...state,
