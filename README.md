@@ -74,8 +74,10 @@ get:jobs/:id | Get job by id
 get:jobs/range | Get jobs for specified date rang
 get:jobs/workers/:id | Get jobs info for worker
 get:reports/customer | Get reports for customer from start to end date
+get:reports/customer_detailed | Get reports for customer with dates
 get:reports/customer_total | Get total hours worked for this customer
 get:reports/worker | Get hours worked for different addresses
+get:reports/worker_detailed | Get reports for worker with dates
 get:reports/worker_total | Get total hours worked by the worker for specified period
 get:workers | Read workers
 get:workersById | Get worker by id
