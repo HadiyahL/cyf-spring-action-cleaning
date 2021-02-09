@@ -77,10 +77,12 @@ const Jobs = ({
 				} else {
 					if (id) {
 						// update cached data needed only when updating (put) job
-						queryClient.setQueryData(`/jobs/${id}`, (oldData) => ({
-							...oldData,
-							data,
-						}));
+						setTimeout(() =>
+							queryClient.setQueryData(`/jobs/${id}`, (oldData) => ({
+								...oldData,
+								data,
+							}))
+						);
 					}
 					history.push("/jobs");
 				}

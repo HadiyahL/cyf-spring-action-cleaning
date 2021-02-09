@@ -45,11 +45,12 @@ const WorkerLogTimeForm = ({
 						errors: formatErrors(res.errors),
 					});
 				} else {
-					queryClient.setQueryData(`/workers/job/${id}`, (oldData) => ({
-						...oldData,
-						data: res,
-					}));
-
+					setTimeout(() =>
+						queryClient.setQueryData(`/workers/job/${id}`, (oldData) => ({
+							...oldData,
+							data: res,
+						}))
+					);
 					history.push("/jobs");
 				}
 			},

@@ -61,10 +61,12 @@ const CreateWorkerForm = ({
 				} else {
 					if (id) {
 						// update cached data needed only when updating (put) worker
-						queryClient.setQueryData(`/workers/${id}`, (oldData) => ({
-							...oldData,
-							data,
-						}));
+						setTimeout(() =>
+							queryClient.setQueryData(`/workers/${id}`, (oldData) => ({
+								...oldData,
+								data,
+							}))
+						);
 					}
 					history.push("/workers");
 				}
