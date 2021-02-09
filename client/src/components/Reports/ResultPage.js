@@ -15,9 +15,9 @@ const ResultPage = () => {
 	const { start_date, finish_date, detailed } = state;
 	const name = [state.customer, state.worker][Number(type === "worker")];
 	const id = [state.customer_id, state.worker_id][Number(type === "worker")];
-	if (!id){
-		history.push(`/${type}s_report`);
-	}
+	// if (!id){
+	// 	history.push(`/${type}s_report`);
+	// }
 	const { data, error, isLoading } = useFetch(
 		`/reports/${type}${detailed ? "_detailed":""}/${id}/${start_date}/${finish_date}`
 	);

@@ -10,9 +10,11 @@ const CreateWorkerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push(
-			"/result/worker"
-		);
+		if(state.worker_id) {
+			history.push(
+				"/result/worker"
+			);
+		}
 	};
 
 	const handleChange = (e) => {
@@ -51,7 +53,7 @@ const CreateWorkerReport = () => {
 				</Label>
 			</div>
 			<div className="d-flex justify-content-end">
-				<Button>Run</Button>
+				<Button disabled={!!status.worker_id}>Run</Button>
 			</div>
 		</Form>
 	);

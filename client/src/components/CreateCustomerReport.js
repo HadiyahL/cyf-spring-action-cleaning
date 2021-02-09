@@ -10,9 +10,11 @@ const CreateCustomerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push(
-			"/result/customer"
-		);
+		if(state.customer_id) {
+			history.push(
+				"/result/customer"
+			);
+		}
 	};
 
 	const handleChange = (e) => {
@@ -51,7 +53,7 @@ const CreateCustomerReport = () => {
 				</Label>
 			</div>
 			<div className="d-flex justify-content-end">
-				<Button>Run</Button>
+				<Button disabled={!!status.customer_id}>Run</Button>
 			</div>
 		</Form>
 	);
