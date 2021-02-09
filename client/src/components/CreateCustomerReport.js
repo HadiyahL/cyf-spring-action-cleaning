@@ -53,7 +53,7 @@ const CreateCustomerReport = () => {
 				</Label>
 			</div>
 			<div className="d-flex justify-content-end">
-				<Button disabled={!!status.customer_id}>Run</Button>
+				<Button>Run</Button>
 			</div>
 		</Form>
 	);
