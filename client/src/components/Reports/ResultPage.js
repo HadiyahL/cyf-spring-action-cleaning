@@ -6,10 +6,9 @@ import ResultTableHead from "./ResultTableHead";
 import ResultTableBody from "./ResultTableBody";
 import { WorkerReportContext } from "../../contexts/WorkerReport";
 import { CustomerReportContext } from "../../contexts/CustomerReport";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ResultPage = () => {
-	const history = useHistory();
 	const { type } = useParams();
 	const [state] = useContext([CustomerReportContext, WorkerReportContext][Number(type === "worker")]);
 	const { start_date, finish_date, detailed } = state;
