@@ -16,7 +16,7 @@ const SelectBranch = ({ state, setState, error }) => {
 		getBranches(state.customer_id, authorizationHeaders)
 			.then((res) => {
 				setData({
-					name: "branches",
+					name: "address",
 					data: res.rows,
 					originalData: res.rows,
 					fetchFunction: fetchBranch,
