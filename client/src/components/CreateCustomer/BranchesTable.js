@@ -64,7 +64,7 @@ const BranchesTable = ({
 		const branches = sortAscByABC(data.rows, "address");
 		return (
 			<div className="mt-5">
-				<h3>Client&apos;s addresses</h3>
+				<h3>Customer&apos;s addresses</h3>
 				<Table striped hover>
 					<thead>
 						<tr>

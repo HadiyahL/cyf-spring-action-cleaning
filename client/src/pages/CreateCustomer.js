@@ -35,7 +35,7 @@ const CreateCustomer = ({
 
 	return (
 		<Container>
-			<Title text={customer_id ? `${name}` : "Add a new Client"} />
+			<Title text={customer_id ? `${name}` : "Add a new customer"} />
 			<CreateCustomerForm state={state} setState={setState} />
 			{customer_id && <Branches state={state} setState={setState} />}
 		</Container>

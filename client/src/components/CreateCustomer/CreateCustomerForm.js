@@ -81,7 +81,7 @@ const CreateCustomerForm = ({ state, setState }) => {
 			<Col xs="12" sm="12" md="8" lg="6" xl="6">
 				{isAlertOpen && (
 					<SuccessAlert
-						text="Client details successfully updated"
+						text="Customer's details successfully updated"
 						resetAlert={setIsAlertOpen}
 					/>
 				)}

@@ -6,7 +6,7 @@ import CreateCustomerReport from "../components/CreateCustomerReport";
 const CustomerReports = () => {
 	return (
 		<Container>
-			<Title text="Client Report" />
+			<Title text="Customer Report" />
 			<CreateCustomerReport />
 		</Container>
 	);
