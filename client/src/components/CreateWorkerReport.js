@@ -10,9 +10,11 @@ const CreateWorkerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push(
-			"/result/worker"
-		);
+		if(state.worker_id) {
+			history.push(
+				"/result/worker"
+			);
+		}
 	};
 
 	const handleChange = (e) => {

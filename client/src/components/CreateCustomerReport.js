@@ -10,9 +10,11 @@ const CreateCustomerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push(
-			"/result/customer"
-		);
+		if(state.customer_id) {
+			history.push(
+				"/result/customer"
+			);
+		}
 	};
 
 	const handleChange = (e) => {
