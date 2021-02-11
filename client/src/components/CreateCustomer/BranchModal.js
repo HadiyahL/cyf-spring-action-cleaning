@@ -3,14 +3,7 @@ import PropTypes from "prop-types";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import BranchForm from "./BranchForm";
 
-const BranchModal = ({
-	isOpen,
-	toggle,
-	state,
-	setState,
-	branchSaved,
-	setBranchSaved,
-}) => {
+const BranchModal = ({ isOpen, toggle, state, setState, refetchBranches }) => {
 	return (
 		<div>
 			<Modal isOpen={isOpen} toggle={toggle}>
@@ -22,8 +15,7 @@ const BranchModal = ({
 						state={state}
 						setState={setState}
 						toggle={toggle}
-						setBranchSaved={setBranchSaved}
-						branchSaved={branchSaved}
+						refetchBranches={refetchBranches}
 					/>
 				</ModalBody>
 			</Modal>
@@ -36,8 +28,7 @@ BranchModal.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	state: PropTypes.object,
 	setState: PropTypes.func,
-	branchSaved: PropTypes.bool,
-	setBranchSaved: PropTypes.func,
+	refetchBranches: PropTypes.func,
 };
 
 export default BranchModal;

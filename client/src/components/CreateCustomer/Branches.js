@@ -5,7 +5,6 @@ import BranchesTable from "./BranchesTable";
 
 const Branches = ({ state, setState }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [branchSaved, setBranchSaved] = useState(false);
 
 	const toggle = () => setIsOpen(!isOpen);
 
@@ -30,9 +29,7 @@ const Branches = ({ state, setState }) => {
 			<Col xs="12" sm="12" md="8" lg="6" xl="6">
 				<BranchesTable
 					state={state}
-					trigger={branchSaved}
 					toggleEditModal={toggle}
-					setBranchSaved={setBranchSaved}
 					setState={setState}
 					isOpen={isOpen}
 				/>

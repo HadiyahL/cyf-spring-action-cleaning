@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, FormText } from "reactstrap";
 import { getCustomersSelect, getJobsCustomer } from "../../service";
@@ -9,11 +10,15 @@ const SelectCustomer = ({ state, setState, error }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
 	const authorizationHeaders = useAuthorizationHeaders();
+	const queryClient = useQueryClient();
 
 	const toggle = () => setModal(!modal);
 
 	const fetchCustomers = () => {
-		getCustomersSelect(authorizationHeaders)
+		queryClient
+			.fetchQuery("getCustomersSelect", () =>
+				getCustomersSelect(authorizationHeaders)
+			)
 			.then((res) => {
 				setData({
 					name: "customer",
@@ -26,7 +31,10 @@ const SelectCustomer = ({ state, setState, error }) => {
 	};
 
 	const fetchCustomer = (id) => {
-		getJobsCustomer(id, authorizationHeaders)
+		queryClient
+			.fetchQuery("getJobsCustomer", () =>
+				getJobsCustomer(id, authorizationHeaders)
+			)
 			.then((res) => {
 				const data = res.rows[0];
 				setState({
@@ -39,7 +47,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 					worker_id: state.worker_id || (data.worker_id ?? null),
 					visit_time: data.visit_time ?? null,
 					duration: data.duration ?? "1",
-					details: data.branch_details,
+					details: data.branch_details || "",
 				});
 			})
 			.catch((e) => console.log(e));

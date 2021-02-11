@@ -135,10 +135,6 @@ router.put(
 			phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, "GB"), "GB")
 		),
 		body("phone_number", "Phone is required").not().isEmpty(),
-		body(
-			"main_branch_id",
-			"Main branch id is required (or set as null)"
-		).exists(),
 		body("archived", "Archived is required").isBoolean(),
 	],
 	(req, res, next) => {
@@ -148,7 +144,6 @@ router.put(
 		}
 		const { id } = req.params;
 		const {
-			main_branch_id,
 			name,
 			email,
 			phone_number,
@@ -159,18 +154,11 @@ router.put(
 		db.query(
 			`
 			UPDATE customers
-			SET main_branch_id=$1, name=$2, email=$3, phone_number=$4, archived=$5, contact_name=$6
-			WHERE id=$7
+			SET name=$1, email=$2, phone_number=$3, archived=$4, contact_name=$5
+			WHERE id=$6
+			RETURNING *
 		`,
-			[
-				main_branch_id,
-				name,
-				email,
-				phone_number,
-				archived,
-				customer_contact_name,
-				id,
-			]
+			[name, email, phone_number, archived, customer_contact_name, id]
 		)
 			.then(({ rows }) => {
 				res.json({ success: true, rows });

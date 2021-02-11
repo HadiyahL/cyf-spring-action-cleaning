@@ -218,11 +218,12 @@ router.put(
 			UPDATE workers
 			SET name=$1, address=$2, email=$3, phone_number=$4, whatsapp=$5, permanent_contract=$6, languages=$7, archived=$8
 			WHERE id=$9
+			RETURNING *
 			`,
 			[name, address, email, phone, whatsapp, contract, languages, archived, id]
 		)
-			.then(() => {
-				return res.json({ success: true });
+			.then(({ rows }) => {
+				return res.json({ success: true, workers: rows });
 			})
 			.catch((e) => {
 				console.error(e);

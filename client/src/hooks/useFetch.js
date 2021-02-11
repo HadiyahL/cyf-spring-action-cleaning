@@ -1,50 +1,24 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { get } from "../api";
 import useAuthorizationHeaders from "./useAuthorizationHeaders";
 
-const useFetch = (url, trigger) => {
-	const [state, setState] = useState({
-		isLoading: true,
-		data: null,
-		error: null,
-	});
+const useFetch = (url, options) => {
 	const authorizationHeaders = useAuthorizationHeaders();
+	const { data, isLoading, isIdle, error, refetch } = useQuery(
+		url,
+		() => get(url, authorizationHeaders),
+		{
+			...options,
+			enabled: !!authorizationHeaders,
+		}
+	);
 
-	useEffect(() => {
-		let isActive = true;
-		setState({
-			isLoading: true,
-			data: null,
-			error: null,
-		});
-		const fetchData = async () => {
-			try {
-				const res = await get(url, authorizationHeaders);
-				if (isActive) {
-					setState({
-						isLoading: false,
-						data: res.data,
-						error: null,
-					});
-				}
-			} catch (error) {
-				if (isActive) {
-					setState({
-						isLoading: false,
-						data: null,
-						error,
-					});
-				}
-			}
-		};
-		authorizationHeaders && fetchData();
+	const status = { data, isLoading: isLoading || isIdle, error, refetch };
+	if (data) {
+		status.data = data.data;
+	}
 
-		return () => {
-			isActive = false;
-		};
-	}, [url, trigger, authorizationHeaders]);
-
-	return state;
+	return status;
 };
 
 export default useFetch;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { Container, Form, Button } from "reactstrap";
@@ -56,30 +57,54 @@ const Jobs = ({
 	const [errors, setErrors] = useState({});
 	const history = useHistory();
 	const authorizationHeaders = useAuthorizationHeaders();
+	const queryClient = useQueryClient();
+
+	const jobMutation = useMutation(
+		({ method, id, data, options }) => {
+			if (method === "post") {
+				return postJobs(data, options);
+			} else {
+				return putJobs(id, data, options);
+			}
+		},
+		{
+			onError: (error) => {
+				console.log(error);
+			},
+			onSuccess: (data, { id }) => {
+				if (data.errors) {
+					setErrors(formatErrors(data.errors));
+				} else {
+					if (id) {
+						// update cached data needed only when updating (put) job
+						setTimeout(() =>
+							queryClient.setQueryData(`/jobs/${id}`, (oldData) => ({
+								...oldData,
+								data,
+							}))
+						);
+					}
+					history.push("/jobs");
+				}
+			},
+		}
+	);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!job_id) {
-			postJobs(state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						clearForm();
-						history.push("/jobs");
-					}
-				})
-				.catch((err) => console.log(err));
+			jobMutation.mutate({
+				method: "post",
+				data: state,
+				options: authorizationHeaders,
+			});
 		} else {
-			putJobs(job_id, state, authorizationHeaders)
-				.then((res) => {
-					if (res.errors) {
-						setErrors(formatErrors(res.errors));
-					} else {
-						history.push("/jobs");
-					}
-				})
-				.catch((err) => console.log(err));
+			jobMutation.mutate({
+				method: "put",
+				id: job_id,
+				data: state,
+				options: authorizationHeaders,
+			});
 		}
 	};
 
@@ -88,25 +113,6 @@ const Jobs = ({
 			acc[error.param] = error.msg;
 			return acc;
 		}, {});
-
-	const clearForm = () => {
-		setState({
-			customer: "",
-			customer_id: "",
-			branch: "",
-			branch_id: "",
-			worker: "",
-			worker_id: "",
-			details: "",
-			visit_on: "",
-			visit_time: "",
-			duration: "1",
-			pay_rate: "",
-			start_time: "",
-			end_time: "",
-		});
-		setErrors({});
-	};
 
 	return (
 		<Container className="mb-5">
