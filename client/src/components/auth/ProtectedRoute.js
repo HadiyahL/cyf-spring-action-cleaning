@@ -15,7 +15,7 @@ const ProtectedRoute = ({ component, ...args }) => (
 );
 
 ProtectedRoute.propTypes = {
-	component: PropTypes.func,
+	component: PropTypes.object,
 };
 
 export default ProtectedRoute;

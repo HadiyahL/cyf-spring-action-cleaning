@@ -26,7 +26,6 @@ export { default as Spinner } from "./UI/Spinner";
 export { default as Title } from "./UI/Title";
 export { default as SearchInput } from "./UI/SearchInput";
 export { default as BackButton } from "./UI/BackButton";
-export { default as ResultPage } from "./Reports/ResultPage";
 export { default as RecurringJobsTableBody } from "./Recurring/RecurringJobsTableBody";
 export { default as RecurringJobsTableHead } from "./Recurring/RecurringJobsTableHead";
 export { default as WorkerFilter } from "./Recurring/WorkerFilter";

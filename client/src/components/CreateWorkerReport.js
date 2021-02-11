@@ -10,9 +10,7 @@ const CreateWorkerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push(
-			"/result/worker"
-		);
+		history.push("/result/worker");
 	};
 
 	const handleChange = (e) => {
@@ -47,7 +45,7 @@ const CreateWorkerReport = () => {
 						onChange={handleChange}
 						checked={state.detailed}
 					/>{" "}
-							Detailed
+					Detailed
 				</Label>
 			</div>
 			<div className="d-flex justify-content-end">

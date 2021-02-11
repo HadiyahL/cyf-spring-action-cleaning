@@ -10,7 +10,7 @@ const BackButton = () => {
 	};
 
 	return (
-		<Button color="primary" onClick={handleBack}>
+		<Button color="primary" onClick={handleBack}  className="d-print-none">
 			Back
 		</Button>
 	);

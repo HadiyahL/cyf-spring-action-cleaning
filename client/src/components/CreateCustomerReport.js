@@ -10,9 +10,7 @@ const CreateCustomerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push(
-			"/result/customer"
-		);
+		history.push("/result/customer");
 	};
 
 	const handleChange = (e) => {
@@ -47,7 +45,7 @@ const CreateCustomerReport = () => {
 						onChange={handleChange}
 						checked={state.detailed}
 					/>{" "}
-							Detailed
+					Detailed
 				</Label>
 			</div>
 			<div className="d-flex justify-content-end">
