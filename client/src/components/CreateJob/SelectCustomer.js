@@ -16,7 +16,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 		getCustomersSelect(authorizationHeaders)
 			.then((res) => {
 				setData({
-					name: "customers",
+					name: "customer",
 					data: res.customers,
 					originalData: res.customers,
 					fetchFunction: fetchCustomer,
@@ -54,7 +54,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="customer" size="lg">
-					Client
+					Customer
 				</Label>
 				<Button
 					outline
@@ -63,7 +63,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 					size="lg"
 					onClick={handleSelectCustomers}
 				>
-					{state.customer || "Select client"}
+					{state.customer || "Select customer"}
 				</Button>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>

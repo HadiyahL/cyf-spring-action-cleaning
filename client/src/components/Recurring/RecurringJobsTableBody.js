@@ -63,7 +63,7 @@ const RecurringJobsTableBody = ({
 							text={worker}
 						/>
 					</td>
-					<td className="align-middle">
+					<td className="align-middle table-date-change">
 						<Button
 							onClick={() => handleMinusDay(id)}
 							className="mr-2"

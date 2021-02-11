@@ -22,7 +22,7 @@ const SelectWorker = ({
 		getWorkersSelect(authorizationHeaders)
 			.then((res) => {
 				setData({
-					name: "workers",
+					name: "cleaner",
 					data: res.workers,
 					originalData: res.workers,
 					fetchFunction: fetchWorker,

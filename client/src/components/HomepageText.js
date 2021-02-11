@@ -12,7 +12,7 @@ const HomepageText = () => {
 				<ul className="mb-md-5 px-2">
 					<li className="mb-4 mb-md-3">
 						<GiVacuumCleaner />
-						<p>Add and edit Clients, Cleaners & Jobs</p>
+						<p>Add and edit Customers, Cleaners & Jobs</p>
 					</li>
 					<li className="mb-4 mb-md-3">
 						<GiVacuumCleaner />

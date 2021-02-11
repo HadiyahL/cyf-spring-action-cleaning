@@ -5,7 +5,7 @@ import { Title, CustomersData } from "../components";
 const Customers = () => {
 	return (
 		<Container>
-			<Title text="Clients" />
+			<Title text="Customers" />
 			<CustomersData />
 		</Container>
 	);
