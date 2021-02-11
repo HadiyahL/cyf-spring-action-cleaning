@@ -15,6 +15,4 @@ export const CustomerReports = lazy(() => import("./CustomerReports"));
 export const WorkerJobs = lazy(() => import("./WorkerJobs"));
 export const WorkerJobPage = lazy(() => import("./WorkerJobPage"));
 export const HomePage = lazy(() => import("./HomePage"));
-export const ResultPage = lazy(() =>
-	import("../components/Reports/ResultPage")
-);
+export const ReportPage = lazy(() => import("./ReportPage"));
