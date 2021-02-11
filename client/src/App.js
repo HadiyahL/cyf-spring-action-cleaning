@@ -23,8 +23,8 @@ import {
 	WorkerJobs,
 	WorkerJobPage,
 	HomePage,
+	ReportPage,
 } from "./pages";
-import { ResultPage } from "./components";
 import ContextProviders from "./contexts/ContextProviders";
 
 export function App() {
@@ -76,10 +76,7 @@ export function App() {
 								path="/customers_report"
 								component={CustomerReports}
 							/>
-							<ProtectedRoute
-								path="/result/:type"
-								component={ResultPage}
-							/>
+							<ProtectedRoute path="/result/:type" component={ReportPage} />
 							<ProtectedRoute path="/create-jobs" component={Recurring} />
 						</>
 					)}
