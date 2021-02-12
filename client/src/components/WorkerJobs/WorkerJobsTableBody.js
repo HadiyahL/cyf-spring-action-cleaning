@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import { formatDate } from "../../../util/helpers";
-import StatusIndicator from "../StatusIndicator";
+import { formatDate } from "../../util/helpers";
+import StatusIndicator from "../Jobs/StatusIndicator";
 
 const WorkerJobsTableBody = ({ data }) => {
 	const history = useHistory();

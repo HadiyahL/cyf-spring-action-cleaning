@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { formatDate } from "../../../util/helpers";
+import { formatDate } from "../../util/helpers";
 
 const WorkerJobInfo = ({
 	address,

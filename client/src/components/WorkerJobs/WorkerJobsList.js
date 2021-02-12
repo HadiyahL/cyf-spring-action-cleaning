@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Table } from "reactstrap";
-import useFetch from "../../../hooks/useFetch";
-import Spinner from "../../UI/Spinner";
+import useFetch from "../../hooks/useFetch";
+import Spinner from "../UI/Spinner";
 import WorkerJobsTableBody from "./WorkerJobsTableBody";
-import DateFilter from "../DateFilter";
-import { WorkerJobsContext } from "../../../contexts/WorkerJobs";
+import DateFilter from "../Jobs/DateFilter";
+import { WorkerJobsContext } from "../../contexts/WorkerJobs";
 import WorkerHelpModal from "./WorkerHelpModal";
 
 const WorkerJobsList = () => {

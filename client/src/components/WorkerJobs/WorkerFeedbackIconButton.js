@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import WorkerFeedbackModal from "./WorkerFeedbackModal";
-import TextIcon from "../../UI/TextIcon";
+import TextIcon from "../UI/TextIcon";
 
 const WorkerFeedbackIconButton = ({ feedback, worker }) => {
 	const [isOpen, setIsOpen] = useState(false);

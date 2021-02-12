@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../util/helpers";
 import StatusIndicator from "./StatusIndicator";
-import WorkerFeedbackIconButton from "./Worker/WorkerFeedbackIconButton";
+import WorkerFeedbackIconButton from "../WorkerJobs/WorkerFeedbackIconButton";
 
 const JobsTableBody = ({ data }) => {
 	const history = useHistory();

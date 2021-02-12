@@ -11,9 +11,9 @@ import {
 	Button,
 	Alert,
 } from "reactstrap";
-import { putLogTimes } from "../../../service";
-import BackButton from "../../UI/BackButton";
-import useAuthorizationHeaders from "../../../hooks/useAuthorizationHeaders";
+import { putLogTimes } from "../../service";
+import BackButton from "../UI/BackButton";
+import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
 const WorkerLogTimeForm = ({
 	id,
