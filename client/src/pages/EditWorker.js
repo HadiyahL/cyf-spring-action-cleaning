@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 import { useParams } from "react-router-dom";
-import CreateWorkerForm from "../components/CreateWorkerForm";
+import CreateWorkerForm from "../components/Workers/CreateWorkerForm";
 import { Spinner, Title } from "../components";
 import useFetch from "../hooks/useFetch";
 
