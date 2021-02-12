@@ -1,4 +1,4 @@
-export { default as Navigation } from "./Navigation";
+export { default as Navigation } from "./Navigation/Navigation";
 export { default as Footer } from "./Footer/Footer";
 export { default as CreateWorkerForm } from "./Workers/CreateWorkerForm";
 export { default as CreateCustomerForm } from "./CreateCustomer/CreateCustomerForm";
