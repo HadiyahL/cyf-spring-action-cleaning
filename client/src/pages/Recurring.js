@@ -35,17 +35,20 @@ const Recurring = () => {
 
 	useEffect(() => {
 		const fetchWorkers = () =>
-			getWorkersSelect(authorizationHeaders)
-				.then((res) => {
+			queryClient
+				.fetchQuery("getWorkersSelect", () =>
+					getWorkersSelect(authorizationHeaders)
+				)
+				.then((data) => {
 					setWorkers({
-						data: res.workers,
-						originalData: res.workers,
+						data: data.workers,
+						originalData: data.workers,
 					});
 				})
 				.catch((e) => console.log(e));
 
 		authorizationHeaders && fetchWorkers();
-	}, [authorizationHeaders]);
+	}, [authorizationHeaders, queryClient]);
 
 	useEffect(() => {
 		let isActive = true;
@@ -89,23 +92,6 @@ const Recurring = () => {
 			isActive = false;
 		};
 	}, [date.startDate, date.endDate, authorizationHeaders, queryClient]);
-
-	useEffect(() => {
-		const fetchWorkers = () =>
-			queryClient
-				.fetchQuery("getWorkersSelect", () =>
-					getWorkersSelect(authorizationHeaders)
-				)
-				.then((res) => {
-					setState((state) => ({
-						...state,
-						workers: res.workers,
-					}));
-				})
-				.catch((e) => console.log(e));
-
-		authorizationHeaders && fetchWorkers();
-	}, [authorizationHeaders, queryClient]);
 
 	const recurringJobsMutation = useMutation(
 		({ data, options }) => {
