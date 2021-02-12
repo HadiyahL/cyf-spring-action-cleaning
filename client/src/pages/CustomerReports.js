@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "reactstrap";
-import { Title } from "../components";
-import CreateCustomerReport from "../components/CreateCustomerReport";
+import { Title, CreateCustomerReport } from "../components";
 
 const CustomerReports = () => {
 	return (

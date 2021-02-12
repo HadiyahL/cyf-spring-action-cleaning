@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-import { SelectDateU, SelectCustomer } from "../components";
 import { Form, Button, Label, Input } from "reactstrap";
 import { useHistory } from "react-router-dom";
-import { CustomerReportContext } from "../contexts/CustomerReport";
+import { SelectDateU, SelectWorker } from "..";
+import { WorkerReportContext } from "../../contexts/WorkerReport";
 
-const CreateCustomerReport = () => {
-	const [state, setState] = useContext(CustomerReportContext);
+const CreateWorkerReport = () => {
+	const [state, setState] = useContext(WorkerReportContext);
 	const history = useHistory();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push("/result/customer");
+		history.push("/result/worker");
 	};
 
 	const handleChange = (e) => {
@@ -24,7 +24,7 @@ const CreateCustomerReport = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectCustomer state={state} setState={setState} />
+			<SelectWorker state={state} setState={setState} />
 			<div className="d-sm-flex justify-content-between">
 				<SelectDateU
 					state={state}
@@ -55,4 +55,4 @@ const CreateCustomerReport = () => {
 	);
 };
 
-export default CreateCustomerReport;
+export default CreateWorkerReport;

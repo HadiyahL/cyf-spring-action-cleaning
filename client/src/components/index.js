@@ -32,3 +32,5 @@ export { default as WorkerFilter } from "./Recurring/WorkerFilter";
 export { default as WorkerJobsList } from "./Jobs/Worker/WorkerJobsList";
 export { default as WorkerLogTimeForm } from "./Jobs/Worker/WorkerLogTimeForm";
 export { default as WorkerJobInfo } from "./Jobs/Worker/WorkerJobInfo";
+export { default as CreateCustomerReport } from "./Reports/CreateCustomerReport";
+export { default as CreateWorkerReport } from "./Reports/CreateWorkerReport";
