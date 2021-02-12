@@ -1,6 +1,6 @@
 import React from "react";
 
-import HomepageText from "../components/HomepageText";
+import { HomepageText } from "../components";
 import LoginButton from "../components/auth/LoginButton";
 
 const Homepage = () => {
