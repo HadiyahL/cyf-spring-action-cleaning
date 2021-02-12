@@ -12,7 +12,6 @@ export { default as SelectCustomer } from "./CreateJob/SelectCustomer";
 export { default as SelectBranch } from "./CreateJob/SelectBranch";
 export { default as SelectWorker } from "./CreateJob/SelectWorker";
 export { default as SelectDate } from "./CreateJob/SelectDate";
-export { default as SelectDateU } from "./SelectDateU";
 export { default as SelectTime } from "./CreateJob/SelectTime";
 export { default as SelectStartTime } from "./CreateJob/SelectStartTime";
 export { default as SelectEndTime } from "./CreateJob/SelectEndTime";
