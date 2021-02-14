@@ -13,9 +13,9 @@ import {
 	Col,
 	CustomInput,
 } from "reactstrap";
-import { postWorkers, putWorkers } from "../service";
-import useAuthorizationHeaders from "../hooks/useAuthorizationHeaders";
-import BackButton from "./UI/BackButton";
+import { postWorkers, putWorkers } from "../../service";
+import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
+import BackButton from "../UI/BackButton";
 
 const CreateWorkerForm = ({
 	name,

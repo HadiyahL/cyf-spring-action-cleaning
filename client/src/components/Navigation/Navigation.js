@@ -16,9 +16,9 @@ import {
 	NavLink,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { LogoutButton, config } from "./auth";
-import logo from "../assets/logo.png";
-import Spinner from "./UI/Spinner";
+import { LogoutButton, config } from "../auth";
+import logo from "../../assets/logo.png";
+import Spinner from "../UI/Spinner";
 
 const Navigation = () => {
 	const [isOpen, setIsOpen] = useState(false);
