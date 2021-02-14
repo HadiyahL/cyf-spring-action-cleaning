@@ -4,38 +4,38 @@ import WorkerFeedbackModal from "./WorkerFeedbackModal";
 import TextIcon from "../UI/TextIcon";
 
 const WorkerFeedbackIconButton = ({ feedback, worker }) => {
-	const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-	const toggle = () => {
-		setIsOpen((state) => !state);
-	};
+  const toggle = () => {
+    setIsOpen((state) => !state);
+  };
 
-	const handleFeedbackIconClick = (e) => {
-		e.stopPropagation();
-		toggle();
-	};
+  const handleFeedbackIconClick = (e) => {
+    e.stopPropagation();
+    toggle();
+  };
 
-	return (
-		<button
-			className="border-0 bg-transparent"
-			onClick={(e) => handleFeedbackIconClick(e)}
-			aria-label="Worker Feedback Icon"
-			title="Feedback message"
-		>
-			<TextIcon />
-			<WorkerFeedbackModal
-				isOpen={isOpen}
-				toggle={toggle}
-				feedback={feedback}
-				worker={worker}
-			/>
-		</button>
-	);
+  return (
+    <button
+      className="border-0 bg-transparent"
+      onClick={(e) => handleFeedbackIconClick(e)}
+      aria-label="Worker Feedback Icon"
+      title="Feedback message"
+    >
+      <TextIcon />
+      <WorkerFeedbackModal
+        isOpen={isOpen}
+        toggle={toggle}
+        feedback={feedback}
+        worker={worker}
+      />
+    </button>
+  );
 };
 
 WorkerFeedbackIconButton.propTypes = {
-	feedback: PropTypes.string,
-	worker: PropTypes.string,
+  feedback: PropTypes.string,
+  worker: PropTypes.string,
 };
 
 export default WorkerFeedbackIconButton;
