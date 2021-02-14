@@ -65,7 +65,7 @@ router.get(
 		const { worker_id, start, finish } = req.params;
 		const labels = ["Date", "Customer", "Address", "Duration"];
 		db.query(
-			`SELECT j.id, j.visit_on, c.name column_1, b.address column_2, (j.end_time - j.start_time) duration 
+			`SELECT j.id, j.visit_on, c.name column_1, b.address column_2, (j.end_time - j.start_time) duration, w.name worker, j.feedback 
 			FROM jobs j
 			INNER JOIN workers w ON j.worker_id=w.id
 			INNER JOIN branches b ON j.branch_id=b.id
@@ -151,7 +151,7 @@ router.get(
 		const { customer_id, start, finish } = req.params;
 		const labels = ["Date", "Address", "Cleaner", "Duration"];
 		db.query(
-			`SELECT j.id, j.visit_on, b.address column_1, w.name column_2, (j.end_time - j.start_time) duration
+			`SELECT j.id, j.visit_on, b.address column_1, w.name column_2, (j.end_time - j.start_time) duration, w.name worker, j.feedback
 			FROM jobs j
 			INNER JOIN workers w ON j.worker_id=w.id
 			INNER JOIN branches b ON j.branch_id=b.id

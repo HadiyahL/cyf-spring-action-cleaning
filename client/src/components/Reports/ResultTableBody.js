@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../util/helpers";
-
+import WorkerFeedbackIconButton from "../WorkerJobs/WorkerFeedbackIconButton";
 
 const ResultTableBody = ({ data, detailed, tableFooter }) => {
 
@@ -31,6 +31,8 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 					column_1,
 					column_2,
 					duration,
+					worker,
+					feedback,
 				}) => (
 					<tr
 						key={id}
@@ -50,6 +52,11 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>
 							{formatDuration(duration.hours, duration.minutes)}
+						</td>
+						<td className="text-center d-print-none">
+							{feedback && (
+								<WorkerFeedbackIconButton feedback={feedback} worker={worker} />
+							)}
 						</td>
 					</tr>
 				))}
