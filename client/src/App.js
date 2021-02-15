@@ -31,7 +31,7 @@ export function App() {
 	const { isLoading, error, user, isAuthenticated } = useAuth0();
 
 	if (isLoading) {
-		return <Spinner />;
+		    return <Spinner />;
 	}
 
 	if (error) {
