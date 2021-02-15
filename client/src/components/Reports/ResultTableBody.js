@@ -31,6 +31,7 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 						column_1,
 						column_2,
 						duration,
+						actual_duration,
 						worker,
 						feedback,
 					}) => (
@@ -55,7 +56,10 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 								{tableFooter ? "Total duration:" : column_2}
 							</td>
 							<td className={tableFooter && "font-weight-bold"}>
-								{formatDuration(duration.hours, duration.minutes)}
+								{formatDuration(duration)}
+							</td>
+							<td className={tableFooter && "font-weight-bold"}>
+								{formatDuration(actual_duration.hours, actual_duration.minutes)}
 							</td>
 							<td className="text-center d-print-none">
 								{feedback && (
@@ -73,14 +77,17 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 	} else {
 		return (
 			<tbody>
-				{data.map(({ column_1, column_2, duration }, ind) => (
+				{data.map(({ column_1, column_2, duration, actual_duration }, ind) => (
 					<tr key={ind}>
 						<th scope="row">{column_1}</th>
 						<td className={tableFooter && "font-weight-bold text-right"}>
 							{tableFooter ? "Total duration:" : column_2}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(duration.hours, duration.minutes)}
+							{formatDuration(duration)}
+						</td>
+						<td className={tableFooter && "font-weight-bold"}>
+							{formatDuration(actual_duration.hours, actual_duration.minutes)}
 						</td>
 					</tr>
 				))}
