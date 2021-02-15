@@ -62,11 +62,11 @@ export const checkPermission = (permission) => (req, res, next) => {
 */
 
 // export const checkAuth = (req, res, next) => {
-// 	console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
-// 	next();
+//  console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
+//  next();
 // };
 //
 // export const checkPermission = () => (req, res, next) => {
-// 	req.user = {};
-// 	next();
+//  req.user = {};
+//  next();
 // };
