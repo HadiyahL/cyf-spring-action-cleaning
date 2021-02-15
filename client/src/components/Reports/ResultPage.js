@@ -31,7 +31,7 @@ const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 					<p>No data for this period.</p>
 				) : (
 					<Table striped hover responsive>
-						<ResultTableHead labels={data.labels} />
+						<ResultTableHead labels={data.labels} detailed={detailed} />
 						<ResultTableBody data={data.rows} type={type} detailed={detailed} />
 						<ResultTableBody
 							data={total_data.data.rows}
