@@ -5,7 +5,6 @@ import { formatDate } from "../../util/helpers";
 import WorkerFeedbackIconButton from "../WorkerJobs/WorkerFeedbackIconButton";
 
 const ResultTableBody = ({ data, detailed, tableFooter }) => {
-
 	const history = useHistory();
 
 	const formatDuration = (h = 0, m = 0) => {
@@ -22,44 +21,53 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 		}
 	};
 
-	if (detailed){
+	if (detailed) {
 		return (
 			<tbody>
-				{data.map(({
-					id,
-					visit_on,
-					column_1,
-					column_2,
-					duration,
-					worker,
-					feedback,
-				}) => (
-					<tr
-						key={id}
-						role="button"
-						onClick={() => handleClick(id)}
-						onKeyPress={(e) => handleKeyPress(id, e)}
-						tabIndex={0}
-					>
-						<th scope="row">{visit_on ? formatDate(visit_on, {
-							year: "numeric",
-							month: "numeric",
-							day: "numeric",
-						}):""}</th>
-						<td>{column_1}</td>
-						<td className={tableFooter && "font-weight-bold text-right"}>
-							{tableFooter ? "Total duration:" : column_2}
-						</td>
-						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(duration.hours, duration.minutes)}
-						</td>
-						<td className="text-center d-print-none">
-							{feedback && (
-								<WorkerFeedbackIconButton feedback={feedback} worker={worker} />
-							)}
-						</td>
-					</tr>
-				))}
+				{data.map(
+					({
+						id,
+						visit_on,
+						column_1,
+						column_2,
+						duration,
+						worker,
+						feedback,
+					}) => (
+						<tr
+							key={id}
+							role="button"
+							onClick={() => handleClick(id)}
+							onKeyPress={(e) => handleKeyPress(id, e)}
+							tabIndex={0}
+						>
+							<th scope="row">
+								{visit_on
+									? formatDate(visit_on, {
+											year: "numeric",
+											month: "numeric",
+											day: "numeric",
+									  })
+									: ""}
+							</th>
+							<td>{column_1}</td>
+							<td className={tableFooter && "font-weight-bold text-right"}>
+								{tableFooter ? "Total duration:" : column_2}
+							</td>
+							<td className={tableFooter && "font-weight-bold"}>
+								{formatDuration(duration.hours, duration.minutes)}
+							</td>
+							<td className="text-center d-print-none">
+								{feedback && (
+									<WorkerFeedbackIconButton
+										feedback={feedback}
+										worker={worker}
+									/>
+								)}
+							</td>
+						</tr>
+					)
+				)}
 			</tbody>
 		);
 	} else {
