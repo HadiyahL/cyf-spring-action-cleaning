@@ -4,29 +4,6 @@ import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
 
-router.get("/reports/customer/:id", (req, res, next) => {
-	const { id } = req.params;
-	const { start_date, finish_date } = req.body;
-	db.query(
-		`SELECT w.name, SUM((j.end_time-j.start_time) * j.pay_rate) pay, SUM(j.end_time - j.start_time) duration
-		FROM jobs j
-		INNER JOIN branches b ON j.branch_id=b.id
-		INNER JOIN workers w ON j.worker_id=w.id
-		WHERE j.customer_id=$1
-			AND j.visit_on BETWEEN $2 AND $3
-			AND j.status = 1
-		GROUP BY w.name`,
-		[id, start_date, finish_date]
-	)
-		.then(({ rows }) => {
-			return res.json({ rows });
-		})
-		.catch((e) => {
-			console.error(e);
-			next(e);
-		});
-});
-
 router.get(
 	"/reports/worker/:worker_id/:start/:finish",
 	checkAuth,
