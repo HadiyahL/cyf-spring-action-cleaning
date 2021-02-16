@@ -36,7 +36,7 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 						feedback,
 					}) => (
 						<tr
-							key={id||0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
+							key={id || 0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
 							role={id && "button"}
 							onClick={() => id && handleClick(id)}
 							onKeyPress={(e) => id && handleKeyPress(id, e)}

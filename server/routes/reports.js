@@ -10,7 +10,12 @@ router.get(
 	checkPermission("get:reports/worker"),
 	(req, res, next) => {
 		const { worker_id, start, finish } = req.params;
-		const labels = ["Customer", "Address",  "Planned duration", "Actual duration"];
+		const labels = [
+			"Customer",
+			"Address",
+			"Planned duration",
+			"Actual duration",
+		];
 		db.query(
 			`SELECT c.name column_1, b.address column_2, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration 
 			FROM jobs j
@@ -40,7 +45,13 @@ router.get(
 	checkPermission("get:reports/worker_detailed"),
 	(req, res, next) => {
 		const { worker_id, start, finish } = req.params;
-		const labels = ["Date", "Customer", "Address",  "Planned duration", "Actual duration"];
+		const labels = [
+			"Date",
+			"Customer",
+			"Address",
+			"Planned duration",
+			"Actual duration",
+		];
 		db.query(
 			`SELECT j.id, j.visit_on, c.name column_1, b.address column_2, j.duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback 
 			FROM jobs j
@@ -96,7 +107,12 @@ router.get(
 	checkPermission("get:reports/customer"),
 	(req, res, next) => {
 		const { customer_id, start, finish } = req.params;
-		const labels = ["Address", "Cleaner",  "Planned duration", "Actual duration"];
+		const labels = [
+			"Address",
+			"Cleaner",
+			"Planned duration",
+			"Actual duration",
+		];
 		db.query(
 			`SELECT b.address column_1, w.name column_2, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
 			FROM jobs j
@@ -126,7 +142,13 @@ router.get(
 	checkPermission("get:reports/customer_detailed"),
 	(req, res, next) => {
 		const { customer_id, start, finish } = req.params;
-		const labels = ["Date", "Address", "Cleaner", "Planned duration", "Actual duration"];
+		const labels = [
+			"Date",
+			"Address",
+			"Cleaner",
+			"Planned duration",
+			"Actual duration",
+		];
 		db.query(
 			`SELECT j.id, j.visit_on, b.address column_1, w.name column_2, j.duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback
 			FROM jobs j
