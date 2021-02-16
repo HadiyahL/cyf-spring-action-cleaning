@@ -34,7 +34,7 @@ CREATE TABLE branches (
   customer_id     INT REFERENCES customers(id),
   worker_id       INT REFERENCES workers(id),
   visit_time      TIME,
-  duration        INT
+  duration        INT NOT NULL DEFAULT 1
 );
 
 ALTER TABLE customers ADD COLUMN main_branch_id INT REFERENCES branches(id);
@@ -51,7 +51,7 @@ CREATE TABLE jobs (
   status          INT NOT NULL DEFAULT 0,
   start_time      TIME (0),
   end_time        TIME (0),
-  duration        INT,
+  duration        INT NOT NULL DEFAULT 1,
   pay_rate        FLOAT,
   feedback        VARCHAR(500) DEFAULT ''
 );
@@ -122,9 +122,9 @@ UPDATE customers SET main_branch_id=8 WHERE id=8;
 UPDATE customers SET main_branch_id=9 WHERE id=9;
 UPDATE customers SET main_branch_id=10 WHERE id=10;
 
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 1, 1, 1, '2020-12-21', '15:20', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2020-12-09', 2, 22, 2, '2021-02-02', '12:10', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2021-01-15', 2, 2, 2, '2021-01-28', '10:00', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate) values ('2021-01-15', 3, 23, 2, '2021-02-04', '12:45', 10);
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 3, 3, 7, '2020-12-12', '15:20', 10.5, 2);
-insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 4, 4, 3, '2020-12-12', '15:20', 10.5, 2);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 1, 1, 1, '2021-02-21', '15:20', 10, 1);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 2, 22, 2, '2021-02-26', '12:10', 10, 3);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2021-01-15', 2, 2, 2, '2021-03-08', '10:00', 10, 1);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2021-01-15', 3, 23, 2, '2021-03-04', '12:45', 10, 1);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 3, 3, 7, '2021-03-12', '15:20', 10.5, 2);
+insert into jobs (date_created, customer_id, branch_id , worker_id, visit_on, visit_time, pay_rate, duration) values ('2020-12-09', 4, 4, 3, '2021-03-02', '15:20', 10.5, 2);
