@@ -34,7 +34,7 @@ CREATE TABLE branches (
   customer_id     INT REFERENCES customers(id),
   worker_id       INT REFERENCES workers(id),
   visit_time      TIME,
-  duration        INT
+  duration        INT NOT NULL DEFAULT 1
 );
 
 ALTER TABLE customers ADD COLUMN main_branch_id INT REFERENCES branches(id);
