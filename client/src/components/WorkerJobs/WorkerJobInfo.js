@@ -37,16 +37,13 @@ const WorkerJobInfo = ({
 				<strong>Contact phone: </strong>
 				{contact_phone}
 			</p>
-
-			{duration && (
-				<p className="worker-info-text-size">
-					<strong>Planned duration:</strong> {duration}{" "}
-					{duration === 1 ? "hour" : "hours"}
-				</p>
-			)}
+			<p className="worker-info-text-size">
+				<strong>Planned duration:</strong> {duration}{" "}
+				{duration === 1 ? "hour" : "hours"}
+			</p>
 			<p className="worker-info-text-size">
 				<strong>Job details: </strong>
-				{details}
+				{details ? details : "—"}
 			</p>
 		</div>
 	);
