@@ -40,7 +40,7 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 							role={id && "button"}
 							onClick={() => id && handleClick(id)}
 							onKeyPress={(e) => id && handleKeyPress(id, e)}
-							tabIndex={0}
+							tabIndex={id && 0}
 						>
 							<th scope="row">
 								{visit_on
