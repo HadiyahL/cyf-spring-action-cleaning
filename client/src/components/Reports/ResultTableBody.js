@@ -36,10 +36,10 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 						feedback,
 					}) => (
 						<tr
-							key={id}
-							role="button"
-							onClick={() => handleClick(id)}
-							onKeyPress={(e) => handleKeyPress(id, e)}
+							key={id||0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
+							role={id && "button"}
+							onClick={() => id && handleClick(id)}
+							onKeyPress={(e) => id && handleKeyPress(id, e)}
 							tabIndex={0}
 						>
 							<th scope="row">
