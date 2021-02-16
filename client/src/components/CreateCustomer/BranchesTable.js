@@ -28,11 +28,11 @@ const BranchesTable = ({ state, toggleEditModal, setState, isOpen }) => {
 		// populate BranchForm state for editing branch
 		setState({
 			...state,
-			address: address,
-			contact_phone: contact_phone,
-			details: details ?? "",
-			duration: duration ?? "1",
-			worker_id: worker_id,
+			address,
+			contact_phone,
+			details,
+			duration,
+			worker_id,
 			visit_time: visit_time ?? "",
 			branch_id: branchId,
 		});

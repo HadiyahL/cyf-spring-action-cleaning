@@ -14,7 +14,7 @@ const SelectDuration = ({ state, setState, error }) => {
 		<div className="mb-3 mb-md-4 mb-lg-5 w-100 mr-3 mr-md-5">
 			<FormGroup>
 				<Label for="duration" size="lg">
-					Duration <span className="text-muted">(optional)</span>
+					Duration
 				</Label>
 				<Input
 					invalid={!!error}
@@ -22,7 +22,8 @@ const SelectDuration = ({ state, setState, error }) => {
 					name="select"
 					id="duration"
 					onChange={handleChange}
-					value={state.duration || "1"}
+					value={state.duration}
+					required
 				>
 					<option value="1">1 hour</option>
 					<option value="2">2 hours</option>

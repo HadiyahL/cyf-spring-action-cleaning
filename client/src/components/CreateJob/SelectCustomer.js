@@ -46,7 +46,7 @@ const SelectCustomer = ({ state, setState, error }) => {
 					worker: state.worker || (data.worker_name ?? null),
 					worker_id: state.worker_id || (data.worker_id ?? null),
 					visit_time: data.visit_time ?? null,
-					duration: data.duration ?? "1",
+					duration: data.duration,
 					details: data.branch_details || "",
 				});
 			})
