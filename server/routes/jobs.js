@@ -227,6 +227,7 @@ router.post(
 		),
 		body("pay_rate", "Pay rate is required").exists(),
 		body("duration", "Duration is required").exists(),
+		body("duration", "Duration should be an integer").isInt(),
 		body(
 			"start_time",
 			"Start time is not in a format of HH:MM (24h clock)"
@@ -375,6 +376,7 @@ router.put(
 		),
 		body("pay_rate", "Pay rate is required").exists(),
 		body("duration", "Duration is required").exists(),
+		body("duration", "Duration should be an integer").isInt(),
 		body(
 			"start_time",
 			"Start time is not in a format of HH:MM (24h clock)"

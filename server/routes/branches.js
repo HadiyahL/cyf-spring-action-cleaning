@@ -108,6 +108,8 @@ router.post(
 			"main_branch",
 			"Specifying if a branch is main or not is required"
 		).exists(),
+		body("duration", "Duration is required").exists(),
+		body("duration", "Duration should be an integer").isInt(),
 	],
 	async (req, res, next) => {
 		const errors = validationResult(req);
@@ -199,6 +201,8 @@ router.put(
 			"main_branch",
 			"Specifying if branch is main or not is required"
 		).exists(),
+		body("duration", "Duration is required").exists(),
+		body("duration", "Duration should be an integer").isInt(),
 	],
 	async (req, res, next) => {
 		const errors = validationResult(req);
