@@ -6,7 +6,12 @@ import useFetch from "../../hooks/useFetch";
 import ResultTableHead from "./ResultTableHead";
 import GeneralWorkerTable from "./GeneralWorkerTable";
 
-const GeneralWorkerResultPage = ({ start_date, finish_date, state, setState }) => {
+const GeneralWorkerResultPage = ({
+	start_date,
+	finish_date,
+	state,
+	setState,
+}) => {
 	const { data, error, isLoading } = useFetch(
 		`/general_reports/worker/${start_date}/${finish_date}`
 	);

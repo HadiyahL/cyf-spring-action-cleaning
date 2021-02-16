@@ -14,7 +14,7 @@ const CreateWorkerReport = () => {
 		if (state.worker_id) {
 			history.push("/result/worker");
 		} else {
-			history.push("general_worker/")
+			history.push("general_worker/");
 		}
 	};
 
