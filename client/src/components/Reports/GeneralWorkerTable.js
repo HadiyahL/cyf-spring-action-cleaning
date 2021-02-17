@@ -10,12 +10,12 @@ const GeneralWorkerTable = ({ data, state, setState, tableFooter }) => {
 	};
 
 	const handleClick = (id, worker) => {
-		setState({ ...state, ["worker_id"]: id, ["worker"]: worker });
+		setState({ ...state, worker_id: id, worker });
 		history.push("/result/worker");
 	};
 
 	const handleKeyPress = (id, worker, e) => {
-		setState({ ...state, ["worker_id"]: id, ["worker"]: worker });
+		setState({ ...state, worker_id: id, worker });
 		if (e.key === "Enter" && e.target.tagName === "TR") {
 			history.push("/result/worker");
 		}

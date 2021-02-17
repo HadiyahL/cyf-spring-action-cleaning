@@ -29,7 +29,7 @@ const CreateWorkerReport = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectWorker state={state} setState={setState} />
+			<SelectWorker state={state} setState={setState} forReport={true} />
 			<div className="d-sm-flex justify-content-between">
 				<SelectDateU
 					state={state}

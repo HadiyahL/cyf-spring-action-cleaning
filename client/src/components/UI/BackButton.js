@@ -8,7 +8,7 @@ const BackButton = ({ state, setState }) => {
 
 	const handleBack = () => {
 		if (state) {
-			setState({ ...state, ["worker_id"]: "", ["worker"]: "" });
+			setState({ ...state, worker_id: "", worker: "" });
 		}
 		history.goBack();
 	};

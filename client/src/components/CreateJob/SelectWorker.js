@@ -12,6 +12,7 @@ const SelectWorker = ({
 	error,
 	size = "lg",
 	isOptional = false,
+	forReport = false,
 }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
@@ -54,13 +55,20 @@ const SelectWorker = ({
 		toggle();
 		fetchWorkers();
 	};
-
+	const clearId = () => {
+		setState({
+			...state,
+			worker: "All cleaners",
+			worker_id: "",
+		});
+	};
 	return (
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
 				<Label for="worker" size={size}>
 					Cleaner {isOptional && <span className="text-muted">(optional)</span>}
 				</Label>
+				<div className="d-sm-flex justify-content-between">
 				<Button
 					outline
 					color="primary"
@@ -69,7 +77,10 @@ const SelectWorker = ({
 					size={size}
 				>
 					{state.worker || "Select cleaner"}
+					
 				</Button>
+				{forReport && <Button onClick={clearId}>X</Button>}
+				</div>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>
 			<Modal
@@ -89,6 +100,7 @@ SelectWorker.propTypes = {
 	error: PropTypes.string,
 	size: PropTypes.string,
 	isOptional: PropTypes.bool,
+	forReport: PropTypes.bool,
 };
 
 export default SelectWorker;
