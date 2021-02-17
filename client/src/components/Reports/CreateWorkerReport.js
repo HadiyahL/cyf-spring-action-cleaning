@@ -11,7 +11,11 @@ const CreateWorkerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push("/result/worker");
+		if (state.worker_id) {
+			history.push("/result/worker");
+		} else {
+			history.push("general_worker/");
+		}
 	};
 
 	const handleChange = (e) => {
@@ -25,7 +29,7 @@ const CreateWorkerReport = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectWorker state={state} setState={setState} />
+			<SelectWorker state={state} setState={setState} forReport={true} />
 			<div className="d-sm-flex justify-content-between">
 				<SelectDateU
 					state={state}

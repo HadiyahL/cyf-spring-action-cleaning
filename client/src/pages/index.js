@@ -16,3 +16,4 @@ export const WorkerJobs = lazy(() => import("./WorkerJobs"));
 export const WorkerJobPage = lazy(() => import("./WorkerJobPage"));
 export const HomePage = lazy(() => import("./HomePage"));
 export const ReportPage = lazy(() => import("./ReportPage"));
+export const GeneralWorkerReport = lazy(() => import("./GeneralWorkerReport"));

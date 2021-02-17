@@ -102,6 +102,59 @@ router.get(
 );
 
 router.get(
+	"/general_reports/worker_total/:start/:finish",
+	checkAuth,
+	checkPermission("get:general_reports/worker_total"),
+	(req, res, next) => {
+		const { start, finish } = req.params;
+
+		db.query(
+			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND j.status = 1
+			`,
+			[start, finish]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/general_reports/worker/:start/:finish",
+	checkAuth,
+	checkPermission("get:general_reports/worker"),
+	(req, res, next) => {
+		const { start, finish } = req.params;
+
+		db.query(
+			`SELECT w.id, w.name worker, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND j.status = 1
+			GROUP BY (w.id)
+			ORDER BY w.name`,
+			[start, finish]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
 	"/reports/customer/:customer_id/:start/:finish",
 	checkAuth,
 	checkPermission("get:reports/customer"),

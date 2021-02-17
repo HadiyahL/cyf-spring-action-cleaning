@@ -5,7 +5,7 @@ export const WorkerReportContext = createContext([{}, () => {}]);
 
 export const WorkerReportProvider = ({ children }) => {
 	const [state, setState] = useState({
-		worker: "",
+		worker: "All cleaners",
 		worker_id: "",
 		start_date: "",
 		finish_date: "",
