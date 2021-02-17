@@ -65,10 +65,19 @@ const SelectWorker = ({
 	return (
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
-				<Label for="worker" size={size}>
-					Cleaner {isOptional && <span className="text-muted">(optional)</span>}
-				</Label>
-				<div className="d-sm-flex justify-content-between">
+				{" "}
+				<div className="d-flex justify-content-between">
+					<Label for="worker" size={size}>
+						Cleaner{" "}
+						{isOptional && <span className="text-muted">(optional)</span>}
+					</Label>
+
+					{forReport && state.worker_id && (
+						<Button color="link" size="sm" onClick={clearId}>
+							Reset
+						</Button>
+					)}
+				</div>
 				<Button
 					outline
 					color="primary"
@@ -77,10 +86,7 @@ const SelectWorker = ({
 					size={size}
 				>
 					{state.worker || "Select cleaner"}
-					
 				</Button>
-				{forReport && <Button onClick={clearId}>X</Button>}
-				</div>
 				{error && <FormText color="danger">{error}</FormText>}
 			</FormGroup>
 			<Modal
