@@ -29,7 +29,7 @@ const CreateCustomerReport = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectCustomer state={state} setState={setState} forReport={true}  />
+			<SelectCustomer state={state} setState={setState} forReport={true} />
 			<div className="d-sm-flex justify-content-between">
 				<SelectDateU
 					state={state}

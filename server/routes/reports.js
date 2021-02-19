@@ -238,7 +238,7 @@ router.get(
 				AND j.visit_on BETWEEN $2 AND $3
 				AND j.status = 1
 				GROUP BY (c.id)`,
-				[customer_id, start, finish]
+			[customer_id, start, finish]
 		)
 			.then(({ rows }) => {
 				return res.json({ rows });
