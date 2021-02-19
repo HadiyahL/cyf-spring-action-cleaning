@@ -11,7 +11,7 @@ const CreateCustomerReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (state.worker_id) {
+		if (state.customer_id) {
 			history.push("/result/customer");
 		} else {
 			history.push("/general_customer");
