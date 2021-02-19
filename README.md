@@ -70,6 +70,8 @@ For application to work properly regarding user roles you have to properly confi
 | get:workers/select                 | Get workers for selection list in job creation page       |
 | get:general_reports/worker         | Get report for all workers                                |
 | get:general_reports/worker_total   | Get total duration for all workers report                 |
+| get:general_reports/customer       | Get report for all customers                              |
+| get:general_reports/customer_total | Get total duration for all customers report               |
 | get:jobs                           | Read jobs                                                 |
 | get:jobs/branches/:id              | Get jobs info for branch                                  |
 | get:jobs/customers/:id             | Get jobs info for customer                                |

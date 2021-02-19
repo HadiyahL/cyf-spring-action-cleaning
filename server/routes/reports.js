@@ -237,8 +237,58 @@ router.get(
 			WHERE c.id=$1
 				AND j.visit_on BETWEEN $2 AND $3
 				AND j.status = 1
-			GROUP BY (c.id)`,
+				GROUP BY (c.id)`,
 			[customer_id, start, finish]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/general_reports/customer_total/:start/:finish",
+	checkAuth,
+	checkPermission("get:general_reports/customer_total"),
+	(req, res, next) => {
+		const { start, finish } = req.params;
+
+		db.query(
+			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND j.status = 1`,
+			[start, finish]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/general_reports/customer/:start/:finish",
+	checkAuth,
+	checkPermission("get:general_reports/customer"),
+	(req, res, next) => {
+		const { start, finish } = req.params;
+
+		db.query(
+			`SELECT c.id, c.name customer, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND j.status = 1
+			GROUP BY (c.id)
+			ORDER BY c.name`,
+			[start, finish]
 		)
 			.then(({ rows }) => {
 				return res.json({ rows });

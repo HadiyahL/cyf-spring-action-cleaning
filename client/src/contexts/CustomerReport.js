@@ -5,7 +5,7 @@ export const CustomerReportContext = createContext([{}, () => {}]);
 
 export const CustomerReportProvider = ({ children }) => {
 	const [state, setState] = useState({
-		customer: "",
+		customer: "All customers",
 		customer_id: "",
 		start_date: "",
 		finish_date: "",
