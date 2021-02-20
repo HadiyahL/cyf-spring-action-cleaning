@@ -12,6 +12,7 @@ export const EditWorker = lazy(() => import("./EditWorker"));
 export const Recurring = lazy(() => import("./Recurring"));
 export const WorkerReports = lazy(() => import("./WorkerReports"));
 export const CustomerReports = lazy(() => import("./CustomerReports"));
+export const BranchReports = lazy(() => import("./BranchReports"));
 export const WorkerJobs = lazy(() => import("./WorkerJobs"));
 export const WorkerJobPage = lazy(() => import("./WorkerJobPage"));
 export const HomePage = lazy(() => import("./HomePage"));

@@ -33,6 +33,7 @@ export { default as WorkerLogTimeForm } from "./WorkerJobs/WorkerLogTimeForm";
 export { default as WorkerJobInfo } from "./WorkerJobs/WorkerJobInfo";
 export { default as CreateCustomerReport } from "./Reports/CreateCustomerReport";
 export { default as CreateWorkerReport } from "./Reports/CreateWorkerReport";
+export { default as CreateBranchReport } from "./Reports/CreateBranchReport";
 export { default as GeneralWorkerTable } from "./Reports/GeneralWorkerTable";
 export { default as GeneralWorkerResultPage } from "./Reports/GeneralWorkerResultPage";
 export { default as HomepageText } from "./Homepage/HomepageText";

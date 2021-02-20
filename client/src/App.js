@@ -20,6 +20,7 @@ import {
 	Recurring,
 	WorkerReports,
 	CustomerReports,
+	BranchReports,
 	WorkerJobs,
 	WorkerJobPage,
 	HomePage,
@@ -84,6 +85,10 @@ export function App() {
 								<ProtectedRoute
 									path="/customers_report"
 									component={CustomerReports}
+								/>
+								<ProtectedRoute
+									path="/branches_report"
+									component={BranchReports}
 								/>
 								<ProtectedRoute path="/result/:type" component={ReportPage} />
 								<ProtectedRoute
