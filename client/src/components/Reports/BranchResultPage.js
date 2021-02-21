@@ -4,7 +4,7 @@ import { Container, Table } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
 import { Spinner, Title, BackButton } from "../index";
 import ResultTableHead from "./ResultTableHead";
-// import ResultTableBody from "./ResultTableBody";
+import ResultBranchTableBody from "./ResultBranchTableBody";
 
 const BranchResultPage = ({ state }) => {
 	const {
@@ -42,12 +42,12 @@ const BranchResultPage = ({ state }) => {
 				) : (
 					<Table striped hover responsive>
 						<ResultTableHead labels={data.labels} detailed={detailed} />
-						{/* <ResultTableBody data={data.rows} detailed={detailed} />
-						<ResultTableBody
+						<ResultBranchTableBody data={data.rows} detailed={detailed} />
+						<ResultBranchTableBody
 							data={total_data.data.rows}
 							tableFooter={true}
 							detailed={detailed}
-						/> */}
+						/>
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

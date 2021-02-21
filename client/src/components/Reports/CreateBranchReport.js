@@ -12,9 +12,9 @@ const CreateBranchReport = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (state.branch_id) {
-			history.push("/result_branch");
+			history.push("/result_branch"); // Go to <BranchReportPage>
 		} else {
-			history.push("/general_branch");
+			history.push("/general_branch"); // Go to <GeneralBranchReport>
 		}
 	};
 

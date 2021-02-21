@@ -418,7 +418,7 @@ router.get(
 
 		db.query(
 			`SELECT b.id, b.address, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
-			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id
+			FROM jobs j INNER JOIN branches b ON j.branch_id=b.id INNER JOIN customers c ON j.customer_id=c.id
 			WHERE j.visit_on BETWEEN $1 AND $2
 				AND j.status = 1 AND c.id=$3
 			GROUP BY (b.id)

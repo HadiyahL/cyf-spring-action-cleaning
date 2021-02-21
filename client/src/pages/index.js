@@ -22,3 +22,6 @@ export const GeneralWorkerReport = lazy(() => import("./GeneralWorkerReport"));
 export const GeneralCustomerReport = lazy(() =>
 	import("./GeneralCustomerReport")
 );
+export const GeneralBranchReport = lazy(() =>
+	import("./GeneralBranchReport")
+);

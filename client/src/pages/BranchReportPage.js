@@ -9,7 +9,7 @@ const BranchReportPage = () => {
 	if (state.branch_id) {
 		return <BranchResultPage state={state} />;
 	} else {
-		return <Redirect to={"/branches_report"} />;
+		return <Redirect to={"/branches_report"} />; // Go to <CreateBranchReport>
 	}
 };
 
