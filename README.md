@@ -72,6 +72,8 @@ For application to work properly regarding user roles you have to properly confi
 | get:general_reports/worker_total   | Get total duration for all workers report                 |
 | get:general_reports/customer       | Get report for all customers                              |
 | get:general_reports/customer_total | Get total duration for all customers report               |
+| get:general_reports/branch         | Get report for all customer branches                      |
+| get:general_reports/branch_total   | Get total duration for all customer branches report       |
 | get:jobs                           | Read jobs                                                 |
 | get:jobs/branches/:id              | Get jobs info for branch                                  |
 | get:jobs/customers/:id             | Get jobs info for customer                                |
@@ -84,6 +86,9 @@ For application to work properly regarding user roles you have to properly confi
 | get:reports/worker                 | Get hours worked for different addresses                  |
 | get:reports/worker_detailed        | Get reports for worker with dates                         |
 | get:reports/worker_total           | Get total hours worked by the worker for specified period |
+| get:reports/branch                 | Get hours worked for different addresses                  |
+| get:reports/branch_detailed        | Get reports for branch with dates                         |
+| get:reports/branch_total           | Get total hours for the branches for specified period     |
 | get:workers                        | Read workers                                              |
 | get:workersById                    | Get worker by id                                          |
 | post:batch_of_jobs                 | Post multiple jobs at once                                |
