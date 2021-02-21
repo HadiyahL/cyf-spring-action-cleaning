@@ -11,10 +11,10 @@ const CreateBranchReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (state.customer_id) {
-			history.push("/result/customer");
+		if (state.branch_id) {
+			history.push("/result_branch");
 		} else {
-			history.push("/general_customer");
+			history.push("/general_branch");
 		}
 	};
 
@@ -29,7 +29,7 @@ const CreateBranchReport = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectCustomer state={state} setState={setState} forReport={true} />
+			<SelectCustomer state={state} setState={setState} />
             <SelectBranch state={state} setState={setState} forReport={true} />
 			<div className="d-sm-flex justify-content-between">
 				<SelectDateU

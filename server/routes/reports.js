@@ -300,4 +300,139 @@ router.get(
 	}
 );
 
+router.get(
+	"/reports/branch/:customer_id/:branch_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:reports/branch"),
+	(req, res, next) => {
+		const { customer_id, branch_id, start, finish } = req.params;
+		const labels = ["Cleaner", "Planned duration", "Actual duration"];
+		db.query(
+			`SELECT w.name worker, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			INNER JOIN branches b ON j.branch_id=b.id
+			INNER JOIN customers c ON j.customer_id=c.id
+			WHERE c.id=$1 AND b.id=$2
+				AND j.visit_on BETWEEN $3 AND $4
+				AND j.status = 1
+			GROUP BY (w.name)
+			ORDER BY w.name`,
+			[customer_id, branch_id, start, finish]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows, labels });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/reports/branch_detailed/:customer_id/:branch_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:reports/branch_detailed"),
+	(req, res, next) => {
+		const { customer_id, branch_id, start, finish } = req.params;
+		const labels = ["Date", "Cleaner", "Planned duration", "Actual duration"];
+		db.query(
+			`SELECT j.id, j.visit_on, j.duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			INNER JOIN branches b ON j.branch_id=b.id
+			INNER JOIN customers c ON j.customer_id=c.id
+			WHERE c.id=$1 AND b.id=$2
+				AND j.visit_on BETWEEN $3 AND $4
+				AND j.status = 1
+				ORDER BY j.visit_on`,
+			[customer_id, branch_id, start, finish]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows, labels });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/reports/branch_total/:customer_id/:branch_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:reports/branch_total"),
+	(req, res, next) => {
+		const { customer_id, branch_id, start, finish } = req.params;
+
+		db.query(
+			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id INNER JOIN branches b ON j.branch_id=b.id
+			WHERE c.id=$1 AND b.id=$2
+				AND j.visit_on BETWEEN $3 AND $4
+				AND j.status = 1
+				GROUP BY (c.id)`,
+			[customer_id, branch_id, start, finish]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/general_reports/branch_total/:customer_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:general_reports/branch_total"),
+	(req, res, next) => {
+		const { start, finish, customer_id } = req.params;
+
+		db.query(
+			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND j.status = 1 AND c.id=$3`,
+			[start, finish, customer_id]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
+router.get(
+	"/general_reports/branch/:customer_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:general_reports/branch"),
+	(req, res, next) => {
+		const { start, finish, customer_id } = req.params;
+
+		db.query(
+			`SELECT b.id, b.address, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND j.status = 1 AND c.id=$3
+			GROUP BY (b.id)
+			ORDER BY b.address`,
+			[start, finish, customer_id]
+		)
+			.then(({ rows }) => {
+				return res.json({ rows });
+			})
+			.catch((e) => {
+				console.error(e);
+				next(e);
+			});
+	}
+);
+
 export default router;

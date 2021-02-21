@@ -6,7 +6,7 @@ import { getBranches, getBranch } from "../../service";
 import Modal from "./Modal";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
-const SelectBranch = ({ state, setState, error }) => {
+const SelectBranch = ({ state, setState, error, forReport = false }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
 	const authorizationHeaders = useAuthorizationHeaders();
@@ -53,12 +53,27 @@ const SelectBranch = ({ state, setState, error }) => {
 		fetchBranches();
 	};
 
+	const clearId = () => {
+		setState({
+			...state,
+			branch: "All addresses",
+			branch_id: "",
+		});
+	};
+
 	return (
 		<div className="mb-3 mb-md-4 mb-lg-5">
 			<FormGroup>
-				<Label for="branch" size="lg">
-					Address
-				</Label>
+				<div className="d-flex justify-content-between">
+					<Label for="branch" size="lg">
+						Address
+					</Label>
+					{forReport && state.branch_id && (
+						<Button color="link" size="sm" onClick={clearId}>
+							Reset
+						</Button>
+					)}
+				</div>
 				<Button
 					disabled={!state.customer}
 					outline
@@ -86,6 +101,7 @@ SelectBranch.propTypes = {
 	state: PropTypes.object.isRequired,
 	setState: PropTypes.func.isRequired,
 	error: PropTypes.string,
+	forReport: PropTypes.bool,
 };
 
 export default SelectBranch;
