@@ -11,5 +11,4 @@ const BranchReports = () => {
 	);
 };
 
-
 export default BranchReports;

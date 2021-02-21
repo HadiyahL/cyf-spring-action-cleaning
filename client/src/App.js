@@ -92,7 +92,10 @@ export function App() {
 									path="/branches_report"
 									component={BranchReports}
 								/>
-								<ProtectedRoute path="/result_branch" component={BranchReportPage} />
+								<ProtectedRoute
+									path="/result_branch"
+									component={BranchReportPage}
+								/>
 								<ProtectedRoute path="/result/:type" component={ReportPage} />
 								<ProtectedRoute
 									path="/general_worker"

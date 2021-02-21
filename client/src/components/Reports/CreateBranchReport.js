@@ -30,7 +30,7 @@ const CreateBranchReport = () => {
 	return (
 		<Form onSubmit={handleSubmit}>
 			<SelectCustomer state={state} setState={setState} />
-            <SelectBranch state={state} setState={setState} forReport={true} />
+			<SelectBranch state={state} setState={setState} forReport={true} />
 			<div className="d-sm-flex justify-content-between">
 				<SelectDateU
 					state={state}

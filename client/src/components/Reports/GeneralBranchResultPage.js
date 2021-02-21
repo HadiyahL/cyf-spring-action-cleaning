@@ -64,5 +64,4 @@ GeneralBranchResultPage.propTypes = {
 	setState: PropTypes.func,
 };
 
-
 export default GeneralBranchResultPage;
