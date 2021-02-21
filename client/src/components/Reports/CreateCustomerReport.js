@@ -12,9 +12,9 @@ const CreateCustomerReport = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (state.customer_id) {
-			history.push("/result/customer");
+			history.push("/result/customer"); // Go to <ReportPage>
 		} else {
-			history.push("/general_customer");
+			history.push("/general_customer"); // Go to <GeneralCustomerReport>
 		}
 	};
 

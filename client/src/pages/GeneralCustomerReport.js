@@ -17,7 +17,7 @@ const GeneralCustomerReport = () => {
 			/>
 		);
 	} else {
-		return <Redirect to={"/customers_report"} />;
+		return <Redirect to={"/customers_report"} />; // Go to <CustomerReports>
 	}
 };
 export default GeneralCustomerReport;
