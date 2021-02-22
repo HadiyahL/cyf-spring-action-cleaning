@@ -8,10 +8,10 @@ const BackButton = ({ state, setState }) => {
 
 	const handleBack = () => {
 		if (state) {
-			if (state.worker) {
-				setState({ ...state, worker_id: "", worker: "All cleaners" });
-			} else if (state.branch) {
+			if (state.branch) {
 				setState({ ...state, branch_id: "", branch: "All addresses" });
+			} else if (state.worker) {
+				setState({ ...state, worker_id: "", worker: "All cleaners" });
 			} else {
 				setState({ ...state, customer_id: "", customer: "All customers" });
 			}

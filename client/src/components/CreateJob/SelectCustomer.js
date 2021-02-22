@@ -6,7 +6,7 @@ import { getCustomersSelect, getJobsCustomer } from "../../service";
 import Modal from "./Modal";
 import useAuthorizationHeaders from "../../hooks/useAuthorizationHeaders";
 
-const SelectCustomer = ({ state, setState, error, forReport = false }) => {
+const SelectCustomer = ({ state, setState, error, forReport = false, forBranchReport = false }) => {
 	const [modal, setModal] = useState(false);
 	const [data, setData] = useState(null);
 	const authorizationHeaders = useAuthorizationHeaders();
@@ -41,8 +41,8 @@ const SelectCustomer = ({ state, setState, error, forReport = false }) => {
 					...state,
 					customer: data.customer_name,
 					customer_id: id,
-					branch: data.address ?? null,
-					branch_id: data.branch_id ?? null,
+					branch: forBranchReport ? "All addresses":(data.address ?? null),
+					branch_id: !forBranchReport && (data.branch_id ?? null),
 					worker: state.worker || (data.worker_name ?? null),
 					worker_id: state.worker_id || (data.worker_id ?? null),
 					visit_time: data.visit_time ?? null,
