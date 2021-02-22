@@ -56,7 +56,7 @@ const GeneralCustomerResultPage = ({
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">
-					<BackButton state={state} setState={setState} />
+					<BackButton state={state} setState={setState} type={type} />
 				</div>
 			</Container>
 		);
