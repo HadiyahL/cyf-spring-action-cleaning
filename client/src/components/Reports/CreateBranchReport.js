@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Button, Label, Input } from "reactstrap";
 import { SelectCustomer, SelectBranch } from "..";
@@ -8,10 +8,13 @@ import { BranchReportContext } from "../../contexts/BranchReport";
 const CreateBranchReport = () => {
 	const [state, setState] = useContext(BranchReportContext);
 	const history = useHistory();
+	const [customerError, setCustomerError] = useState(null);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (state.branch_id) {
+		if (!state.customer_id) {
+			setCustomerError("Please select a customer");
+		} else if(state.branch_id) {
 			history.push("/result_branch"); // Go to <BranchReportPage>
 		} else {
 			history.push("/general_branch"); // Go to <GeneralBranchReport>
@@ -29,7 +32,7 @@ const CreateBranchReport = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<SelectCustomer state={state} setState={setState} />
+			<SelectCustomer state={state} setState={setState} error={customerError} />
 			<SelectBranch state={state} setState={setState} forReport={true} />
 			<div className="d-sm-flex justify-content-between">
 				<SelectDateU
