@@ -11,6 +11,7 @@ const GeneralCustomerResultPage = ({
 	finish_date,
 	state,
 	setState,
+	type,
 }) => {
 	const { data, error, isLoading } = useFetch(
 		`/general_reports/customer/${start_date}/${finish_date}`
@@ -26,7 +27,11 @@ const GeneralCustomerResultPage = ({
 	} else if (total_data.data) {
 		return (
 			<Container>
-				<Title text={"General report of customers"} />
+				<Title
+					text={`General report${
+						type === "customer" ? "" : " for addresses"
+					} of customers`}
+				/>
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
 					{"Work duration from " + start_date + " to " + finish_date}
 				</h3>
@@ -42,6 +47,7 @@ const GeneralCustomerResultPage = ({
 							data={data.rows}
 							state={state}
 							setState={setState}
+							type={type}
 						/>
 						<GeneralCustomerTable
 							data={total_data.data.rows}
@@ -60,6 +66,7 @@ const GeneralCustomerResultPage = ({
 GeneralCustomerResultPage.propTypes = {
 	start_date: PropTypes.string,
 	finish_date: PropTypes.string,
+	type: PropTypes.string,
 	state: PropTypes.object,
 	setState: PropTypes.func,
 };

@@ -5,7 +5,7 @@ export const BranchReportContext = createContext([{}, () => {}]);
 
 export const BranchReportProvider = ({ children }) => {
 	const [state, setState] = useState({
-		customer: "",
+		customer: "All customers",
 		customer_id: "",
 		branch: "All addresses",
 		branch_id: "",
