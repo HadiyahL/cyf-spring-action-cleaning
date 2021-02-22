@@ -12,9 +12,9 @@ const CreateWorkerReport = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (state.worker_id) {
-			history.push("/result/worker");
+			history.push("/result/worker"); // Go to <ReportPage>
 		} else {
-			history.push("/general_worker");
+			history.push("/general_worker"); // Go to <GeneralWorkerReport>
 		}
 	};
 

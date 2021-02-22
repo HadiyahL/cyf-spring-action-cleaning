@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { JobsProvider } from "./Jobs";
 import { RecurringJobsProvider } from "./RecurringJobs";
 import { CustomerReportProvider } from "./CustomerReport";
+import { BranchReportProvider } from "./BranchReport";
 import { WorkerReportProvider } from "./WorkerReport";
 import { WorkerJobsProvider } from "./WorkerJobs";
 
@@ -11,9 +12,11 @@ const ContextProviders = ({ children }) => {
 		<JobsProvider>
 			<RecurringJobsProvider>
 				<WorkerReportProvider>
-					<WorkerJobsProvider>
-						<CustomerReportProvider>{children}</CustomerReportProvider>
-					</WorkerJobsProvider>
+					<BranchReportProvider>
+						<WorkerJobsProvider>
+							<CustomerReportProvider>{children}</CustomerReportProvider>
+						</WorkerJobsProvider>
+					</BranchReportProvider>
 				</WorkerReportProvider>
 			</RecurringJobsProvider>
 		</JobsProvider>

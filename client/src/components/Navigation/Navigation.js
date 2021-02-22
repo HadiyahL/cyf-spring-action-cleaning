@@ -102,6 +102,13 @@ const Navigation = () => {
 												>
 													Customers
 												</DropdownItem>
+												<DropdownItem
+													tag={Link}
+													to="/branches_report"
+													className=" text-center link text-md-left pb-2 pt-2"
+												>
+													Addresses
+												</DropdownItem>
 											</DropdownMenu>
 										</UncontrolledDropdown>
 									</List>

@@ -17,7 +17,7 @@ const GeneralWorkerReport = () => {
 			/>
 		);
 	} else {
-		return <Redirect to={"/workers_report"} />;
+		return <Redirect to={"/workers_report"} />; // Go to <WorkerReports>
 	}
 };
 

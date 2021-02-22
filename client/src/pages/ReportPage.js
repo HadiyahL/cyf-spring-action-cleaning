@@ -25,7 +25,7 @@ const ReportPage = () => {
 			/>
 		);
 	} else {
-		return <Redirect to={`/${type}s_report`} />;
+		return <Redirect to={`/${type}s_report`} />; // Go to <CustomerReports> or <WorkerReports>
 	}
 };
 

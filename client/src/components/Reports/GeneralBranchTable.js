@@ -2,40 +2,40 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-const GeneralCustomerTable = ({ data, state, setState, tableFooter }) => {
+const GeneralBranchTable = ({ data, state, setState, tableFooter }) => {
 	const history = useHistory();
 
 	const formatDuration = (h = 0, m = 0) => {
 		return ("00" + h).slice(-2) + ":" + ("00" + m).slice(-2);
 	};
 
-	const handleClick = (id, customer) => {
-		setState({ ...state, customer_id: id, customer });
-		history.push("/result/customer");
+	const handleClick = (id, address) => {
+		setState({ ...state, branch_id: id, branch: address });
+		history.push("/result_branch"); // Go to <BranchReportPage>
 	};
 
-	const handleKeyPress = (id, customer, e) => {
-		setState({ ...state, customer_id: id, customer });
+	const handleKeyPress = (id, address, e) => {
+		setState({ ...state, branch_id: id, branch: address });
 		if (e.key === "Enter" && e.target.tagName === "TR") {
-			history.push("/result/customer");
+			history.push("/result_branch"); // Go to <BranchReportPage>
 		}
 	};
 
 	return (
 		<tbody>
-			{data.map(({ id, duration, actual_duration, customer }) => (
+			{data.map(({ id, duration, actual_duration, address }) => (
 				<tr
 					key={id || 0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
 					role={id && "button"}
-					onClick={() => id && handleClick(id, customer)}
-					onKeyPress={(e) => id && handleKeyPress(id, customer, e)}
+					onClick={() => id && handleClick(id, address)}
+					onKeyPress={(e) => id && handleKeyPress(id, address, e)}
 					tabIndex={id && 0}
 				>
 					<th
 						scope="row"
 						className={tableFooter && "font-weight-bold text-right"}
 					>
-						{tableFooter ? "Total duration:" : customer}
+						{tableFooter ? "Total duration:" : address}
 					</th>
 					<td className={tableFooter && "font-weight-bold"}>
 						{formatDuration(duration)}
@@ -49,11 +49,11 @@ const GeneralCustomerTable = ({ data, state, setState, tableFooter }) => {
 	);
 };
 
-GeneralCustomerTable.propTypes = {
+GeneralBranchTable.propTypes = {
 	data: PropTypes.array,
 	tableFooter: PropTypes.bool,
 	state: PropTypes.object,
 	setState: PropTypes.func,
 };
 
-export default GeneralCustomerTable;
+export default GeneralBranchTable;

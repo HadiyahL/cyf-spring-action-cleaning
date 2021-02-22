@@ -12,11 +12,14 @@ export const EditWorker = lazy(() => import("./EditWorker"));
 export const Recurring = lazy(() => import("./Recurring"));
 export const WorkerReports = lazy(() => import("./WorkerReports"));
 export const CustomerReports = lazy(() => import("./CustomerReports"));
+export const BranchReports = lazy(() => import("./BranchReports"));
 export const WorkerJobs = lazy(() => import("./WorkerJobs"));
 export const WorkerJobPage = lazy(() => import("./WorkerJobPage"));
 export const HomePage = lazy(() => import("./HomePage"));
 export const ReportPage = lazy(() => import("./ReportPage"));
+export const BranchReportPage = lazy(() => import("./BranchReportPage"));
 export const GeneralWorkerReport = lazy(() => import("./GeneralWorkerReport"));
 export const GeneralCustomerReport = lazy(() =>
 	import("./GeneralCustomerReport")
 );
+export const GeneralBranchReport = lazy(() => import("./GeneralBranchReport"));
