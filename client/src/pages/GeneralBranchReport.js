@@ -5,9 +5,9 @@ import GeneralBranchResultPage from "../components/Reports/GeneralBranchResultPa
 
 const GeneralBranchReport = () => {
 	const [state, setState] = useContext(BranchReportContext);
-	const { start_date, finish_date } = state;
+	const { customer_id, start_date, finish_date } = state;
 
-	if (start_date) {
+	if (start_date && customer_id) {
 		return (
 			<GeneralBranchResultPage
 				start_date={start_date}
