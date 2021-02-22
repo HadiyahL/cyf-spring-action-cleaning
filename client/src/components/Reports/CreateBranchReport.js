@@ -14,7 +14,7 @@ const CreateBranchReport = () => {
 		e.preventDefault();
 		if (!state.customer_id) {
 			setCustomerError("Please select a customer");
-		} else if(state.branch_id) {
+		} else if (state.branch_id) {
 			history.push("/result_branch"); // Go to <BranchReportPage>
 		} else {
 			history.push("/general_branch"); // Go to <GeneralBranchReport>
