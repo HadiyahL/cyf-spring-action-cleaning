@@ -112,6 +112,7 @@ SelectCustomer.propTypes = {
 	setState: PropTypes.func.isRequired,
 	error: PropTypes.string,
 	forReport: PropTypes.bool,
+	forBranchReport: PropTypes.bool,
 };
 
 export default SelectCustomer;
