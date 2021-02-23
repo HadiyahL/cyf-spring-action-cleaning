@@ -1,4 +1,5 @@
 import { Router } from "express";
+const { DateTime } = require("luxon");
 import db from "../db";
 import { checkAuth, checkPermission } from "../middleware";
 
@@ -432,6 +433,81 @@ router.get(
 				console.error(e);
 				next(e);
 			});
+	}
+);
+
+router.get(
+	"/general_reports/general/:start/:finish",
+	// checkAuth,
+	// checkPermission("get:general_reports/general"),
+	async (req, res, next) => {
+		const { start, finish } = req.params;
+
+		const client = await db.getClient();
+
+		try {
+			const { rows } = await client.query(
+				`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id
+				FROM jobs j
+				INNER JOIN customers c ON j.customer_id=c.id
+				INNER JOIN branches b ON j.branch_id=b.id
+				INNER JOIN workers w ON j.worker_id=w.id
+				WHERE j.visit_on BETWEEN $1 AND $2
+					AND j.status = 1
+					ORDER BY j.visit_on
+					`,
+				[start, finish]
+			);
+
+			const totals = await client.query(
+				`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
+				FROM jobs j
+				WHERE j.visit_on
+					BETWEEN $1 AND $2
+					AND j.status = 1`,
+				[start, finish]
+			);
+
+			const dataWithTimeDifference = rows.map((obj) => {
+				return {
+					...obj,
+					contracted_duration: DateTime.fromObject({
+						hour: obj.contracted_duration,
+					}).toFormat("HH:mm"),
+					actual_duration: DateTime.fromObject(obj.actual_duration).toFormat(
+						"HH:mm"
+					),
+					difference: DateTime.fromObject({
+						hour: obj.contracted_duration,
+					})
+						.diff(DateTime.fromObject(obj.actual_duration), [
+							"hours",
+							"minutes",
+						])
+						.toObject(),
+				};
+			});
+
+			// const formattedTotals = [
+			// 	{
+			// 		actual_duration: DateTime.fromObject(totals.rows[0].actual_duration),
+			// 		contracted_duration: DateTime.fromObject({
+			// 			hour: totals.rows[0].contracted_duration,
+			// 		}).toFormat("HH:mm"),
+			// 	},
+			// ];
+			const foo = {
+				actual_duration: "15:25",
+				contracted_duration: "14:00",
+				difference: { hours: 1, minutes: 25 },
+			};
+
+			return res.json({ dataWithTimeDifference, totals: [foo] });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
