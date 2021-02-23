@@ -29,6 +29,8 @@ import {
 	GeneralWorkerReport,
 	GeneralCustomerReport,
 	GeneralBranchReport,
+	GeneralReportPage,
+	GeneralReportResultPage,
 } from "./pages";
 import ContextProviders from "./contexts/ContextProviders";
 
@@ -108,6 +110,14 @@ export function App() {
 								<ProtectedRoute
 									path="/general_branch"
 									component={GeneralBranchReport}
+								/>
+								<ProtectedRoute
+									path="/general_results"
+									component={GeneralReportResultPage}
+								/>
+								<ProtectedRoute
+									path="/general_report"
+									component={GeneralReportPage}
 								/>
 								<ProtectedRoute path="/create-jobs" component={Recurring} />
 							</>

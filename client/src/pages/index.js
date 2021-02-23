@@ -23,3 +23,7 @@ export const GeneralCustomerReport = lazy(() =>
 	import("./GeneralCustomerReport")
 );
 export const GeneralBranchReport = lazy(() => import("./GeneralBranchReport"));
+export const GeneralReportPage = lazy(() => import("./GeneralReportPage"));
+export const GeneralReportResultPage = lazy(() =>
+	import("./GeneralReportResultPage")
+);
