@@ -14,7 +14,7 @@ const CreateCustomerReport = () => {
 		if (state.customer_id) {
 			history.push("/result/customer"); // Go to <ReportPage>
 		} else {
-			history.push("/general_customer"); // Go to <GeneralCustomerReport>
+			history.push("/general_customer/customer"); // Go to <GeneralCustomerReport>
 		}
 	};
 

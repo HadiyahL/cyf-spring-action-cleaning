@@ -65,11 +65,21 @@ const SelectCustomer = ({
 	};
 
 	const clearId = () => {
-		setState({
-			...state,
-			customer: "All customers",
-			customer_id: "",
-		});
+		if (state.branch_id) {
+			setState({
+				...state,
+				customer: "All customers",
+				customer_id: "",
+				branch: "All addresses",
+				branch_id: "",
+			});
+		} else {
+			setState({
+				...state,
+				customer: "All customers",
+				customer_id: "",
+			});
+		}
 	};
 
 	return (

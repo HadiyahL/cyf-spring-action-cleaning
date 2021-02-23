@@ -75,7 +75,7 @@ const SelectBranch = ({ state, setState, error, forReport = false }) => {
 					)}
 				</div>
 				<Button
-					disabled={!state.customer}
+					disabled={!state.customer_id}
 					outline
 					color="primary"
 					block
