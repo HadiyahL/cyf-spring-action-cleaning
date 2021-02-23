@@ -109,6 +109,13 @@ const Navigation = () => {
 												>
 													Addresses
 												</DropdownItem>
+												<DropdownItem
+													tag={Link}
+													to="/general_report"
+													className=" text-center link text-md-left pb-2 pt-2"
+												>
+													General
+												</DropdownItem>
 											</DropdownMenu>
 										</UncontrolledDropdown>
 									</List>
