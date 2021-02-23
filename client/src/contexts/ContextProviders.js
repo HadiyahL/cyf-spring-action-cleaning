@@ -5,6 +5,7 @@ import { RecurringJobsProvider } from "./RecurringJobs";
 import { CustomerReportProvider } from "./CustomerReport";
 import { BranchReportProvider } from "./BranchReport";
 import { WorkerReportProvider } from "./WorkerReport";
+import { GeneralReportProvider } from "./GeneralReport";
 import { WorkerJobsProvider } from "./WorkerJobs";
 
 const ContextProviders = ({ children }) => {
@@ -13,9 +14,11 @@ const ContextProviders = ({ children }) => {
 			<RecurringJobsProvider>
 				<WorkerReportProvider>
 					<BranchReportProvider>
-						<WorkerJobsProvider>
-							<CustomerReportProvider>{children}</CustomerReportProvider>
-						</WorkerJobsProvider>
+						<GeneralReportProvider>
+							<WorkerJobsProvider>
+								<CustomerReportProvider>{children}</CustomerReportProvider>
+							</WorkerJobsProvider>
+						</GeneralReportProvider>
 					</BranchReportProvider>
 				</WorkerReportProvider>
 			</RecurringJobsProvider>
