@@ -17,7 +17,7 @@ const GeneralTable = ({ data, tableFooter }) => {
 		history.push(`/edit-jobs/${id}`);
 	};
 
-	const handleKeyPress = (id, customer, e) => {
+	const handleKeyPress = (id, e) => {
 		if (e.key === "Enter" && e.target.tagName === "TR") {
 			history.push(`/edit-jobs/${id}`);
 		}
