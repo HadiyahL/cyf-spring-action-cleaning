@@ -6,11 +6,11 @@ import { formatDate } from "../../util/helpers";
 const GeneralTable = ({ data, tableFooter }) => {
 	const history = useHistory();
 
-	const formatDuration = (h = 0, m = 0) => {
-		const hours = ("00" + Math.abs(h)).slice(-2);
-		const minutes = ("00" + Math.abs(m)).slice(-2);
+	const formatDuration = ({ hours = 0, minutes = 0 }) => {
+		const h = Math.abs(hours).toString().padStart(2, "0");
+		const m = Math.abs(minutes).toString().padStart(2, "0");
 
-		return `${h < 0 || m < 0 ? "-" : " "}${hours}:${minutes}`;
+		return `${hours < 0 || minutes < 0 ? "-" : " "}${h}:${m}`;
 	};
 
 	const handleClick = (id) => {
@@ -61,13 +61,13 @@ const GeneralTable = ({ data, tableFooter }) => {
 							{tableFooter ? "Totals:" : worker}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>
-							{contracted_duration}
+							{formatDuration(contracted_duration)}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>
-							{actual_duration}
+							{formatDuration(actual_duration)}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(difference.hours, difference.minutes)}
+							{formatDuration(difference)}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>{feedback}</td>
 					</tr>
