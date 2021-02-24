@@ -33,9 +33,9 @@ const GeneralReportResultPage = ({ state, setState }) => {
 								"Address",
 								"Date",
 								"Cleaner",
-								"Contracted hours",
-								"Actual hours (vary)",
-								"Difference in total hours",
+								"Contracted Hours",
+								"Actual Hours",
+								"Difference In Hours",
 								"Cleaner's comment",
 							]}
 							detailed={false}
