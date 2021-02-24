@@ -41,11 +41,11 @@ const GeneralReportResultPage = ({ state, setState }) => {
 							detailed={false}
 						/>
 						<GeneralTable
-							data={data.dataWithTimeDifference}
+							data={data.generalData}
 							state={state}
 							setState={setState}
 						/>
-						<GeneralTable data={data.totals} tableFooter={true} />
+						<GeneralTable data={data.generalTotals} tableFooter={true} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">
