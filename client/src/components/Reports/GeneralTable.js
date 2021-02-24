@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../util/helpers";
 
-const GeneralTable = ({ data, tableFooter }) => {
+const GeneralTable = ({ data, tableFooter, showFeedback }) => {
 	const history = useHistory();
 
 	const formatDuration = ({ hours = 0, minutes = 0 }) => {
@@ -67,7 +67,7 @@ const GeneralTable = ({ data, tableFooter }) => {
 						<td className={tableFooter && "font-weight-bold"}>
 							{formatDuration(difference)}
 						</td>
-						<td className="comment-width">{feedback}</td>
+						{showFeedback && <td className="comment-width">{feedback}</td>}
 					</tr>
 				)
 			)}
@@ -78,6 +78,7 @@ const GeneralTable = ({ data, tableFooter }) => {
 GeneralTable.propTypes = {
 	data: PropTypes.array,
 	tableFooter: PropTypes.bool,
+	showFeedback: PropTypes.bool,
 };
 
 export default GeneralTable;
