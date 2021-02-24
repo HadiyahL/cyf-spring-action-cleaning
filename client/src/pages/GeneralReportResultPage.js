@@ -10,7 +10,7 @@ const GeneralReportResult = () => {
 	if (start_date) {
 		return <GeneralReportResultPage state={state} setState={setState} />;
 	} else {
-		return <Redirect to={"/general_report"} />; // Go to <WorkerReports>
+		return <Redirect to={"/general_report"} />; // Go to <GeneralReportPage>
 	}
 };
 
