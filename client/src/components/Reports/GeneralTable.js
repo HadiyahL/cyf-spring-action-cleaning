@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../util/helpers";
 
-const GeneralTable = ({ data, state, setState, tableFooter }) => {
+const GeneralTable = ({ data, tableFooter }) => {
 	const history = useHistory();
 
 	const formatDuration = (h = 0, m = 0) => {
@@ -80,8 +80,6 @@ const GeneralTable = ({ data, state, setState, tableFooter }) => {
 GeneralTable.propTypes = {
 	data: PropTypes.array,
 	tableFooter: PropTypes.bool,
-	state: PropTypes.object,
-	setState: PropTypes.func,
 };
 
 export default GeneralTable;
