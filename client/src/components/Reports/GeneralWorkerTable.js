@@ -6,7 +6,7 @@ const GeneralWorkerTable = ({ data, state, setState, tableFooter }) => {
 	const history = useHistory();
 
 	const formatDuration = (h = 0, m = 0) => {
-		return h + ":" + ("00" + m).slice(-2);
+		return h.toString().padStart(2, "0") + ":" + m.toString().padStart(2, "0");
 	};
 
 	const handleClick = (id, worker) => {
