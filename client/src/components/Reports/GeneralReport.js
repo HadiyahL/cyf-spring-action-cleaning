@@ -10,7 +10,7 @@ const CreateGeneralReport = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		history.push("/general_results"); // Go to <GeneralReport>
+		history.push("/general_results"); // Go to <GeneralReportResultPage>
 	};
 
 	return (
