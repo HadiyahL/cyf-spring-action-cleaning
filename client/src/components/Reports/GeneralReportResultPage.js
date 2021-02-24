@@ -23,7 +23,7 @@ const GeneralReportResultPage = ({ state, setState }) => {
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
 					Work duration from {start_date} to {finish_date}
 				</h3>
-				{data.dataWithTimeDifference.length < 0 ? (
+				{data.generalData.length === 0 ? (
 					<p>No data for this period.</p>
 				) : (
 					<Table striped hover responsive>
