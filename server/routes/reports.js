@@ -1,6 +1,7 @@
 import { Router } from "express";
-const { DateTime } = require("luxon");
+import { DateTime } from "luxon";
 import db from "../db";
+import { formatDuration } from "../util/helpers";
 import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
@@ -438,8 +439,8 @@ router.get(
 
 router.get(
 	"/general_reports/general/:start/:finish",
-	// checkAuth,
-	// checkPermission("get:general_reports/general"),
+	checkAuth,
+	checkPermission("get:general_reports/general"),
 	async (req, res, next) => {
 		const { start, finish } = req.params;
 
@@ -471,38 +472,48 @@ router.get(
 			const dataWithTimeDifference = rows.map((obj) => {
 				return {
 					...obj,
-					contracted_duration: DateTime.fromObject({
-						hour: obj.contracted_duration,
-					}).toFormat("HH:mm"),
-					actual_duration: DateTime.fromObject(obj.actual_duration).toFormat(
-						"HH:mm"
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
 					),
 					difference: DateTime.fromObject({
 						hour: obj.contracted_duration,
 					})
-						.diff(DateTime.fromObject(obj.actual_duration), [
-							"hours",
-							"minutes",
-						])
+						.diff(
+							DateTime.fromObject({
+								hour: obj.actual_duration.hours || 0,
+								minute: obj.actual_duration.minutes,
+							}),
+							["hours", "minutes"]
+						)
 						.toObject(),
 				};
 			});
 
-			// const formattedTotals = [
-			// 	{
-			// 		actual_duration: DateTime.fromObject(totals.rows[0].actual_duration),
-			// 		contracted_duration: DateTime.fromObject({
-			// 			hour: totals.rows[0].contracted_duration,
-			// 		}).toFormat("HH:mm"),
-			// 	},
-			// ];
-			const foo = {
-				actual_duration: "15:25",
-				contracted_duration: "14:00",
-				difference: { hours: 1, minutes: 25 },
+			const contracted_duration = formatDuration(
+				totals.rows[0]?.contracted_duration
+			);
+
+			const actual_duration = formatDuration(
+				totals.rows[0].actual_duration?.hours,
+				totals.rows[0].actual_duration?.minutes
+			);
+
+			const diffHours = contracted_duration.hours - actual_duration.hours;
+			const diffMinutes = contracted_duration.minutes - actual_duration.minutes;
+			const difference = formatDuration(diffHours, diffMinutes);
+
+			const formattedTotals = {
+				contracted_duration,
+				actual_duration,
+				difference,
 			};
 
-			return res.json({ dataWithTimeDifference, totals: [foo] });
+			return res.json({
+				generalData: dataWithTimeDifference,
+				generalTotals: [formattedTotals],
+			});
 		} catch (e) {
 			next(e);
 		} finally {
