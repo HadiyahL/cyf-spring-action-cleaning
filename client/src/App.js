@@ -104,7 +104,7 @@ export function App() {
 									component={GeneralWorkerReport}
 								/>
 								<ProtectedRoute
-									path="/general_customer"
+									path="/general_customer/:type"
 									component={GeneralCustomerReport}
 								/>
 								<ProtectedRoute

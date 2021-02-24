@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-const GeneralCustomerTable = ({ data, state, setState, tableFooter }) => {
+const GeneralCustomerTable = ({ data, state, setState, tableFooter, type }) => {
 	const history = useHistory();
 
 	const formatDuration = (h = 0, m = 0) => {
@@ -11,13 +11,21 @@ const GeneralCustomerTable = ({ data, state, setState, tableFooter }) => {
 
 	const handleClick = (id, customer) => {
 		setState({ ...state, customer_id: id, customer });
-		history.push("/result/customer");
+		if (type === "customer") {
+			history.push("/result/customer"); // Go to <ReportPage>
+		} else {
+			history.push("/general_branch"); // Go to <BranchReportPage>
+		}
 	};
 
 	const handleKeyPress = (id, customer, e) => {
 		setState({ ...state, customer_id: id, customer });
-		if (e.key === "Enter" && e.target.tagName === "TR") {
-			history.push("/result/customer");
+		if (type === "customer") {
+			if (e.key === "Enter" && e.target.tagName === "TR") {
+				history.push("/result/customer"); // Go to <ReportPage>
+			}
+		} else {
+			history.push("/result_branch"); // Go to <BranchReportPage>
 		}
 	};
 
@@ -54,6 +62,7 @@ GeneralCustomerTable.propTypes = {
 	tableFooter: PropTypes.bool,
 	state: PropTypes.object,
 	setState: PropTypes.func,
+	type: PropTypes.string,
 };
 
 export default GeneralCustomerTable;
