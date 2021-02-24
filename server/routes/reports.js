@@ -1,5 +1,7 @@
 import { Router } from "express";
+import { DateTime } from "luxon";
 import db from "../db";
+import { formatDuration } from "../util/helpers";
 import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
@@ -432,6 +434,91 @@ router.get(
 				console.error(e);
 				next(e);
 			});
+	}
+);
+
+router.get(
+	"/general_reports/general/:start/:finish",
+	checkAuth,
+	checkPermission("get:general_reports/general"),
+	async (req, res, next) => {
+		const { start, finish } = req.params;
+
+		const client = await db.getClient();
+
+		try {
+			const { rows } = await client.query(
+				`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id
+				FROM jobs j
+				INNER JOIN customers c ON j.customer_id=c.id
+				INNER JOIN branches b ON j.branch_id=b.id
+				INNER JOIN workers w ON j.worker_id=w.id
+				WHERE j.visit_on BETWEEN $1 AND $2
+					AND j.status = 1
+					ORDER BY j.visit_on
+					`,
+				[start, finish]
+			);
+
+			const totals = await client.query(
+				`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
+				FROM jobs j
+				WHERE j.visit_on
+					BETWEEN $1 AND $2
+					AND j.status = 1`,
+				[start, finish]
+			);
+
+			const dataWithTimeDifference = rows.map((obj) => {
+				return {
+					...obj,
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
+					),
+					difference: DateTime.fromObject({
+						hour: obj.contracted_duration,
+					})
+						.diff(
+							DateTime.fromObject({
+								hour: obj.actual_duration.hours || 0,
+								minute: obj.actual_duration.minutes,
+							}),
+							["hours", "minutes"]
+						)
+						.toObject(),
+				};
+			});
+
+			const contracted_duration = formatDuration(
+				totals.rows[0]?.contracted_duration
+			);
+
+			const actual_duration = formatDuration(
+				totals.rows[0].actual_duration?.hours,
+				totals.rows[0].actual_duration?.minutes
+			);
+
+			const diffHours = contracted_duration.hours - actual_duration.hours;
+			const diffMinutes = contracted_duration.minutes - actual_duration.minutes;
+			const difference = formatDuration(diffHours, diffMinutes);
+
+			const formattedTotals = {
+				contracted_duration,
+				actual_duration,
+				difference,
+			};
+
+			return res.json({
+				generalData: dataWithTimeDifference,
+				generalTotals: [formattedTotals],
+			});
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
