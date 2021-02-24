@@ -89,6 +89,7 @@ For application to work properly regarding user roles you have to properly confi
 | get:reports/branch                 | Get hours worked for different addresses                  |
 | get:reports/branch_detailed        | Get reports for branch with dates                         |
 | get:reports/branch_total           | Get total hours for the branches for specified period     |
+| get:general_reports/general        | Get general report                                        |
 | get:workers                        | Read workers                                              |
 | get:workersById                    | Get worker by id                                          |
 | post:batch_of_jobs                 | Post multiple jobs at once                                |
