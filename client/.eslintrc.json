@@ -2,12 +2,7 @@
 	"env": {
 		"browser": true
 	},
-	"extends": [
-		"plugin:jsx-a11y/strict",
-		"plugin:react/recommended",
-		"prettier",
-		"prettier/react"
-	],
+	"extends": ["plugin:jsx-a11y/strict", "plugin:react/recommended", "prettier"],
 	"plugins": ["react-hooks"],
 	"rules": {
 		"react/jsx-tag-spacing": "error",
