@@ -177,6 +177,10 @@ ul {
 	min-width: 274px;
 }
 
+.comment-width {
+	max-width: 240px;
+}
+
 @media screen and (max-width: 560px) {
 	.homepage-text li {
 		font-size: 14px;

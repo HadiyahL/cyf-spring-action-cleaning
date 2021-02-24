@@ -69,7 +69,13 @@ const GeneralTable = ({ data, tableFooter }) => {
 						<td className={tableFooter && "font-weight-bold"}>
 							{formatDuration(difference)}
 						</td>
-						<td className={tableFooter && "font-weight-bold"}>{feedback}</td>
+						<td
+							className={
+								tableFooter ? "font-weight-bold comment-width" : "comment-width"
+							}
+						>
+							{feedback}
+						</td>
 					</tr>
 				)
 			)}
