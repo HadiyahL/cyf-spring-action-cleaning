@@ -6,7 +6,7 @@ const GeneralCustomerTable = ({ data, state, setState, tableFooter, type }) => {
 	const history = useHistory();
 
 	const formatDuration = (h = 0, m = 0) => {
-		return ("00" + h).slice(-2) + ":" + ("00" + m).slice(-2);
+		return h + ":" + ("00" + m).slice(-2);
 	};
 
 	const handleClick = (id, customer) => {
