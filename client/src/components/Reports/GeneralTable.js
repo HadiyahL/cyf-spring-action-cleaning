@@ -44,11 +44,9 @@ const GeneralTable = ({ data, tableFooter }) => {
 						onKeyPress={(e) => id && handleKeyPress(id, e)}
 						tabIndex={id && 0}
 					>
-						<td className={tableFooter && "font-weight-bold text-right"}>
-							{customer}
-						</td>
-						<td className={tableFooter && "font-weight-bold"}>{branch}</td>
-						<td className={tableFooter && "font-weight-bold"}>
+						<td>{customer}</td>
+						<td>{branch}</td>
+						<td>
 							{tableFooter
 								? ""
 								: formatDate(visit_on, {
@@ -69,13 +67,7 @@ const GeneralTable = ({ data, tableFooter }) => {
 						<td className={tableFooter && "font-weight-bold"}>
 							{formatDuration(difference)}
 						</td>
-						<td
-							className={
-								tableFooter ? "font-weight-bold comment-width" : "comment-width"
-							}
-						>
-							{feedback}
-						</td>
+						<td className="comment-width">{feedback}</td>
 					</tr>
 				)
 			)}
