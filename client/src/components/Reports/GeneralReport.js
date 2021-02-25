@@ -15,7 +15,7 @@ const CreateGeneralReport = () => {
 
 	return (
 		<Form onSubmit={handleSubmit}>
-			<div className="d-sm-flex justify-content-between">
+			<div className="d-sm-flex justify-content-between mb-5">
 				<SelectDateU
 					state={state}
 					setState={setState}
