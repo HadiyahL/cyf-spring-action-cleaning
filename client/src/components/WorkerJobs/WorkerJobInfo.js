@@ -31,11 +31,11 @@ const WorkerJobInfo = ({
 			</p>
 			<p className="worker-info-text-size">
 				<strong>Contact name: </strong>
-				{contact_name}
+				{contact_name || "—"}
 			</p>
 			<p className="worker-info-text-size">
 				<strong>Contact phone: </strong>
-				{contact_phone}
+				{contact_phone || "—"}
 			</p>
 			<p className="worker-info-text-size">
 				<strong>Planned duration:</strong> {duration}{" "}
@@ -43,7 +43,7 @@ const WorkerJobInfo = ({
 			</p>
 			<p className="worker-info-text-size">
 				<strong>Job details: </strong>
-				{details ? details : "—"}
+				{details || "—"}
 			</p>
 		</div>
 	);
