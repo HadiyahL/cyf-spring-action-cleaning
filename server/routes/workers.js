@@ -135,7 +135,7 @@ router.post(
 			.isLength({ max: 50 })
 			.trim(),
 	],
-	(req, res, next) => {
+	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
@@ -152,24 +152,44 @@ router.post(
 			archived,
 		} = req.body;
 
-		db.query(
-			`INSERT INTO workers (name, email, phone_number, address, whatsapp, permanent_contract, languages, archived)
-			VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-			[name, email, phone, address, whatsapp, contract, languages, archived]
-		)
-			.then(({ rowCount }) => {
-				if (rowCount < 1) {
-					return res
-						.status(400)
-						.json({ success: false, message: "Worker not added." });
-				} else {
-					return res.json({ success: true });
-				}
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
+		const client = await db.getClient();
+
+		try {
+			const { rowCount } = await client.query(
+				`
+				SELECT * FROM workers
+				WHERE email=$1
+			`,
+				[email]
+			);
+
+			if (rowCount > 0) {
+				return res.status(200).json({
+					success: false,
+					errors: [
+						{ msg: "Cleaner with this email already exists", param: "email" },
+					],
+				});
+			}
+
+			const data = await client.query(
+				`INSERT INTO workers (name, email, phone_number, address, whatsapp, permanent_contract, languages, archived)
+				VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+				[name, email, phone, address, whatsapp, contract, languages, archived]
+			);
+
+			if (data.rowCount < 1) {
+				return res
+					.status(400)
+					.json({ success: false, message: "Worker not added." });
+			} else {
+				return res.json({ success: true });
+			}
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
@@ -196,7 +216,7 @@ router.put(
 			.isLength({ max: 50 })
 			.trim(),
 	],
-	(req, res, next) => {
+	async (req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			return res.status(200).json({ success: false, errors: errors.array() });
@@ -213,22 +233,51 @@ router.put(
 			archived,
 		} = req.body;
 
-		db.query(
-			`
-			UPDATE workers
-			SET name=$1, address=$2, email=$3, phone_number=$4, whatsapp=$5, permanent_contract=$6, languages=$7, archived=$8
-			WHERE id=$9
-			RETURNING *
+		const client = await db.getClient();
+		try {
+			const { rowCount } = await client.query(
+				`
+				SELECT * FROM workers w
+				WHERE email = $1
+				AND w.id != $2
 			`,
-			[name, address, email, phone, whatsapp, contract, languages, archived, id]
-		)
-			.then(({ rows }) => {
-				return res.json({ success: true, workers: rows });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
+				[email, id]
+			);
+
+			if (rowCount > 0) {
+				return res.status(200).json({
+					success: false,
+					errors: [
+						{ msg: "Cleaner with this email already exists", param: "email" },
+					],
+				});
+			}
+
+			const { rows } = await client.query(
+				`
+				UPDATE workers
+				SET name=$1, address=$2, email=$3, phone_number=$4, whatsapp=$5, permanent_contract=$6, languages=$7, archived=$8
+				WHERE id=$9
+				RETURNING *
+				`,
+				[
+					name,
+					address,
+					email,
+					phone,
+					whatsapp,
+					contract,
+					languages,
+					archived,
+					id,
+				]
+			);
+			return res.json({ success: true, workers: rows });
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
