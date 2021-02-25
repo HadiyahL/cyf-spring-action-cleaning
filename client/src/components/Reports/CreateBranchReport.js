@@ -38,7 +38,7 @@ const CreateBranchReport = () => {
 				forReport={true}
 			/>
 			<SelectBranch state={state} setState={setState} forReport={true} />
-			<div className="d-sm-flex justify-content-between">
+			<div className="d-sm-flex justify-content-between mb-5 mb-sm-0">
 				<SelectDateU
 					state={state}
 					setState={setState}
@@ -51,18 +51,23 @@ const CreateBranchReport = () => {
 					dateAttribute="finish_date"
 					attributeTitle="Finish date"
 				/>
-				<Label check className="d-flex align-items-center">
+			</div>
+			<div className="d-flex justify-content-between justify-content-sm-end flex-sm-column">
+				<Label
+					check
+					className="d-flex align-items-center user-select-none pl-4 text-right align-self-sm-end mb-sm-3 mb-md-4 mb-lg-5"
+					size="lg"
+				>
 					<Input
 						name="detailed"
 						type="checkbox"
 						onChange={handleChange}
 						checked={state.detailed}
-					/>{" "}
+						className="mb-1"
+					/>
 					Detailed
 				</Label>
-			</div>
-			<div className="d-flex justify-content-end">
-				<Button>Run</Button>
+				<Button className="align-self-sm-end">Run</Button>
 			</div>
 		</Form>
 	);

@@ -125,7 +125,7 @@ const Jobs = ({
 				/>
 				<SelectBranch state={state} setState={setState} error={errors.branch} />
 				<SelectWorker state={state} setState={setState} error={errors.worker} />
-				<div className="d-flex justify-content-between">
+				<div className="d-sm-flex justify-content-between">
 					<SelectDate
 						state={state}
 						setState={setState}
@@ -137,7 +137,7 @@ const Jobs = ({
 						error={errors.visit_time}
 					/>
 				</div>
-				<div className="d-flex justify-content-between">
+				<div className="d-sm-flex justify-content-between">
 					<SelectDuration
 						state={state}
 						setState={setState}
@@ -159,7 +159,7 @@ const Jobs = ({
 						These fields should be completed only if the cleaner is unable to
 						log time by himself.
 					</div>
-					<div className="d-flex justify-content-between">
+					<div className="d-sm-flex justify-content-between">
 						<SelectStartTime
 							state={state}
 							setState={setState}
