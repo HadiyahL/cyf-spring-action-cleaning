@@ -18,7 +18,7 @@ const SelectEndTime = ({ state, setState, error }) => {
 	};
 
 	return (
-		<div className="w-100 ml-3 ml-md-5">
+		<div className="w-100 ml-sm-3 ml-md-5">
 			<FormGroup>
 				<Label for="endTime" size="lg">
 					End time <span className="text-muted">(optional)</span>

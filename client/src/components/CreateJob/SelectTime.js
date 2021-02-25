@@ -11,7 +11,7 @@ const SelectTime = ({ state, setState, error }) => {
 	};
 
 	return (
-		<div className="mb-3 mb-md-4 mb-lg-5 w-100 ml-3 ml-md-5">
+		<div className="mb-3 mb-md-4 mb-lg-5 w-100 ml-sm-3 ml-md-5">
 			<FormGroup>
 				<Label for="time" size="lg">
 					Visit time
