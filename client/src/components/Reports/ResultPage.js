@@ -18,7 +18,6 @@ const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 	} else if (isLoading) {
 		return <Spinner />;
 	} else if (data) {
-		console.log(data);
 		return (
 			<Container>
 				<Title text={name} />
