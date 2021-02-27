@@ -453,38 +453,18 @@ router.get(
 );
 
 router.get(
-	"/general_reports/customer_total/:start/:finish",
-	checkAuth,
-	checkPermission("get:general_reports/customer_total"),
-	(req, res, next) => {
-		const { start, finish } = req.params;
-
-		db.query(
-			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
-			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id
-			WHERE j.visit_on BETWEEN $1 AND $2
-				AND j.status = 1`,
-			[start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
-	}
-);
-
-router.get(
 	"/reports/branch/:customer_id/:branch_id/:start/:finish",
 	checkAuth,
 	checkPermission("get:reports/branch"),
-	(req, res, next) => {
+	async (req, res, next) => {
 		const { customer_id, branch_id, start, finish } = req.params;
+
+		const client = await db.getClient();
+
 		const labels = ["Cleaner", "Planned duration", "Actual duration"];
-		db.query(
-			`SELECT w.name worker, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+		try {
+			const { rows } = await client.query(
+				`SELECT w.name worker, SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
 			FROM jobs j
 			INNER JOIN workers w ON j.worker_id=w.id
 			INNER JOIN branches b ON j.branch_id=b.id
@@ -494,15 +474,54 @@ router.get(
 				AND j.status = 1
 			GROUP BY (w.name)
 			ORDER BY w.name`,
-			[customer_id, branch_id, start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows, labels });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
+				[customer_id, branch_id, start, finish]
+			);
+
+			const totals = await client.query(
+				`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id INNER JOIN branches b ON j.branch_id=b.id
+			WHERE c.id=$1 AND b.id=$2
+				AND j.visit_on BETWEEN $3 AND $4
+				AND j.status = 1
+				GROUP BY (c.id)`,
+				[customer_id, branch_id, start, finish]
+			);
+
+			const formattedData = rows.map((obj) => {
+				return {
+					...obj,
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
+					),
+				};
 			});
+
+			const contracted_duration = formatDuration(
+				totals.rows[0]?.contracted_duration
+			);
+
+			const actual_duration = formatDuration(
+				totals.rows[0].actual_duration?.hours,
+				totals.rows[0].actual_duration?.minutes
+			);
+
+			const formattedTotals = {
+				contracted_duration,
+				actual_duration,
+			};
+
+			return res.json({
+				rows: formattedData,
+				totals: [formattedTotals],
+				labels: labels,
+			});
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
@@ -510,11 +529,15 @@ router.get(
 	"/reports/branch_detailed/:customer_id/:branch_id/:start/:finish",
 	checkAuth,
 	checkPermission("get:reports/branch_detailed"),
-	(req, res, next) => {
+	async (req, res, next) => {
 		const { customer_id, branch_id, start, finish } = req.params;
+
+		const client = await db.getClient();
+
 		const labels = ["Date", "Cleaner", "Planned duration", "Actual duration"];
-		db.query(
-			`SELECT j.id, j.visit_on, j.duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback
+		try {
+			const { rows } = await client.query(
+				`SELECT j.id, j.visit_on, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback
 			FROM jobs j
 			INNER JOIN workers w ON j.worker_id=w.id
 			INNER JOIN branches b ON j.branch_id=b.id
@@ -523,41 +546,54 @@ router.get(
 				AND j.visit_on BETWEEN $3 AND $4
 				AND j.status = 1
 				ORDER BY j.visit_on`,
-			[customer_id, branch_id, start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows, labels });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
-	}
-);
+				[customer_id, branch_id, start, finish]
+			);
 
-router.get(
-	"/reports/branch_total/:customer_id/:branch_id/:start/:finish",
-	checkAuth,
-	checkPermission("get:reports/branch_total"),
-	(req, res, next) => {
-		const { customer_id, branch_id, start, finish } = req.params;
-
-		db.query(
-			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			const totals = await client.query(
+				`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
 			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id INNER JOIN branches b ON j.branch_id=b.id
 			WHERE c.id=$1 AND b.id=$2
 				AND j.visit_on BETWEEN $3 AND $4
 				AND j.status = 1
 				GROUP BY (c.id)`,
-			[customer_id, branch_id, start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
+				[customer_id, branch_id, start, finish]
+			);
+
+			const formattedData = rows.map((obj) => {
+				return {
+					...obj,
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
+					),
+				};
 			});
+
+			const contracted_duration = formatDuration(
+				totals.rows[0]?.contracted_duration
+			);
+
+			const actual_duration = formatDuration(
+				totals.rows[0].actual_duration?.hours,
+				totals.rows[0].actual_duration?.minutes
+			);
+
+			const formattedTotals = {
+				contracted_duration,
+				actual_duration,
+			};
+
+			return res.json({
+				rows: formattedData,
+				totals: [formattedTotals],
+				labels: labels,
+			});
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
@@ -565,49 +601,64 @@ router.get(
 	"/general_reports/branch/:customer_id/:start/:finish",
 	checkAuth,
 	checkPermission("get:general_reports/branch"),
-	(req, res, next) => {
+	async (req, res, next) => {
 		const { start, finish, customer_id } = req.params;
 
-		db.query(
-			`SELECT b.id, b.address, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+		const client = await db.getClient();
+
+		try {
+			const { rows } = await client.query(
+				`SELECT b.id, b.address, SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
 			FROM jobs j INNER JOIN branches b ON j.branch_id=b.id INNER JOIN customers c ON j.customer_id=c.id
 			WHERE j.visit_on BETWEEN $1 AND $2
 				AND j.status = 1 AND c.id=$3
 			GROUP BY (b.id)
 			ORDER BY b.address`,
-			[start, finish, customer_id]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
-	}
-);
+				[start, finish, customer_id]
+			);
 
-router.get(
-	"/general_reports/branch_total/:customer_id/:start/:finish",
-	checkAuth,
-	checkPermission("get:general_reports/branch_total"),
-	(req, res, next) => {
-		const { start, finish, customer_id } = req.params;
-
-		db.query(
-			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+			const totals = await client.query(
+				`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
 			FROM jobs j INNER JOIN customers c ON j.customer_id=c.id
 			WHERE j.visit_on BETWEEN $1 AND $2
 				AND j.status = 1 AND c.id=$3`,
-			[start, finish, customer_id]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
+				[start, finish, customer_id]
+			);
+
+			const formattedData = rows.map((obj) => {
+				return {
+					...obj,
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
+					),
+				};
 			});
+
+			const contracted_duration = formatDuration(
+				totals.rows[0]?.contracted_duration
+			);
+
+			const actual_duration = formatDuration(
+				totals.rows[0].actual_duration?.hours,
+				totals.rows[0].actual_duration?.minutes
+			);
+
+			const formattedTotals = {
+				contracted_duration,
+				actual_duration,
+			};
+
+			return res.json({
+				rows: formattedData,
+				totals: [formattedTotals],
+			});
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 

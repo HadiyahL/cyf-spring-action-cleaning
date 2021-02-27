@@ -46,10 +46,7 @@ const GeneralCustomerResultPage = ({
 							setState={setState}
 							type={type}
 						/>
-						<GeneralCustomerTable
-							data={data.totals}
-							tableFooter={true}
-						/>
+						<GeneralCustomerTable data={data.totals} tableFooter={true} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

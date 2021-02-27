@@ -5,8 +5,12 @@ import { useHistory } from "react-router-dom";
 const GeneralBranchTable = ({ data, state, setState, tableFooter }) => {
 	const history = useHistory();
 
-	const formatDuration = (h = 0, m = 0) => {
-		return h.toString().padStart(2, "0") + ":" + m.toString().padStart(2, "0");
+	const formatDuration = ({ hours = 0, minutes = 0 }) => {
+		return (
+			hours.toString().padStart(2, "0") +
+			":" +
+			minutes.toString().padStart(2, "0")
+		);
 	};
 
 	const handleClick = (id, address) => {
@@ -23,7 +27,7 @@ const GeneralBranchTable = ({ data, state, setState, tableFooter }) => {
 
 	return (
 		<tbody>
-			{data.map(({ id, duration, actual_duration, address }) => (
+			{data.map(({ id, contracted_duration, actual_duration, address }) => (
 				<tr
 					key={id || 0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
 					role={id && "button"}
@@ -38,10 +42,10 @@ const GeneralBranchTable = ({ data, state, setState, tableFooter }) => {
 						{tableFooter ? "Total duration:" : address}
 					</th>
 					<td className={tableFooter && "font-weight-bold"}>
-						{formatDuration(duration)}
+						{formatDuration(contracted_duration)}
 					</td>
 					<td className={tableFooter && "font-weight-bold"}>
-						{formatDuration(actual_duration.hours, actual_duration.minutes)}
+						{formatDuration(actual_duration)}
 					</td>
 				</tr>
 			))}
