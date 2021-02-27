@@ -10,16 +10,20 @@ router.get(
 	"/reports/worker/:worker_id/:start/:finish",
 	checkAuth,
 	checkPermission("get:reports/worker"),
-	(req, res, next) => {
+	async (req, res, next) => {
 		const { worker_id, start, finish } = req.params;
+
+		const client = await db.getClient();
+
 		const labels = [
 			"Customer",
 			"Address",
 			"Planned duration",
 			"Actual duration",
 		];
-		db.query(
-			`SELECT c.name column_1, b.address column_2, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration 
+		try {
+			const { rows } = await client.query(
+				`SELECT c.name column_1, b.address column_2, SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration 
 			FROM jobs j
 			INNER JOIN workers w ON j.worker_id=w.id
 			INNER JOIN branches b ON j.branch_id=b.id
@@ -29,15 +33,55 @@ router.get(
 				AND j.status = 1
 			GROUP BY (b.address, c.name)
 			ORDER BY c.name`,
-			[worker_id, start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows, labels });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
+				[worker_id, start, finish]
+			);
+
+			const totals = await client.query(
+				`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			WHERE w.id=$1
+				AND j.visit_on BETWEEN $2 AND $3
+				AND j.status = 1
+			GROUP BY (w.id)`,
+				[worker_id, start, finish]
+			);
+
+			const formattedData = rows.map((obj) => {
+				return {
+					...obj,
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
+					),
+				};
 			});
+
+			const contracted_duration = formatDuration(
+				totals.rows[0]?.contracted_duration
+			);
+
+			const actual_duration = formatDuration(
+				totals.rows[0].actual_duration?.hours,
+				totals.rows[0].actual_duration?.minutes
+			);
+
+			const formattedTotals = {
+				contracted_duration,
+				actual_duration,
+			};
+
+			return res.json({
+				rows: formattedData,
+				totals: [formattedTotals],
+				labels: labels,
+			});
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
@@ -45,17 +89,20 @@ router.get(
 	"/reports/worker_detailed/:worker_id/:start/:finish",
 	checkAuth,
 	checkPermission("get:reports/worker_detailed"),
-	(req, res, next) => {
+	async (req, res, next) => {
 		const { worker_id, start, finish } = req.params;
+
+		const client = await db.getClient();
+
 		const labels = [
-			"Date",
 			"Customer",
 			"Address",
 			"Planned duration",
 			"Actual duration",
 		];
-		db.query(
-			`SELECT j.id, j.visit_on, c.name column_1, b.address column_2, j.duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback 
+		try {
+			const { rows } = await client.query(
+				`SELECT j.id, j.visit_on, c.name column_1, b.address column_2, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback 
 			FROM jobs j
 			INNER JOIN workers w ON j.worker_id=w.id
 			INNER JOIN branches b ON j.branch_id=b.id
@@ -64,42 +111,55 @@ router.get(
 				AND j.visit_on BETWEEN $2 AND $3
 				AND j.status = 1
 			ORDER BY j.visit_on`,
-			[worker_id, start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows, labels });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
-	}
-);
+				[worker_id, start, finish]
+			);
 
-router.get(
-	"/reports/worker_total/:worker_id/:start/:finish",
-	checkAuth,
-	checkPermission("get:reports/worker_total"),
-	(req, res, next) => {
-		const { worker_id, start, finish } = req.params;
+			const totals = await client.query(
+				`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
+		FROM jobs j
+		INNER JOIN workers w ON j.worker_id=w.id
+		WHERE w.id=$1
+			AND j.visit_on BETWEEN $2 AND $3
+			AND j.status = 1
+		GROUP BY (w.id)`,
+				[worker_id, start, finish]
+			);
 
-		db.query(
-			`SELECT SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
-			FROM jobs j
-			INNER JOIN workers w ON j.worker_id=w.id
-			WHERE w.id=$1
-				AND j.visit_on BETWEEN $2 AND $3
-				AND j.status = 1
-			GROUP BY (w.id)`,
-			[worker_id, start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
+			const formattedData = rows.map((obj) => {
+				return {
+					...obj,
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
+					),
+				};
 			});
+
+			const contracted_duration = formatDuration(
+				totals.rows[0]?.contracted_duration
+			);
+
+			const actual_duration = formatDuration(
+				totals.rows[0].actual_duration?.hours,
+				totals.rows[0].actual_duration?.minutes
+			);
+
+			const formattedTotals = {
+				contracted_duration,
+				actual_duration,
+			};
+
+			return res.json({
+				rows: formattedData,
+				totals: [formattedTotals],
+				labels: labels,
+			});
+		} catch (e) {
+			next(e);
+		} finally {
+			client.release();
+		}
 	}
 );
 
@@ -107,11 +167,14 @@ router.get(
 	"/general_reports/worker/:start/:finish",
 	checkAuth,
 	checkPermission("get:general_reports/worker"),
-	(req, res, next) => {
+	async (req, res, next) => {
 		const { start, finish } = req.params;
 
-		db.query(
-			`SELECT w.id, w.name worker, SUM(j.duration) duration, SUM(j.end_time - j.start_time) actual_duration
+		const client = await db.getClient();
+
+		try {
+			const { rows } = await client.query(
+			`SELECT w.id, w.name worker, SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
 			FROM jobs j
 			INNER JOIN workers w ON j.worker_id=w.id
 			WHERE j.visit_on BETWEEN $1 AND $2
@@ -119,15 +182,53 @@ router.get(
 			GROUP BY (w.id)
 			ORDER BY w.name`,
 			[start, finish]
-		)
-			.then(({ rows }) => {
-				return res.json({ rows });
-			})
-			.catch((e) => {
-				console.error(e);
-				next(e);
-			});
+		);
+
+		const totals = await client.query(
+			`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j
+			INNER JOIN workers w ON j.worker_id=w.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND j.status = 1
+			`,
+			[start, finish]
+		);
+
+		const formattedData = rows.map((obj) => {
+			return {
+				...obj,
+				contracted_duration: formatDuration(obj.contracted_duration),
+				actual_duration: formatDuration(
+					obj.actual_duration.hours,
+					obj.actual_duration.minutes
+				),
+			};
+		});
+
+		const contracted_duration = formatDuration(
+			totals.rows[0]?.contracted_duration
+		);
+
+		const actual_duration = formatDuration(
+			totals.rows[0].actual_duration?.hours,
+			totals.rows[0].actual_duration?.minutes
+		);
+
+		const formattedTotals = {
+			contracted_duration,
+			actual_duration,
+		};
+
+		return res.json({
+			rows: formattedData,
+			totals: [formattedTotals],
+		});
+	} catch (e) {
+		next(e);
+	} finally {
+		client.release();
 	}
+}
 );
 
 router.get(

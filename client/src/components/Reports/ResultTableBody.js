@@ -7,8 +7,12 @@ import WorkerFeedbackIconButton from "../WorkerJobs/WorkerFeedbackIconButton";
 const ResultTableBody = ({ data, detailed, tableFooter }) => {
 	const history = useHistory();
 
-	const formatDuration = (h = 0, m = 0) => {
-		return h.toString().padStart(2, "0") + ":" + m.toString().padStart(2, "0");
+	const formatDuration = ({ hours = 0, minutes = 0 }) => {
+		return (
+			hours.toString().padStart(2, "0") +
+			":" +
+			minutes.toString().padStart(2, "0")
+		);
 	};
 
 	const handleClick = (id) => {
@@ -30,7 +34,7 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 						visit_on,
 						column_1,
 						column_2,
-						duration,
+						contracted_duration,
 						actual_duration,
 						worker,
 						feedback,
@@ -56,10 +60,10 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 								{tableFooter ? "Total duration:" : column_2}
 							</td>
 							<td className={tableFooter && "font-weight-bold"}>
-								{formatDuration(duration)}
+								{formatDuration(contracted_duration)}
 							</td>
 							<td className={tableFooter && "font-weight-bold"}>
-								{formatDuration(actual_duration.hours, actual_duration.minutes)}
+								{formatDuration(actual_duration)}
 							</td>
 							<td className="text-center d-print-none">
 								{feedback && (
@@ -77,20 +81,25 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 	} else {
 		return (
 			<tbody>
-				{data.map(({ column_1, column_2, duration, actual_duration }, ind) => (
-					<tr key={ind}>
-						<th scope="row">{column_1}</th>
-						<td className={tableFooter && "font-weight-bold text-right"}>
-							{tableFooter ? "Total duration:" : column_2}
-						</td>
-						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(duration)}
-						</td>
-						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(actual_duration.hours, actual_duration.minutes)}
-						</td>
-					</tr>
-				))}
+				{data.map(
+					(
+						{ column_1, column_2, contracted_duration, actual_duration },
+						ind
+					) => (
+						<tr key={ind}>
+							<th scope="row">{column_1}</th>
+							<td className={tableFooter && "font-weight-bold text-right"}>
+								{tableFooter ? "Total duration:" : column_2}
+							</td>
+							<td className={tableFooter && "font-weight-bold"}>
+								{formatDuration(contracted_duration)}
+							</td>
+							<td className={tableFooter && "font-weight-bold"}>
+								{formatDuration(actual_duration)}
+							</td>
+						</tr>
+					)
+				)}
 			</tbody>
 		);
 	}
