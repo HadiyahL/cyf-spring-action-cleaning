@@ -7,13 +7,6 @@ export const formatDuration = (hours = 0, minutes = 0) => {
 	return `${hours < 0 || minutes < 0 ? "-" : " "}${h}:${m}`;
 };
 
-const formatDifference = ({ hours = 0, minutes = 0 }) => {
-	const h = Math.abs(hours).toString().padStart(2, "0");
-	const m = Math.abs(minutes).toString().padStart(2, "0");
-
-	return `${hours < 0 || minutes < 0 ? "-" : " "}${h}:${m}`;
-};
-
 const countDifference = (obj) => {
 	return DateTime.fromObject({
 		hour: obj.contracted_duration,
@@ -36,8 +29,9 @@ const formatDate = (dateISO, options) => {
 
 export const formatData = (arr, formatD = false, dif = false) => {
 	return arr.map((obj) => {
-		if (formatD) {
-			if (dif) {
+		if (dif) {
+			const diff = countDifference(obj);
+			if (formatD) {
 				return {
 					...obj,
 					visit_on: formatDate(obj.visit_on, {
@@ -50,11 +44,23 @@ export const formatData = (arr, formatD = false, dif = false) => {
 						obj.actual_duration.hours,
 						obj.actual_duration.minutes
 					),
-					difference: formatDifference(countDifference(obj)),
+					difference: formatDuration(diff.hours, diff.minutes),
 				};
 			} else {
 				return {
 					...obj,
+					contracted_duration: formatDuration(obj.contracted_duration),
+					actual_duration: formatDuration(
+						obj.actual_duration.hours,
+						obj.actual_duration.minutes
+					),
+					difference: formatDuration(diff.hours, diff.minutes),
+				};
+			}
+		} else {
+			if (formatD) {
+				return {
+					...obj,
 					visit_on: formatDate(obj.visit_on, {
 						year: "numeric",
 						month: "numeric",
@@ -65,18 +71,6 @@ export const formatData = (arr, formatD = false, dif = false) => {
 						obj.actual_duration.hours,
 						obj.actual_duration.minutes
 					),
-				};
-			}
-		} else {
-			if (dif) {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-					difference: formatDifference(countDifference(obj)),
 				};
 			} else {
 				return {
