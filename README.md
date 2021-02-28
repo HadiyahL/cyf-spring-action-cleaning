@@ -69,11 +69,8 @@ For application to work properly regarding user roles you have to properly confi
 | get:customers/select               | Get customers for selection list in job creation page     |
 | get:workers/select                 | Get workers for selection list in job creation page       |
 | get:general_reports/worker         | Get report for all workers                                |
-| get:general_reports/worker_total   | Get total duration for all workers report                 |
 | get:general_reports/customer       | Get report for all customers                              |
-| get:general_reports/customer_total | Get total duration for all customers report               |
 | get:general_reports/branch         | Get report for all customer branches                      |
-| get:general_reports/branch_total   | Get total duration for all customer branches report       |
 | get:jobs                           | Read jobs                                                 |
 | get:jobs/branches/:id              | Get jobs info for branch                                  |
 | get:jobs/customers/:id             | Get jobs info for customer                                |
@@ -82,13 +79,10 @@ For application to work properly regarding user roles you have to properly confi
 | get:jobs/workers/:id               | Get jobs info for worker                                  |
 | get:reports/customer               | Get reports for customer from start to end date           |
 | get:reports/customer_detailed      | Get reports for customer with dates                       |
-| get:reports/customer_total         | Get total hours worked for this customer                  |
 | get:reports/worker                 | Get hours worked for different addresses                  |
 | get:reports/worker_detailed        | Get reports for worker with dates                         |
-| get:reports/worker_total           | Get total hours worked by the worker for specified period |
 | get:reports/branch                 | Get hours worked for different addresses                  |
 | get:reports/branch_detailed        | Get reports for branch with dates                         |
-| get:reports/branch_total           | Get total hours for the branches for specified period     |
 | get:general_reports/general        | Get general report                                        |
 | get:workers                        | Read workers                                              |
 | get:workersById                    | Get worker by id                                          |
