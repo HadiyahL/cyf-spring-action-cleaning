@@ -1,7 +1,6 @@
 import { Router } from "express";
-import { DateTime } from "luxon";
 import db from "../db";
-import { formatDuration } from "../util/helpers";
+import { formatData, formatDuration } from "../util/helpers";
 import { checkAuth, checkPermission } from "../middleware";
 
 const router = new Router();
@@ -47,34 +46,13 @@ router.get(
 				[worker_id, start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 				labels: labels,
 			});
 		} catch (e) {
@@ -125,34 +103,13 @@ router.get(
 				[worker_id, start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 				labels: labels,
 			});
 		} catch (e) {
@@ -194,34 +151,13 @@ router.get(
 				[start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 			});
 		} catch (e) {
 			next(e);
@@ -271,34 +207,13 @@ router.get(
 				[customer_id, start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 				labels: labels,
 			});
 		} catch (e) {
@@ -349,34 +264,13 @@ router.get(
 				[customer_id, start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 				labels: labels,
 			});
 		} catch (e) {
@@ -415,34 +309,13 @@ router.get(
 				[start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 			});
 		} catch (e) {
 			next(e);
@@ -487,34 +360,13 @@ router.get(
 				[customer_id, branch_id, start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 				labels: labels,
 			});
 		} catch (e) {
@@ -559,34 +411,13 @@ router.get(
 				[customer_id, branch_id, start, finish]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 				labels: labels,
 			});
 		} catch (e) {
@@ -625,34 +456,13 @@ router.get(
 				[start, finish, customer_id]
 			);
 
-			const formattedData = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-				};
-			});
+			const formattedData = formatData(rows, true);
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-			};
+			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
 			return res.json({
 				rows: formattedData,
-				totals: [formattedTotals],
+				totals: formattedTotals,
 			});
 		} catch (e) {
 			next(e);
@@ -693,51 +503,25 @@ router.get(
 					AND j.status = 1`,
 				[start, finish]
 			);
+			console.log(rows);
+			console.log(totals.rows);
+			const formattedData = formatData(rows, true, true);
 
-			const dataWithTimeDifference = rows.map((obj) => {
-				return {
-					...obj,
-					contracted_duration: formatDuration(obj.contracted_duration),
-					actual_duration: formatDuration(
-						obj.actual_duration.hours,
-						obj.actual_duration.minutes
-					),
-					difference: DateTime.fromObject({
-						hour: obj.contracted_duration,
-					})
-						.diff(
-							DateTime.fromObject({
-								hour: obj.actual_duration.hours || 0,
-								minute: obj.actual_duration.minutes,
-							}),
-							["hours", "minutes"]
-						)
-						.toObject(),
-				};
-			});
+			const formattedTotals = rows.length
+				? formatData(totals.rows, false, true)
+				: [];
 
-			const contracted_duration = formatDuration(
-				totals.rows[0]?.contracted_duration
-			);
-
-			const actual_duration = formatDuration(
-				totals.rows[0].actual_duration?.hours,
-				totals.rows[0].actual_duration?.minutes
-			);
-
-			const diffHours = contracted_duration.hours - actual_duration.hours;
-			const diffMinutes = contracted_duration.minutes - actual_duration.minutes;
-			const difference = formatDuration(diffHours, diffMinutes);
-
-			const formattedTotals = {
-				contracted_duration,
-				actual_duration,
-				difference,
-			};
+			if (rows.length) {
+				const diffHours =
+					totals.rows[0]?.contracted_duration -
+					totals.rows[0].actual_duration?.hours;
+				const diffMinutes = -totals.rows[0].actual_duration?.minutes;
+				formattedTotals[0].difference = formatDuration(diffHours, diffMinutes);
+			}
 
 			return res.json({
-				generalData: dataWithTimeDifference,
-				generalTotals: [formattedTotals],
+				generalData: formattedData,
+				generalTotals: formattedTotals,
 			});
 		} catch (e) {
 			next(e);

@@ -5,14 +5,6 @@ import { useHistory } from "react-router-dom";
 const GeneralCustomerTable = ({ data, state, setState, tableFooter, type }) => {
 	const history = useHistory();
 
-	const formatDuration = ({ hours = 0, minutes = 0 }) => {
-		return (
-			hours.toString().padStart(2, "0") +
-			":" +
-			minutes.toString().padStart(2, "0")
-		);
-	};
-
 	const handleClick = (id, customer) => {
 		setState({ ...state, customer_id: id, customer });
 		if (type === "customer") {
@@ -50,10 +42,10 @@ const GeneralCustomerTable = ({ data, state, setState, tableFooter, type }) => {
 						{tableFooter ? "Total duration:" : customer}
 					</th>
 					<td className={tableFooter && "font-weight-bold"}>
-						{formatDuration(contracted_duration)}
+						{contracted_duration}
 					</td>
 					<td className={tableFooter && "font-weight-bold"}>
-						{formatDuration(actual_duration)}
+						{actual_duration}
 					</td>
 				</tr>
 			))}

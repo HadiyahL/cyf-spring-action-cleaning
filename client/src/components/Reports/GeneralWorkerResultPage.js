@@ -27,7 +27,7 @@ const GeneralWorkerResultPage = ({
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
 					{"Work duration from " + start_date + " to " + finish_date}
 				</h3>
-				{data.rows[0].duration === null ? (
+				{data.rows.length < 1 ? (
 					<p>No data for this period.</p>
 				) : (
 					<Table striped hover responsive>

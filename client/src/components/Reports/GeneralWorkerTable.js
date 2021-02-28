@@ -5,14 +5,6 @@ import { useHistory } from "react-router-dom";
 const GeneralWorkerTable = ({ data, state, setState, tableFooter }) => {
 	const history = useHistory();
 
-	const formatDuration = ({ hours = 0, minutes = 0 }) => {
-		return (
-			hours.toString().padStart(2, "0") +
-			":" +
-			minutes.toString().padStart(2, "0")
-		);
-	};
-
 	const handleClick = (id, worker) => {
 		setState({ ...state, worker_id: id, worker });
 		history.push("/result/worker"); // Go to <ReportPage>
@@ -42,10 +34,10 @@ const GeneralWorkerTable = ({ data, state, setState, tableFooter }) => {
 						{tableFooter ? "Total duration:" : worker}
 					</th>
 					<td className={tableFooter && "font-weight-bold"}>
-						{formatDuration(contracted_duration)}
+						{contracted_duration}
 					</td>
 					<td className={tableFooter && "font-weight-bold"}>
-						{formatDuration(actual_duration)}
+						{actual_duration}
 					</td>
 				</tr>
 			))}
