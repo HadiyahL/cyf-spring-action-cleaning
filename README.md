@@ -59,43 +59,43 @@ For application to work properly regarding user roles you have to properly confi
 - In the Users & Roles section create two new roles: `admin` and `worker`.
 - For the `admin` assign these permissions:
 
-| Permission                         | Description                                               |
-| ---------------------------------- | --------------------------------------------------------- |
-| get:branches                       | Get branches                                              |
-| get:branches/:branch_id            | Get branch by id                                          |
-| get:branches/customer/:customer_id | Get branches by customer id                               |
-| get:customers                      | Get customers                                             |
-| get:customers/:id                  | Get customer by id                                        |
-| get:customers/select               | Get customers for selection list in job creation page     |
-| get:workers/select                 | Get workers for selection list in job creation page       |
-| get:general_reports/worker         | Get report for all workers                                |
-| get:general_reports/customer       | Get report for all customers                              |
-| get:general_reports/branch         | Get report for all customer branches                      |
-| get:jobs                           | Read jobs                                                 |
-| get:jobs/branches/:id              | Get jobs info for branch                                  |
-| get:jobs/customers/:id             | Get jobs info for customer                                |
-| get:jobs/:id                       | Get job by id                                             |
-| get:jobs/range                     | Get jobs for specified date rang                          |
-| get:jobs/workers/:id               | Get jobs info for worker                                  |
-| get:reports/customer               | Get reports for customer from start to end date           |
-| get:reports/customer_detailed      | Get reports for customer with dates                       |
-| get:reports/worker                 | Get hours worked for different addresses                  |
-| get:reports/worker_detailed        | Get reports for worker with dates                         |
-| get:reports/branch                 | Get hours worked for different addresses                  |
-| get:reports/branch_detailed        | Get reports for branch with dates                         |
-| get:general_reports/general        | Get general report                                        |
-| get:workers                        | Read workers                                              |
-| get:workersById                    | Get worker by id                                          |
-| post:batch_of_jobs                 | Post multiple jobs at once                                |
-| post:branches/:customerId          | Post branch                                               |
-| post:customers                     | Post customer                                             |
-| post:jobs                          | Post job                                                  |
-| post:workers                       | Post workers                                              |
-| put:branches/:customerId/:branchId | Update branch                                             |
-| put:customers/:id                  | Update customer                                           |
-| put:jobs/:id                       | Update job                                                |
-| put:jobs/:id/log_time              | Update job start and end times                            |
-| put:workers                        | Update workers                                            |
+| Permission                         | Description                                           |
+| ---------------------------------- | ----------------------------------------------------- |
+| get:branches                       | Get branches                                          |
+| get:branches/:branch_id            | Get branch by id                                      |
+| get:branches/customer/:customer_id | Get branches by customer id                           |
+| get:customers                      | Get customers                                         |
+| get:customers/:id                  | Get customer by id                                    |
+| get:customers/select               | Get customers for selection list in job creation page |
+| get:workers/select                 | Get workers for selection list in job creation page   |
+| get:general_reports/worker         | Get report for all workers                            |
+| get:general_reports/customer       | Get report for all customers                          |
+| get:general_reports/branch         | Get report for all customer branches                  |
+| get:jobs                           | Read jobs                                             |
+| get:jobs/branches/:id              | Get jobs info for branch                              |
+| get:jobs/customers/:id             | Get jobs info for customer                            |
+| get:jobs/:id                       | Get job by id                                         |
+| get:jobs/range                     | Get jobs for specified date rang                      |
+| get:jobs/workers/:id               | Get jobs info for worker                              |
+| get:reports/customer               | Get reports for customer from start to end date       |
+| get:reports/customer_detailed      | Get reports for customer with dates                   |
+| get:reports/worker                 | Get hours worked for different addresses              |
+| get:reports/worker_detailed        | Get reports for worker with dates                     |
+| get:reports/branch                 | Get hours worked for different addresses              |
+| get:reports/branch_detailed        | Get reports for branch with dates                     |
+| get:general_reports/general        | Get general report                                    |
+| get:workers                        | Read workers                                          |
+| get:workersById                    | Get worker by id                                      |
+| post:batch_of_jobs                 | Post multiple jobs at once                            |
+| post:branches/:customerId          | Post branch                                           |
+| post:customers                     | Post customer                                         |
+| post:jobs                          | Post job                                              |
+| post:workers                       | Post workers                                          |
+| put:branches/:customerId/:branchId | Update branch                                         |
+| put:customers/:id                  | Update customer                                       |
+| put:jobs/:id                       | Update job                                            |
+| put:jobs/:id/log_time              | Update job start and end times                        |
+| put:workers                        | Update workers                                        |
 
 - For the `worker` role add these permissions:
 
