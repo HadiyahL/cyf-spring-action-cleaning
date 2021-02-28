@@ -1,17 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import { formatDate } from "../../util/helpers";
 
 const GeneralTable = ({ data, tableFooter, showFeedback }) => {
 	const history = useHistory();
-
-	const formatDuration = ({ hours = 0, minutes = 0 }) => {
-		const h = Math.abs(hours).toString().padStart(2, "0");
-		const m = Math.abs(minutes).toString().padStart(2, "0");
-
-		return `${hours < 0 || minutes < 0 ? "-" : " "}${h}:${m}`;
-	};
 
 	const handleClick = (id) => {
 		history.push(`/edit-jobs/${id}`);
@@ -46,27 +38,17 @@ const GeneralTable = ({ data, tableFooter, showFeedback }) => {
 					>
 						<td>{customer}</td>
 						<td>{branch}</td>
-						<td>
-							{tableFooter
-								? ""
-								: formatDate(visit_on, {
-										year: "numeric",
-										month: "numeric",
-										day: "numeric",
-								  })}
-						</td>
+						<td>{tableFooter ? "" : visit_on}</td>
 						<td className={tableFooter && "font-weight-bold"}>
 							{tableFooter ? "Totals:" : worker}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(contracted_duration)}
+							{contracted_duration}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(actual_duration)}
+							{actual_duration}
 						</td>
-						<td className={tableFooter && "font-weight-bold"}>
-							{formatDuration(difference)}
-						</td>
+						<td className={tableFooter && "font-weight-bold"}>{difference}</td>
 						{showFeedback && <td className="comment-width">{feedback}</td>}
 					</tr>
 				)

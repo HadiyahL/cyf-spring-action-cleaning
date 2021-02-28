@@ -12,29 +12,26 @@ const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 			detailed ? "_detailed" : ""
 		}/${id}/${start_date}/${finish_date}`
 	);
-	const total_data = useFetch(
-		`/reports/${type}_total/${id}/${start_date}/${finish_date}`
-	);
 
-	if (total_data.error || error) {
+	if (error) {
 		return <div>Error</div>;
-	} else if (total_data.isLoading || isLoading) {
+	} else if (isLoading) {
 		return <Spinner />;
-	} else if (total_data.data) {
+	} else if (data) {
 		return (
 			<Container>
 				<Title text={name} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
 					{"Work duration from " + start_date + " to " + finish_date}
 				</h3>
-				{total_data.data.rows.length < 1 ? (
+				{data.rows.length < 1 ? (
 					<p>No data for this period.</p>
 				) : (
 					<Table striped hover responsive>
 						<ResultTableHead labels={data.labels} detailed={detailed} />
 						<ResultTableBody data={data.rows} type={type} detailed={detailed} />
 						<ResultTableBody
-							data={total_data.data.rows}
+							data={data.totals}
 							tableFooter={true}
 							detailed={detailed}
 						/>

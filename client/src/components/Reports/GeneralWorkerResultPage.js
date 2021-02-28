@@ -15,22 +15,19 @@ const GeneralWorkerResultPage = ({
 	const { data, error, isLoading } = useFetch(
 		`/general_reports/worker/${start_date}/${finish_date}`
 	);
-	const total_data = useFetch(
-		`/general_reports/worker_total/${start_date}/${finish_date}`
-	);
 
-	if (total_data.error || error) {
+	if (error) {
 		return <div>Error</div>;
-	} else if (total_data.isLoading || isLoading) {
+	} else if (isLoading) {
 		return <Spinner />;
-	} else if (total_data.data) {
+	} else if (data) {
 		return (
 			<Container>
 				<Title text={"General report of cleaners"} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
 					{"Work duration from " + start_date + " to " + finish_date}
 				</h3>
-				{total_data.data.rows[0].duration === null ? (
+				{data.rows.length < 1 ? (
 					<p>No data for this period.</p>
 				) : (
 					<Table striped hover responsive>
@@ -43,10 +40,7 @@ const GeneralWorkerResultPage = ({
 							state={state}
 							setState={setState}
 						/>
-						<GeneralWorkerTable
-							data={total_data.data.rows}
-							tableFooter={true}
-						/>
+						<GeneralWorkerTable data={data.totals} tableFooter={true} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">
