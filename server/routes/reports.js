@@ -46,7 +46,7 @@ router.get(
 				[worker_id, start, finish]
 			);
 
-			const formattedData = formatData(rows, true);
+			const formattedData = formatData(rows);
 
 			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
@@ -151,7 +151,7 @@ router.get(
 				[start, finish]
 			);
 
-			const formattedData = formatData(rows, true);
+			const formattedData = formatData(rows);
 
 			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
@@ -207,7 +207,7 @@ router.get(
 				[customer_id, start, finish]
 			);
 
-			const formattedData = formatData(rows, true);
+			const formattedData = formatData(rows);
 
 			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
@@ -309,7 +309,7 @@ router.get(
 				[start, finish]
 			);
 
-			const formattedData = formatData(rows, true);
+			const formattedData = formatData(rows);
 
 			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
@@ -360,7 +360,7 @@ router.get(
 				[customer_id, branch_id, start, finish]
 			);
 
-			const formattedData = formatData(rows, true);
+			const formattedData = formatData(rows);
 
 			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
@@ -456,7 +456,7 @@ router.get(
 				[start, finish, customer_id]
 			);
 
-			const formattedData = formatData(rows, true);
+			const formattedData = formatData(rows);
 
 			const formattedTotals = rows.length ? formatData(totals.rows) : [];
 
