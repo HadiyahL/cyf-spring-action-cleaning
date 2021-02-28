@@ -503,8 +503,7 @@ router.get(
 					AND j.status = 1`,
 				[start, finish]
 			);
-			console.log(rows);
-			console.log(totals.rows);
+
 			const formattedData = formatData(rows, true, true);
 
 			const formattedTotals = rows.length
