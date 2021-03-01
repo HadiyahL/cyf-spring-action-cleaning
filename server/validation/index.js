@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
+import { PhoneNumberUtil } from "google-libphonenumber";
 
-const checkErrors = (req, res, next) => {
+export const checkErrors = (req, res, next) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return res.status(200).json({ success: false, errors: errors.array() });
@@ -8,4 +9,4 @@ const checkErrors = (req, res, next) => {
 	next();
 };
 
-export default checkErrors;
+export const phoneUtil = PhoneNumberUtil.getInstance();
