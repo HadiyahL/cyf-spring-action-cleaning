@@ -4,7 +4,7 @@ export const formatDuration = (hours = 0, minutes = 0) => {
 	const h = Math.abs(hours).toString().padStart(2, "0");
 	const m = Math.abs(minutes).toString().padStart(2, "0");
 
-	return `${hours < 0 || minutes < 0 ? "-" : " "}${h}:${m}`;
+	return `${hours < 0 || minutes < 0 ? "-" : ""}${h}:${m}`;
 };
 
 const countDifference = (obj) => {
