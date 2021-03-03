@@ -51,7 +51,7 @@ router.post(
 	"/jobs",
 	checkAuth,
 	checkPermission("post:jobs"),
-	validate.addJob,
+	validate.job,
 	jobsController.addJob
 );
 
@@ -66,7 +66,7 @@ router.put(
 	"/jobs/:id",
 	checkAuth,
 	checkPermission("put:jobs/:id"),
-	validate.editJob,
+	validate.job,
 	jobsController.editJob
 );
 

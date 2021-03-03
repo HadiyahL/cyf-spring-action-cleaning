@@ -29,6 +29,7 @@ const EditJob = () => {
 			end_time,
 			id,
 			feedback,
+			comment,
 		} = data.job;
 
 		const visitDate = visit_on.split("T")[0];
@@ -51,6 +52,7 @@ const EditJob = () => {
 					end_time={end_time}
 					job_id={id}
 					feedback={feedback}
+					comment={comment}
 				/>
 			</div>
 		);

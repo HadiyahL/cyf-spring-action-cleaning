@@ -46,6 +46,7 @@ CREATE TABLE jobs (
   branch_id       INT REFERENCES branches(id),
   worker_id       INT REFERENCES workers(id),
   details         VARCHAR(500) DEFAULT '',
+  comment         VARCHAR(500) DEFAULT '',
   visit_on        DATE NOT NULL,
   visit_time      TIME (0) NOT NULL,
   status          INT NOT NULL DEFAULT 0,

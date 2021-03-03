@@ -9,6 +9,7 @@ import GeneralTable from "./GeneralTable";
 const GeneralReportResultPage = ({ state, setState }) => {
 	const { start_date, finish_date } = state;
 	const [showFeedback, setShowFeedback] = useState(false);
+	const [showComment, setShowComment] = useState(true);
 	const { data, error, isLoading } = useFetch(
 		`/general_reports/general/${start_date}/${finish_date}`
 	);
@@ -16,6 +17,22 @@ const GeneralReportResultPage = ({ state, setState }) => {
 	const hideFeedbackHandle = () => {
 		setShowFeedback(!showFeedback);
 	};
+
+	const hideCommentHandle = () => {
+		setShowComment(!showComment);
+	};
+
+	const tableHeaderLabels = [];
+
+	const updateTableHeaderLabels = () => {
+		if (showComment) {
+			tableHeaderLabels.push("Comment");
+		}
+		if (showFeedback) {
+			tableHeaderLabels.push("Cleaner's Feedback");
+		}
+	};
+	updateTableHeaderLabels();
 
 	if (error) {
 		return <div>Error</div>;
@@ -33,35 +50,24 @@ const GeneralReportResultPage = ({ state, setState }) => {
 				) : (
 					<>
 						<div className="d-flex justify-content-end d-print-none">
-							{" "}
+							<Button color="link" size="sm" onClick={hideCommentHandle}>
+								{showComment ? "Hide comment" : "Show comment"}
+							</Button>
 							<Button color="link" size="sm" onClick={hideFeedbackHandle}>
 								{showFeedback ? "Hide feedback" : "Show feedback"}
 							</Button>
 						</div>
 						<Table striped hover responsive>
 							<ResultTableHead
-								labels={
-									showFeedback
-										? [
-												"Customer",
-												"Address",
-												"Date",
-												"Cleaner",
-												"Contracted Hours",
-												"Actual Hours",
-												"Difference In Hours",
-												"Cleaner's comment",
-										  ]
-										: [
-												"Customer",
-												"Address",
-												"Date",
-												"Cleaner",
-												"Contracted Hours",
-												"Actual Hours",
-												"Difference In Hours",
-										  ]
-								}
+								labels={[
+									"Customer",
+									"Address",
+									"Date",
+									"Cleaner",
+									"Contracted Hours",
+									"Actual Hours",
+									"Difference In Hours",
+								].concat(tableHeaderLabels)}
 								detailed={false}
 							/>
 							<GeneralTable
@@ -69,11 +75,13 @@ const GeneralReportResultPage = ({ state, setState }) => {
 								state={state}
 								setState={setState}
 								showFeedback={showFeedback}
+								showComment={showComment}
 							/>
 							<GeneralTable
 								data={data.generalTotals}
 								tableFooter={true}
 								showFeedback={showFeedback}
+								showComment={showComment}
 							/>
 						</Table>
 					</>

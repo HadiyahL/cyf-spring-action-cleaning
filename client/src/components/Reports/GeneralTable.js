@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-const GeneralTable = ({ data, tableFooter, showFeedback }) => {
+const GeneralTable = ({ data, tableFooter, showFeedback, showComment }) => {
 	const history = useHistory();
 
 	const handleClick = (id) => {
@@ -28,6 +28,7 @@ const GeneralTable = ({ data, tableFooter, showFeedback }) => {
 					contracted_duration,
 					feedback,
 					difference,
+					comment,
 				}) => (
 					<tr
 						key={id || 0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
@@ -49,6 +50,7 @@ const GeneralTable = ({ data, tableFooter, showFeedback }) => {
 							{actual_duration}
 						</td>
 						<td className={tableFooter && "font-weight-bold"}>{difference}</td>
+						{showComment && <td className="comment-width">{comment}</td>}
 						{showFeedback && <td className="comment-width">{feedback}</td>}
 					</tr>
 				)
@@ -61,6 +63,7 @@ GeneralTable.propTypes = {
 	data: PropTypes.array,
 	tableFooter: PropTypes.bool,
 	showFeedback: PropTypes.bool,
+	showComment: PropTypes.bool,
 };
 
 export default GeneralTable;
