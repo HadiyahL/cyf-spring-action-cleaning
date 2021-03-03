@@ -37,6 +37,7 @@ const Jobs = ({
 	end_time,
 	job_id,
 	feedback,
+	comment,
 }) => {
 	const [state, setState] = useState({
 		customer: customer || "",
@@ -46,6 +47,7 @@ const Jobs = ({
 		worker: worker || "",
 		worker_id: worker_id || "",
 		details: details || "",
+		comment: comment || "",
 		visit_on: visit_on || "",
 		visit_time: visit_time || "",
 		duration: duration || "1",
@@ -153,6 +155,13 @@ const Jobs = ({
 					state={state}
 					setState={setState}
 					error={errors.details}
+					name="details"
+				/>
+				<DetailsInput
+					state={state}
+					setState={setState}
+					error={errors.comment}
+					name="comment"
 				/>
 				<div className="border rounded-lg p-3 mb-5">
 					<div className="mb-2">
@@ -200,6 +209,7 @@ Jobs.propTypes = {
 	end_time: PropTypes.string,
 	job_id: PropTypes.number,
 	feedback: PropTypes.string,
+	comment: PropTypes.string,
 };
 
 export default Jobs;
