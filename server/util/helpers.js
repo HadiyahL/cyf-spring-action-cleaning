@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { DateTime, Duration } from "luxon";
 import { groupBy, values, map } from "lodash";
 
 export const formatDuration = (hours = 0, minutes = 0) => {
@@ -119,4 +119,15 @@ export const groupAddresses = (data) => {
 	);
 
 	return sortedByDate;
+};
+
+export const countDurationDifference = (ISOTime1, ISOTime2) => {
+	const duration1 = Duration.fromISOTime(ISOTime1);
+	const duration2 = Duration.fromISOTime(ISOTime2);
+
+	const difference = duration2
+		.minus(duration1.shiftTo("milliseconds").toObject())
+		.shiftTo("hours", "minutes");
+
+	return formatDuration(difference.values.hours, difference.values.minutes);
 };

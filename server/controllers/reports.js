@@ -1,5 +1,9 @@
 import db from "../db";
-import { formatData, formatDuration, groupAddresses } from "../util/helpers";
+import {
+	formatData,
+	groupAddresses,
+	countDurationDifference,
+} from "../util/helpers";
 
 const getWorkerReport = async (req, res, next) => {
 	const { worker_id, start, finish } = req.params;
@@ -459,11 +463,12 @@ const getGeneralReport = async (req, res, next) => {
 			: [];
 
 		if (rows.length) {
-			const diffHours =
-				totals.rows[0]?.contracted_duration -
-				totals.rows[0].actual_duration?.hours;
-			const diffMinutes = -totals.rows[0].actual_duration?.minutes;
-			formattedTotals[0].difference = formatDuration(diffHours, diffMinutes);
+			const [{ contracted_duration, actual_duration }] = formattedTotals;
+
+			formattedTotals[0].difference = countDurationDifference(
+				actual_duration,
+				contracted_duration
+			);
 		}
 
 		return res.json({
