@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { DateTime, Duration } from "luxon";
 
 // sort array of objects for specified field
 export const sortAscByABC = (array, field) => {
@@ -96,4 +96,56 @@ export const formatDate = (dateISO, options) => {
 	const date = new Date(dateISO);
 
 	return date.toLocaleDateString("en-GB", options);
+};
+
+export const totalsForAddress = (data) => {
+	const reduced = data.reduce(
+		(acc, cur) => {
+			acc.actual_duration = acc.actual_duration.plus(
+				Duration.fromISOTime(cur.actual_duration)
+			);
+
+			acc.contracted_duration = acc.contracted_duration.plus(
+				Duration.fromISOTime(cur.contracted_duration)
+			);
+
+			return acc;
+		},
+		{
+			actual_duration: Duration.fromISOTime("00:00"),
+			contracted_duration: Duration.fromISOTime("00:00"),
+		}
+	);
+
+	const difference = reduced.contracted_duration
+		.minus(reduced.actual_duration.shiftTo("milliseconds").toObject())
+		.shiftTo("hours", "minutes");
+
+	return {
+		actual_duration: formatDuration(
+			reduced.actual_duration.values.hours,
+			reduced.actual_duration.values.minutes
+		),
+		contracted_duration: formatDuration(
+			reduced.contracted_duration.values.hours,
+			reduced.contracted_duration.values.minutes
+		),
+		difference: formatDuration(
+			difference.values.hours,
+			difference.values.minutes
+		),
+	};
+};
+
+export const formatDuration = (hours = 0, minutes = 0) => {
+	const h = Math.abs(hours).toString().padStart(2, "0");
+	const m = Math.abs(minutes).toString().padStart(2, "0");
+
+	return `${hours < 0 || minutes < 0 ? "-" : ""}${h}:${m}`;
+};
+
+export const totalsForCustomer = (data) => {
+	const addressTotals = data.map((branch) => totalsForAddress(branch));
+	const customerTotals = totalsForAddress(addressTotals);
+	return customerTotals;
 };
