@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Table } from "reactstrap";
-import useFetch from "../../hooks/useFetch";
-import { Spinner, Title, BackButton } from "../index";
-import ResultTableHead from "./ResultTableHead";
+import useFetch from "../../../hooks/useFetch";
+import { Spinner, Title, BackButton } from "../../index";
+import ResultTableHead from "../ResultTableHead";
 import ResultBranchTableBody from "./ResultBranchTableBody";
 
 const BranchResultPage = ({ state }) => {

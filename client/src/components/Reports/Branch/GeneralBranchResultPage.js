@@ -1,19 +1,19 @@
 import React from "react";
 import { Container, Table } from "reactstrap";
-import { Spinner, Title, BackButton } from "../index";
+import { Spinner, Title, BackButton } from "../../index";
 import PropTypes from "prop-types";
-import useFetch from "../../hooks/useFetch";
-import ResultTableHead from "./ResultTableHead";
-import GeneralWorkerTable from "./GeneralWorkerTable";
+import useFetch from "../../../hooks/useFetch";
+import ResultTableHead from "../ResultTableHead";
+import GeneralBranchTable from "./GeneralBranchTable";
 
-const GeneralWorkerResultPage = ({
+const GeneralBranchResultPage = ({
 	start_date,
 	finish_date,
 	state,
 	setState,
 }) => {
 	const { data, error, isLoading } = useFetch(
-		`/general_reports/worker/${start_date}/${finish_date}`
+		`/general_reports/branch/${state.customer_id}/${start_date}/${finish_date}`
 	);
 
 	if (error) {
@@ -23,7 +23,7 @@ const GeneralWorkerResultPage = ({
 	} else if (data) {
 		return (
 			<Container>
-				<Title text={"General report of cleaners"} />
+				<Title text={`General report of ${state.customer} addresses`} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
 					{"Work duration from " + start_date + " to " + finish_date}
 				</h3>
@@ -32,15 +32,15 @@ const GeneralWorkerResultPage = ({
 				) : (
 					<Table striped hover responsive>
 						<ResultTableHead
-							labels={["Cleaner", "Planned duration", "Actual duration"]}
+							labels={["Address", "Planned duration", "Actual duration"]}
 							detailed={false}
 						/>
-						<GeneralWorkerTable
+						<GeneralBranchTable
 							data={data.rows}
 							state={state}
 							setState={setState}
 						/>
-						<GeneralWorkerTable data={data.totals} tableFooter={true} />
+						<GeneralBranchTable data={data.totals} tableFooter={true} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">
@@ -51,11 +51,11 @@ const GeneralWorkerResultPage = ({
 	}
 };
 
-GeneralWorkerResultPage.propTypes = {
+GeneralBranchResultPage.propTypes = {
 	start_date: PropTypes.string,
 	finish_date: PropTypes.string,
 	state: PropTypes.object,
 	setState: PropTypes.func,
 };
 
-export default GeneralWorkerResultPage;
+export default GeneralBranchResultPage;

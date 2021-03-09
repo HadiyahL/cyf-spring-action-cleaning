@@ -7,13 +7,13 @@ const GeneralWorkerTable = ({ data, state, setState, tableFooter }) => {
 
 	const handleClick = (id, worker) => {
 		setState({ ...state, worker_id: id, worker });
-		history.push("/result/worker"); // Go to <ReportPage>
+		history.push("/result/worker"); // Go to <ReportPage />
 	};
 
 	const handleKeyPress = (id, worker, e) => {
 		setState({ ...state, worker_id: id, worker });
 		if (e.key === "Enter" && e.target.tagName === "TR") {
-			history.push("/result/worker"); // Go to <ReportPage>
+			history.push("/result/worker"); // Go to <ReportPage />
 		}
 	};
 

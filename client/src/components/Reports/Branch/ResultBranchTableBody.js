@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import WorkerFeedbackIconButton from "../WorkerJobs/WorkerFeedbackIconButton";
+import WorkerFeedbackIconButton from "../../WorkerJobs/WorkerFeedbackIconButton";
 
 const ResultBranchTableBody = ({ data, detailed, tableFooter }) => {
 	const history = useHistory();

@@ -7,12 +7,12 @@ const ResultTableBody = ({ data, detailed, tableFooter }) => {
 	const history = useHistory();
 
 	const handleClick = (id) => {
-		history.push(`/edit-jobs/${id}`);
+		history.push(`/edit-jobs/${id}`); // Go to <EditJob>
 	};
 
 	const handleKeyPress = (id, e) => {
 		if (e.key === "Enter" && e.target.tagName === "TR") {
-			history.push(`/edit-jobs/${id}`);
+			history.push(`/edit-jobs/${id}`); // Go to <EditJob>
 		}
 	};
 

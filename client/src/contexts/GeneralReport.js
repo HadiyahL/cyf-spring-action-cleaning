@@ -7,6 +7,7 @@ export const GeneralReportProvider = ({ children }) => {
 	const [state, setState] = useState({
 		start_date: "",
 		finish_date: "",
+		byCustomer: true,
 	});
 
 	return (
