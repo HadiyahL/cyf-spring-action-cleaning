@@ -5,6 +5,7 @@ import useFetch from "../../../hooks/useFetch";
 import { Spinner, Title, BackButton } from "../../index";
 import ResultTableHead from "../ResultTableHead";
 import ResultBranchTableBody from "./ResultBranchTableBody";
+import TotalsRow from "../TotalsRow";
 
 const BranchResultPage = ({ state }) => {
 	const {
@@ -40,11 +41,7 @@ const BranchResultPage = ({ state }) => {
 					<Table striped hover responsive>
 						<ResultTableHead labels={data.labels} detailed={detailed} />
 						<ResultBranchTableBody data={data.rows} detailed={detailed} />
-						<ResultBranchTableBody
-							data={data.totals}
-							tableFooter={true}
-							detailed={detailed}
-						/>
+						<TotalsRow data={data.totals} detailed={detailed} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

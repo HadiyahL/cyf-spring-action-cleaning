@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import useFetch from "../../../hooks/useFetch";
 import ResultTableHead from "../ResultTableHead";
 import GeneralBranchTable from "./GeneralBranchTable";
+import TotalsRow from "../TotalsRow";
 
 const GeneralBranchResultPage = ({
 	start_date,
@@ -40,7 +41,7 @@ const GeneralBranchResultPage = ({
 							state={state}
 							setState={setState}
 						/>
-						<GeneralBranchTable data={data.totals} tableFooter={true} />
+						<TotalsRow data={data.totals} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

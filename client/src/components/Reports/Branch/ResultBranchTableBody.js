@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import WorkerFeedbackIconButton from "../../WorkerJobs/WorkerFeedbackIconButton";
 
-const ResultBranchTableBody = ({ data, detailed, tableFooter }) => {
+const ResultBranchTableBody = ({ data, detailed }) => {
 	const history = useHistory();
 
 	const handleClick = (id) => {
@@ -29,22 +29,16 @@ const ResultBranchTableBody = ({ data, detailed, tableFooter }) => {
 						feedback,
 					}) => (
 						<tr
-							key={id || 0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
-							role={id && "button"}
-							onClick={() => id && handleClick(id)}
-							onKeyPress={(e) => id && handleKeyPress(id, e)}
-							tabIndex={id && 0}
+							key={id}
+							role="button"
+							onClick={() => handleClick(id)}
+							onKeyPress={(e) => handleKeyPress(id, e)}
+							tabIndex={0}
 						>
-							<th scope="row">{visit_on ? visit_on : ""}</th>
-							<td className={tableFooter && "font-weight-bold text-right"}>
-								{tableFooter ? "Total duration:" : worker}
-							</td>
-							<td className={tableFooter && "font-weight-bold"}>
-								{contracted_duration}
-							</td>
-							<td className={tableFooter && "font-weight-bold"}>
-								{actual_duration}
-							</td>
+							<th scope="row">{visit_on}</th>
+							<td>{worker}</td>
+							<td>{contracted_duration}</td>
+							<td>{actual_duration}</td>
 							<td className="text-center d-print-none">
 								{feedback && (
 									<WorkerFeedbackIconButton
@@ -63,18 +57,9 @@ const ResultBranchTableBody = ({ data, detailed, tableFooter }) => {
 			<tbody>
 				{data.map(({ worker, contracted_duration, actual_duration }, ind) => (
 					<tr key={ind}>
-						<th
-							scope="row"
-							className={tableFooter && "font-weight-bold text-right"}
-						>
-							{tableFooter ? "Total duration:" : worker}
-						</th>
-						<td className={tableFooter && "font-weight-bold"}>
-							{contracted_duration}
-						</td>
-						<td className={tableFooter && "font-weight-bold"}>
-							{actual_duration}
-						</td>
+						<th scope="row">{worker}</th>
+						<td>{contracted_duration}</td>
+						<td>{actual_duration}</td>
 					</tr>
 				))}
 			</tbody>
@@ -84,7 +69,6 @@ const ResultBranchTableBody = ({ data, detailed, tableFooter }) => {
 
 ResultBranchTableBody.propTypes = {
 	data: PropTypes.array,
-	tableFooter: PropTypes.bool,
 	detailed: PropTypes.bool,
 };
 

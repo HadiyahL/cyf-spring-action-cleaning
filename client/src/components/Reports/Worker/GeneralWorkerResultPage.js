@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import useFetch from "../../../hooks/useFetch";
 import ResultTableHead from "../ResultTableHead";
 import GeneralWorkerTable from "./GeneralWorkerTable";
+import TotalsRow from "../TotalsRow";
 
 const GeneralWorkerResultPage = ({
 	start_date,
@@ -40,7 +41,7 @@ const GeneralWorkerResultPage = ({
 							state={state}
 							setState={setState}
 						/>
-						<GeneralWorkerTable data={data.totals} tableFooter={true} />
+						<TotalsRow data={data.totals} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

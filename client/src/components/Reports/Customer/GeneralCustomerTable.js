@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-const GeneralCustomerTable = ({ data, state, setState, tableFooter, type }) => {
+const GeneralCustomerTable = ({ data, state, setState, type }) => {
 	const history = useHistory();
 
 	const handleClick = (id, customer) => {
@@ -29,24 +29,15 @@ const GeneralCustomerTable = ({ data, state, setState, tableFooter, type }) => {
 		<tbody>
 			{data.map(({ id, contracted_duration, actual_duration, customer }) => (
 				<tr
-					key={id || 0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
-					role={id && "button"}
-					onClick={() => id && handleClick(id, customer)}
-					onKeyPress={(e) => id && handleKeyPress(id, customer, e)}
-					tabIndex={id && 0}
+					key={id}
+					role="button"
+					onClick={() => handleClick(id, customer)}
+					onKeyPress={(e) => handleKeyPress(id, customer, e)}
+					tabIndex={0}
 				>
-					<th
-						scope="row"
-						className={tableFooter && "font-weight-bold text-right"}
-					>
-						{tableFooter ? "Total duration:" : customer}
-					</th>
-					<td className={tableFooter && "font-weight-bold"}>
-						{contracted_duration}
-					</td>
-					<td className={tableFooter && "font-weight-bold"}>
-						{actual_duration}
-					</td>
+					<th scope="row">{customer}</th>
+					<td>{contracted_duration}</td>
+					<td>{actual_duration}</td>
 				</tr>
 			))}
 		</tbody>
@@ -55,7 +46,6 @@ const GeneralCustomerTable = ({ data, state, setState, tableFooter, type }) => {
 
 GeneralCustomerTable.propTypes = {
 	data: PropTypes.array,
-	tableFooter: PropTypes.bool,
 	state: PropTypes.object,
 	setState: PropTypes.func,
 	type: PropTypes.string,
