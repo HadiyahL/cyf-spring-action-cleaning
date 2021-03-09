@@ -54,7 +54,13 @@ const getWorkerReportDetailed = async (req, res, next) => {
 
 	const client = await db.getClient();
 
-	const labels = ["Customer", "Address", "Planned duration", "Actual duration"];
+	const labels = [
+		"Date",
+		"Customer",
+		"Address",
+		"Planned duration",
+		"Actual duration",
+	];
 	try {
 		const { rows } = await client.query(
 			`SELECT j.id, j.visit_on, c.name column_1, b.address column_2, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback 
