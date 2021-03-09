@@ -1,5 +1,5 @@
 import db from "../db";
-import { formatData, formatDuration } from "../util/helpers";
+import { formatData, formatDuration, groupAddresses } from "../util/helpers";
 
 const getWorkerReport = async (req, res, next) => {
 	const { worker_id, start, finish } = req.params;
@@ -468,6 +468,7 @@ const getGeneralReport = async (req, res, next) => {
 
 		return res.json({
 			generalData: formattedData,
+			groupedAddresses: groupAddresses(formattedData),
 			generalTotals: formattedTotals,
 		});
 	} catch (e) {
