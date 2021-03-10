@@ -34,11 +34,10 @@ const GeneralTableByCustomer = ({ data, showComment }) => {
 const GenerateAddressRows = ({ data, showComment, addressTotals }) => {
 	return (
 		<tbody>
-			{data.map((rowData, index) => (
+			{data.map((rowData) => (
 				<DataRow
 					data={rowData}
 					key={rowData.id || 0}
-					index={index}
 					showComment={showComment}
 				/>
 			))}

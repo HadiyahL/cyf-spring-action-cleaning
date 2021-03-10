@@ -14,7 +14,6 @@ const DataRow = ({
 		difference,
 		comment,
 	},
-	index,
 	showComment,
 }) => {
 	const history = useHistory();
@@ -36,8 +35,8 @@ const DataRow = ({
 			onKeyPress={(e) => id && handleKeyPress(id, e)}
 			tabIndex={id && 0}
 		>
-			<td>{index === 0 && customer}</td>
-			<td>{index === 0 && branch}</td>
+			<td>{customer}</td>
+			<td>{branch}</td>
 			<td>{visit_on}</td>
 			<td>{worker}</td>
 			<td>{contracted_duration}</td>
@@ -50,7 +49,6 @@ const DataRow = ({
 
 DataRow.propTypes = {
 	data: PropTypes.object,
-	index: PropTypes.number,
 	showComment: PropTypes.bool,
 };
 
