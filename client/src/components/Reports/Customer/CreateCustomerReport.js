@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Button, Label, Input } from "reactstrap";
-import { SelectCustomer } from "..";
-import SelectDateU from "./SelectDateU";
-import { CustomerReportContext } from "../../contexts/CustomerReport";
+import { SelectCustomer } from "../..";
+import SelectDateU from "../SelectDateU";
+import { CustomerReportContext } from "../../../contexts/CustomerReport";
 
 const CreateCustomerReport = () => {
 	const [state, setState] = useContext(CustomerReportContext);

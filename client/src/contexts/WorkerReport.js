@@ -9,7 +9,7 @@ export const WorkerReportProvider = ({ children }) => {
 		worker_id: "",
 		start_date: "",
 		finish_date: "",
-		detailed: false,
+		detailed: true,
 	});
 
 	return (

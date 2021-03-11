@@ -10,8 +10,7 @@ const DetailsInput = ({ state, setState, error, name }) => {
 		});
 	};
 
-	const label =
-		name === "comment" ? "Comment (for invoice purposes)" : "Job details";
+	const label = name === "comment" ? "Comment" : "Job details";
 
 	return (
 		<div className="mb-3 mb-md-4 mb-lg-5">
@@ -23,6 +22,11 @@ const DetailsInput = ({ state, setState, error, name }) => {
 					type="textarea"
 					name={name}
 					id={name}
+					placeholder={
+						name === "comment"
+							? "Internal comment for invoice purposes"
+							: "Anything the cleaner should know about this particular job"
+					}
 					value={state[name] || ""}
 					onChange={handleChange}
 					maxLength={500}

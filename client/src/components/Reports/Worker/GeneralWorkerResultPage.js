@@ -1,10 +1,11 @@
 import React from "react";
 import { Container, Table } from "reactstrap";
-import { Spinner, Title, BackButton } from "../index";
+import { Spinner, Title, BackButton } from "../..";
 import PropTypes from "prop-types";
-import useFetch from "../../hooks/useFetch";
-import ResultTableHead from "./ResultTableHead";
+import useFetch from "../../../hooks/useFetch";
+import ResultTableHead from "../ResultTableHead";
 import GeneralWorkerTable from "./GeneralWorkerTable";
+import TotalsRow from "../TotalsRow";
 
 const GeneralWorkerResultPage = ({
 	start_date,
@@ -25,7 +26,7 @@ const GeneralWorkerResultPage = ({
 			<Container>
 				<Title text={"General report of cleaners"} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-					{"Work duration from " + start_date + " to " + finish_date}
+					Work duration from {start_date} to {finish_date}
 				</h3>
 				{data.rows.length < 1 ? (
 					<p>No data for this period.</p>
@@ -40,7 +41,7 @@ const GeneralWorkerResultPage = ({
 							state={state}
 							setState={setState}
 						/>
-						<GeneralWorkerTable data={data.totals} tableFooter={true} />
+						<TotalsRow data={data.totals} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import { CustomerReportContext } from "../contexts/CustomerReport";
 import { BranchReportContext } from "../contexts/BranchReport";
-import GeneralCustomerResultPage from "../components/Reports/GeneralCustomerResultPage";
+import GeneralCustomerResultPage from "../components/Reports/Customer/GeneralCustomerResultPage";
 
 const GeneralCustomerReport = () => {
 	const { type } = useParams();

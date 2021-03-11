@@ -1,10 +1,11 @@
 import React from "react";
 import { Container, Table } from "reactstrap";
-import { Spinner, Title, BackButton } from "../index";
+import { Spinner, Title, BackButton } from "../../index";
 import PropTypes from "prop-types";
-import useFetch from "../../hooks/useFetch";
-import ResultTableHead from "./ResultTableHead";
+import useFetch from "../../../hooks/useFetch";
+import ResultTableHead from "../ResultTableHead";
 import GeneralCustomerTable from "./GeneralCustomerTable";
+import TotalsRow from "../TotalsRow";
 
 const GeneralCustomerResultPage = ({
 	start_date,
@@ -46,7 +47,7 @@ const GeneralCustomerResultPage = ({
 							setState={setState}
 							type={type}
 						/>
-						<GeneralCustomerTable data={data.totals} tableFooter={true} />
+						<TotalsRow data={data.totals} />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

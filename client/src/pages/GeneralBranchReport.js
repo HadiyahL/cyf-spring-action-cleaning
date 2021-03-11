@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { BranchReportContext } from "../contexts/BranchReport";
-import GeneralBranchResultPage from "../components/Reports/GeneralBranchResultPage";
+import GeneralBranchResultPage from "../components/Reports/Branch/GeneralBranchResultPage";
 
 const GeneralBranchReport = () => {
 	const [state, setState] = useContext(BranchReportContext);

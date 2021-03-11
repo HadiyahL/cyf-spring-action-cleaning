@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { WorkerReportContext } from "../contexts/WorkerReport";
-import GeneralWorkerResultPage from "../components/Reports/GeneralWorkerResultPage";
+import { GeneralWorkerResultPage } from "../components";
 
 const GeneralWorkerReport = () => {
 	const [state, setState] = useContext(WorkerReportContext);

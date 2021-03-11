@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import { GeneralReportContext } from "../contexts/GeneralReport";
-import GeneralReportResultPage from "../components/Reports/GeneralReportResultPage";
+import GeneralReportResultPage from "../components/Reports/General/GeneralReportResultPage";
 
 const GeneralReportResult = () => {
 	const [state, setState] = useContext(GeneralReportContext);

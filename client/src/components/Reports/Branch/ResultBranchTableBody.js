@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
-import WorkerFeedbackIconButton from "../WorkerJobs/WorkerFeedbackIconButton";
+import WorkerFeedbackIconButton from "../../WorkerJobs/WorkerFeedbackIconButton";
 
-const ResultTableBody = ({ data, detailed }) => {
+const ResultBranchTableBody = ({ data, detailed }) => {
 	const history = useHistory();
 
 	const handleClick = (id) => {
@@ -23,11 +23,9 @@ const ResultTableBody = ({ data, detailed }) => {
 					({
 						id,
 						visit_on,
-						column_1,
-						column_2,
+						worker,
 						contracted_duration,
 						actual_duration,
-						worker,
 						feedback,
 					}) => (
 						<tr
@@ -38,8 +36,7 @@ const ResultTableBody = ({ data, detailed }) => {
 							tabIndex={0}
 						>
 							<th scope="row">{visit_on}</th>
-							<td>{column_1}</td>
-							<td>{column_2}</td>
+							<td>{worker}</td>
 							<td>{contracted_duration}</td>
 							<td>{actual_duration}</td>
 							<td className="text-center d-print-none">
@@ -58,26 +55,21 @@ const ResultTableBody = ({ data, detailed }) => {
 	} else {
 		return (
 			<tbody>
-				{data.map(
-					(
-						{ column_1, column_2, contracted_duration, actual_duration },
-						ind
-					) => (
-						<tr key={ind}>
-							<th scope="row">{column_1}</th>
-							<td>{column_2}</td>
-							<td>{contracted_duration}</td>
-							<td>{actual_duration}</td>
-						</tr>
-					)
-				)}
+				{data.map(({ worker, contracted_duration, actual_duration }, ind) => (
+					<tr key={ind}>
+						<th scope="row">{worker}</th>
+						<td>{contracted_duration}</td>
+						<td>{actual_duration}</td>
+					</tr>
+				))}
 			</tbody>
 		);
 	}
 };
 
-ResultTableBody.propTypes = {
+ResultBranchTableBody.propTypes = {
 	data: PropTypes.array,
 	detailed: PropTypes.bool,
 };
-export default ResultTableBody;
+
+export default ResultBranchTableBody;

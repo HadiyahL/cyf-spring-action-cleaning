@@ -27,7 +27,7 @@ const WorkerJobInfo = ({
 					month: "long",
 					day: "numeric",
 				})}{" "}
-				at {visit_time}
+				at <strong>{visit_time}</strong>
 			</p>
 			<p className="worker-info-text-size">
 				<strong>Contact name: </strong>

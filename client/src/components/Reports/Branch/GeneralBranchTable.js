@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-const GeneralBranchTable = ({ data, state, setState, tableFooter }) => {
+const GeneralBranchTable = ({ data, state, setState }) => {
 	const history = useHistory();
 
 	const handleClick = (id, address) => {
@@ -21,24 +21,15 @@ const GeneralBranchTable = ({ data, state, setState, tableFooter }) => {
 		<tbody>
 			{data.map(({ id, contracted_duration, actual_duration, address }) => (
 				<tr
-					key={id || 0} //In the case of displaying the final line, use 0 for the key and prohibit actions.
-					role={id && "button"}
-					onClick={() => id && handleClick(id, address)}
-					onKeyPress={(e) => id && handleKeyPress(id, address, e)}
-					tabIndex={id && 0}
+					key={id}
+					role="button"
+					onClick={() => handleClick(id, address)}
+					onKeyPress={(e) => handleKeyPress(id, address, e)}
+					tabIndex={0}
 				>
-					<th
-						scope="row"
-						className={tableFooter && "font-weight-bold text-right"}
-					>
-						{tableFooter ? "Total duration:" : address}
-					</th>
-					<td className={tableFooter && "font-weight-bold"}>
-						{contracted_duration}
-					</td>
-					<td className={tableFooter && "font-weight-bold"}>
-						{actual_duration}
-					</td>
+					<th scope="row">{address}</th>
+					<td>{contracted_duration}</td>
+					<td>{actual_duration}</td>
 				</tr>
 			))}
 		</tbody>
@@ -47,7 +38,6 @@ const GeneralBranchTable = ({ data, state, setState, tableFooter }) => {
 
 GeneralBranchTable.propTypes = {
 	data: PropTypes.array,
-	tableFooter: PropTypes.bool,
 	state: PropTypes.object,
 	setState: PropTypes.func,
 };

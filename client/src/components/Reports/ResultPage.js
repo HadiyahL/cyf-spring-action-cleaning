@@ -5,6 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import { Spinner, Title, BackButton } from "../index";
 import ResultTableHead from "./ResultTableHead";
 import ResultTableBody from "./ResultTableBody";
+import TotalsRow from "./TotalsRow";
 
 const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 	const { data, error, isLoading } = useFetch(
@@ -22,7 +23,7 @@ const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 			<Container>
 				<Title text={name} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-					{"Work duration from " + start_date + " to " + finish_date}
+					Work duration from {start_date} to {finish_date}
 				</h3>
 				{data.rows.length < 1 ? (
 					<p>No data for this period.</p>
@@ -30,11 +31,7 @@ const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 					<Table striped hover responsive>
 						<ResultTableHead labels={data.labels} detailed={detailed} />
 						<ResultTableBody data={data.rows} type={type} detailed={detailed} />
-						<ResultTableBody
-							data={data.totals}
-							tableFooter={true}
-							detailed={detailed}
-						/>
+						<TotalsRow data={data.totals} detailed={detailed} forResultTable />
 					</Table>
 				)}
 				<div className="d-flex justify-content-end mt-5">

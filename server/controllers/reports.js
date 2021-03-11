@@ -1,5 +1,10 @@
 import db from "../db";
-import { formatData, formatDuration } from "../util/helpers";
+import {
+	formatData,
+	groupAddresses,
+	groupWorkers,
+	countDurationDifference,
+} from "../util/helpers";
 
 const getWorkerReport = async (req, res, next) => {
 	const { worker_id, start, finish } = req.params;
@@ -54,7 +59,13 @@ const getWorkerReportDetailed = async (req, res, next) => {
 
 	const client = await db.getClient();
 
-	const labels = ["Customer", "Address", "Planned duration", "Actual duration"];
+	const labels = [
+		"Date",
+		"Customer",
+		"Address",
+		"Planned duration",
+		"Actual duration",
+	];
 	try {
 		const { rows } = await client.query(
 			`SELECT j.id, j.visit_on, c.name column_1, b.address column_2, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, w.name worker, j.feedback 
@@ -453,15 +464,18 @@ const getGeneralReport = async (req, res, next) => {
 			: [];
 
 		if (rows.length) {
-			const diffHours =
-				totals.rows[0]?.contracted_duration -
-				totals.rows[0].actual_duration?.hours;
-			const diffMinutes = -totals.rows[0].actual_duration?.minutes;
-			formattedTotals[0].difference = formatDuration(diffHours, diffMinutes);
+			const [{ contracted_duration, actual_duration }] = formattedTotals;
+
+			formattedTotals[0].difference = countDurationDifference(
+				actual_duration,
+				contracted_duration
+			);
 		}
 
 		return res.json({
 			generalData: formattedData,
+			groupedAddresses: groupAddresses(formattedData),
+			groupedWorkers: groupWorkers(formattedData),
 			generalTotals: formattedTotals,
 		});
 	} catch (e) {
