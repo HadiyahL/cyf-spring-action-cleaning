@@ -3,10 +3,10 @@ import { Table, Button } from "reactstrap";
 import PropTypes from "prop-types";
 
 import ResultTableHead from "../ResultTableHead";
-import GeneralTableByCleaner from "./GeneralTableByCleaner";
+import GeneralTableByDate from "./GeneralTableByDate";
 import TotalsRow from "./TotalsRow";
 
-const GeneralReportByCleaner = ({ data }) => {
+const GeneralReportByDate = ({ data }) => {
 	const [showComment, setShowComment] = useState(false);
 
 	const hideCommentHandle = () => {
@@ -34,9 +34,9 @@ const GeneralReportByCleaner = ({ data }) => {
 			<Table striped hover responsive>
 				<ResultTableHead
 					labels={[
+						"Date",
 						"Customer",
 						"Address",
-						"Date",
 						"Cleaner",
 						"Contracted Hours",
 						"Actual Hours",
@@ -44,10 +44,7 @@ const GeneralReportByCleaner = ({ data }) => {
 					].concat(tableHeaderLabels)}
 					detailed={false}
 				/>
-				<GeneralTableByCleaner
-					data={data.generalData}
-					showComment={showComment}
-				/>
+				<GeneralTableByDate data={data.generalData} showComment={showComment} />
 				<tbody>
 					<TotalsRow data={generalTotals} showComment={showComment} />
 				</tbody>
@@ -56,8 +53,8 @@ const GeneralReportByCleaner = ({ data }) => {
 	);
 };
 
-GeneralReportByCleaner.propTypes = {
+GeneralReportByDate.propTypes = {
 	data: PropTypes.object,
 };
 
-export default GeneralReportByCleaner;
+export default GeneralReportByDate;

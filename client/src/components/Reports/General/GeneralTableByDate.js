@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-const GeneralTableByCleaner = ({ data, showComment }) => {
+const GeneralTableByDate = ({ data, showComment }) => {
 	const history = useHistory();
 
 	const handleClick = (id) => {
@@ -36,9 +36,9 @@ const GeneralTableByCleaner = ({ data, showComment }) => {
 						onKeyPress={(e) => handleKeyPress(id, e)}
 						tabIndex={0}
 					>
+						<td>{visit_on}</td>
 						<td>{customer}</td>
 						<td>{branch}</td>
-						<td>{visit_on}</td>
 						<td>{worker}</td>
 						<td>{contracted_duration}</td>
 						<td>{actual_duration}</td>
@@ -51,9 +51,9 @@ const GeneralTableByCleaner = ({ data, showComment }) => {
 	);
 };
 
-GeneralTableByCleaner.propTypes = {
+GeneralTableByDate.propTypes = {
 	data: PropTypes.array,
 	showComment: PropTypes.bool,
 };
 
-export default GeneralTableByCleaner;
+export default GeneralTableByDate;
