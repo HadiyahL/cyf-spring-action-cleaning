@@ -15,6 +15,8 @@ const DataRow = ({
 		comment,
 	},
 	showComment,
+	forWorker,
+	firstRow,
 }) => {
 	const history = useHistory();
 
@@ -30,15 +32,15 @@ const DataRow = ({
 
 	return (
 		<tr
-			role={id && "button"}
-			onClick={() => id && handleClick(id)}
-			onKeyPress={(e) => id && handleKeyPress(id, e)}
-			tabIndex={id && 0}
+			role={"button"}
+			onClick={() => handleClick(id)}
+			onKeyPress={(e) => handleKeyPress(id, e)}
+			tabIndex={0}
 		>
-			<td>{customer}</td>
-			<td>{branch}</td>
-			<td>{visit_on}</td>
-			<td>{worker}</td>
+			<td>{forWorker ? firstRow && worker : customer}</td>
+			<td>{forWorker ? visit_on : branch}</td>
+			<td>{forWorker ? customer : visit_on}</td>
+			<td>{forWorker ? branch : worker}</td>
 			<td>{contracted_duration}</td>
 			<td>{actual_duration}</td>
 			<td>{difference}</td>
@@ -50,6 +52,8 @@ const DataRow = ({
 DataRow.propTypes = {
 	data: PropTypes.object,
 	showComment: PropTypes.bool,
+	forWorker: PropTypes.bool,
+	firstRow: PropTypes.bool,
 };
 
 export default DataRow;
