@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TotalsRow = ({ showComment, data, title = "Total" }) => (
-	<tr>
+	<tr className="dark-row">
 		<td></td>
 		<td></td>
 		<td></td>
