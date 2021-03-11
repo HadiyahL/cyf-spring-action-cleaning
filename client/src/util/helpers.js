@@ -101,13 +101,13 @@ export const formatDate = (dateISO, options) => {
 export const totalsForAddress = (data) => {
 	const reduced = data.reduce(
 		(acc, cur) => {
-			acc.actual_duration = acc.actual_duration.plus(
-				Duration.fromISOTime(cur.actual_duration)
-			);
+			acc.actual_duration = acc.actual_duration
+				.plus(Duration.fromISOTime(cur.actual_duration))
+				.normalize();
 
-			acc.contracted_duration = acc.contracted_duration.plus(
-				Duration.fromISOTime(cur.contracted_duration)
-			);
+			acc.contracted_duration = acc.contracted_duration
+				.plus(Duration.fromISOTime(cur.contracted_duration))
+				.normalize();
 
 			return acc;
 		},
