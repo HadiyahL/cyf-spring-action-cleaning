@@ -35,11 +35,7 @@ const GenerateAddressRows = ({ data, showComment, addressTotals }) => {
 	return (
 		<tbody>
 			{data.map((rowData) => (
-				<DataRow
-					data={rowData}
-					key={rowData.id || 0}
-					showComment={showComment}
-				/>
+				<DataRow data={rowData} key={rowData.id} showComment={showComment} />
 			))}
 			<TotalsRow
 				title="Total for address"
