@@ -2,6 +2,7 @@ import db from "../db";
 import {
 	formatData,
 	groupAddresses,
+	groupWorkers,
 	countDurationDifference,
 } from "../util/helpers";
 
@@ -474,6 +475,7 @@ const getGeneralReport = async (req, res, next) => {
 		return res.json({
 			generalData: formattedData,
 			groupedAddresses: groupAddresses(formattedData),
+			groupedWorkers: groupWorkers(formattedData),
 			generalTotals: formattedTotals,
 		});
 	} catch (e) {

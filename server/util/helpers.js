@@ -121,6 +121,11 @@ export const groupAddresses = (data) => {
 	return sortedByDate;
 };
 
+export const groupWorkers = (data) =>
+	groupBy(data, function (item) {
+		return item.worker;
+	});
+
 export const countDurationDifference = (ISOTime1, ISOTime2) => {
 	const duration1 = Duration.fromISOTime(ISOTime1);
 	const duration2 = Duration.fromISOTime(ISOTime2);
