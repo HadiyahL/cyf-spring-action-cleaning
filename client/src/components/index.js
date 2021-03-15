@@ -18,6 +18,7 @@ export { default as SelectEndTime } from "./CreateJob/SelectEndTime";
 export { default as SelectDuration } from "./CreateJob/SelectDuration";
 export { default as UnitPriceInput } from "./CreateJob/UnitPriceInput";
 export { default as DetailsInput } from "./CreateJob/DetailsInput";
+export { default as CleaningServiceInput } from "./CreateJob/CleaningServiceInput";
 export { default as WorkerFeedback } from "./CreateJob/WorkerFeedback";
 export { default as SuccessAlert } from "./UI/SuccessAlert";
 export { default as AddNewButton } from "./UI/AddNewButton";

@@ -177,6 +177,7 @@ const addJob = (req, res, next) => {
 		visit_on,
 		duration,
 		comment,
+		cleaning_service,
 	} = req.body;
 	const visit_time = changeEmptyStringToNull(req.body.visit_time);
 	const start_time = changeEmptyStringToNull(req.body.start_time);
@@ -187,8 +188,8 @@ const addJob = (req, res, next) => {
 	const status = start_time && end_time ? 1 : 0;
 
 	db.query(
-		`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, unit_price, date_created, duration, start_time, end_time, status, comment)
-		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
+		`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, unit_price, date_created, duration, start_time, end_time, status, comment, cleaning_service)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
 		[
 			customer_id,
 			branch_id,
@@ -203,6 +204,7 @@ const addJob = (req, res, next) => {
 			end_time,
 			status,
 			comment,
+			cleaning_service,
 		]
 	)
 		.then(({ rowCount }) => {
@@ -275,6 +277,7 @@ const editJob = async (req, res, next) => {
 		visit_on,
 		duration,
 		comment,
+		cleaning_service,
 	} = req.body;
 
 	const visit_time = changeEmptyStringToNull(req.body.visit_time);
@@ -290,8 +293,8 @@ const editJob = async (req, res, next) => {
 		await client.query(
 			`
 			UPDATE jobs 
-			SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, unit_price=$7, duration=$8, start_time=$9, end_time=$10, status=$11, comment=$12
-			WHERE id=$13
+			SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, unit_price=$7, duration=$8, start_time=$9, end_time=$10, status=$11, comment=$12, cleaning_service=$13
+			WHERE id=$14
 		`,
 			[
 				customer_id,
@@ -306,6 +309,7 @@ const editJob = async (req, res, next) => {
 				end_time,
 				status,
 				comment,
+				cleaning_service,
 				id,
 			]
 		);

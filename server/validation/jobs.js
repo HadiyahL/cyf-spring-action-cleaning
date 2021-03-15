@@ -11,8 +11,10 @@ const job = [
 	body("worker", "Cleaner is required").not().isEmpty(),
 	body("details", "Details are required").exists(),
 	body("details", "Max length is 500 characters").isLength({ max: 500 }),
-	body("comment", "Comment are required").exists(),
+	body("comment", "Comment is required").exists(),
 	body("comment", "Max length is 500 characters").isLength({ max: 500 }),
+	body("cleaning_service", "Cleaning service is required").exists(),
+	body("cleaning_service", "Max length is 50 characters").isLength({ max: 50 }),
 	body("visit_on", "Visit date is required").not().isEmpty(),
 	body(
 		"visit_time",

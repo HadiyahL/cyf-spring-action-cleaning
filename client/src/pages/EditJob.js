@@ -30,6 +30,7 @@ const EditJob = () => {
 			id,
 			feedback,
 			comment,
+			cleaning_service,
 		} = data.job;
 
 		const visitDate = visit_on.split("T")[0];
@@ -53,6 +54,7 @@ const EditJob = () => {
 					job_id={id}
 					feedback={feedback}
 					comment={comment}
+					cleaning_service={cleaning_service}
 				/>
 			</div>
 		);
