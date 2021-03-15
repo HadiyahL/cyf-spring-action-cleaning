@@ -181,13 +181,13 @@ const addJob = (req, res, next) => {
 	const visit_time = changeEmptyStringToNull(req.body.visit_time);
 	const start_time = changeEmptyStringToNull(req.body.start_time);
 	const end_time = changeEmptyStringToNull(req.body.end_time);
-	const pay_rate = changeEmptyStringToNull(req.body.pay_rate);
+	const unit_price = changeEmptyStringToNull(req.body.unit_price);
 
 	const date = new Date();
 	const status = start_time && end_time ? 1 : 0;
 
 	db.query(
-		`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, pay_rate, date_created, duration, start_time, end_time, status, comment)
+		`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, unit_price, date_created, duration, start_time, end_time, status, comment)
 		VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`,
 		[
 			customer_id,
@@ -196,7 +196,7 @@ const addJob = (req, res, next) => {
 			details,
 			visit_on,
 			visit_time,
-			pay_rate,
+			unit_price,
 			date,
 			duration,
 			start_time,
@@ -233,11 +233,11 @@ const addBatchOfJobs = async (req, res, next) => {
 				details,
 				visit_on,
 				visit_time,
-				pay_rate,
+				unit_price,
 				duration,
 			}) => {
 				await client.query(
-					`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, pay_rate, date_created, duration, start_time, end_time, status)
+					`INSERT INTO jobs (customer_id, branch_id, worker_id, details, visit_on, visit_time, unit_price, date_created, duration, start_time, end_time, status)
 					VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
 					[
 						customer_id,
@@ -246,7 +246,7 @@ const addBatchOfJobs = async (req, res, next) => {
 						details,
 						visit_on,
 						visit_time,
-						pay_rate,
+						unit_price,
 						new Date(),
 						duration ? parseInt(duration.split(":")[0]) : null,
 						null,
@@ -280,7 +280,7 @@ const editJob = async (req, res, next) => {
 	const visit_time = changeEmptyStringToNull(req.body.visit_time);
 	const start_time = changeEmptyStringToNull(req.body.start_time);
 	const end_time = changeEmptyStringToNull(req.body.end_time);
-	const pay_rate = changeEmptyStringToNull(req.body.pay_rate);
+	const unit_price = changeEmptyStringToNull(req.body.unit_price);
 
 	const status = start_time && end_time ? 1 : 0;
 
@@ -290,7 +290,7 @@ const editJob = async (req, res, next) => {
 		await client.query(
 			`
 			UPDATE jobs 
-			SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, pay_rate=$7, duration=$8, start_time=$9, end_time=$10, status=$11, comment=$12
+			SET customer_id=$1, branch_id=$2, worker_id=$3, details=$4, visit_on=$5, visit_time=$6, unit_price=$7, duration=$8, start_time=$9, end_time=$10, status=$11, comment=$12
 			WHERE id=$13
 		`,
 			[
@@ -300,7 +300,7 @@ const editJob = async (req, res, next) => {
 				details,
 				visit_on,
 				visit_time,
-				pay_rate,
+				unit_price,
 				duration,
 				start_time,
 				end_time,

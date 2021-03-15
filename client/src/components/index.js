@@ -16,7 +16,7 @@ export { default as SelectTime } from "./CreateJob/SelectTime";
 export { default as SelectStartTime } from "./CreateJob/SelectStartTime";
 export { default as SelectEndTime } from "./CreateJob/SelectEndTime";
 export { default as SelectDuration } from "./CreateJob/SelectDuration";
-export { default as PayRateInput } from "./CreateJob/PayRateInput";
+export { default as UnitPriceInput } from "./CreateJob/UnitPriceInput";
 export { default as DetailsInput } from "./CreateJob/DetailsInput";
 export { default as WorkerFeedback } from "./CreateJob/WorkerFeedback";
 export { default as SuccessAlert } from "./UI/SuccessAlert";

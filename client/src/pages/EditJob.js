@@ -24,7 +24,7 @@ const EditJob = () => {
 			visit_on,
 			visit_time,
 			duration,
-			pay_rate,
+			unit_price,
 			start_time,
 			end_time,
 			id,
@@ -47,7 +47,7 @@ const EditJob = () => {
 					visit_on={visitDate}
 					visit_time={visit_time}
 					duration={duration}
-					pay_rate={pay_rate}
+					unit_price={unit_price}
 					start_time={start_time}
 					end_time={end_time}
 					job_id={id}

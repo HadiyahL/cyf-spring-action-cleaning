@@ -21,10 +21,10 @@ const job = [
 		/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 	),
 	body("visit_time", "Visit time is required").not().isEmpty(),
-	body("pay_rate", "Pay rate is not in a format of 10.50 or 10").custom(
+	body("unit_price", "Unit price is not in a format of 10.50 or 10").custom(
 		(value) => value === "" || /^\d+(\.\d+)?$/.test(value)
 	),
-	body("pay_rate", "Pay rate is required").exists(),
+	body("unit_price", "Unit price is required").not().isEmpty(),
 	body("duration", "Duration is required").exists(),
 	body("duration", "Duration should be an integer").isInt(),
 	body(
