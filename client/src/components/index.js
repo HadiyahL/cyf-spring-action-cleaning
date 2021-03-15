@@ -37,4 +37,6 @@ export { default as CreateBranchReport } from "./Reports/Branch/CreateBranchRepo
 export { default as GeneralReport } from "./Reports/General/GeneralReport";
 export { default as GeneralWorkerTable } from "./Reports/Worker/GeneralWorkerTable";
 export { default as GeneralWorkerResultPage } from "./Reports/Worker/GeneralWorkerResultPage";
+export { default as Invoice } from "./Reports/Invoice/Invoice";
+export { default as SelectInvoice } from "./Reports/Invoice/SelectInvoice";
 export { default as HomepageText } from "./Homepage/HomepageText";

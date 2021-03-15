@@ -27,3 +27,7 @@ export const GeneralReportPage = lazy(() => import("./GeneralReportPage"));
 export const GeneralReportResultPage = lazy(() =>
 	import("./GeneralReportResultPage")
 );
+export const InvoicePage = lazy(() => import("./InvoicePage"));
+export const InvoiceSelectionPage = lazy(() =>
+	import("./InvoiceSelectionPage")
+);

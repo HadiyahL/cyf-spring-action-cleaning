@@ -485,6 +485,62 @@ const getGeneralReport = async (req, res, next) => {
 	}
 };
 
+const getInvoice = async (req, res, next) => {
+	const { customer_id, start, finish } = req.params;
+
+	const client = await db.getClient();
+
+	try {
+		const { rows } = await client.query(
+			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment
+			FROM jobs j
+			INNER JOIN customers c ON j.customer_id=c.id
+			INNER JOIN branches b ON j.branch_id=b.id
+			INNER JOIN workers w ON j.worker_id=w.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND c.id = $3
+				AND j.status = 1
+			ORDER BY j.visit_on`,
+			[start, finish, customer_id]
+		);
+
+		const totals = await client.query(
+			`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
+			FROM jobs j
+			INNER JOIN customers c ON j.customer_id=c.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND c.id = $3
+				AND j.status = 1`,
+			[start, finish, customer_id]
+		);
+
+		const formattedData = formatData(rows, true, true);
+
+		const formattedTotals = rows.length
+			? formatData(totals.rows, false, true)
+			: [];
+
+		if (rows.length) {
+			const [{ contracted_duration, actual_duration }] = formattedTotals;
+
+			formattedTotals[0].difference = countDurationDifference(
+				actual_duration,
+				contracted_duration
+			);
+		}
+
+		return res.json({
+			generalData: formattedData,
+			groupedAddresses: groupAddresses(formattedData),
+			generalTotals: formattedTotals,
+		});
+	} catch (e) {
+		next(e);
+	} finally {
+		client.release();
+	}
+};
+
 export default {
 	getWorkerReport,
 	getWorkerReportDetailed,
@@ -496,4 +552,5 @@ export default {
 	getBranchReportDetailed,
 	getGeneralBranchesReport,
 	getGeneralReport,
+	getInvoice,
 };
