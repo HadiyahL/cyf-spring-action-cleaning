@@ -13,8 +13,10 @@ const DataRow = ({
 		contracted_duration,
 		difference,
 		comment,
+		cleaning_service,
+		feedback,
 	},
-	showComment,
+	showComments,
 	forWorker,
 	firstRow,
 }) => {
@@ -44,14 +46,16 @@ const DataRow = ({
 			<td>{contracted_duration}</td>
 			<td>{actual_duration}</td>
 			<td>{difference}</td>
-			{showComment && <td className="comment-width">{comment}</td>}
+			{showComments && <td className="comment-width">{cleaning_service}</td>}
+			{showComments && <td className="comment-width">{feedback}</td>}
+			{showComments && <td className="comment-width">{comment}</td>}
 		</tr>
 	);
 };
 
 DataRow.propTypes = {
 	data: PropTypes.object,
-	showComment: PropTypes.bool,
+	showComments: PropTypes.bool,
 	forWorker: PropTypes.bool,
 	firstRow: PropTypes.bool,
 };

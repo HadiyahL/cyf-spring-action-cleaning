@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
-const GeneralTableByDate = ({ data, showComment }) => {
+const GeneralTableByDate = ({ data, showComments }) => {
 	const history = useHistory();
 
 	const handleClick = (id) => {
@@ -28,6 +28,8 @@ const GeneralTableByDate = ({ data, showComment }) => {
 					actual_duration,
 					difference,
 					comment,
+					cleaning_service,
+					feedback,
 				}) => (
 					<tr
 						key={id}
@@ -43,7 +45,11 @@ const GeneralTableByDate = ({ data, showComment }) => {
 						<td>{contracted_duration}</td>
 						<td>{actual_duration}</td>
 						<td>{difference}</td>
-						{showComment && <td className="comment-width">{comment}</td>}
+						{showComments && (
+							<td className="comment-width">{cleaning_service}</td>
+						)}
+						{showComments && <td className="comment-width">{feedback}</td>}
+						{showComments && <td className="comment-width">{comment}</td>}
 					</tr>
 				)
 			)}
@@ -53,7 +59,7 @@ const GeneralTableByDate = ({ data, showComment }) => {
 
 GeneralTableByDate.propTypes = {
 	data: PropTypes.array,
-	showComment: PropTypes.bool,
+	showComments: PropTypes.bool,
 };
 
 export default GeneralTableByDate;

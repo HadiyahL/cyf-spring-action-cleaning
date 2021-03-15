@@ -5,7 +5,6 @@ import DataRowShort from "./DataRowShort";
 import { totalsForAddress } from "../../../util/helpers";
 
 const GeneralTableByCustomer = ({ data }) => {
-	console.log("data", data);
 	return (
 		<>
 			{data.map((branch, i) => {
