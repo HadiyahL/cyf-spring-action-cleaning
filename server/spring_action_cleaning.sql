@@ -40,7 +40,22 @@ CREATE TABLE branches (
 ALTER TABLE customers ADD COLUMN main_branch_id INT REFERENCES branches(id);
 
 CREATE TABLE jobs (
+  id                 SERIAL PRIMARY KEY,
+  date_created       DATE NOT NULL,
+  customer_id        INT REFERENCES customers(id),
+  branch_id          INT REFERENCES branches(id),
+  worker_id          INT REFERENCES workers(id),
+  details            VARCHAR(500) DEFAULT '',
+  comment            VARCHAR(500) DEFAULT '',
+  visit_on           DATE NOT NULL,
+  visit_time         TIME (0) NOT NULL,
+  status             INT NOT NULL DEFAULT 0,
+  start_time         TIME (0),
+  end_time           TIME (0),
+  duration           INT NOT NULL DEFAULT 1,
   unit_price           FLOAT NOT NULL,
+  feedback           VARCHAR(500) DEFAULT '',
+  cleaning_services  VARCHAR(50) DEFAULT ''
 );
 
 insert into workers (name, email, phone_number , address, whatsapp, permanent_contract, languages) values ('Kathe Henniger', 'khenniger0@mayoclinic.com', '01482-822945', '34409 La Follette Pass', '852-452-4383', false, 'French');
