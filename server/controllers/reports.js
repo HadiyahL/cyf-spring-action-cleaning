@@ -492,7 +492,7 @@ const getInvoice = async (req, res, next) => {
 
 	try {
 		const { rows } = await client.query(
-			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment
+			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment, j.cleaning_service
 			FROM jobs j
 			INNER JOIN customers c ON j.customer_id=c.id
 			INNER JOIN branches b ON j.branch_id=b.id

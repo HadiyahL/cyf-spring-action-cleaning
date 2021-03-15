@@ -10,6 +10,7 @@ const DataRow = ({
 		contracted_duration,
 		difference,
 		comment,
+		cleaning_service,
 	},
 }) => {
 	return (
@@ -21,7 +22,7 @@ const DataRow = ({
 			<td>{actual_duration}</td>
 			<td>{difference}</td>
 			<td className="comment-width">{comment}</td>
-			<td></td>
+			<td className="comment-width">{cleaning_service}</td>
 			<td></td>
 			<td></td>
 			<td></td>
