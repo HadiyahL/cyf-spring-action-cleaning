@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Container } from "reactstrap";
-import { Title, Spinner } from "../../";
+import { Title, Spinner, BackButton } from "../../";
 import useFetch from "../../../hooks/useFetch";
 import InvoiceByCustomer from "./InvoiceByCustomer";
 import InvoiceByCustomerShort from "./InvoiceByCustomerShort";
 
-const Invoice = ({ state }) => {
+const Invoice = ({ state, setState }) => {
 	const { start_date, finish_date, customer_id, customer, detailed } = state;
 	const { data, error, isLoading } = useFetch(
 		`/invoice/${customer_id}/${start_date}/${finish_date}`
@@ -29,9 +30,17 @@ const Invoice = ({ state }) => {
 				) : (
 					<InvoiceByCustomerShort data={data} />
 				)}
+				<div className="d-flex justify-content-end mt-5">
+					<BackButton state={state} setState={setState} />
+				</div>
 			</Container>
 		);
 	}
+};
+
+Invoice.propTypes = {
+	state: PropTypes.object,
+	setState: PropTypes.func,
 };
 
 export default Invoice;
