@@ -98,23 +98,30 @@ const Navigation = () => {
 												<DropdownItem
 													tag={Link}
 													to="/customers_report"
-													className=" text-center link text-md-left pb-2 pt-2"
+													className="text-center link text-md-left pb-2 pt-2"
 												>
 													Customers
 												</DropdownItem>
 												<DropdownItem
 													tag={Link}
 													to="/branches_report"
-													className=" text-center link text-md-left pb-2 pt-2"
+													className="text-center link text-md-left pb-2 pt-2"
 												>
 													Addresses
 												</DropdownItem>
 												<DropdownItem
 													tag={Link}
 													to="/general_report"
-													className=" text-center link text-md-left pb-2 pt-2"
+													className="text-center link text-md-left pb-2 pt-2"
 												>
 													General
+												</DropdownItem>
+												<DropdownItem
+													tag={Link}
+													to="/select_invoice"
+													className=" text-center link text-md-left pb-2 pt-2"
+												>
+													For invoice
 												</DropdownItem>
 											</DropdownMenu>
 										</UncontrolledDropdown>

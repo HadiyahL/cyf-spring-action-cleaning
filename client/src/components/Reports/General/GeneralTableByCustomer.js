@@ -4,7 +4,7 @@ import TotalsRow from "./TotalsRow";
 import DataRow from "./DataRow";
 import { totalsForAddress, totalsForCustomer } from "../../../util/helpers";
 
-const GeneralTableByCustomer = ({ data, showComment }) => {
+const GeneralTableByCustomer = ({ data, showComments }) => {
 	const customerTotals = totalsForCustomer(data);
 
 	return (
@@ -15,14 +15,14 @@ const GeneralTableByCustomer = ({ data, showComment }) => {
 					<GenerateAddressRows
 						key={i}
 						data={branch}
-						showComment={showComment}
+						showComments={showComments}
 						addressTotals={addressTotals}
 					/>
 				);
 			})}
 			<tbody>
 				<TotalsRow
-					showComment={showComment}
+					showComments={showComments}
 					title="Total for customer"
 					data={customerTotals}
 				/>
@@ -31,15 +31,15 @@ const GeneralTableByCustomer = ({ data, showComment }) => {
 	);
 };
 
-const GenerateAddressRows = ({ data, showComment, addressTotals }) => {
+const GenerateAddressRows = ({ data, showComments, addressTotals }) => {
 	return (
 		<tbody>
 			{data.map((rowData) => (
-				<DataRow data={rowData} key={rowData.id} showComment={showComment} />
+				<DataRow data={rowData} key={rowData.id} showComments={showComments} />
 			))}
 			<TotalsRow
 				title="Total for address"
-				showComment={showComment}
+				showComments={showComments}
 				data={addressTotals}
 			/>
 		</tbody>
@@ -48,13 +48,13 @@ const GenerateAddressRows = ({ data, showComment, addressTotals }) => {
 
 GenerateAddressRows.propTypes = {
 	data: PropTypes.array,
-	showComment: PropTypes.bool,
+	showComments: PropTypes.bool,
 	addressTotals: PropTypes.object,
 };
 
 GeneralTableByCustomer.propTypes = {
 	data: PropTypes.array,
-	showComment: PropTypes.bool,
+	showComments: PropTypes.bool,
 };
 
 export default GeneralTableByCustomer;

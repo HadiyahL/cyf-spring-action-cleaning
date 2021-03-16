@@ -1,12 +1,12 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import { hoursToInt } from "../../../util/helpers";
 
 const DataRow = ({
 	data: {
 		id,
 		actual_duration,
-		customer,
 		branch,
 		visit_on,
 		worker,
@@ -14,10 +14,8 @@ const DataRow = ({
 		difference,
 		comment,
 		cleaning_service,
-		feedback,
+		unit_price,
 	},
-	showComments,
-	forWorker,
 	firstRow,
 }) => {
 	const history = useHistory();
@@ -32,6 +30,9 @@ const DataRow = ({
 		}
 	};
 
+	const quantity = hoursToInt(contracted_duration);
+	const amount = quantity * unit_price;
+
 	return (
 		<tr
 			role="button"
@@ -39,24 +40,23 @@ const DataRow = ({
 			onKeyPress={(e) => handleKeyPress(id, e)}
 			tabIndex={0}
 		>
-			<td>{forWorker ? firstRow && worker : customer}</td>
-			<td>{forWorker ? visit_on : branch}</td>
-			<td>{forWorker ? customer : visit_on}</td>
-			<td>{forWorker ? branch : worker}</td>
+			<td>{firstRow && branch}</td>
+			<td>{visit_on}</td>
+			<td>{worker}</td>
 			<td>{contracted_duration}</td>
 			<td>{actual_duration}</td>
 			<td>{difference}</td>
-			{showComments && <td className="comment-width">{cleaning_service}</td>}
-			{showComments && <td className="comment-width">{feedback}</td>}
-			{showComments && <td className="comment-width">{comment}</td>}
+			<td className="comment-width">{comment}</td>
+			<td className="comment-width">{cleaning_service}</td>
+			<td>{quantity.toFixed(2)}</td>
+			<td>{unit_price.toFixed(2)}</td>
+			<td>{amount.toFixed(2)}</td>
 		</tr>
 	);
 };
 
 DataRow.propTypes = {
 	data: PropTypes.object,
-	showComments: PropTypes.bool,
-	forWorker: PropTypes.bool,
 	firstRow: PropTypes.bool,
 };
 

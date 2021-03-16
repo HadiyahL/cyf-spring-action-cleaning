@@ -4,7 +4,7 @@ import TotalsRow from "./TotalsRow";
 import DataRow from "./DataRow";
 import { totalsForAddress } from "../../../util/helpers";
 
-const GeneralTableByWorker = ({ name, data, showComment }) => {
+const GeneralTableByWorker = ({ name, data, showComments }) => {
 	const workerTotals = totalsForAddress(data);
 	return (
 		<tbody>
@@ -14,14 +14,14 @@ const GeneralTableByWorker = ({ name, data, showComment }) => {
 						data={job}
 						firstRow={i === 0}
 						key={job.id}
-						showComment={showComment}
+						showComments={showComments}
 						forWorker
 					/>
 				);
 			})}
 			<TotalsRow
 				title={`Total for ${name}`}
-				showComment={showComment}
+				showComments={showComments}
 				data={workerTotals}
 			/>
 		</tbody>
@@ -30,7 +30,7 @@ const GeneralTableByWorker = ({ name, data, showComment }) => {
 
 GeneralTableByWorker.propTypes = {
 	data: PropTypes.array,
-	showComment: PropTypes.bool,
+	showComments: PropTypes.bool,
 	name: PropTypes.string,
 };
 

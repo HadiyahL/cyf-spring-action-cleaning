@@ -24,12 +24,13 @@ const EditJob = () => {
 			visit_on,
 			visit_time,
 			duration,
-			pay_rate,
+			unit_price,
 			start_time,
 			end_time,
 			id,
 			feedback,
 			comment,
+			cleaning_service,
 		} = data.job;
 
 		const visitDate = visit_on.split("T")[0];
@@ -47,12 +48,13 @@ const EditJob = () => {
 					visit_on={visitDate}
 					visit_time={visit_time}
 					duration={duration}
-					pay_rate={pay_rate}
+					unit_price={unit_price}
 					start_time={start_time}
 					end_time={end_time}
 					job_id={id}
 					feedback={feedback}
 					comment={comment}
+					cleaning_service={cleaning_service}
 				/>
 			</div>
 		);

@@ -2,6 +2,8 @@ import db from "../db";
 import {
 	formatData,
 	groupAddresses,
+	totalsForInvoice,
+	customerInvoiceTotals,
 	groupWorkers,
 	countDurationDifference,
 } from "../util/helpers";
@@ -438,7 +440,7 @@ const getGeneralReport = async (req, res, next) => {
 
 	try {
 		const { rows } = await client.query(
-			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment
+			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment, j.cleaning_service
 			FROM jobs j
 			INNER JOIN customers c ON j.customer_id=c.id
 			INNER JOIN branches b ON j.branch_id=b.id
@@ -485,6 +487,42 @@ const getGeneralReport = async (req, res, next) => {
 	}
 };
 
+const getInvoice = async (req, res, next) => {
+	const { customer_id, start, finish } = req.params;
+
+	const client = await db.getClient();
+
+	try {
+		const { rows } = await client.query(
+			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment, j.cleaning_service, j.unit_price
+			FROM jobs j
+			INNER JOIN customers c ON j.customer_id=c.id
+			INNER JOIN branches b ON j.branch_id=b.id
+			INNER JOIN workers w ON j.worker_id=w.id
+			WHERE j.visit_on BETWEEN $1 AND $2
+				AND c.id = $3
+				AND j.status = 1
+			ORDER BY j.visit_on`,
+			[start, finish, customer_id]
+		);
+
+		const formattedData = formatData(rows, true, true);
+
+		const addressTotals = totalsForInvoice(formattedData);
+
+		return res.json({
+			generalData: formattedData,
+			groupedAddresses: groupAddresses(formattedData),
+			addressTotals: addressTotals,
+			generalTotals: customerInvoiceTotals(addressTotals),
+		});
+	} catch (e) {
+		next(e);
+	} finally {
+		client.release();
+	}
+};
+
 export default {
 	getWorkerReport,
 	getWorkerReportDetailed,
@@ -496,4 +534,5 @@ export default {
 	getBranchReportDetailed,
 	getGeneralBranchesReport,
 	getGeneralReport,
+	getInvoice,
 };

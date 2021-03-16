@@ -6,17 +6,21 @@ import TotalsRow from "./TotalsRow";
 import GeneralTableByCustomer from "./GeneralTableByCustomer";
 
 const GeneralReportByCustomer = ({ data }) => {
-	const [showComment, setShowComment] = useState(false);
+	const [showComments, setShowComments] = useState(false);
 
 	const hideCommentHandle = () => {
-		setShowComment(!showComment);
+		setShowComments(!showComments);
 	};
 
-	const tableHeaderLabels = [];
+	let tableHeaderLabels = [];
 
 	const updateTableHeaderLabels = () => {
-		if (showComment) {
-			tableHeaderLabels.push("Comment");
+		if (showComments) {
+			tableHeaderLabels = [
+				"Cleaning Services",
+				"Worker Comment",
+				"Internal Comment",
+			];
 		}
 	};
 
@@ -27,7 +31,7 @@ const GeneralReportByCustomer = ({ data }) => {
 		<div>
 			<div className="d-flex justify-content-end d-print-none">
 				<Button color="link" size="sm" onClick={hideCommentHandle}>
-					{showComment ? "Hide comments" : "Show comments"}
+					{showComments ? "Hide comments" : "Show comments"}
 				</Button>
 			</div>
 			<Table hover responsive>
@@ -48,12 +52,12 @@ const GeneralReportByCustomer = ({ data }) => {
 						<GeneralTableByCustomer
 							key={i}
 							data={customerAddresses}
-							showComment={showComment}
+							showComments={showComments}
 						/>
 					);
 				})}
 				<tbody>
-					<TotalsRow data={generalTotals} showComment={showComment} />
+					<TotalsRow data={generalTotals} showComments={showComments} />
 				</tbody>
 			</Table>
 		</div>

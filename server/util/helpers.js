@@ -98,12 +98,12 @@ export const groupAddresses = (data) => {
 		});
 	});
 
-	const dataWithoutKeys = map(groupedAddresses, function (item) {
+	const addressesWithoutKeys = map(groupedAddresses, function (item) {
 		return values(item);
 	});
 
 	// because values() doesn't guarantee the order of object properties, we need to sort it by date
-	const sortedByDate = dataWithoutKeys.map((customer) =>
+	const sortedByDate = addressesWithoutKeys.map((customer) =>
 		customer.map((branch) =>
 			branch.sort(function (branch1, branch2) {
 				if (
@@ -121,10 +121,28 @@ export const groupAddresses = (data) => {
 	return sortedByDate;
 };
 
+export const dataWithoutKeys = (data) =>
+	map(data, function (item) {
+		return values(item)[0];
+	});
+
 export const groupWorkers = (data) =>
 	groupBy(data, function (item) {
 		return item.worker;
 	});
+
+export const groupByAddress = (customerData) =>
+	groupBy(customerData, function (el) {
+		return el.branch;
+	});
+
+export const totalsForInvoice = (customerData) => {
+	const groupedByAddress = groupByAddress(customerData);
+
+	return Object.entries(groupedByAddress).map(([key, value]) => ({
+		[key]: totalsForAddress(value),
+	}));
+};
 
 export const countDurationDifference = (ISOTime1, ISOTime2) => {
 	const duration1 = Duration.fromISOTime(ISOTime1);
@@ -135,4 +153,101 @@ export const countDurationDifference = (ISOTime1, ISOTime2) => {
 		.shiftTo("hours", "minutes");
 
 	return formatDuration(difference.values.hours, difference.values.minutes);
+};
+
+export const totalsForAddress = (data) => {
+	const reduced = data.reduce(
+		(acc, cur) => {
+			acc.actual_duration = acc.actual_duration
+				.plus(Duration.fromISOTime(cur.actual_duration))
+				.normalize();
+
+			acc.contracted_duration = acc.contracted_duration
+				.plus(Duration.fromISOTime(cur.contracted_duration))
+				.normalize();
+			acc.amount += hoursToInt(cur.contracted_duration) * cur.unit_price;
+
+			return acc;
+		},
+		{
+			actual_duration: Duration.fromISOTime("00:00"),
+			contracted_duration: Duration.fromISOTime("00:00"),
+			amount: 0,
+		}
+	);
+
+	const difference = reduced.contracted_duration
+		.minus(reduced.actual_duration.shiftTo("milliseconds").toObject())
+		.shiftTo("hours", "minutes");
+
+	const contracted_duration = formatDuration(
+		reduced.contracted_duration.values.hours,
+		reduced.contracted_duration.values.minutes
+	);
+
+	return {
+		actual_duration: formatDuration(
+			reduced.actual_duration.values.hours,
+			reduced.actual_duration.values.minutes
+		),
+		contracted_duration,
+		quantity: hoursToInt(contracted_duration),
+		difference: formatDuration(
+			difference.values.hours,
+			difference.values.minutes
+		),
+		amount: reduced.amount,
+	};
+};
+
+export const hoursToInt = (hours) => {
+	// hours always in the format of HH:mm
+	return Number(hours.split(":")[0]);
+};
+
+export const customerInvoiceTotals = (data) => {
+	const addressesWithoutKeys = dataWithoutKeys(data);
+	const reduced = addressesWithoutKeys.reduce(
+		(acc, cur) => {
+			acc.actual_duration = acc.actual_duration
+				.plus(Duration.fromISOTime(cur.actual_duration))
+				.normalize();
+			acc.contracted_duration = acc.contracted_duration
+				.plus(Duration.fromISOTime(cur.contracted_duration))
+				.normalize();
+			acc.amount += cur.amount;
+			acc.quantity += cur.quantity;
+
+			return acc;
+		},
+		{
+			amount: 0,
+			quantity: 0,
+			contracted_duration: Duration.fromISOTime("00:00"),
+			actual_duration: Duration.fromISOTime("00:00"),
+		}
+	);
+
+	const difference = reduced.contracted_duration
+		.minus(reduced.actual_duration.shiftTo("milliseconds").toObject())
+		.shiftTo("hours", "minutes");
+
+	const contracted_duration = formatDuration(
+		reduced.contracted_duration.values.hours,
+		reduced.contracted_duration.values.minutes
+	);
+
+	return {
+		actual_duration: formatDuration(
+			reduced.actual_duration.values.hours,
+			reduced.actual_duration.values.minutes
+		),
+		contracted_duration,
+		quantity: reduced.quantity,
+		difference: formatDuration(
+			difference.values.hours,
+			difference.values.minutes
+		),
+		amount: reduced.amount,
+	};
 };

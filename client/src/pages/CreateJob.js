@@ -10,8 +10,9 @@ import {
 	SelectDate,
 	SelectTime,
 	SelectDuration,
-	PayRateInput,
+	UnitPriceInput,
 	DetailsInput,
+	CleaningServiceInput,
 	SelectStartTime,
 	SelectEndTime,
 	WorkerFeedback,
@@ -32,12 +33,13 @@ const Jobs = ({
 	visit_on,
 	visit_time,
 	duration,
-	pay_rate,
+	unit_price,
 	start_time,
 	end_time,
 	job_id,
 	feedback,
 	comment,
+	cleaning_service,
 }) => {
 	const [state, setState] = useState({
 		customer: customer || "",
@@ -48,10 +50,11 @@ const Jobs = ({
 		worker_id: worker_id || "",
 		details: details || "",
 		comment: comment || "",
+		cleaning_service: cleaning_service || "",
 		visit_on: visit_on || "",
 		visit_time: visit_time || "",
 		duration: duration || "1",
-		pay_rate: pay_rate || "",
+		unit_price: unit_price || "",
 		start_time: start_time || "",
 		end_time: end_time || "",
 		feedback,
@@ -145,12 +148,17 @@ const Jobs = ({
 						setState={setState}
 						error={errors.duration}
 					/>
-					<PayRateInput
+					<UnitPriceInput
 						state={state}
 						setState={setState}
-						error={errors.pay_rate}
+						error={errors.unit_price}
 					/>
 				</div>
+				<CleaningServiceInput
+					state={state}
+					setState={setState}
+					error={errors.cleaning_service}
+				/>
 				<DetailsInput
 					state={state}
 					setState={setState}
@@ -204,12 +212,13 @@ Jobs.propTypes = {
 	visit_on: PropTypes.string,
 	visit_time: PropTypes.string,
 	duration: PropTypes.number,
-	pay_rate: PropTypes.number,
+	unit_price: PropTypes.number,
 	start_time: PropTypes.string,
 	end_time: PropTypes.string,
 	job_id: PropTypes.number,
 	feedback: PropTypes.string,
 	comment: PropTypes.string,
+	cleaning_service: PropTypes.string,
 };
 
 export default Jobs;

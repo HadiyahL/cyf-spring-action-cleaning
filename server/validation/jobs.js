@@ -11,8 +11,10 @@ const job = [
 	body("worker", "Cleaner is required").not().isEmpty(),
 	body("details", "Details are required").exists(),
 	body("details", "Max length is 500 characters").isLength({ max: 500 }),
-	body("comment", "Comment are required").exists(),
+	body("comment", "Comment is required").exists(),
 	body("comment", "Max length is 500 characters").isLength({ max: 500 }),
+	body("cleaning_service", "Cleaning service is required").exists(),
+	body("cleaning_service", "Max length is 50 characters").isLength({ max: 50 }),
 	body("visit_on", "Visit date is required").not().isEmpty(),
 	body(
 		"visit_time",
@@ -21,10 +23,10 @@ const job = [
 		/^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/.test(value)
 	),
 	body("visit_time", "Visit time is required").not().isEmpty(),
-	body("pay_rate", "Pay rate is not in a format of 10.50 or 10").custom(
+	body("unit_price", "Unit price is not in a format of 10.50 or 10").custom(
 		(value) => value === "" || /^\d+(\.\d+)?$/.test(value)
 	),
-	body("pay_rate", "Pay rate is required").exists(),
+	body("unit_price", "Unit price is required").not().isEmpty(),
 	body("duration", "Duration is required").exists(),
 	body("duration", "Duration should be an integer").isInt(),
 	body(

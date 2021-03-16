@@ -74,4 +74,11 @@ router.get(
 	reportsController.getGeneralReport
 );
 
+router.get(
+	"/invoice/:customer_id/:start/:finish",
+	checkAuth,
+	checkPermission("get:invoice"),
+	reportsController.getInvoice
+);
+
 export default router;

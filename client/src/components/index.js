@@ -16,8 +16,9 @@ export { default as SelectTime } from "./CreateJob/SelectTime";
 export { default as SelectStartTime } from "./CreateJob/SelectStartTime";
 export { default as SelectEndTime } from "./CreateJob/SelectEndTime";
 export { default as SelectDuration } from "./CreateJob/SelectDuration";
-export { default as PayRateInput } from "./CreateJob/PayRateInput";
+export { default as UnitPriceInput } from "./CreateJob/UnitPriceInput";
 export { default as DetailsInput } from "./CreateJob/DetailsInput";
+export { default as CleaningServiceInput } from "./CreateJob/CleaningServiceInput";
 export { default as WorkerFeedback } from "./CreateJob/WorkerFeedback";
 export { default as SuccessAlert } from "./UI/SuccessAlert";
 export { default as AddNewButton } from "./UI/AddNewButton";
@@ -37,4 +38,6 @@ export { default as CreateBranchReport } from "./Reports/Branch/CreateBranchRepo
 export { default as GeneralReport } from "./Reports/General/GeneralReport";
 export { default as GeneralWorkerTable } from "./Reports/Worker/GeneralWorkerTable";
 export { default as GeneralWorkerResultPage } from "./Reports/Worker/GeneralWorkerResultPage";
+export { default as Invoice } from "./Reports/Invoice/Invoice";
+export { default as SelectInvoice } from "./Reports/Invoice/SelectInvoice";
 export { default as HomepageText } from "./Homepage/HomepageText";
