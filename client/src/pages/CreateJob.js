@@ -89,7 +89,7 @@ const Jobs = ({
 							}))
 						);
 					}
-					history.push("/jobs");
+					history.goBack();
 				}
 			},
 		}
