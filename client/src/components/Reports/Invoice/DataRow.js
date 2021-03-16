@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import { hoursToInt } from "../../../util/helpers";
 
 const DataRow = ({
 	data: {
+		id,
 		actual_duration,
 		branch,
 		visit_on,
@@ -16,10 +18,28 @@ const DataRow = ({
 	},
 	firstRow,
 }) => {
+	const history = useHistory();
+
+	const handleClick = (id) => {
+		history.push(`/edit-jobs/${id}`); // Go to <EditJob>
+	};
+
+	const handleKeyPress = (id, e) => {
+		if (e.key === "Enter" && e.target.tagName === "TR") {
+			history.push(`/edit-jobs/${id}`); // Go to <EditJob>
+		}
+	};
+
 	const quantity = hoursToInt(contracted_duration);
 	const amount = quantity * unit_price;
+
 	return (
-		<tr>
+		<tr
+			role="button"
+			onClick={() => handleClick(id)}
+			onKeyPress={(e) => handleKeyPress(id, e)}
+			tabIndex={0}
+		>
 			<td>{firstRow && branch}</td>
 			<td>{visit_on}</td>
 			<td>{worker}</td>

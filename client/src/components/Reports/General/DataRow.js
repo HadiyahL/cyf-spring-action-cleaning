@@ -34,7 +34,7 @@ const DataRow = ({
 
 	return (
 		<tr
-			role={"button"}
+			role="button"
 			onClick={() => handleClick(id)}
 			onKeyPress={(e) => handleKeyPress(id, e)}
 			tabIndex={0}
