@@ -11,9 +11,9 @@ const TotalsRow = ({ data, title = "Total" }) => (
 		<td className="font-weight-bold">{data.difference}</td>
 		<td className="font-weight-bold"></td>
 		<td className="font-weight-bold"></td>
+		<td className="font-weight-bold">{data.quantity.toFixed(2)}</td>
 		<td className="font-weight-bold"></td>
-		<td className="font-weight-bold"></td>
-		<td className="font-weight-bold"></td>
+		<td className="font-weight-bold">{data.amount.toFixed(2)}</td>
 	</tr>
 );
 

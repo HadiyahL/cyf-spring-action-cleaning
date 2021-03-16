@@ -2,6 +2,8 @@ import db from "../db";
 import {
 	formatData,
 	groupAddresses,
+	totalsForInvoice,
+	customerInvoiceTotals,
 	groupWorkers,
 	countDurationDifference,
 } from "../util/helpers";
@@ -492,7 +494,7 @@ const getInvoice = async (req, res, next) => {
 
 	try {
 		const { rows } = await client.query(
-			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment, j.cleaning_service
+			`SELECT c.name customer, b.address branch, j.visit_on, w.name worker, j.duration contracted_duration, (j.end_time - j.start_time) actual_duration, j.feedback, j.id, j.comment, j.cleaning_service, j.unit_price
 			FROM jobs j
 			INNER JOIN customers c ON j.customer_id=c.id
 			INNER JOIN branches b ON j.branch_id=b.id
@@ -504,35 +506,15 @@ const getInvoice = async (req, res, next) => {
 			[start, finish, customer_id]
 		);
 
-		const totals = await client.query(
-			`SELECT SUM(j.duration) contracted_duration, SUM(j.end_time - j.start_time) actual_duration
-			FROM jobs j
-			INNER JOIN customers c ON j.customer_id=c.id
-			WHERE j.visit_on BETWEEN $1 AND $2
-				AND c.id = $3
-				AND j.status = 1`,
-			[start, finish, customer_id]
-		);
-
 		const formattedData = formatData(rows, true, true);
 
-		const formattedTotals = rows.length
-			? formatData(totals.rows, false, true)
-			: [];
-
-		if (rows.length) {
-			const [{ contracted_duration, actual_duration }] = formattedTotals;
-
-			formattedTotals[0].difference = countDurationDifference(
-				actual_duration,
-				contracted_duration
-			);
-		}
+		const addressTotals = totalsForInvoice(formattedData);
 
 		return res.json({
 			generalData: formattedData,
 			groupedAddresses: groupAddresses(formattedData),
-			generalTotals: formattedTotals,
+			addressTotals: addressTotals,
+			generalTotals: customerInvoiceTotals(addressTotals),
 		});
 	} catch (e) {
 		next(e);

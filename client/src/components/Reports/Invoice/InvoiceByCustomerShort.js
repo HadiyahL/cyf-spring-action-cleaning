@@ -2,12 +2,10 @@ import React from "react";
 import { Table } from "reactstrap";
 import PropTypes from "prop-types";
 import ResultTableHead from "../ResultTableHead";
-import TotalsRow from "./TotalsRowShort";
+import TotalsRowShort from "./TotalsRowShort";
 import InvoiceTableByAddress from "./InvoiceTableByAddressShort";
 
 const InvoiceByCustomerShort = ({ data }) => {
-	const [generalTotals] = data.generalTotals;
-
 	return (
 		<Table hover responsive>
 			<ResultTableHead
@@ -22,10 +20,14 @@ const InvoiceByCustomerShort = ({ data }) => {
 				detailed={false}
 			/>
 			{data.groupedAddresses.map((customerAddresses, i) => (
-				<InvoiceTableByAddress key={i} data={customerAddresses} />
+				<InvoiceTableByAddress
+					key={i}
+					data={customerAddresses}
+					addressTotals={data.addressTotals}
+				/>
 			))}
 			<tbody>
-				<TotalsRow data={generalTotals} />
+				<TotalsRowShort data={data.generalTotals} />
 			</tbody>
 		</Table>
 	);

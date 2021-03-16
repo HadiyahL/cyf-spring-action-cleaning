@@ -6,8 +6,6 @@ import TotalsRow from "./TotalsRow";
 import InvoiceTableByAddress from "./InvoiceTableByAddress";
 
 const InvoiceByCustomer = ({ data }) => {
-	const [generalTotals] = data.generalTotals;
-
 	return (
 		<Table hover responsive>
 			<ResultTableHead
@@ -27,10 +25,14 @@ const InvoiceByCustomer = ({ data }) => {
 				detailed={false}
 			/>
 			{data.groupedAddresses.map((customerAddresses, i) => (
-				<InvoiceTableByAddress key={i} data={customerAddresses} />
+				<InvoiceTableByAddress
+					key={i}
+					data={customerAddresses}
+					addressTotals={data.addressTotals}
+				/>
 			))}
 			<tbody>
-				<TotalsRow data={generalTotals} />
+				<TotalsRow data={data.generalTotals} />
 			</tbody>
 		</Table>
 	);

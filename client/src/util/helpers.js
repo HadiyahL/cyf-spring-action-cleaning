@@ -108,12 +108,14 @@ export const totalsForAddress = (data) => {
 			acc.contracted_duration = acc.contracted_duration
 				.plus(Duration.fromISOTime(cur.contracted_duration))
 				.normalize();
+			acc.amount += hoursToInt(cur.contracted_duration) * cur.unit_price;
 
 			return acc;
 		},
 		{
 			actual_duration: Duration.fromISOTime("00:00"),
 			contracted_duration: Duration.fromISOTime("00:00"),
+			amount: 0,
 		}
 	);
 
@@ -121,19 +123,23 @@ export const totalsForAddress = (data) => {
 		.minus(reduced.actual_duration.shiftTo("milliseconds").toObject())
 		.shiftTo("hours", "minutes");
 
+	const contracted_duration = formatDuration(
+		reduced.contracted_duration.values.hours,
+		reduced.contracted_duration.values.minutes
+	);
+
 	return {
 		actual_duration: formatDuration(
 			reduced.actual_duration.values.hours,
 			reduced.actual_duration.values.minutes
 		),
-		contracted_duration: formatDuration(
-			reduced.contracted_duration.values.hours,
-			reduced.contracted_duration.values.minutes
-		),
+		contracted_duration,
+		quantity: hoursToInt(contracted_duration),
 		difference: formatDuration(
 			difference.values.hours,
 			difference.values.minutes
 		),
+		amount: reduced.amount,
 	};
 };
 
@@ -148,4 +154,9 @@ export const totalsForCustomer = (data) => {
 	const addressTotals = data.map((branch) => totalsForAddress(branch));
 	const customerTotals = totalsForAddress(addressTotals);
 	return customerTotals;
+};
+
+export const hoursToInt = (hours) => {
+	// hours always in the format of HH:mm
+	return Number(hours.split(":")[0]);
 };

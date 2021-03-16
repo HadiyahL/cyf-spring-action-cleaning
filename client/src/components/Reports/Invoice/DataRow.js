@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { hoursToInt } from "../../../util/helpers";
 
 const DataRow = ({
 	data: {
@@ -11,11 +12,15 @@ const DataRow = ({
 		difference,
 		comment,
 		cleaning_service,
+		unit_price,
 	},
+	firstRow,
 }) => {
+	const quantity = hoursToInt(contracted_duration);
+	const amount = quantity * unit_price;
 	return (
 		<tr>
-			<td>{branch}</td>
+			<td>{firstRow && branch}</td>
 			<td>{visit_on}</td>
 			<td>{worker}</td>
 			<td>{contracted_duration}</td>
@@ -23,15 +28,16 @@ const DataRow = ({
 			<td>{difference}</td>
 			<td className="comment-width">{comment}</td>
 			<td className="comment-width">{cleaning_service}</td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>{quantity.toFixed(2)}</td>
+			<td>{unit_price.toFixed(2)}</td>
+			<td>{amount.toFixed(2)}</td>
 		</tr>
 	);
 };
 
 DataRow.propTypes = {
 	data: PropTypes.object,
+	firstRow: PropTypes.bool,
 };
 
 export default DataRow;

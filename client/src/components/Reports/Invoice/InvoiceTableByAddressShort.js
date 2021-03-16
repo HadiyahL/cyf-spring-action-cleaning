@@ -2,13 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import TotalsRowShort from "./TotalsRowShort";
 import DataRowShort from "./DataRowShort";
-import { totalsForAddress } from "../../../util/helpers";
 
-const GeneralTableByCustomer = ({ data }) => {
+const GeneralTableByCustomer = ({ data, addressTotals }) => {
 	return (
 		<>
 			{data.map((branch, i) => {
-				const addressTotals = totalsForAddress(branch);
 				return (
 					<GenerateAddressRows
 						key={i}
@@ -22,6 +20,10 @@ const GeneralTableByCustomer = ({ data }) => {
 };
 
 const GenerateAddressRows = ({ data, addressTotals }) => {
+	const totalsForAddress = addressTotals.filter(
+		(address) => Object.keys(address)[0] === data[0].branch
+	)[0][data[0].branch];
+
 	return (
 		<tbody>
 			{data.map((rowData, i) => (
@@ -29,7 +31,7 @@ const GenerateAddressRows = ({ data, addressTotals }) => {
 			))}
 			<TotalsRowShort
 				title={`Total for ${data[0].branch}`}
-				data={addressTotals}
+				data={totalsForAddress}
 			/>
 		</tbody>
 	);
@@ -37,11 +39,12 @@ const GenerateAddressRows = ({ data, addressTotals }) => {
 
 GenerateAddressRows.propTypes = {
 	data: PropTypes.array,
-	addressTotals: PropTypes.object,
+	addressTotals: PropTypes.array,
 };
 
 GeneralTableByCustomer.propTypes = {
 	data: PropTypes.array,
+	addressTotals: PropTypes.array,
 };
 
 export default GeneralTableByCustomer;

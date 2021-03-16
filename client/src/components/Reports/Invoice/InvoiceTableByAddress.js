@@ -2,15 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import TotalsRow from "./TotalsRow";
 import DataRow from "./DataRow";
-import { totalsForAddress, totalsForCustomer } from "../../../util/helpers";
 
-const GeneralTableByCustomer = ({ data, showComment }) => {
-	const customerTotals = totalsForCustomer(data);
-
+const GeneralTableByCustomer = ({ data, showComment, addressTotals }) => {
 	return (
 		<>
 			{data.map((branch, i) => {
-				const addressTotals = totalsForAddress(branch);
 				return (
 					<GenerateAddressRows
 						key={i}
@@ -20,27 +16,29 @@ const GeneralTableByCustomer = ({ data, showComment }) => {
 					/>
 				);
 			})}
-			<tbody>
-				<TotalsRow
-					showComment={showComment}
-					title="Total for customer"
-					data={customerTotals}
-				/>
-			</tbody>
 		</>
 	);
 };
 
 const GenerateAddressRows = ({ data, showComment, addressTotals }) => {
+	const totalsForAddress = addressTotals.filter(
+		(address) => Object.keys(address)[0] === data[0].branch
+	)[0][data[0].branch];
+
 	return (
 		<tbody>
-			{data.map((rowData) => (
-				<DataRow data={rowData} key={rowData.id} showComment={showComment} />
+			{data.map((rowData, i) => (
+				<DataRow
+					data={rowData}
+					key={rowData.id}
+					// showComment={showComment}
+					firstRow={i === 0}
+				/>
 			))}
 			<TotalsRow
-				title="Total for address"
+				title={`Total for ${data[0].branch}`}
 				showComment={showComment}
-				data={addressTotals}
+				data={totalsForAddress}
 			/>
 		</tbody>
 	);
@@ -49,12 +47,13 @@ const GenerateAddressRows = ({ data, showComment, addressTotals }) => {
 GenerateAddressRows.propTypes = {
 	data: PropTypes.array,
 	showComment: PropTypes.bool,
-	addressTotals: PropTypes.object,
+	addressTotals: PropTypes.array,
 };
 
 GeneralTableByCustomer.propTypes = {
 	data: PropTypes.array,
 	showComment: PropTypes.bool,
+	addressTotals: PropTypes.array,
 };
 
 export default GeneralTableByCustomer;
