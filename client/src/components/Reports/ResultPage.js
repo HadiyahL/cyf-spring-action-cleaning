@@ -6,6 +6,7 @@ import { Spinner, Title, BackButton } from "../index";
 import ResultTableHead from "./ResultTableHead";
 import ResultTableBody from "./ResultTableBody";
 import TotalsRow from "./TotalsRow";
+import { transformDate } from "../../util/helpers";
 
 const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 	const { data, error, isLoading } = useFetch(
@@ -23,7 +24,8 @@ const ResultPage = ({ start_date, finish_date, detailed, name, id, type }) => {
 			<Container>
 				<Title text={name} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-					Work duration from {start_date} to {finish_date}
+					Work duration from {transformDate(start_date)} to{" "}
+					{transformDate(finish_date)}
 				</h3>
 				{data.rows.length < 1 ? (
 					<p>No data for this period.</p>

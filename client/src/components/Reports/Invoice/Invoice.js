@@ -5,6 +5,7 @@ import { Title, Spinner, BackButton } from "../../";
 import useFetch from "../../../hooks/useFetch";
 import InvoiceByCustomer from "./InvoiceByCustomer";
 import InvoiceByCustomerShort from "./InvoiceByCustomerShort";
+import { transformDate } from "../../../util/helpers";
 
 const Invoice = ({ state, setState }) => {
 	const { start_date, finish_date, customer_id, customer, detailed } = state;
@@ -21,7 +22,7 @@ const Invoice = ({ state, setState }) => {
 			<Container>
 				<Title text={`Invoice for ${customer}`} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-					{start_date} — {finish_date}
+					{transformDate(start_date)} — {transformDate(finish_date)}
 				</h3>
 				{data.generalData.length === 0 ? (
 					<p>No data for this period.</p>
