@@ -160,3 +160,8 @@ export const hoursToInt = (hours) => {
 	// hours always in the format of HH:mm
 	return Number(hours.split(":")[0]);
 };
+
+export const transformDate = (date) => {
+	const [year, month, day] = date.split("-");
+	return `${day}/${month}/${year}`;
+};

@@ -6,6 +6,7 @@ import useFetch from "../../../hooks/useFetch";
 import ResultTableHead from "../ResultTableHead";
 import GeneralBranchTable from "./GeneralBranchTable";
 import TotalsRow from "../TotalsRow";
+import { transformDate } from "../../../util/helpers";
 
 const GeneralBranchResultPage = ({
 	start_date,
@@ -26,7 +27,8 @@ const GeneralBranchResultPage = ({
 			<Container>
 				<Title text={`General report of ${state.customer} addresses`} />
 				<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-					{"Work duration from " + start_date + " to " + finish_date}
+					Work duration from {transformDate(start_date)} to{" "}
+					{transformDate(finish_date)}
 				</h3>
 				{data.rows.length < 1 ? (
 					<p>No data for this period.</p>

@@ -6,6 +6,7 @@ import useFetch from "../../../hooks/useFetch";
 import GeneralReportByDate from "./GeneralReportByDate";
 import GeneralReportByCustomer from "./GeneralReportByCustomer";
 import GeneralReportByWorker from "./GeneralReportByWorker";
+import { transformDate } from "../../../util/helpers";
 
 const GeneralReportResultPage = ({ state, setState }) => {
 	const { start_date, finish_date, groupBy } = state;
@@ -46,7 +47,8 @@ const GeneralReportResultPage = ({ state, setState }) => {
 				text={`General report by ${groupBy === "worker" ? "cleaner" : groupBy}`}
 			/>
 			<h3 className="text-center mt-4 mt-md-5 mb-5 mb-md-5">
-				Work duration from {start_date} to {finish_date}
+				Work duration from {transformDate(start_date)} to{" "}
+				{transformDate(finish_date)}
 			</h3>
 			{data.generalData.length === 0 ? (
 				<p>No data for this period.</p>
