@@ -46,7 +46,6 @@ export const checkAuth = jwt({
 
 export const checkPermission = (permission) => (req, res, next) => {
 	const { permissions } = req.user;
-	console.log(`permissions`, permissions);
 	if (permissions.includes(permission)) {
 		return next();
 	}
