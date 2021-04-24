@@ -51,13 +51,11 @@ For application to work properly regarding user roles you have to properly confi
 - When you signed up for Auth0, a new application was created for you, or you could have created a new one.
 - Get Domain and Client ID from [application settings](https://manage.auth0.com/#/applications) and update `/client/src/components/auth/config.js` file's `domain` and `clientId` values with yours.
 - Configure Callback, Logout and Allowed Web Origins in the application settings (probably it's `http://localhost:3000` for development and after a comma, you can add production URL).
-- Create a new API and in the RBAC settings switch ON the `Enable RBAC` and `Add Permissions in the Access Token` toggles.
+- Create a new custom API and in the RBAC settings switch ON the `Enable RBAC` and `Add Permissions in the Access Token` toggles.
   - Add the API identifier (in the format of `https://yourname/`) as audience value in the auth config file.
   - Change `roleUrl` value in the config file to `https://yourname/roles`
 - In the `/server/middleware.js` file in `checkAuth()` function change `jwksUri`, `audience` and `issuer` values with your Domain and API identifier values.
-- In APIs section select your API, go in Permissions tab and create all permissions from the tables below.
-- In the Users & Roles section create two new roles: `admin` and `worker`.
-- For the `admin` assign these permissions:
+- In APIs section select your API, go in Permissions tab and create all permissions from the table below.
 
 | Permission                         | Description                                           |
 | ---------------------------------- | ----------------------------------------------------- |
@@ -97,8 +95,12 @@ For application to work properly regarding user roles you have to properly confi
 | put:jobs/:id                       | Update job                                            |
 | put:jobs/:id/log_time              | Update job start and end times                        |
 | put:workers                        | Update workers                                        |
+| get:workers/job/:id                | Worker access single job                              |
+| get:workers/jobs                   | Worker access his jobs                                |
 
-- For the `worker` role add these permissions:
+- In the Users & Roles section create two new roles: `admin` and `worker`.
+- For the `admin` assign all permissions.
+- For the `worker` role assign these permissions:
 
 | Permission            | Description                           |
 | --------------------- | ------------------------------------- |
@@ -106,7 +108,7 @@ For application to work properly regarding user roles you have to properly confi
 | get:workers/jobs      | Worker access his jobs                |
 | put:jobs/:id/log_time | Worker update job start and end times |
 
-- All those permissions can be found in `server/routes` roues files as router middleware checks.
+- All those permissions can be found in `server/routes` routes files as router middleware checks.
 - Now you need to add the following [rules](https://auth0.com/docs/rules):
 
 1. Rule to assign a role to the user on the first login. You can get role id from the address bar when you are in the role page, it's in the format of `rol_xxxxxxxxxxxxxxxx` in the URL.

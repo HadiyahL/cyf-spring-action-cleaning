@@ -35,18 +35,18 @@ export const checkAuth = jwt({
 		cache: true,
 		rateLimit: true,
 		jwksRequestsPerMinute: 5,
-		jwksUri: "https://dev-dfrupp50.eu.auth0.com/.well-known/jwks.json",
+		jwksUri: "https://dev-8jdk6hoj.eu.auth0.com/.well-known/jwks.json",
 	}),
 
 	// Validate the audience and the issuer.
 	audience: "https://springactioncleaning/",
-	issuer: "https://dev-dfrupp50.eu.auth0.com/",
+	issuer: "https://dev-8jdk6hoj.eu.auth0.com/",
 	algorithms: ["RS256"],
 });
 
 export const checkPermission = (permission) => (req, res, next) => {
 	const { permissions } = req.user;
-
+	console.log(`permissions`, permissions);
 	if (permissions.includes(permission)) {
 		return next();
 	}
