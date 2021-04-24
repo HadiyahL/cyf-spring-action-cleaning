@@ -1,6 +1,6 @@
 const config = {
-	domain: "dev-dfrupp50.eu.auth0.com",
-	clientId: "HGL1d3oYXtHMqKkTzsG51eX37eGE5A7k",
+	domain: "dev-8jdk6hoj.eu.auth0.com",
+	clientId: "xW0wF7JVqB44d3E21EizrDv1lGLcvbnv",
 	roleUrl: "https://springactioncleaning/roles",
 	audience: "https://springactioncleaning/",
 };
